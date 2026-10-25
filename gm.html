@@ -1,0 +1,668 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="gm"></script>
+<title>Be the GM</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Public+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a sticky scoreboard bar (record, seed, payroll, assets, month rail) over a two-column desk: the scenario card on the left, your roster on the right. */
+:root{
+  --bg:#ECEFF3; --surface:#FFFFFF; --sunk:#F5F7F9; --ink:#13202E; --muted:#5A6777; --line:#D5DCE4;
+  --accent:#E8890C; --accent-ink:#A95A00; --on-accent:#1A1206;
+  --good:#15803D; --bad:#B91C1C; --goodtint:rgba(21,128,61,.08); --badtint:rgba(185,28,28,.07);
+  --tc:#C8102E;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D131A; --surface:#151E28; --sunk:#111922; --ink:#E8EDF3; --muted:#93A1B1; --line:#263241;
+  --accent:#F59E0B; --accent-ink:#FBBF24; --on-accent:#1A1206;
+  --good:#4ADE80; --bad:#F87171; --goodtint:rgba(74,222,128,.08); --badtint:rgba(248,113,113,.08); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D131A; --surface:#151E28; --sunk:#111922; --ink:#E8EDF3; --muted:#93A1B1; --line:#263241;
+  --accent:#F59E0B; --accent-ink:#FBBF24; --on-accent:#1A1206;
+  --good:#4ADE80; --bad:#F87171; --goodtint:rgba(74,222,128,.08); --badtint:rgba(248,113,113,.08); color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;margin:0;text-wrap:balance;line-height:.95}
+h1{font-size:clamp(52px,10vw,104px);font-weight:900}
+h2{font-size:clamp(30px,5vw,44px);font-weight:800}
+h3{font-size:22px;font-weight:800;letter-spacing:.03em}
+p{margin:0}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.muted{color:var(--muted)}
+.lede{max-width:62ch;color:var(--muted);font-size:16px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{font:600 14px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:9px 14px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.badge{object-fit:contain;flex:none;vertical-align:middle}
+.chip{display:inline-block;font:500 11px var(--mono);padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap;letter-spacing:.02em}
+.chip.hurt{border-color:var(--bad);color:var(--bad)}
+.chip.new{border-color:var(--accent);color:var(--accent-ink)}
+select,input[type=text]{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 10px;min-width:0}
+
+/* Intro + team picker */
+.hero{display:flex;flex-direction:column;gap:12px;padding-top:12px}
+.hero h1 span{color:var(--accent-ink)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;list-style:none;padding:0;margin:6px 0 0;counter-reset:s}
+.how li{counter-increment:s;border-top:3px solid var(--ink);padding:10px 2px 0;font-size:14px;color:var(--muted)}
+.how li::before{content:"Step " counter(s);display:block;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:2px}
+.feature{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--tc);border-radius:8px;padding:18px}
+@media (max-width:640px){.feature{grid-template-columns:auto minmax(0,1fr)}.feature .btn{grid-column:1/-1}}
+.feature p{color:var(--muted);font-size:14px;max-width:60ch}
+.teamgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:10px}
+.tcard{display:grid;grid-template-columns:40px minmax(0,1fr);gap:4px 12px;align-items:center;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;border-top:4px solid var(--tc)}
+.tcard:hover{border-color:var(--muted);border-top-color:var(--tc)}
+.tcard b{font-weight:700;font-size:15px;line-height:1.2}
+.tcard .meta{grid-column:1/-1;display:flex;justify-content:space-between;gap:8px;font:12px var(--mono);color:var(--muted)}
+.tcard .line{grid-column:1/-1;font-size:12.5px;color:var(--muted);line-height:1.35}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+
+/* Scoreboard */
+.board{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--surface);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-shadow:inset 0 4px 0 var(--tc)}
+.board .row{display:flex;gap:10px 22px;align-items:center;flex-wrap:wrap}
+.board .who{display:flex;gap:10px;align-items:center;min-width:0;flex:1 1 220px}
+.board .who b{font-family:var(--display);font-size:24px;text-transform:uppercase;line-height:1;font-weight:800}
+.board .who span{font-size:12px;color:var(--muted);display:block}
+.stats{display:flex;gap:6px 20px;flex-wrap:wrap;margin:0}
+.stats div{display:flex;flex-direction:column;min-width:64px}
+.stats dt{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stats dd{margin:0;font:500 16px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.delta{font-size:11px;margin-left:4px}
+.rail{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px}
+.rail span{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:3px 0;border-radius:3px;background:var(--sunk);color:var(--muted)}
+.rail span.done{background:var(--line);color:var(--ink)}
+.rail span.now{background:var(--accent);color:var(--on-accent)}
+
+/* Desk */
+.desk{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
+@media (max-width:900px){.desk{grid-template-columns:minmax(0,1fr)}}
+.scene{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.scene .story{font-size:16px;max-width:66ch}
+.scene .story b{font-weight:700}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{text-align:left;background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:3px}
+.opt:hover{border-color:var(--accent);background:var(--surface)}
+.opt b{font-size:16px}
+.opt span{font-size:13.5px;color:var(--muted)}
+.opt.rec{box-shadow:inset 4px 0 0 var(--accent)}
+.outcome{border-left:4px solid var(--accent);background:var(--sunk);padding:12px 16px;border-radius:0 8px 8px 0;display:flex;flex-direction:column;gap:6px}
+.outcome .fx{display:flex;flex-wrap:wrap;gap:6px 16px;font:13px var(--mono)}
+.offer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:560px){.offer{grid-template-columns:minmax(0,1fr)}}
+.offer > div{background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+.offer h4{margin:0 0 6px;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.offer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.offer li{display:flex;justify-content:space-between;gap:10px}
+.offer li .mono{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.roster{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.rtable{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.rtable th{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;padding:4px 6px;border-bottom:1px solid var(--line)}
+.rtable th:first-child,.rtable td:first-child{text-align:left;padding-left:0}
+.rtable td{padding:6px;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono)}
+.rtable td:first-child{font-family:var(--body);max-width:160px}
+.rtable tr.out td{opacity:.55}
+.pname{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.log{display:flex;flex-direction:column;gap:8px;font-size:13px}
+.log div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px}
+.log .m{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);padding-top:2px}
+
+/* Trade desk */
+.tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.tgrid{grid-template-columns:minmax(0,1fr)}}
+.tside{border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0;background:var(--sunk)}
+.tside .hd{display:flex;gap:8px;align-items:center;min-width:0}
+.tside .hd select{flex:1;font-weight:600}
+.tlist{display:flex;flex-direction:column;max-height:300px;overflow-y:auto}
+.trow{display:grid;grid-template-columns:18px minmax(0,1fr) 58px 64px;gap:6px;align-items:center;padding:5px 4px;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.trow.on{background:var(--goodtint)}
+.trow .mono{text-align:right;font-size:12px}
+.tcolh{display:grid;grid-template-columns:18px minmax(0,1fr) 58px 64px;gap:6px;font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 4px}
+.tcolh span:nth-child(n+3){text-align:right}
+.verdict{border-radius:8px;padding:12px 14px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;font-size:14px}
+.verdict.ok{background:var(--goodtint);border-color:var(--good)}
+.verdict.no{background:var(--badtint)}
+.offers{display:flex;flex-direction:column;gap:8px}
+.offerbtn{text-align:left;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--sunk);display:flex;gap:10px;align-items:center;font-size:13.5px}
+.offerbtn:hover{border-color:var(--accent)}
+
+/* Recap */
+.recap{display:flex;flex-direction:column;gap:20px}
+.final{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;box-shadow:inset 0 6px 0 var(--tc)}
+@media (max-width:620px){.final{grid-template-columns:minmax(0,1fr)}}
+.grade{font-family:var(--display);font-weight:900;font-size:clamp(96px,16vw,150px);line-height:.8;color:var(--accent-ink)}
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.metric .bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.metric .bar i{display:block;height:100%;background:var(--accent)}
+.metric .big{font:500 22px var(--mono)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.stand{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.stand td,.stand th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono)}
+.stand th{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stand td:nth-child(2),.stand th:nth-child(2){text-align:left;font-family:var(--body)}
+.stand td:first-child,.stand th:first-child{text-align:left;color:var(--muted);width:24px}
+.stand tr.me td{background:var(--goodtint);font-weight:700}
+.stand tr.cut td{border-bottom:2px solid var(--muted)}
+.path{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.path div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.sharebox{font:13px/1.5 var(--mono);white-space:pre-wrap;background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:12px;margin:0;overflow-x:auto}
+.lb{width:100%;border-collapse:collapse;font-size:13px}
+.lb td,.lb th{padding:6px;border-bottom:1px solid var(--line);text-align:left}
+.lb th{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lb td.n{text-align:right;font-family:var(--mono)}
+.lbwrap{overflow-x:auto}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+footer{color:var(--muted);font-size:12px;max-width:85ch;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;z-index:20}
+@keyframes rise{from{transform:translateY(8px);opacity:.3}to{transform:none;opacity:1}}
+.scene,.final{animation:rise .35s ease-out}
+@media (prefers-reduced-motion:reduce){.scene,.final{animation:none}}
+</style>
+
+<div class="wrap" id="app"><p class="muted">Loading the league…</p></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const N=v=>v===""||v==null||isNaN(+v)?null:+v;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const money=v=>"$"+Math.abs(v).toFixed(1)+"M";
+const sgn=v=>(v>=0?"+":"−")+"$"+Math.abs(v).toFixed(1)+"M";
+const cls=v=>v>=0?"pos":"neg";
+const PLAY_URL="https://sreekeyyunni.github.io/nba-ledger-se/gm.html";
+
+// ---- League constants (2026-27, official) ----
+const CAP=164.961,TAX=200.428,APRON1=209.015,APRON2=221.686,CAP2324=136.021,MINSAL=2.3;
+const SEASON_MIN=19680,K=0.85,CHUNKS=24;
+const TEAM={ATL:["Atlanta Hawks","#C8102E","E"],BOS:["Boston Celtics","#007A33","E"],BRK:["Brooklyn Nets","#555555","E"],CHO:["Charlotte Hornets","#00788C","E"],CHI:["Chicago Bulls","#CE1141","E"],CLE:["Cleveland Cavaliers","#860038","E"],DAL:["Dallas Mavericks","#00538C","W"],DEN:["Denver Nuggets","#0E2240","W"],DET:["Detroit Pistons","#C8102E","E"],GSW:["Golden State Warriors","#1D428A","W"],HOU:["Houston Rockets","#CE1141","W"],IND:["Indiana Pacers","#002D62","E"],LAC:["LA Clippers","#C8102E","W"],LAL:["Los Angeles Lakers","#552583","W"],MEM:["Memphis Grizzlies","#5D76A9","W"],MIA:["Miami Heat","#98002E","E"],MIL:["Milwaukee Bucks","#00471B","E"],MIN:["Minnesota Timberwolves","#236192","W"],NOP:["New Orleans Pelicans","#0C2340","W"],NYK:["New York Knicks","#006BB6","E"],OKC:["Oklahoma City Thunder","#007AC1","W"],ORL:["Orlando Magic","#0077C0","E"],PHI:["Philadelphia 76ers","#006BB6","E"],PHO:["Phoenix Suns","#E56020","W"],POR:["Portland Trail Blazers","#E03A3E","W"],SAC:["Sacramento Kings","#5A2D81","W"],SAS:["San Antonio Spurs","#8A8D8F","W"],TOR:["Toronto Raptors","#CE1141","E"],UTA:["Utah Jazz","#002B5C","W"],WAS:["Washington Wizards","#E31837","E"]};
+const ABBRS=Object.keys(TEAM);
+const tname=a=>TEAM[a][0];
+const nick=a=>{const n=TEAM[a][0].split(" ");return n[n.length-1]==="Blazers"?"Trail Blazers":n[n.length-1]};
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}" style="width:${s}px;height:${s}px">`;
+const MONTHS=["Oct","Nov","Dec","Jan","Feb","Mar","Apr"];
+const MANDATES={
+  contend:{label:"Contend",posture:"win",goal:"Win at least one playoff series.",w:{R:.65,A:.15,M:.2},blurb:"Win now. Wins and playoff runs count most; the owner will live with a tax bill."},
+  retool:{label:"Retool",posture:"mid",goal:"Make the playoffs (play-in counts if you win it).",w:{R:.4,A:.4,M:.2},blurb:"Compete this year without mortgaging the future. Wins and assets count the same."},
+  rebuild:{label:"Rebuild",posture:"rebuild",goal:"Add at least $40M of asset value.",w:{R:.1,A:.7,M:.2},blurb:"Collect young players, good contracts and picks. Losing helps your own pick."},
+  cut:{label:"Cut costs",posture:"cut",goal:"Finish under the luxury tax line.",w:{R:.2,A:.2,M:.6},blurb:"The owner wants the bill down. Payroll and tax count most."}
+};
+
+// ---- Seeded RNG (state kept in S so a reload resumes the same season) ----
+function rnd(){let t=(S.rng=(S.rng+0x6D2B79F5)|0);t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}
+function gauss(){let u=0,v=0;while(!u)u=rnd();while(!v)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+const pickOne=a=>a[Math.floor(rnd()*a.length)];
+
+// ---- Data ----
+let P=[];let BASE={};let MEAN=0;
+function parseCSV(t){const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l.replace(/\r$/,"")){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])))}
+function buildPlayers(tv,cv){
+  const m=new Map(cv.map(r=>[r.Player+"|"+r.Team,r]));
+  return tv.map((r,i)=>{const c=m.get(r.Player+"|"+r.Team)||{};const small=(r.flag||"").includes("small"),rookie=r.rookie_scale==="True";
+    let ws=N(c["WS/48"]);const w27=N(c["WS/48_26-27"]);
+    if(ws==null||small){const prior=rookie?0.06:0.10;ws=prior*0.6+(w27==null?prior:clamp(w27,-0.1,0.3))*0.4}
+    return{id:i,name:r.Player,team:r.Team,age:N(r.Age)||26,yrs:N(r.years_left)||1,sal:N(r.salary_2026_27_m)||0,tot:N(r.total_salary_m)||0,tv:N(r.trade_value_m)||0,y1:N(r.sv_y1)||0,rookie,small,r:clamp(ws,-0.05,0.26),mp:clamp(N(c.proj_MP)||1500,300,2900)}});
+}
+
+// ---- Game state ----
+let S=null;
+function newState(team){
+  const pay={};ABBRS.forEach(a=>pay[a]=BASE[a]);
+  const picks=[];ABBRS.forEach(a=>{picks.push({id:a+"27",orig:a,yr:2027,owner:a});picks.push({id:a+"28",orig:a,yr:2028,owner:a})});
+  return{v:1,phase:"mandate",me:team,mandate:null,step:0,rng:(Date.now()^Math.floor(Math.random()*1e9))|0,
+    trades:[],extras:[],mods:{},inj:[],pay,picks,log:[],ev:null,res:null,start:null,deadlineDeals:0,draft:null,final:null,saved:false};
+}
+const EXTRA0=10000;
+const pl=id=>id>=EXTRA0?S.extras[id-EXTRA0]:P[id];
+function ownerAt(id,t){if(id>=EXTRA0){const x=pl(id);return t>=x.from?x.team:null}let o=P[id].team;for(const tr of S.trades)if(tr.t<=t)for(const mv of tr.moves)if(mv.id===id)o=mv.to;return o}
+function rosterAt(team,t){const ids=[];for(const p of P)if(ownerAt(p.id,t)===team)ids.push(p.id);S.extras.forEach((x,i)=>{if(x.team===team&&t>=x.from)ids.push(EXTRA0+i)});return ids}
+const rosterNow=team=>rosterAt(team,now()+1e-6);
+function now(){return EVENTS[Math.min(S.step,EVENTS.length-1)].t}
+function hurtAt(id,t){return S.inj.some(j=>j.id===id&&t>=j.from&&t<j.to)}
+function rEff(id,t){const p=pl(id),m=S.mods[id];let r=p.r;if(m&&m.rAdj&&t>=m.rFrom)r+=m.rAdj;return r}
+function mpEff(id,t){const p=pl(id),m=S.mods[id];let mp=p.mp;if(m&&m.mpMul&&t>=m.mpFrom&&t<(m.mpTo??2))mp*=m.mpMul;return mp}
+function teamWS(team,t,opt){
+  const ids=rosterAt(team,t).filter(id=>!hurtAt(id,t));
+  const ps=ids.map(id=>({r:opt&&opt.base?pl(id).r:rEff(id,t),mp:Math.min(opt&&opt.base?pl(id).mp:mpEff(id,t),2900)})).sort((a,b)=>b.r-a.r);
+  let left=SEASON_MIN,ws=0;for(const p of ps){const m=Math.min(p.mp,left);ws+=p.r*m/48;left-=m;if(left<=0)break}
+  if(left>0)ws+=0.04*left/48;return ws;
+}
+const winsFromWS=ws=>clamp(41+(ws-MEAN)*K,9,72);
+function expWins(team){let s=0;for(let c=0;c<CHUNKS;c++)s+=winsFromWS(teamWS(team,(c+.5)/CHUNKS));return s/CHUNKS}
+function allExp(){const o={};ABBRS.forEach(a=>o[a]=expWins(a));return o}
+function seedOf(team,exp){const conf=TEAM[team][2];const list=ABBRS.filter(a=>TEAM[a][2]===conf).sort((a,b)=>exp[b]-exp[a]);return list.indexOf(team)+1}
+function slotOf(team,w){return ABBRS.slice().sort((a,b)=>w[a]-w[b]).indexOf(team)+1}
+const slotValue=s=>3+40*Math.exp(-(s-1)/7);
+function pickVal(pk,exp){const s=slotOf(pk.orig,exp);return pk.yr===2027?slotValue(s):0.8*slotValue((s+15.5)/2)}
+function pickLabel(pk){return `${pk.yr} ${nick(pk.orig)} 1st`}
+function tvEff(id){const p=pl(id),m=S.mods[id];return p.tv+((m&&m.tvAdj)||0)}
+function assets(team,exp){exp=exp||allExp();let a=0;for(const id of rosterNow(team))a+=tvEff(id);for(const pk of S.picks)if(pk.owner===team)a+=pickVal(pk,exp);return a}
+function taxBill(pay){let over=pay-TAX;if(over<=0)return 0;let bill=0,rate=1.5,i=0;const step=5.7;while(over>0){const b=Math.min(step,over);bill+=b*rate;over-=b;i++;rate=i===1?1.75:i===2?2.5:i===3?3.25:rate+0.5}return bill}
+const spend=team=>S.pay[team]+taxBill(S.pay[team]);
+function status(pay){return pay>APRON2?"Over 2nd apron":pay>APRON1?"Over 1st apron":pay>TAX?"Over tax":pay>CAP?"Over cap":"Under cap"}
+
+// ---- CBA salary matching (2023 CBA Art. VII 6(j), 2(e)); same rules as the Contract Ledger trade machine ----
+function rule(team,outs,I){
+  const O=outs.reduce((s,id)=>s+pl(id).sal,0),n=outs.length,Pay=S.pay[team],post=Pay-O+I;
+  if(I<=1e-9)return{ok:true,post,how:"Only sends salary out."};
+  const cush=post<=APRON1?0.25:0,opts=[];
+  if(n){opts.push({max:Math.max(...outs.map(id=>pl(id).sal))+cush,how:"standard trade exception"});
+    if(n>=2&&post<=APRON2)opts.push({max:O+cush,how:"aggregated salaries"});
+    if(post<=APRON1)opts.push({max:Math.max(Math.min(2*O+0.25,O+7.5*CAP/CAP2324),1.25*O+0.25),how:"expanded trade exception"})}
+  if(Pay<CAP)opts.push({max:CAP+0.25-(Pay-O),how:"cap room"});
+  if(!opts.length)return{ok:false,post,how:"Over the cap and sends no salary back."};
+  const ok=opts.filter(o=>I<=o.max+1e-9).sort((a,b)=>a.max-b.max)[0];if(ok)return{ok:true,post,how:`Fits the ${ok.how}.`};
+  const best=opts.sort((a,b)=>b.max-a.max)[0];
+  return{ok:false,post,how:`Takes in ${money(I)}; the most allowed is ${money(best.max)}${post>APRON2&&n>=2?" (over the 2nd apron, so salaries can't be combined)":post>APRON1?" (over the 1st apron, so the expanded exception is off)":""}.`};
+}
+
+// ---- How a front office values a trade ----
+function posture(team,exp){if(team===S.me)return MANDATES[S.mandate].posture;const w=exp[team];return w>=47?"win":w<=34?"rebuild":"mid"}
+const wsc=id=>rEff(id,now())*Math.min(mpEff(id,now()),2600)/48;
+function value(team,post,ins,outs,pIn,pOut,exp){
+  const dTV=ins.reduce((s,id)=>s+tvEff(id),0)-outs.reduce((s,id)=>s+tvEff(id),0);
+  const dP=pIn.reduce((s,pk)=>s+pickVal(pk,exp),0)-pOut.reduce((s,pk)=>s+pickVal(pk,exp),0);
+  const dWS=ins.reduce((s,id)=>s+wsc(id),0)-outs.reduce((s,id)=>s+wsc(id),0);
+  const dSal=ins.reduce((s,id)=>s+pl(id).sal,0)-outs.reduce((s,id)=>s+pl(id).sal,0);
+  const taxed=S.pay[team]+dSal>TAX;const old=ins.filter(id=>pl(id).age>=31).length;
+  switch(post){
+    case"win":return 0.35*dTV+0.8*dP+6*dWS-(taxed?1.5:0.4)*dSal;
+    case"rebuild":return 0.9*dTV+0.9*dP+0.8*dWS-0.3*dSal-2*old;
+    case"cut":return 0.4*dTV+0.6*dP+1*dWS-1.3*dSal;
+    default:return 0.6*dTV+0.8*dP+3*dWS-(taxed?1.0:0.3)*dSal;
+  }
+}
+// A deal: {a:team, b:team, aOut:[ids], bOut:[ids], aPk:[pick ids], bPk:[pick ids]}
+const pk=id=>S.picks.find(p=>p.id===id);
+function judge(d,exp){
+  exp=exp||allExp();
+  const ra=rule(d.a,d.aOut,d.bOut.reduce((s,id)=>s+pl(id).sal,0)),rb=rule(d.b,d.bOut,d.aOut.reduce((s,id)=>s+pl(id).sal,0));
+  const va=value(d.a,posture(d.a,exp),d.bOut,d.aOut,d.bPk.map(pk),d.aPk.map(pk),exp);
+  const vb=value(d.b,posture(d.b,exp),d.aOut,d.bOut,d.aPk.map(pk),d.bPk.map(pk),exp);
+  return{ra,rb,legal:ra.ok&&rb.ok,va,vb,accept:vb>=2};
+}
+function combos(ids,k){const out=[];for(let i=0;i<ids.length;i++){out.push([ids[i]]);if(k>1)for(let j=i+1;j<ids.length;j++)out.push([ids[i],ids[j]])}return out}
+function findOffer(partner,exp,opt){
+  opt=opt||{};const me=S.me;
+  const mine=rosterNow(me).filter(id=>!hurtAt(id,now()+1e-6)&&id<EXTRA0).sort((a,b)=>pl(b).sal-pl(a).sal).slice(0,10);
+  const theirs=rosterNow(partner).filter(id=>!hurtAt(id,now()+1e-6)&&id<EXTRA0).sort((a,b)=>pl(b).sal-pl(a).sal).slice(0,10);
+  const myPk=[[]].concat(S.picks.filter(p=>p.owner===me).map(p=>[p.id])),thPk=[[]].concat(S.picks.filter(p=>p.owner===partner&&p.yr===2028).map(p=>[p.id]));
+  let best=null;
+  for(const a of combos(mine,2)){if(opt.mustSend&&!a.includes(opt.mustSend))continue;
+    for(const b of combos(theirs,2))for(const ap of myPk)for(const bp of thPk){
+      const d={a:me,b:partner,aOut:a,bOut:b,aPk:ap,bPk:bp};
+      const sa=a.reduce((s,id)=>s+pl(id).sal,0),sb=b.reduce((s,id)=>s+pl(id).sal,0);
+      if(opt.dump&&sb>=sa-3)continue;
+      if(!rule(me,a,sb).ok||!rule(partner,b,sa).ok)continue;
+      const j=judge(d,exp);if(!j.accept)continue;
+      const score=opt.dump?(sa-sb)*1.0+0.3*j.va:j.va-0.2*(ap.length+bp.length)-0.05*j.vb;
+      if(!best||score>best.score)best={d,j,score};
+    }}
+  return best;
+}
+function applyDeal(d,label){
+  const t=now();const moves=[];d.aOut.forEach(id=>moves.push({id,to:d.b}));d.bOut.forEach(id=>moves.push({id,to:d.a}));
+  if(moves.length)S.trades.push({t,moves});
+  d.aPk.forEach(id=>pk(id).owner=d.b);d.bPk.forEach(id=>pk(id).owner=d.a);
+  const sa=d.aOut.reduce((s,id)=>s+pl(id).sal,0),sb=d.bOut.reduce((s,id)=>s+pl(id).sal,0);
+  S.pay[d.a]+=sb-sa;S.pay[d.b]+=sa-sb;
+}
+function dealSide(ids,pks){return ids.map(id=>pl(id).name).concat(pks.map(id=>pickLabel(pk(id))))}
+function dealText(d){const a=dealSide(d.aOut,d.aPk),b=dealSide(d.bOut,d.bPk);return `Sent ${list(a)} to ${nick(d.b)} for ${list(b)||"nothing"}.`}
+const list=a=>a.length<=1?(a[0]||""):a.slice(0,-1).join(", ")+" and "+a[a.length-1];
+
+// ---- Scenario events ----
+const EVENTS=[
+  {key:"mandate",t:0,m:0},
+  {key:"kid",t:0.12,m:1},
+  {key:"injury",t:0.28,m:2},
+  {key:"call",t:0.45,m:3},
+  {key:"deadline",t:0.6,m:4},
+  {key:"stretch",t:0.8,m:5},
+  {key:"end",t:1,m:6}
+];
+function snapshot(){const exp=allExp();return{w:exp[S.me],a:assets(S.me,exp),pay:S.pay[S.me],tax:taxBill(S.pay[S.me]),seed:seedOf(S.me,exp)}}
+
+function buildEvent(){
+  const k=EVENTS[S.step].key,me=S.me,t=EVENTS[S.step].t,exp=allExp();
+  const ros=rosterNow(me).filter(id=>id<EXTRA0);
+  if(k==="kid"){
+    const kids=ros.filter(id=>pl(id).rookie||pl(id).age<=22).sort((a,b)=>pl(a).age-pl(b).age||pl(b).mp-pl(a).mp);
+    const kid=kids[0]??ros.slice().sort((a,b)=>pl(a).age-pl(b).age)[0];
+    const vets=ros.filter(id=>id!==kid&&pl(id).age>=27).sort((a,b)=>pl(b).age*pl(b).mp-pl(a).age*pl(a).mp);
+    const vet=vets[0]??ros.filter(id=>id!==kid).sort((a,b)=>pl(b).mp-pl(a).mp)[0];
+    const K=pl(kid),V=pl(vet);
+    return{title:"Start the kid?",kid,vet,story:`Two weeks in, the coaches want an answer. <b>${esc(K.name)}</b> (${K.age}) is getting ${Math.round(K.mp/82)} minutes a night. <b>${esc(V.name)}</b> (${V.age}) is the safer play. Young players grow with real minutes, but the vet wins more games right now.`,
+      opts:[{id:"kid",label:`Start ${esc(K.name)}`,desc:`More minutes for the ${K.age}-year-old, fewer for ${esc(V.name)}. Costs a few wins now; he may break out and gain trade value.`},
+            {id:"vet",label:`Ride ${esc(V.name)}`,desc:"Keep the rotation as it is and bank the wins."}]};
+  }
+  if(k==="injury"){
+    const top=ros.filter(id=>!hurtAt(id,t)).sort((a,b)=>rEff(b,t)*mpEff(b,t)-rEff(a,t)*mpEff(a,t)).slice(0,3);
+    const who=top[Math.floor(rnd()*top.length)],weeks=4+Math.floor(rnd()*9),p=pl(who);
+    return{title:`${p.name} is hurt`,who,weeks,story:`Bad news from the training room. <b>${esc(p.name)}</b> has a sprained ankle and the doctors say <b>${weeks} weeks</b>. He's one of your three most productive players. How do you handle it?`,
+      opts:[{id:"safe",label:"Let him heal fully",desc:`He misses all ${weeks} weeks. No added risk.`},
+            {id:"rush",label:"Fast-track his return",desc:`Back in about ${Math.ceil(weeks/2)} weeks, but there's a 30% chance of a setback that costs him most of the season and some trade value.`},
+            {id:"sign",label:"Heal fully and sign a vet stopgap",desc:`Add a veteran on a minimum deal (${money(MINSAL)}, prorated) to soak up his minutes. Adds payroll${S.pay[me]>TAX?" and tax":""}.`}]};
+  }
+  if(k==="call"){
+    const want=MANDATES[S.mandate].posture==="rebuild"||MANDATES[S.mandate].posture==="cut"?"win":"rebuild";
+    let partners=ABBRS.filter(a=>a!==me&&posture(a,exp)===want);if(partners.length<3)partners=ABBRS.filter(a=>a!==me);
+    partners=partners.sort(()=>rnd()-.5);let o=null,partner=null;
+    for(const p of partners.slice(0,6)){o=findOffer(p,exp);if(o){partner=p;break}}
+    if(!o)return{title:"A quiet January",none:true,story:"Your phone stays quiet. No one has a deal that works for both sides under the salary rules.",opts:[{id:"ok",label:"Keep going",desc:"On to the trade deadline."}]};
+    const d=o.d,canAsk=S.picks.some(x=>x.owner===partner&&!d.bPk.includes(x.id));
+    return{title:`${tname(partner)} on line one`,deal:d,partner,story:`The ${tname(partner)} want to make a move and have a deal ready. ${posture(partner,exp)==="win"?"They're chasing a title this year.":"They're thinking about the long run."} Take it, push for more, or hang up.`,
+      opts:[{id:"accept",label:"Accept the trade",desc:"Make the deal as offered."}].concat(canAsk?[{id:"ask",label:"Ask them to add a first-round pick",desc:"They might say yes. They might also walk away."}]:[]).concat([{id:"no",label:"Hang up",desc:"Keep your roster as it is."}])};
+  }
+  if(k==="deadline")return{title:"Trade deadline day",story:"Phones are ringing. Build a trade with any team, ask the market for offers, or stand pat. You can make up to two deals today.",deadline:true,opts:[]};
+  if(k==="stretch"){
+    const pay=S.pay[me],sd=seedOf(me,exp),slot=slotOf(me,exp);
+    if(pay>TAX&&S.mandate!=="contend"){
+      const o=findOffer(ABBRS.filter(a=>a!==me).sort((a,b)=>S.pay[a]-S.pay[b])[0],exp,{dump:true})||(()=>{let b=null;for(const a of ABBRS.filter(x=>x!==me).sort((x,y)=>S.pay[x]-S.pay[y]).slice(0,8)){const o=findOffer(a,exp,{dump:true});if(o&&(!b||o.score>b.score))b=o}return b})();
+      return{title:"The owner saw the tax bill",deal:o?o.d:null,story:`You're ${money(pay-TAX)} over the tax line, which means a projected tax bill of <b>${money(taxBill(pay))}</b> on top of payroll. The owner wants options.${o?` The best salary dump on the market goes to ${tname(o.d.b)}.`:" Nobody will take salary right now."}`,
+        opts:(o?[{id:"dump",label:"Dump the salary",desc:"Make the trade below and lower the bill."}]:[]).concat([{id:"pay",label:"Pay the tax",desc:"Keep the team together."}])};
+    }
+    if(slot<=8){
+      const vets=rosterNow(me).filter(id=>pl(id).age>=28);
+      return{title:"Shut it down?",vets,story:`You're on pace for the <b>#${slot}</b> worst record, which means a top pick. The vets are banged up, and resting them would make that pick even better. Your fans would notice.`,
+        opts:[{id:"tank",label:"Rest the veterans",desc:`${vets.length} players aged 28 or older play far fewer minutes for the last month. Fewer wins, better draft position.`},{id:"compete",label:"Play to win",desc:"Finish strong and build good habits."}]};
+    }
+    return{title:"The buyout market",story:`You're the projected <b>${sd}${ord(sd)} seed</b> in the ${TEAM[me][2]==="E"?"East":"West"}. A veteran guard just got bought out and wants to join a playoff team. Or you could give his minutes to your young players.`,
+      opts:[{id:"buyout",label:"Sign the veteran",desc:`A rotation-level vet on a prorated minimum. More wins down the stretch.${pay>TAX?" Adds tax.":""}`},{id:"youth",label:"Play the young guys",desc:"Your youngest players get the minutes and gain some trade value."}]};
+  }
+  return null;
+}
+const ord=n=>[,"st","nd","rd"][n%100>10&&n%100<14?0:n%10]||"th";
+
+function resolve(choice){
+  const ev=S.ev,me=S.me,t=EVENTS[S.step].t,before=snapshot();let text="";
+  const k=EVENTS[S.step].key;
+  if(k==="kid"){
+    const K=pl(ev.kid),V=pl(ev.vet);
+    if(choice==="kid"){S.mods[ev.kid]=Object.assign({},S.mods[ev.kid],{mpMul:1.4,mpFrom:t});S.mods[ev.vet]=Object.assign({},S.mods[ev.vet],{mpMul:0.55,mpFrom:t});
+      if(rnd()<0.4){S.mods[ev.kid].rAdj=0.035;S.mods[ev.kid].rFrom=t+0.15;S.mods[ev.kid].tvAdj=22;text=`It works. By New Year's, ${K.name} looks like a different player, and scouts around the league are calling about him.`}
+      else{S.mods[ev.kid].tvAdj=5;text=`${K.name} has ups and downs. He's learning, but the team drops a few games it would have won with ${V.name} out there.`}}
+    else text=`${V.name} keeps starting and the team stays steady. ${K.name} waits his turn.`;
+    S.log.push({m:"Nov",t:choice==="kid"?`Started ${K.name}.`:`Rode ${V.name}.`});
+  }
+  if(k==="injury"){
+    const p=pl(ev.who),dur=ev.weeks/26;
+    if(choice==="rush"){if(rnd()<0.3){S.inj.push({id:ev.who,from:t,to:Math.min(1,t+dur*1.8)});S.mods[ev.who]=Object.assign({},S.mods[ev.who],{tvAdj:((S.mods[ev.who]||{}).tvAdj||0)-10});text=`It backfires. ${p.name} re-injures the ankle in his second game back and misses most of the season.`}
+      else{S.inj.push({id:ev.who,from:t,to:t+dur*0.5});text=`It works. ${p.name} is back in ${Math.ceil(ev.weeks/2)} weeks and looks fine.`}}
+    else{S.inj.push({id:ev.who,from:t,to:t+dur});text=`${p.name} sits for ${ev.weeks} weeks.`;
+      if(choice==="sign"){S.extras.push({name:"Veteran stopgap",team:me,from:t,to:1,age:33,sal:MINSAL*(1-t),tv:0,r:0.075,mp:900,stop:true});S.pay[me]+=MINSAL*(1-t);text+=" The stopgap vet holds the fort."}}
+    S.log.push({m:"Dec",t:`${p.name} hurt (${ev.weeks} wks): ${choice==="rush"?"fast-tracked":choice==="sign"?"signed a stopgap":"healed fully"}.`});
+  }
+  if(k==="call"){
+    if(ev.none){}
+    else if(choice==="accept"){applyDeal(ev.deal);text=dealText(ev.deal);S.log.push({m:"Jan",t:dealText(ev.deal)})}
+    else if(choice==="ask"){
+      const exp=allExp(),extra=S.picks.filter(x=>x.owner===ev.partner&&!ev.deal.bPk.includes(x.id)).sort((a,b)=>pickVal(a,exp)-pickVal(b,exp))[0];
+      const d2=Object.assign({},ev.deal,{bPk:ev.deal.bPk.concat([extra.id])});const j=judge(d2,exp);
+      if(j.vb>=0.5||rnd()<0.25){applyDeal(d2);text=`They grumble, then agree. ${dealText(d2)}`;S.log.push({m:"Jan",t:dealText(d2)})}
+      else{text=`"That's too much." The ${nick(ev.partner)} hang up and take their offer elsewhere.`;S.log.push({m:"Jan",t:`Pushed ${nick(ev.partner)} for a pick; they walked.`})}
+    } else {text="You pass. The roster stays as it is.";S.log.push({m:"Jan",t:`Turned down ${nick(ev.partner)}.`})}
+  }
+  if(k==="stretch"){
+    if(choice==="dump"){applyDeal(ev.deal);text=dealText(ev.deal);S.log.push({m:"Mar",t:"Salary dump: "+dealText(ev.deal)})}
+    else if(choice==="pay"){text="You keep the team together and send the owner the bill.";S.log.push({m:"Mar",t:"Paid the tax."})}
+    else if(choice==="tank"){ev.vets.forEach(id=>{S.mods[id]=Object.assign({},S.mods[id],{mpMul:0.35,mpFrom:t,mpTo:2})});text="The vets get \"rest\". The losses pile up and the lottery odds get better.";S.log.push({m:"Mar",t:"Rested the veterans."})}
+    else if(choice==="compete"){text="The team plays hard to the finish.";S.log.push({m:"Mar",t:"Played to win."})}
+    else if(choice==="buyout"){S.extras.push({name:"Bought-out veteran",team:me,from:t,to:1,age:31,sal:MINSAL*(1-t),tv:0,r:0.11,mp:2000,stop:true});S.pay[me]+=MINSAL*(1-t);text="He's a pro. A few more wins down the stretch.";S.log.push({m:"Mar",t:"Signed a bought-out veteran."})}
+    else if(choice==="youth"){const kids=rosterNow(me).filter(id=>id<EXTRA0).sort((a,b)=>pl(a).age-pl(b).age).slice(0,2);kids.forEach(id=>{S.mods[id]=Object.assign({},S.mods[id],{mpMul:1.4,mpFrom:t,tvAdj:((S.mods[id]||{}).tvAdj||0)+4})});text=`${list(kids.map(id=>pl(id).name))} play big minutes and gain some trade value.`;S.log.push({m:"Mar",t:"Played the young guys."})}
+  }
+  const after=snapshot();S.res={text,before,after};
+}
+
+// ---- Season simulation ----
+function simulate(){
+  const exp=allExp(),wins={};ABBRS.forEach(a=>wins[a]=Math.round(clamp(exp[a]+gauss()*3.3,8,74)));
+  const end={};ABBRS.forEach(a=>end[a]=winsFromWS(teamWS(a,0.995))/82);
+  const pGame=(a,b)=>{const x=clamp(end[a],.1,.9),y=clamp(end[b],.1,.9);return x*(1-y)/(x*(1-y)+y*(1-x))};
+  const series=(a,b,best)=>{let wa=0,wb=0;const need=best===1?1:4;while(wa<need&&wb<need){rnd()<pGame(a,b)+0.02?wa++:wb++}return wa>wb?{w:a,l:b,s:`${wa}-${wb}`}:{w:b,l:a,s:`${wb}-${wa}`}};
+  const path=[];let champ=null;const confWinners={};
+  for(const conf of["E","W"]){
+    const st=ABBRS.filter(a=>TEAM[a][2]===conf).sort((a,b)=>wins[b]-wins[a]||exp[b]-exp[a]);
+    const g1=series(st[6],st[7],1),g2=series(st[8],st[9],1),g3=series(g1.l,g2.w,1);
+    const pi=[g1,g2,g3];const seeds=st.slice(0,6).concat([g1.w,g3.w]);
+    pi.forEach(g=>{if(g.w===S.me||g.l===S.me)path.push({r:"Play-in",o:g.w===S.me?g.l:g.w,won:g.w===S.me,s:""})});
+    let round=[[0,7],[3,4],[2,5],[1,6]].map(([i,j])=>[seeds[i],seeds[j]]);const names=["First round","Conference semis","Conference finals"];
+    for(let r=0;r<3;r++){const winners=[];for(const[a,b]of round){const g=series(a,b,7);winners.push(g.w);if(a===S.me||b===S.me)path.push({r:names[r],o:a===S.me?b:a,won:g.w===S.me,s:g.s})}
+      round=[];for(let i=0;i<winners.length;i+=2)round.push([winners[i],winners[i+1]])}
+    confWinners[conf]=round[0]?round[0][0]:null;
+  }
+  const f=series(confWinners.E,confWinners.W,7);champ=f.w;if(f.w===S.me||f.l===S.me)path.push({r:"NBA Finals",o:f.w===S.me?f.l:f.w,won:f.w===S.me,s:f.s});
+  // Own 2027 pick lands by final record (no lottery luck modeled)
+  const slot={};ABBRS.slice().sort((a,b)=>wins[a]-wins[b]).forEach((a,i)=>slot[a]=i+1);
+  return{wins,exp,path,champ,slot,seeds:{E:ABBRS.filter(a=>TEAM[a][2]==="E").sort((a,b)=>wins[b]-wins[a]),W:ABBRS.filter(a=>TEAM[a][2]==="W").sort((a,b)=>wins[b]-wins[a])}};
+}
+function finish(){
+  const sim=simulate(),me=S.me;const w=sim.wins[me];
+  const finalExp={};ABBRS.forEach(a=>finalExp[a]=sim.wins[a]);
+  const endAssets=assets(me,finalExp),endSpend=spend(me);
+  const series=sim.path.filter(p=>p.r!=="Play-in"&&p.won).length,inPO=sim.path.some(p=>p.r==="First round");
+  const lastRound=sim.path.length?sim.path[sim.path.length-1]:null;
+  let po=0,res="Missed the playoffs";
+  if(sim.path.some(p=>p.r==="Play-in")&&!inPO){po=5;res="Lost in the play-in"}
+  if(inPO){po=[15,22,27,30,30][series];res=series===0?"Lost in the first round":series===1?"Lost in the conference semis":series===2?"Lost in the conference finals":"Lost in the NBA Finals"}
+  if(sim.champ===me){po=38;res="Won the NBA title"}
+  const R=clamp(clamp((w-20)/40*100,0,100)*0.65+po,0,100);
+  const dA=endAssets-S.start.a,A=clamp(50+dA*0.6,0,100);
+  const dM=S.start.spend-endSpend,M=clamp(50+dM*1.2,0,100);
+  const md=MANDATES[S.mandate];let score=md.w.R*R+md.w.A*A+md.w.M*M;
+  const hit=S.mandate==="contend"?series>=1:S.mandate==="retool"?inPO:S.mandate==="rebuild"?dA>=40:S.pay[me]<=TAX;
+  score=clamp(score+(hit?10:-8),0,100);
+  const grade=score>=93?"A+":score>=85?"A":score>=80?"A−":score>=76?"B+":score>=70?"B":score>=65?"B−":score>=60?"C+":score>=54?"C":score>=48?"C−":score>=40?"D":"F";
+  S.final={wins:w,loss:82-w,proj:S.start.w,res,po,R,A,M,dA,dM,score:Math.round(score),grade,hit,tax:taxBill(S.pay[me]),pay:S.pay[me],slot:sim.slot[me],ownPick:S.picks.find(p=>p.id===me+"27").owner===me,path:sim.path,champ:sim.champ,stand:sim.seeds,wtab:sim.wins};
+  S.phase="end";
+}
+
+// ---- Rendering ----
+function render(){
+  const app=$("#app");document.documentElement.style.setProperty("--tc",S&&S.me?TEAM[S.me][1]:"var(--accent)");
+  if(!S||S.phase==="pick"){app.innerHTML=pickHTML();return}
+  if(S.phase==="mandate"){app.innerHTML=boardHTML()+mandateHTML()+footerHTML();return}
+  if(S.phase==="event"){app.innerHTML=boardHTML()+`<div class="desk"><div style="display:flex;flex-direction:column;gap:16px;min-width:0">${sceneHTML()}</div>${rosterHTML()}</div>`+footerHTML();return}
+  if(S.phase==="end"){app.innerHTML=recapHTML()+footerHTML();loadBoard();return}
+}
+let pickFilter="all";
+function storyline(a){
+  const ros=P.filter(p=>p.team===a);const best=ros.slice().sort((x,y)=>y.tv-x.tv)[0],worst=ros.slice().sort((x,y)=>x.tv-y.tv)[0];
+  return `Best asset: ${best.name}. Toughest contract: ${worst.name} (${money(worst.tot)} left).`;
+}
+function pickHTML(){
+  const exp=BASE_EXP;const sorted=ABBRS.slice().sort((a,b)=>tname(a).localeCompare(tname(b))).filter(a=>pickFilter==="all"||(pickFilter==="E"||pickFilter==="W")&&TEAM[a][2]===pickFilter||pickFilter==="tax"&&BASE[a]>TAX||pickFilter==="bad"&&exp[a]<35);
+  const W=P.filter(p=>p.team==="WAS");const ad=W.find(p=>p.name==="Anthony Davis"),trae=W.find(p=>p.name==="Trae Young");
+  return `<header class="hero"><p class="eyebrow">NBA Asset Tracker · 2026-27 season</p><h1>Be the <span>GM</span></h1>
+  <p class="lede">Take over any NBA front office with its real 2026-27 contracts. The owner gives you a mandate, the season throws problems at you, and every trade has to pass the CBA's salary rules. Then the season plays out and you get graded.</p>
+  <ol class="how"><li><b>Pick a team</b> and accept the owner's mandate: contend, retool, rebuild, or cut costs.</li><li><b>Handle five scenarios</b> from November to March: a rookie push, an injury, a trade call, the deadline, the stretch run.</li><li><b>Watch the season play out</b>: record, playoffs, tax bill, and the assets you leave behind.</li><li><b>Get your grade</b> and post it to the leaderboard or send it to friends.</li></ol></header>
+  ${(()=>{let m=null;try{m=localStorage.getItem("myTeam")}catch(e){}return m&&TEAM[m]&&m!=="WAS"?`<section class="feature" style="--tc:${TEAM[m][1]}">${badge(m,64)}<div style="display:flex;flex-direction:column;gap:4px;min-width:0"><p class="eyebrow">Your team</p><h3>Run the ${esc(nick(m))}</h3><p>Projected for ${Math.round(exp[m])} wins with a ${money(BASE[m])} payroll (${status(BASE[m]).toLowerCase()}). Take over and see how you'd do.</p></div><button class="btn primary" data-pick="${m}">Take the job</button></section>`:""})()}
+  <section class="feature" style="--tc:${TEAM.WAS[1]}">${badge("WAS",64)}<div style="display:flex;flex-direction:column;gap:4px;min-width:0"><p class="eyebrow">Featured challenge</p><h3>Fix the Wizards</h3><p>Projected for ${Math.round(exp.WAS)} wins. ${ad?`Anthony Davis is owed ${money(ad.tot)} over ${ad.yrs} years`:"A big contract to move"}${trae?`, Trae Young is on the books for ${money(trae.tot)}`:""}, and the kids (Sarr, George, Johnson, Riley) need minutes. Can you turn this into a real rebuild?</p></div><button class="btn primary" data-pick="WAS">Take the job</button></section>
+  <div class="filters"><h3>Or pick any team</h3><div class="row"><select id="pf" aria-label="Filter teams"><option value="all">All 30 teams</option><option value="E">East</option><option value="W">West</option><option value="tax">Taxpayers</option><option value="bad">Rebuilding (under 35 wins)</option></select></div></div>
+  <div class="teamgrid">${sorted.map(a=>`<button class="tcard" style="--tc:${TEAM[a][1]}" data-pick="${a}">${badge(a,40)}<b>${tname(a)}</b><span class="meta"><span>Proj. ${Math.round(exp[a])}-${82-Math.round(exp[a])}</span><span>${status(BASE[a])}</span></span><span class="line">${esc(storyline(a))}</span></button>`).join("")}</div>
+  ${myRunsHTML()}${footerHTML()}`;
+}
+function boardHTML(){
+  const s=snapshot(),st=S.start||s,cur=EVENTS[S.step].m;
+  const d=(v,b,f)=>S.start?`<span class="delta ${cls(v-b)}">${Math.abs(v-b)<0.05?"":f(v-b)}</span>`:"";
+  return `<div class="board"><div class="row"><div class="who">${badge(S.me,40)}<div><b>${tname(S.me)}</b><span>${S.mandate?MANDATES[S.mandate].label+" · "+MANDATES[S.mandate].goal:"New GM"}</span></div></div>
+  <dl class="stats"><div><dt>Projected</dt><dd>${Math.round(s.w)}-${82-Math.round(s.w)}${d(s.w,st.w,v=>(v>0?"+":"−")+Math.abs(v).toFixed(1)+"W")}</dd></div><div><dt>Seed</dt><dd>${s.seed}${ord(s.seed)} ${TEAM[S.me][2]==="E"?"East":"West"}</dd></div><div><dt>Payroll</dt><dd>${money(s.pay)}</dd></div><div><dt>Tax bill</dt><dd>${s.tax?money(s.tax):"None"}</dd></div><div><dt>Asset value</dt><dd>${sgn(s.a)}${d(s.a,st.a,v=>sgn(v))}</dd></div></dl></div>
+  <div class="rail" aria-label="Season progress">${MONTHS.map((m,i)=>`<span class="${i<cur?"done":i===cur?"now":""}">${m}</span>`).join("")}</div></div>`;
+}
+function mandateHTML(){
+  const exp=allExp(),w=exp[S.me],pay=S.pay[S.me];
+  const rec=w>=50?"contend":w<=33?"rebuild":pay>TAX&&w<45?"cut":"retool";
+  const ros=rosterNow(S.me);
+  return `<div class="desk"><div class="scene"><p class="eyebrow">October · Owner's meeting</p><h2>Welcome to ${nick(S.me)} basketball</h2>
+  <p class="story">You've been hired as general manager of the <b>${tname(S.me)}</b>. The roster projects to <b>${Math.round(w)} wins</b>, the payroll is <b>${money(pay)}</b> (${status(pay).toLowerCase()}), and the owner wants to know your plan for the season. Your grade depends on it.</p>
+  <div class="opts">${Object.entries(MANDATES).map(([k,m])=>`<button class="opt${k===rec?" rec":""}" data-mandate="${k}"><b>${m.label}${k===rec?" · owner's pick":""}</b><span>${m.blurb} Goal: ${m.goal}</span></button>`).join("")}</div>
+  <div class="row"><button class="btn" id="back">Pick a different team</button></div></div>${rosterHTML()}</div>`;
+}
+function sceneHTML(){
+  const E=EVENTS[S.step],ev=S.ev;
+  let h=`<div class="scene"><p class="eyebrow">${MONTHS[E.m]} · Scenario ${S.step} of 5</p><h2>${esc(ev.title)}</h2><p class="story">${ev.story}</p>`;
+  if(ev.deal&&!S.res)h+=offerHTML(ev.deal);
+  if(S.res){
+    const b=S.res.before,a=S.res.after;
+    const fx=[`Projected wins ${(a.w-b.w>=0?"+":"−")+Math.abs(a.w-b.w).toFixed(1)}`,`Assets ${sgn(a.a-b.a)}`,`Payroll ${sgn(a.pay-b.pay)}`];
+    h+=`<div class="outcome"><p>${esc(S.res.text)}</p><div class="fx">${fx.map((f,i)=>`<span class="${i===2?(a.pay-b.pay>0.05?"neg":a.pay-b.pay<-0.05?"pos":""):cls(i===0?a.w-b.w:a.a-b.a)}">${f}</span>`).join("")}</div></div>
+    <div class="row"><button class="btn primary" id="next">${S.step>=5?"Play out the season":"Next: "+MONTHS[EVENTS[S.step+1].m]}</button></div>`;
+  } else if(ev.deadline) h+=tradeDeskHTML();
+  else h+=`<div class="opts">${ev.opts.map(o=>`<button class="opt" data-choice="${o.id}"><b>${o.label}</b><span>${o.desc}</span></button>`).join("")}</div>`;
+  return h+`</div>`;
+}
+function offerHTML(d){
+  const exp=allExp();
+  const li=(ids,pks)=>ids.map(id=>`<li><span>${esc(pl(id).name)}</span><span class="mono">${money(pl(id).sal)} · TV ${sgn(tvEff(id))}</span></li>`).concat(pks.map(id=>`<li><span>${pickLabel(pk(id))}</span><span class="mono">TV ${sgn(pickVal(pk(id),exp))}</span></li>`)).join("")||"<li>Nothing</li>";
+  return `<div class="offer"><div><h4>You send</h4><ul>${li(d.aOut,d.aPk)}</ul></div><div><h4>${esc(tname(d.b))} send</h4><ul>${li(d.bOut,d.bPk)}</ul></div></div>`;
+}
+function rosterHTML(){
+  const t=now()+1e-6,ids=rosterNow(S.me).sort((a,b)=>pl(b).sal-pl(a).sal),exp=allExp();
+  const myPicks=S.picks.filter(p=>p.owner===S.me);
+  return `<aside class="roster"><div class="row" style="justify-content:space-between"><h3>Roster</h3><span class="muted mono" style="font-size:12px">TV = trade value</span></div>
+  <table class="rtable"><thead><tr><th>Player</th><th>Age</th><th>2026-27</th><th>TV</th></tr></thead><tbody>${ids.map(id=>{const p=pl(id),h=hurtAt(id,t),fresh=id<EXTRA0&&P[id].team!==S.me;
+    return `<tr class="${h?"out":""}"><td><span class="pname">${esc(p.name)}</span>${h?" <span class='chip hurt'>out</span>":""}${fresh?" <span class='chip new'>new</span>":""}${p.rookie?" <span class='chip'>rookie</span>":""}</td><td>${p.age}</td><td>${money(p.sal)}</td><td class="${cls(tvEff(id))}">${sgn(tvEff(id))}</td></tr>`}).join("")}</tbody></table>
+  <div><p class="eyebrow" style="color:var(--muted)">Draft picks</p><p style="font-size:13px">${myPicks.length?myPicks.map(p=>`${pickLabel(p)} <span class="mono muted">(${sgn(pickVal(p,exp))})</span>`).join("<br>"):"None left"}</p></div>
+  ${S.log.length?`<div><p class="eyebrow" style="color:var(--muted)">Your moves</p><div class="log">${S.log.map(l=>`<div><span class="m">${l.m}</span><span>${esc(l.t)}</span></div>`).join("")}</div></div>`:""}</aside>`;
+}
+// Trade desk (deadline)
+let TD={b:null,aOut:new Set(),bOut:new Set(),aPk:new Set(),bPk:new Set(),offers:null,msg:""};
+function tdDeal(){return{a:S.me,b:TD.b,aOut:[...TD.aOut],bOut:[...TD.bOut],aPk:[...TD.aPk],bPk:[...TD.bPk]}}
+function tradeDeskHTML(){
+  const exp=allExp();if(!TD.b){TD.b=ABBRS.filter(a=>a!==S.me)[0]}
+  const t=now()+1e-6;
+  const side=(team,sel,psel,isMe)=>{const ids=rosterNow(team).filter(id=>id<EXTRA0).sort((a,b)=>pl(b).sal-pl(a).sal);const pks=S.picks.filter(p=>p.owner===team);
+    const opts=isMe?"":`<select id="tdteam" aria-label="Trade partner">${ABBRS.filter(a=>a!==S.me).sort((x,y)=>tname(x).localeCompare(tname(y))).map(a=>`<option value="${a}"${a===team?" selected":""}>${tname(a)}</option>`).join("")}</select>`;
+    return `<div class="tside"><div class="hd">${badge(team,28)}${isMe?`<b>${tname(team)}</b>`:opts}</div><p class="muted" style="font-size:12px">${status(S.pay[team])} · ${money(S.pay[team])} · ${posture(team,exp)==="win"?"buying":posture(team,exp)==="rebuild"?"selling":"listening"}</p>
+    <div class="tcolh"><span></span><span>Sends</span><span>Salary</span><span>TV</span></div><div class="tlist">${ids.map(id=>{const p=pl(id),on=sel.has(id);return `<label class="trow${on?" on":""}"><input type="checkbox" data-td="${isMe?"a":"b"}" data-id="${id}"${on?" checked":""}${hurtAt(id,t)?" disabled":""}><span class="pname">${esc(p.name)}${hurtAt(id,t)?" <span class='chip hurt'>out</span>":""}</span><span class="mono">${money(p.sal)}</span><span class="mono ${cls(tvEff(id))}">${sgn(tvEff(id))}</span></label>`}).join("")}
+    ${pks.map(p=>{const on=psel.has(p.id);return `<label class="trow${on?" on":""}"><input type="checkbox" data-tdp="${isMe?"a":"b"}" data-id="${p.id}"${on?" checked":""}><span class="pname">${pickLabel(p)}</span><span class="mono">pick</span><span class="mono pos">${sgn(pickVal(p,exp))}</span></label>`}).join("")}</div></div>`};
+  const d=tdDeal(),empty=!d.aOut.length&&!d.bOut.length&&!d.aPk.length&&!d.bPk.length;
+  let verdict="";
+  if(!empty){const j=judge(d,exp);const tone=j.vb>=2?"Deal. They'd sign off on this.":j.vb>=-3?"Close. They want a little more.":"Not interested.";
+    verdict=`<div class="verdict ${j.legal&&j.accept?"ok":"no"}"><b>${j.legal?"✓ Legal under the CBA salary rules.":"✗ Salaries don't work."}</b>${!j.ra.ok?`<span>You: ${esc(j.ra.how)}</span>`:""}${!j.rb.ok?`<span>${nick(d.b)}: ${esc(j.rb.how)}</span>`:""}<span><b>${nick(d.b)} front office:</b> ${tone}</span><span class="muted">For your ${MANDATES[S.mandate].label.toLowerCase()} plan this deal is ${j.va>=3?"a clear win":j.va>=-3?"about even":"a step back"}.</span></div>`}
+  const offers=TD.offers?`<div class="offers">${TD.offers.length?TD.offers.map((o,i)=>`<button class="offerbtn" data-offer="${i}">${badge(o.d.b,26)}<span><b>${nick(o.d.b)}:</b> ${esc(dealSide(o.d.aOut,o.d.aPk).join(", "))} for ${esc(dealSide(o.d.bOut,o.d.bPk).join(", "))}</span></button>`).join(""):"<p class='muted'>No team has a legal deal that works for both sides right now.</p>"}</div>`:"";
+  return `<div class="row"><button class="btn" id="getoffers">${TD.offers?"Ask other teams":"Ask the market for offers"}</button><span class="muted" style="font-size:13px">Deals made today: ${S.deadlineDeals} of 2</span></div>${offers}
+  <div class="tgrid">${side(S.me,TD.aOut,TD.aPk,true)}${side(TD.b,TD.bOut,TD.bPk,false)}</div>${verdict}
+  ${TD.msg?`<div class="outcome"><p>${esc(TD.msg)}</p></div>`:""}
+  <div class="row"><button class="btn primary" id="maketrade"${empty||S.deadlineDeals>=2?" disabled":""}>Propose the trade</button><button class="btn" id="donedeadline">${S.deadlineDeals?"Done for the deadline":"Stand pat"}</button></div>`;
+}
+function recapHTML(){
+  const F=S.final,me=S.me,md=MANDATES[S.mandate];const conf=TEAM[me][2];const st=F.stand[conf];
+  const bar=(l,v,sub)=>`<div class="metric"><span class="eyebrow" style="color:var(--muted)">${l} · weight ${Math.round(md.w[l[0]==="R"?"R":l[0]==="A"?"A":"M"]*100)}%</span><span class="big">${Math.round(v)}<span class="muted" style="font-size:13px"> / 100</span></span><div class="bar"><i style="width:${v}%"></i></div><span class="muted" style="font-size:13px">${sub}</span></div>`;
+  return `<div class="recap"><div class="final"><div style="display:flex;flex-direction:column;gap:10px;min-width:0"><div class="row">${badge(me,48)}<p class="eyebrow">Final report · ${tname(me)} · ${md.label}</p></div><h1 style="font-size:clamp(48px,9vw,88px)">${F.wins}-${F.loss}</h1><p class="lede" style="color:var(--ink)">${F.res}. ${F.champ===me?"Banner season.":`${tname(F.champ)} won the title.`} Preseason projection was ${Math.round(F.proj)} wins.</p><p class="muted">Owner's goal: ${md.goal} <b class="${F.hit?"pos":"neg"}">${F.hit?"Met.":"Missed."}</b></p></div><div style="text-align:center"><div class="grade">${F.grade}</div><p class="mono muted">${F.score} / 100</p></div></div>
+  <div class="cards3">${bar("Results",F.R,`${F.wins} wins · ${F.res.toLowerCase()}`)}${bar("Assets",F.A,`${sgn(F.dA)} of trade value and picks${F.ownPick?` · own pick lands #${F.slot}`:""}`)}${bar("Money",F.M,`Payroll ${money(F.pay)} · tax ${F.tax?money(F.tax):"none"}`)}</div>
+  <div class="two"><div class="panel"><h3>${conf==="E"?"East":"West"} standings</h3><table class="stand"><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th></tr></thead><tbody>${st.map((a,i)=>`<tr class="${a===me?"me":""} ${i===5||i===9?"cut":""}"><td>${i+1}</td><td>${badge(a,18)} ${tname(a)}</td><td>${F.wtab[a]}</td><td>${82-F.wtab[a]}</td></tr>`).join("")}</tbody></table><p class="muted" style="font-size:12px">Lines mark the top 6 and the play-in (7-10).</p></div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0"><div class="panel"><h3>Playoff path</h3><div class="path">${F.path.length?F.path.map(p=>`<div><span>${p.r} vs ${nick(p.o)}</span><span class="mono ${p.won?"pos":"neg"}">${p.won?"Won":"Lost"} ${p.s}</span></div>`).join(""):"<p class='muted'>No postseason this year.</p>"}</div></div>
+  <div class="panel"><h3>Your season</h3><div class="log">${S.log.map(l=>`<div><span class="m">${l.m}</span><span>${esc(l.t)}</span></div>`).join("")||"<p class='muted'>No moves.</p>"}</div></div></div></div>
+  <div class="two"><div class="panel"><h3>Share your result</h3><pre class="sharebox" id="sharetxt">${esc(shareText())}</pre><div class="row"><button class="btn primary" id="copy">Copy result</button></div></div>
+  <div class="panel"><h3>Leaderboard</h3><div id="lbpost"></div><div class="lbwrap" id="lb"><p class="muted">Loading the leaderboard…</p></div></div></div>
+  <div class="row"><button class="btn primary" id="again">Replay ${nick(me)} with a new season</button><button class="btn" id="newteam">Pick another team</button></div>${myRunsHTML()}</div>`;
+}
+function shareText(){const F=S.final,md=MANDATES[S.mandate];
+  return `🏀 Be the GM: ${tname(S.me)} (${md.label})\n${F.wins}-${F.loss} · ${F.res}\nAssets ${sgn(F.dA)} · Tax ${F.tax?money(F.tax):"none"}\nGrade ${F.grade} (${F.score}/100) · goal ${F.hit?"met ✅":"missed ❌"}\n${S.log.filter(l=>/Sent|dump/i.test(l.t)).map(l=>"• "+l.t).join("\n")}${S.log.some(l=>/Sent|dump/i.test(l.t))?"\n":""}Can you beat it? ${PLAY_URL}`}
+function footerHTML(){return `<footer><p>Built on the Contract Ledger's numbers: 2026-27 salaries, Win Shares per 48 with a healthy-minutes projection, and trade value (each contract's discounted surplus over its remaining years). Projected wins come from the minutes-weighted Win Shares of each rotation, scaled to the league. Trades use the 2023 CBA salary-matching rules with 2026-27 cap ${money(CAP)}, tax ${money(TAX)} and aprons ${money(APRON1)} / ${money(APRON2)}.</p><p>Simplified: each team starts owning its own 2027 and 2028 firsts (real pick trades and protections aren't loaded yet), the tax uses non-repeater rates, the draft has no lottery luck, and roster limits and the hard cap aren't enforced. Other front offices value trades by where they are: contenders pay for production now, rebuilders pay for long-term value and picks.</p></footer>`}
+
+// ---- Saved runs (this browser) and leaderboard (shared) ----
+const LS="bethegm.v1";
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function runRecord(){const F=S.final;return{team:S.me,mandate:S.mandate,w:F.wins,l:F.loss,res:F.res,grade:F.grade,score:F.score,dA:Math.round(F.dA),tax:Math.round(F.tax*10)/10,at:new Date().toISOString().slice(0,10)}}
+function myRunsHTML(){const runs=lsGet(LS+".runs",[]);if(!runs.length)return"";
+  return `<section class="panel"><h3>Your saved runs</h3><div class="lbwrap"><table class="lb"><thead><tr><th>Date</th><th>Team</th><th>Plan</th><th class="n">Record</th><th>Result</th><th class="n">Grade</th></tr></thead><tbody>${runs.slice().reverse().slice(0,12).map(r=>`<tr><td class="mono">${r.at}</td><td>${badge(r.team,18)} ${nick(r.team)}</td><td>${MANDATES[r.mandate]?MANDATES[r.mandate].label:""}</td><td class="n">${r.w}-${r.l}</td><td>${esc(r.res)}</td><td class="n"><b>${r.grade}</b> ${r.score}</td></tr>`).join("")}</tbody></table></div></section>`}
+let db=null,dbTried=false,lbRows=null,lbUnsub=null,canWrite=null;
+async function initDb(){if(dbTried)return;dbTried=true;try{if(!window.claude||!window.claude.use)return;db=await window.claude.use("db");const user=await window.claude.use("user");if(user&&user.can){try{canWrite=await user.can("data.write")}catch(e){}}
+  if(db){lbUnsub=db.collection("runs").orderBy("score","desc").limit(40).onSnapshot(s=>{lbRows=s.docs.map(d=>d.data());if(S&&S.phase==="end")drawBoard()},()=>{lbRows=lbRows||[];if(S&&S.phase==="end")drawBoard()})}}catch(e){db=null}
+  if(S&&S.phase==="end")drawBoard()}
+function loadBoard(){drawBoard();initDb()}
+function drawBoard(){
+  const box=$("#lb"),post=$("#lbpost");if(!box)return;
+  if(!db){box.innerHTML=`<p class="muted">${dbTried?"The shared leaderboard isn't available in this view. Your run is saved in this browser, and you can copy the result to share it.":"Loading the leaderboard…"}</p>`;if(post)post.innerHTML="";return}
+  const rows=lbRows||[];
+  box.innerHTML=rows.length?`<table class="lb"><thead><tr><th>#</th><th>GM</th><th>Team</th><th class="n">Record</th><th class="n">Grade</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td class="mono">${i+1}</td><td>${esc(String(r.gm||"Anonymous").slice(0,24))}</td><td>${TEAM[r.team]?badge(r.team,18)+" "+nick(r.team):""} <span class="muted">${MANDATES[r.mandate]?MANDATES[r.mandate].label:""}</span></td><td class="n">${+r.w||0}-${+r.l||0}</td><td class="n"><b>${esc(String(r.grade||""))}</b> ${+r.score||0}</td></tr>`).join("")}</tbody></table>`:`<p class="muted">No runs posted yet. Be the first GM on the board.</p>`;
+  if(post){if(S.saved==="board")post.innerHTML=`<p class="pos" style="font-size:14px">Posted to the leaderboard.</p>`;
+    else if(canWrite===false)post.innerHTML=`<p class="muted" style="font-size:13px">You can view the leaderboard. Posting needs edit access to this page, so copy your result and send it instead.</p>`;
+    else post.innerHTML=`<form class="row" id="postform"><input type="text" id="gmname" maxlength="24" placeholder="Your GM name" aria-label="Your GM name" value="${esc(lsGet(LS+".name",""))}" required><button class="btn primary" type="submit">Post my run</button></form>`}
+}
+async function postRun(name){
+  if(!db)return;lsSet(LS+".name",name);
+  try{await db.collection("runs").add(Object.assign({gm:name.slice(0,24)},runRecord()));S.saved="board";toast("Posted to the leaderboard")}
+  catch(e){if(e&&e.code==="invalid_argument"){canWrite=false;toast("This view can't post to the leaderboard")}else toast("Couldn't post right now. Try again in a moment.")}
+  drawBoard();
+}
+let toastT=null;function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400)}
+
+// ---- Flow ----
+function startTeam(a){S=newState(a);TD={b:null,aOut:new Set(),bOut:new Set(),aPk:new Set(),bPk:new Set(),offers:null,msg:""};render();window.scrollTo(0,0)}
+function chooseMandate(k){S.mandate=k;const s=snapshot();S.start={w:s.w,a:s.a,spend:spend(S.me),pay:S.pay[S.me]};S.log=[];S.step=1;S.phase="event";S.ev=buildEvent();S.res=null;render();window.scrollTo(0,0)}
+function next(){
+  S.res=null;S.step++;
+  if(EVENTS[S.step].key==="end"){finish();const runs=lsGet(LS+".runs",[]);runs.push(runRecord());lsSet(LS+".runs",runs.slice(-40));render();window.scrollTo(0,0);return}
+  S.ev=buildEvent();TD={b:null,aOut:new Set(),bOut:new Set(),aPk:new Set(),bPk:new Set(),offers:null,msg:""};render();window.scrollTo(0,0);
+}
+document.addEventListener("click",e=>{
+  const q=s=>e.target.closest(s);let b;
+  if(b=q("[data-pick]")){startTeam(b.dataset.pick);return}
+  if(b=q("[data-mandate]")){chooseMandate(b.dataset.mandate);return}
+  if(q("#back")||q("#newteam")){S=null;render();window.scrollTo(0,0);return}
+  if(q("#again")){startTeam(S.me);return}
+  if(b=q("[data-choice]")){resolve(b.dataset.choice);render();return}
+  if(q("#next")){next();return}
+  if(q("#getoffers")){const exp=allExp();const want=MANDATES[S.mandate].posture;const pool=ABBRS.filter(a=>a!==S.me).sort(()=>rnd()-.5);const out=[];
+    const btn=q("#getoffers");btn.disabled=true;btn.textContent="Calling around…";
+    setTimeout(()=>{for(const a of pool){if(out.length>=3)break;const o=findOffer(a,exp);if(o)out.push(o)}TD.offers=out;render()},20);return}
+  if(b=q("[data-offer]")){const o=TD.offers[+b.dataset.offer];TD.b=o.d.b;TD.aOut=new Set(o.d.aOut);TD.bOut=new Set(o.d.bOut);TD.aPk=new Set(o.d.aPk);TD.bPk=new Set(o.d.bPk);TD.msg="";render();return}
+  if(q("#maketrade")){const d=tdDeal(),j=judge(d);
+    if(!j.legal){TD.msg="The salaries don't match under the CBA rules. Adjust the players.";render();return}
+    if(!j.accept){TD.msg=`The ${nick(d.b)} pass. ${j.vb>=-3?"Add a little more and they might bite.":"They aren't close."}`;render();return}
+    const before=snapshot();applyDeal(d);S.deadlineDeals++;S.log.push({m:"Feb",t:dealText(d)});const after=snapshot();
+    TD={b:d.b,aOut:new Set(),bOut:new Set(),aPk:new Set(),bPk:new Set(),offers:null,msg:`Done. ${dealText(d)} Projected wins ${(after.w-before.w>=0?"+":"−")+Math.abs(after.w-before.w).toFixed(1)}, assets ${sgn(after.a-before.a)}.`};
+    if(S.deadlineDeals>=2){S.res={text:"Two deals done. The deadline passes.",before:S.ev.before||before,after}}render();return}
+  if(q("#donedeadline")){const s=snapshot();S.res={text:S.deadlineDeals?"The deadline passes with your deals in.":"You stand pat. The roster you have is the roster you'll finish with.",before:S.ev.before||s,after:s};if(!S.deadlineDeals)S.log.push({m:"Feb",t:"Stood pat at the deadline."});render();return}
+  if(q("#copy")){const txt=shareText();const done=()=>toast("Result copied");try{navigator.clipboard.writeText(txt).then(done,()=>selectShare())}catch(err){selectShare()}return}
+});
+function selectShare(){const el=$("#sharetxt");const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Selected. Press Copy to copy it.")}
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.id==="pf"){pickFilter=t.value;render();const f=$("#pf");if(f){f.value=pickFilter;f.focus()}return}
+  if(t.id==="tdteam"){TD.b=t.value;TD.bOut=new Set();TD.bPk=new Set();TD.msg="";render();return}
+  if(t.dataset.td){const s=t.dataset.td==="a"?TD.aOut:TD.bOut;const id=+t.dataset.id;t.checked?s.add(id):s.delete(id);TD.msg="";render();return}
+  if(t.dataset.tdp){const s=t.dataset.tdp==="a"?TD.aPk:TD.bPk;t.checked?s.add(t.dataset.id):s.delete(t.dataset.id);TD.msg="";render();return}
+});
+document.addEventListener("submit",e=>{if(e.target.id==="postform"){e.preventDefault();const n=$("#gmname").value.trim();if(n)postRun(n)}});
+
+// Deadline snapshot so the outcome compares against the start of the day
+const _build=buildEvent;buildEvent=function(){const ev=_build();if(ev&&ev.deadline)ev.before=snapshot();return ev};
+
+// ---- Boot ----
+let BASE_EXP={};
+async function boot(){
+  try{
+    const [tv,cv,cc]=await Promise.all(["trade_values","contract_value","team_cap"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})));
+    P=buildPlayers(parseCSV(tv),parseCSV(cv));parseCSV(cc).forEach(r=>BASE[r.Team]=N(r.payroll_m));
+  }catch(e){$("#app").innerHTML="<p class='muted'>The league data didn't load. Reload the page to try again.</p>";return}
+  // League average Win Shares sets the 41-win midpoint
+  S={trades:[],extras:[],mods:{},inj:[],pay:BASE,picks:[],step:0};
+  const ws=ABBRS.map(a=>teamWS(a,0.5));MEAN=ws.reduce((s,v)=>s+v,0)/ws.length;
+  ABBRS.forEach(a=>BASE_EXP[a]=winsFromWS(teamWS(a,0.5)));
+  S=null;
+  const hot=window.claude&&window.claude.hot;
+  const saved=(hot&&hot.data&&hot.data.S)||null;
+  if(saved&&saved.v===1){S=saved;if(S.ev&&S.ev.deadline)TD={b:null,aOut:new Set(),bOut:new Set(),aPk:new Set(),bPk:new Set(),offers:null,msg:""}}
+  if(hot&&hot.snapshot)try{hot.snapshot(()=>({S}))}catch(e){}
+  render();initDb();
+}
+boot();
+})();
+</script>
+
+</body></html>

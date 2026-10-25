@@ -1,0 +1,193 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="predict"></script>
+<title>Game Predictions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: record strip, then one card per game for the chosen night, then the power table. Same ink as the Contract Ledger. */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
+  --accent:#C2410C; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --tint:rgba(22,33,45,.04); --track:#E5EAF0;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(230,235,241,.04); --track:#26313D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(230,235,241,.04); --track:#26313D; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:.95;margin:6px 0 10px;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+/* record strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.stat .k{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font:700 34px/1.05 var(--display);letter-spacing:.01em;margin-top:2px}
+.stat .n{font-size:13px;color:var(--muted)}
+/* night picker */
+.days{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}
+.days button{flex:0 0 auto;font:500 13px var(--body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer;text-align:left;line-height:1.25}
+.days button small{display:block;font:500 11px var(--mono);color:var(--muted)}
+.days button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.days button[aria-pressed=true] small{color:var(--bg);opacity:.75}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* game cards */
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.game{gap:10px}
+.game.mine{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.ghead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font:500 12px var(--mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.verdict{font-weight:600}
+.verdict.hit{color:var(--good)} .verdict.miss{color:var(--bad)} .verdict.live{color:var(--accent)}
+.teams{display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center}
+.tm{display:flex;align-items:center;gap:8px;min-width:0;font-weight:500}
+.tm img{width:26px;height:26px;object-fit:contain;flex:0 0 auto}
+.tm .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tm .home{font:500 10px var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+.tm.pick .nm{font-weight:700}
+.pct{font:600 15px var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.pct small{font-weight:400;color:var(--muted);margin-left:6px}
+.bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--track)}
+.bar span{display:block;height:100%}
+.line{font-size:13px;color:var(--muted)}
+.line b{color:var(--ink);font-weight:600}
+.facts{list-style:none;margin:0;padding:0;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.facts li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warn);margin-right:7px;vertical-align:1px}
+.empty{color:var(--muted);font-size:14px}
+/* power table */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.mine td{background:var(--tint)}
+tr.mine td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+td .tm img{width:20px;height:20px}
+td.out{font-size:12.5px;color:var(--muted);min-width:200px}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+details{font-size:14px;color:var(--muted)}
+details summary{cursor:pointer;color:var(--ink);font-weight:500}
+details ul{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px;max-width:72ch}
+.err{color:var(--bad)}
+</style>
+<div class="wrap">
+  <header>
+    <p class="eyebrow" id="eyebrow">Game predictions</p>
+    <h1>Tonight's picks</h1>
+    <p class="lede">Every game gets a win probability from each roster's Win Shares, who is hurt, how teams have played so far, home court and back-to-backs. Picks lock before tip-off and stay on the record.</p>
+  </header>
+  <section class="stats" id="stats" aria-label="How the picks have done"></section>
+  <section class="card">
+    <div class="days" id="days" role="group" aria-label="Pick a night"></div>
+    <p class="sub" id="nightnote"></p>
+    <div class="games" id="games"></div>
+  </section>
+  <section class="card">
+    <h2>Power ratings</h2>
+    <p class="sub">Points better or worse than an average team on a neutral floor, as of tonight. Roster is the Win Shares rating with tonight's injuries; form is how much a team has beaten or missed its expected margin, shrunk toward zero while the sample is small.</p>
+    <div class="tablewrap"><table id="power"></table></div>
+  </section>
+  <details>
+    <summary>How the model works</summary>
+    <ul>
+      <li><b>Roster rating:</b> each player's WS/48 (last season blended with this one, small samples pulled toward bench level) times projected minutes, filled to 240 minutes with replacement-level players. Converted to points with about 2.7 wins per point of margin.</li>
+      <li><b>Injuries:</b> players listed out are removed; day-to-day or questionable players count for half their minutes. Cost shown is what losing the player fully is worth.</li>
+      <li><b>Form:</b> the average of (actual margin minus expected margin) per game, with 8 games' worth of weight on zero. Blowouts are capped at 25.</li>
+      <li><b>Game line:</b> home rating minus away rating, plus 2.3 points for home court, minus 1.5 for a team on the second night of a back-to-back. Win chance assumes real margins land within about 11.5 points of the line.</li>
+      <li><b>Record:</b> "Live" picks were locked on game day. "Backtest" picks fill in games played before the predictor existed, using only results from earlier nights and no injury news.</li>
+    </ul>
+  </details>
+</div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function parseCSV(t){
+  const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l.replace(/\r$/,"")){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});
+  const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+const TEAM={ATL:["Atlanta Hawks","#C8102E"],BOS:["Boston Celtics","#007A33"],BRK:["Brooklyn Nets","#000000"],CHO:["Charlotte Hornets","#1D1160"],CHI:["Chicago Bulls","#CE1141"],CLE:["Cleveland Cavaliers","#860038"],DAL:["Dallas Mavericks","#00538C"],DEN:["Denver Nuggets","#0E2240"],DET:["Detroit Pistons","#C8102E"],GSW:["Golden State Warriors","#1D428A"],HOU:["Houston Rockets","#CE1141"],IND:["Indiana Pacers","#002D62"],LAC:["LA Clippers","#C8102E"],LAL:["Los Angeles Lakers","#552583"],MEM:["Memphis Grizzlies","#5D76A9"],MIA:["Miami Heat","#98002E"],MIL:["Milwaukee Bucks","#00471B"],MIN:["Minnesota Timberwolves","#0C2340"],NOP:["New Orleans Pelicans","#0C2340"],NYK:["New York Knicks","#006BB6"],OKC:["Oklahoma City Thunder","#007AC1"],ORL:["Orlando Magic","#0077C0"],PHI:["Philadelphia 76ers","#006BB6"],PHO:["Phoenix Suns","#1D1160"],POR:["Portland Trail Blazers","#E03A3E"],SAC:["Sacramento Kings","#5A2D81"],SAS:["San Antonio Spurs","#000000"],TOR:["Toronto Raptors","#CE1141"],UTA:["Utah Jazz","#002B5C"],WAS:["Washington Wizards","#002B5C"]};
+const nick=a=>TEAM[a]?TEAM[a][0].split(" ").slice(a==="POR"?-2:-1).join(" "):a;
+const logo=(a,s)=>`<img src="logos/${a}.png" alt="" width="${s}" height="${s}" onerror="this.style.visibility='hidden'">`;
+const myTeam=()=>{try{return(window.appNav&&appNav.team())||localStorage.getItem("myTeam")}catch(e){return null}};
+const fmtDay=d=>new Date(d+"T12:00:00").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+const pctTxt=p=>Math.round(p*100)+"%";
+// A pick's colour on the bar is the team's colour; a black team (Nets, Spurs) reads as ink in dark mode.
+const teamColor=a=>{const c=TEAM[a]?TEAM[a][1]:"#888";return c==="#000000"?getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||c:c};
+
+let GAMES=[],POWER=[],day=null;
+
+function record(rows){const w=rows.filter(r=>r.correct==="1").length,l=rows.filter(r=>r.correct==="0").length;return{w,l,pct:w+l?w/(w+l):null}}
+function stats(){
+  const done=GAMES.filter(r=>r.correct!=="");
+  const live=record(done.filter(r=>r.mode==="live")),back=record(done.filter(r=>r.mode==="backtest")),all=record(done);
+  const sure=record(done.filter(r=>Math.max(r.p,1-r.p)>=0.65));
+  // Brier score: mean squared gap between the chance we gave and what happened (0 perfect, 0.25 coin flip)
+  const brier=done.length?done.reduce((s,r)=>{const hw=+r.home_pts>+r.away_pts?1:0;return s+(r.p-hw)**2},0)/done.length:null;
+  const box=(k,rec,n)=>`<div class="stat"><div class="k">${k}</div><div class="v">${rec.w+rec.l?rec.w+"–"+rec.l:"–"}</div><div class="n">${n(rec)}</div></div>`;
+  $("#stats").innerHTML=
+    box("Live picks",live,r=>r.w+r.l?pctTxt(r.pct)+" right, locked on game day":"First live picks are tonight")+
+    box("Backtest",back,r=>r.w+r.l?pctTxt(r.pct)+" right, games before launch":"No backtest games")+
+    box("Confident picks",sure,r=>r.w+r.l?"65%+ favorites, "+pctTxt(r.pct)+" right":"No 65%+ picks graded yet")+
+    `<div class="stat"><div class="k">Accuracy score</div><div class="v">${brier==null?"–":brier.toFixed(3)}</div><div class="n">Brier score over ${done.length} games (0.25 = coin flip, lower is better)</div></div>`;
+}
+function days(){
+  const ds=[...new Set(GAMES.map(r=>r.date))].sort();
+  if(!day||!ds.includes(day))day=ds[ds.length-1];
+  $("#days").innerHTML=ds.map(d=>{const rec=record(GAMES.filter(r=>r.date===d&&r.correct!==""));const n=GAMES.filter(r=>r.date===d).length;
+    return `<button type="button" data-d="${d}" aria-pressed="${d===day}">${fmtDay(d)}<small>${rec.w+rec.l?rec.w+"–"+rec.l:n+" games"}</small></button>`}).join("");
+  const on=$("#days [aria-pressed=true]");if(on)on.scrollIntoView({block:"nearest",inline:"end"});
+}
+function games(){
+  const mt=myTeam();
+  const rows=GAMES.filter(r=>r.date===day).sort((a,b)=>{const m=x=>(x.away===mt||x.home===mt)?0:1;return m(a)-m(b)});
+  const latest=day===GAMES.reduce((m,r)=>r.date>m?r.date:m,"");
+  const mode=rows[0]?rows[0].mode:"";
+  $("#eyebrow").textContent=(latest?"Tonight · ":"")+fmtDay(day);
+  $("h1").textContent=latest&&rows.some(r=>r.status==="upcoming")?"Tonight's picks":"Picks for "+fmtDay(day);
+  const rec=record(rows.filter(r=>r.correct!==""));
+  $("#nightnote").textContent=(mode==="backtest"?"Backtest night: picked with results from earlier nights only, no injury news. ":"Picks locked on game day. ")+(rec.w+rec.l?`${rows.some(r=>r.status!=="final")?"So far":"Went"} ${rec.w}–${rec.l}.`:"Scores come from ESPN and fill in as the data refreshes.");
+  $("#games").innerHTML=rows.length?rows.map(card).join(""):`<p class="empty">No games this night.</p>`;
+}
+function card(r){
+  const mt=myTeam(),final=r.status==="final";
+  const hw=final&&+r.home_pts>+r.away_pts,aw=final&&!hw;
+  const pa=1-r.p,ph=r.p,spread=Math.abs(r.margin).toFixed(1);
+  const fav=r.pick,line=+spread<0.5?"Pick'em":`${nick(fav)} by ${spread}`;
+  const verdict=final?`<span class="verdict ${r.correct==="1"?"hit":"miss"}">${r.correct==="1"?"✓ Called it":"✗ Missed"}</span>`:r.status==="live"&&r.live?`<span class="verdict live">● ${esc(r.live)}</span>`:`<span>${esc(r.time_et?r.time_et.replace(/p$/," pm").replace(/a$/," am")+" ET":"")}</span>`;
+  const row=(a,p,score,isHome)=>`<div class="tm${a===r.pick?" pick":""}">${logo(a,26)}<span class="nm">${esc(TEAM[a]?TEAM[a][0]:a)}</span>${isHome?'<span class="home">HOME</span>':""}</div><div class="pct">${pctTxt(p)}${final?`<small>${esc(score)}</small>`:""}</div>`;
+  const facts=[];
+  if(r.factors)r.factors.split(" | ").forEach(f=>facts.push(esc(f)));
+  if(r.away_injuries)facts.push(`<b>${esc(nick(r.away))}:</b> ${esc(r.away_injuries)}`);
+  if(r.home_injuries)facts.push(`<b>${esc(nick(r.home))}:</b> ${esc(r.home_injuries)}`);
+  return `<article class="card game${r.away===mt||r.home===mt?" mine":""}">
+    <div class="ghead"><span>${esc(nick(r.away))} at ${esc(nick(r.home))}</span>${verdict}</div>
+    <div class="teams">${row(r.away,pa,r.away_pts,false)}${row(r.home,ph,r.home_pts+(r.ot?" "+r.ot:""),true)}</div>
+    <div class="bar" role="img" aria-label="${esc(nick(r.away))} ${pctTxt(pa)}, ${esc(nick(r.home))} ${pctTxt(ph)}"><span style="width:${pa*100}%;background:${teamColor(r.away)}"></span><span style="width:${ph*100}%;background:${teamColor(r.home)};opacity:.85"></span></div>
+    <div class="line">Pick <b>${esc(nick(r.pick))}</b> · line ${esc(line)}${final?` · final ${esc(nick(aw?r.away:r.home))} by ${Math.abs(r.home_pts-r.away_pts)}`:""}</div>
+    ${facts.length?`<ul class="facts">${facts.map(f=>`<li>${f}</li>`).join("")}</ul>`:""}
+  </article>`;
+}
+function power(){
+  const mt=myTeam(),sg=v=>(v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(1),cl=v=>v>=0.05?"pos":v<=-0.05?"neg":"";
+  $("#power").innerHTML=`<thead><tr><th class="num">#</th><th>Team</th><th class="num">Rating</th><th class="num">Roster</th><th class="num">Form</th><th class="num">W–L</th><th>Missing tonight</th></tr></thead><tbody>`+
+    POWER.map(t=>`<tr class="${t.team===mt?"mine":""}"><td class="num">${t.rank}</td><td><span class="tm">${logo(t.team,20)}<span class="nm">${esc(nick(t.team))}</span></span></td><td class="num ${cl(+t.rating)}"><b>${sg(+t.rating)}</b></td><td class="num">${sg(+t.roster_tonight)}</td><td class="num ${cl(+t.form)}">${sg(+t.form)}</td><td class="num">${t.wins}–${t.losses}</td><td class="out">${esc(t.out||"")}</td></tr>`).join("")+"</tbody>";
+}
+function draw(){stats();days();games();power()}
+$("#days").addEventListener("click",e=>{const b=e.target.closest("button[data-d]");if(!b)return;day=b.dataset.d;days();games()});
+window.addEventListener("storage",e=>{if(e.key==="myTeam")draw()});
+Promise.all(["predictions","team_power"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()}))).then(([pc,tc])=>{
+  GAMES=parseCSV(pc).map(r=>({...r,p:+r.home_prob,margin:+r.home_margin}));
+  POWER=parseCSV(tc);
+  draw();
+}).catch(e=>{$("#games").innerHTML=`<p class="err">Couldn't load the prediction data (${esc(e.message)}).</p>`});
+})();
+</script>
+</body></html>

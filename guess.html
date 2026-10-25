@@ -1,0 +1,338 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="guess"></script>
+<title>Guess the Player</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column. Header with puzzle number + streak, the clue stack, the guess box, then past guesses as a feedback grid. Result card + stats replace the guess box when the game ends. */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --sunk:#EEF1F4; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
+  --accent:#C2410C; --on-accent:#FFFFFF; --good:#15803D; --bad:#B91C1C; --warn:#A16207;
+  --goodtint:rgba(21,128,61,.10); --badtint:rgba(185,28,28,.08); --warntint:rgba(161,98,7,.12);
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151C; --surface:#17202A; --sunk:#131B24; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --on-accent:#1A0E06; --good:#4ADE80; --bad:#F87171; --warn:#FACC15;
+  --goodtint:rgba(74,222,128,.10); --badtint:rgba(248,113,113,.09); --warntint:rgba(250,204,21,.10); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151C; --surface:#17202A; --sunk:#131B24; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --on-accent:#1A0E06; --good:#4ADE80; --bad:#F87171; --warn:#FACC15;
+  --goodtint:rgba(74,222,128,.10); --badtint:rgba(248,113,113,.09); --warntint:rgba(250,204,21,.10); color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+h1,h2{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.01em;margin:0;line-height:.95;text-wrap:balance}
+h1{font-size:clamp(40px,9vw,60px)}
+h2{font-size:26px}
+p{margin:0}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{font:600 14px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:9px 14px;white-space:nowrap}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.lede{color:var(--muted);max-width:60ch;margin-top:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:7px 12px;font:500 13px var(--body);color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.meter{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.meter b{display:block;font:700 26px/1 var(--display);font-variant-numeric:tabular-nums}
+.meter span{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pips{display:flex;gap:6px;align-items:center}
+.pip{width:100%;height:8px;border-radius:4px;background:var(--line)}
+.pip.on{background:var(--accent)} .pip.won{background:var(--good)} .pip.miss{background:var(--bad)}
+.pipwrap{display:flex;flex-direction:column;gap:4px}
+.clues{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.clue{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.clue .n{font:700 24px/1 var(--display);color:var(--accent);text-align:center;padding-top:2px}
+.clue .k{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.clue .v{font-size:16px;font-weight:500}
+.clue .v .mono{font-weight:500}
+.clue.locked{background:var(--sunk);border-style:dashed;color:var(--muted)}
+.clue.locked .n{color:var(--muted)}
+.clue.fresh{animation:pop .35s ease-out}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.clue.fresh{animation:none}}
+.logo{width:34px;height:34px;object-fit:contain;vertical-align:middle;margin-right:8px;background:#fff;border-radius:50%;padding:2px}
+.ask{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:8px;align-items:stretch}
+.combo{position:relative;flex:1;min-width:0}
+.combo input{width:100%;box-sizing:border-box;font:16px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;margin:0;padding:4px;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);max-height:300px;overflow:auto}
+.list li{padding:8px 10px;border-radius:5px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+.list li[aria-selected=true],.list li:hover{background:var(--sunk)}
+.list li small{font:12px var(--mono);color:var(--muted)}
+.hint{font-size:13px;color:var(--muted)}
+.guesses{display:flex;flex-direction:column;gap:6px}
+.ghead,.g{display:grid;grid-template-columns:minmax(0,2.2fr) repeat(4,minmax(0,1fr));gap:6px;align-items:center}
+.ghead{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 2px}
+.ghead span:not(:first-child){text-align:center}
+.g>div{border-radius:6px;padding:7px 8px;font-size:13px;background:var(--surface);border:1px solid var(--line);min-width:0}
+.g .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g .c{text-align:center;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.g .yes{background:var(--goodtint);border-color:var(--good);color:var(--good)}
+.g .near{background:var(--warntint);border-color:var(--warn);color:var(--warn)}
+.g .no{background:var(--badtint);border-color:transparent}
+.g.skip>div{background:none;border-style:dashed;color:var(--muted)}
+.result{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--tc,var(--accent));border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.result .who{display:flex;align-items:center;gap:12px}
+.result .who img{width:52px;height:52px}
+.result .who h2{font-size:34px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.facts div{background:var(--sunk);border-radius:6px;padding:8px 10px}
+.facts b{display:block;font:600 16px var(--mono);font-variant-numeric:tabular-nums}
+.facts span{font-size:12px;color:var(--muted)}
+.share{font:14px/1.45 var(--mono);white-space:pre;background:var(--sunk);border-radius:6px;padding:10px 12px;overflow-x:auto;margin:0}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.dist{display:flex;flex-direction:column;gap:4px}
+.dist div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;align-items:center;font:12px var(--mono)}
+.dist i{display:block;height:18px;border-radius:3px;background:var(--line);min-width:22px;font-style:normal;text-align:right;padding-right:6px;box-sizing:border-box;line-height:18px;color:var(--ink)}
+.dist i.me{background:var(--accent);color:var(--on-accent)}
+.toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;z-index:50}
+#game{display:flex;flex-direction:column;gap:14px}
+.err{background:var(--badtint);border:1px solid var(--bad);border-radius:8px;padding:14px}
+@media (max-width:520px){.meters{grid-template-columns:repeat(2,minmax(0,1fr))}.ghead,.g{grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr));gap:4px}.g>div{padding:6px 5px;font-size:12px}}
+</style>
+
+<main class="wrap" id="app">
+  <header>
+    <div class="top">
+      <div>
+        <p class="eyebrow" id="eyebrow">Daily puzzle</p>
+        <h1>Guess the Player</h1>
+      </div>
+      <div class="seg" role="group" aria-label="Mode">
+        <button id="mDaily" aria-pressed="true">Daily</button>
+        <button id="mPractice" aria-pressed="false">Practice</button>
+      </div>
+    </div>
+    <p class="lede">One mystery player, six clues from the Ledger's numbers. Each wrong guess or skip unlocks the next clue. Get it on clue 1 for 6 points, on clue 6 for 1.</p>
+  </header>
+  <section class="meters" aria-label="Your stats">
+    <div class="meter"><b id="sStreak">0</b><span>Streak</span></div>
+    <div class="meter"><b id="sBest">0</b><span>Best streak</span></div>
+    <div class="meter"><b id="sPlayed">0</b><span>Played</span></div>
+    <div class="meter"><b id="sAvg">–</b><span>Avg points</span></div>
+  </section>
+  <div id="game"><p class="muted">Loading players…</p></div>
+</main>
+
+<script>
+const TEAM={ATL:["Atlanta Hawks","#C8102E","E"],BOS:["Boston Celtics","#007A33","E"],BRK:["Brooklyn Nets","#555555","E"],CHO:["Charlotte Hornets","#00788C","E"],CHI:["Chicago Bulls","#CE1141","E"],CLE:["Cleveland Cavaliers","#860038","E"],DAL:["Dallas Mavericks","#00538C","W"],DEN:["Denver Nuggets","#0E2240","W"],DET:["Detroit Pistons","#C8102E","E"],GSW:["Golden State Warriors","#1D428A","W"],HOU:["Houston Rockets","#CE1141","W"],IND:["Indiana Pacers","#002D62","E"],LAC:["LA Clippers","#C8102E","W"],LAL:["Los Angeles Lakers","#552583","W"],MEM:["Memphis Grizzlies","#5D76A9","W"],MIA:["Miami Heat","#98002E","E"],MIL:["Milwaukee Bucks","#00471B","E"],MIN:["Minnesota Timberwolves","#236192","W"],NOP:["New Orleans Pelicans","#0C2340","W"],NYK:["New York Knicks","#006BB6","E"],OKC:["Oklahoma City Thunder","#007AC1","W"],ORL:["Orlando Magic","#0077C0","E"],PHI:["Philadelphia 76ers","#006BB6","E"],PHO:["Phoenix Suns","#E56020","W"],POR:["Portland Trail Blazers","#E03A3E","W"],SAC:["Sacramento Kings","#5A2D81","W"],SAS:["San Antonio Spurs","#8A8D8F","W"],TOR:["Toronto Raptors","#CE1141","E"],UTA:["Utah Jazz","#002B5C","W"],WAS:["Washington Wizards","#E31837","E"]};
+const MAXG=6, LAUNCH="2026-10-25", KEY="gtp:v1";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const N=v=>v===""||v==null||isNaN(+v)?null:+v;
+const money=(m,d=1)=>m==null?"–":"$"+(Math.abs(m)>=100?Math.round(m):m.toFixed(d))+"M";
+const sgn=(m)=>m==null?"–":(m>=0?"+":"−")+money(Math.abs(m));
+const fmt=(n,d=0)=>n==null?"–":n.toLocaleString("en-US",{maximumFractionDigits:d,minimumFractionDigits:d});
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g,"").trim();
+const ord=n=>n+(["th","st","nd","rd"][(n%100-20)%10]||["th","st","nd","rd"][n%100]||"th");
+function parseCSV(t){const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l.replace(/\r$/,"")){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])))}
+
+// Seeded helpers so every browser gets the same daily player.
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function dayKey(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function dayNum(k){const[a,b,c]=k.split("-").map(Number),[x,y,z]=LAUNCH.split("-").map(Number);return Math.round((Date.UTC(a,b-1,c)-Date.UTC(x,y-1,z))/864e5)}
+
+// Saved progress lives in this browser only.
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},best:0}}catch(e){return{days:{},best:0}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+let store=load();
+
+let ALL=[],BY={},POOL=[],mode="daily",game=null;
+
+async function init(){
+  try{
+    const [cv,tv]=await Promise.all(["contract_value","trade_values"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})));
+    const T={};parseCSV(tv).forEach(r=>T[r.Player+"|"+r.Team]=r);
+    ALL=parseCSV(cv).map(r=>{const t=T[r.Player+"|"+r.Team]||{};return{name:r.Player,team:r.Team,prev:r["2025-26 team"],g:N(r.G),mp:N(r.MP),ws:N(r.WS),ws48:N(r["WS/48"]),vorp:N(r.VORP),sal:N(r.salary_m),sur:N(t.sv_y1)??N(r.blended_surplus_m),age:N(t.Age),yrs:N(t.years_left),total:N(t.total_salary_m),tvm:N(t.trade_value_m),rookie:(t.rookie_scale||r.rookie_scale)==="True",key:norm(r.Player)}}).filter(p=>TEAM[p.team]);
+    const ranked=ALL.filter(p=>p.tvm!=null).sort((a,b)=>b.tvm-a.tvm);ranked.forEach((p,i)=>p.rank=i+1);
+    ALL.forEach(p=>BY[p.name]=p);
+    // Answer pool: rotation players people will recognise (real minutes, and paid or productive).
+    POOL=ALL.filter(p=>p.mp>=1200&&p.age!=null&&((p.sal||0)>=12||(p.ws||0)>=5)).map(p=>p.name).sort();
+  }catch(e){$("#game").innerHTML=`<div class="err">Couldn't load the player data (${esc(e.message)}). Try reloading the page.</div>`;return}
+  $("#mDaily").onclick=()=>setMode("daily");$("#mPractice").onclick=()=>setMode("practice");
+  setMode("daily");
+}
+
+function dailyAnswer(k){
+  const order=POOL.slice(),r=rng(hash("gtp-order"));
+  for(let i=order.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+  return order[((dayNum(k)%order.length)+order.length)%order.length];
+}
+
+function setMode(m){
+  mode=m;$("#mDaily").setAttribute("aria-pressed",m==="daily");$("#mPractice").setAttribute("aria-pressed",m==="practice");
+  if(m==="daily"){
+    const k=dayKey();
+    // Keep the answer fixed once today's game has started, even if the data refreshes mid-day.
+    if(!store.days[k]||!BY[store.days[k].answer]){store.days[k]={answer:dailyAnswer(k),guesses:[],status:"playing"};save()}
+    game=store.days[k];game.key=k;
+    $("#eyebrow").textContent=`Daily puzzle #${dayNum(k)+1} · ${new Date().toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})}`;
+  }else{
+    const r=Math.random;let a;do{a=POOL[Math.floor(r()*POOL.length)]}while(POOL.length>1&&game&&a===game.answer);
+    game={answer:a,guesses:[],status:"playing",practice:true};
+    $("#eyebrow").textContent="Practice · doesn't count toward your streak";
+  }
+  render(true);
+}
+
+function clues(p){
+  const t=TEAM[p.team],moved=p.prev&&p.prev!==p.team;
+  const init=p.name.replace(/\b(Jr|Sr|II|III|IV)\.?$/,"").trim().split(/\s+/).map(w=>w[0]+".").join(" ");
+  return[
+    {k:"Last season",v:`<span class="mono">${fmt(p.g)}</span> games, <span class="mono">${fmt(p.mp)}</span> minutes, <span class="mono">${fmt(p.ws,1)}</span> Win Shares, <span class="mono">${fmt(p.vorp,1)}</span> VORP`},
+    {k:"Bio and contract",v:`Age <span class="mono">${fmt(p.age)}</span> · ${p.rookie?"still on his rookie-scale deal":"veteran contract"} · <span class="mono">${fmt(p.yrs)}</span> ${p.yrs===1?"season":"seasons"} left`},
+    {k:"The paycheck",v:`<span class="mono">${money(p.sal)}</span> in 2026-27, <span class="mono">${money(p.total)}</span> left in total`},
+    {k:"Ledger verdict",v:`This season's surplus value <span class="mono">${sgn(p.sur)}</span> · trade value ranks <span class="mono">${p.rank?ord(p.rank):"–"}</span> of ${ALL.length}`},
+    {k:"Where he plays",v:`${t[2]==="E"?"Eastern":"Western"} Conference · ${moved?"changed teams since last season":"same team as last season"}`},
+    {k:"Team and initials",v:`<img class="logo" src="logos/${p.team}.png" alt="" onerror="this.remove()">${esc(t[0])} · <span class="mono">${esc(init)}</span>`}
+  ];
+}
+
+function cmp(g,a){
+  const arrow=(x,y)=>x==null||y==null?"–":x===y?"=":y>x?"↑":"↓";
+  const team=g.team===a.team?"yes":TEAM[g.team][2]===TEAM[a.team][2]?"near":"no";
+  const near=(x,y,tol)=>x!=null&&y!=null&&Math.abs(x-y)<=tol;
+  return[
+    {cls:team,txt:g.team},
+    {cls:g.age===a.age?"yes":near(g.age,a.age,2)?"near":"no",txt:fmt(g.age)+" "+arrow(g.age,a.age)},
+    {cls:near(g.sal,a.sal,.5)?"yes":near(g.sal,a.sal,5)?"near":"no",txt:money(g.sal,0)+" "+arrow(Math.round(g.sal*10),Math.round(a.sal*10))},
+    {cls:near(g.ws,a.ws,.05)?"yes":near(g.ws,a.ws,1.5)?"near":"no",txt:fmt(g.ws,1)+" "+arrow(Math.round(g.ws*10),Math.round(a.ws*10))}
+  ];
+}
+
+function render(fresh){
+  const a=BY[game.answer],cl=clues(a),done=game.status!=="playing";
+  const shown=done?MAXG:Math.min(game.guesses.length+1,MAXG);
+  let h=`<div class="pipwrap"><div class="pips" aria-hidden="true">${Array.from({length:MAXG},(_,i)=>`<div class="pip ${i<game.guesses.length?(game.guesses[i]===game.answer?"won":"miss"):i===game.guesses.length&&!done?"on":""}"></div>`).join("")}</div>
+    <p class="hint">${done?(game.status==="won"?`Solved on clue ${game.guesses.length}.`:"Out of clues."):`Clue ${shown} of ${MAXG} · worth <b>${MAXG+1-shown}</b> ${MAXG+1-shown===1?"point":"points"} right now`}</p></div>`;
+  h+=`<ol class="clues">${cl.map((c,i)=>i<shown?`<li class="clue${fresh===i?" fresh":""}"><span class="n">${i+1}</span><div><div class="k">${c.k}</div><div class="v">${c.v}</div></div></li>`:`<li class="clue locked"><span class="n">${i+1}</span><div><div class="k">Locked</div><div class="v">Worth ${MAXG-i} ${MAXG-i===1?"point":"points"}</div></div></li>`).join("")}</ol>`;
+  if(!done)h+=`<section class="ask" aria-label="Make a guess">
+      <div class="row"><div class="combo"><input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Type a player's name" role="combobox" aria-expanded="false" aria-controls="opts" aria-autocomplete="list" aria-label="Player name"><ul class="list" id="opts" role="listbox" hidden></ul></div>
+      <button class="btn primary" id="go" disabled>Guess</button></div>
+      <div class="row" style="justify-content:space-between;align-items:center"><span class="hint">Any of ${ALL.length} players can be a guess.</span><button class="btn" id="skip">${shown<MAXG?"Skip to next clue":"Give up"}</button></div></section>`;
+  else h+=resultCard(a);
+  const wrong=game.guesses.filter(g=>g!==game.answer);
+  if(game.guesses.length)h+=`<section class="guesses" aria-label="Your guesses"><div class="ghead"><span>Guess</span><span>Team</span><span>Age</span><span>Salary</span><span>WS</span></div>${game.guesses.map(g=>{
+      if(g===null)return`<div class="g skip"><div class="nm">Skipped</div><div></div><div></div><div></div><div></div></div>`;
+      const p=BY[g];if(!p)return"";if(g===game.answer)return`<div class="g"><div class="nm yes" style="grid-column:1/-1">✓ ${esc(g)}</div></div>`;
+      return`<div class="g"><div class="nm" title="${esc(g)}">${esc(g)}</div>${cmp(p,a).map(c=>`<div class="c ${c.cls}">${esc(c.txt)}</div>`).join("")}</div>`}).join("")}
+      ${wrong.length&&!done?`<p class="hint">Arrows point toward the mystery player: ↑ means he's higher. Yellow team means same conference; yellow numbers are close.</p>`:""}</section>`;
+  if(done&&!game.practice)h+=statsBlock();
+  $("#game").innerHTML=h;
+  if(!done)wire();
+  meters();
+}
+
+function wire(){
+  const q=$("#q"),list=$("#opts"),go=$("#go");let opts=[],sel=-1,pick=null;
+  const guessed=new Set(game.guesses);
+  function draw(){
+    list.innerHTML=opts.map((p,i)=>`<li role="option" id="o${i}" aria-selected="${i===sel}" data-i="${i}"><span>${esc(p.name)}</span><small>${p.team}</small></li>`).join("");
+    list.hidden=!opts.length;q.setAttribute("aria-expanded",!!opts.length);q.setAttribute("aria-activedescendant",sel>=0?"o"+sel:"");
+  }
+  function choose(i){pick=opts[i];q.value=pick.name;opts=[];sel=-1;draw();go.disabled=false;go.focus()}
+  q.addEventListener("input",()=>{
+    pick=null;go.disabled=true;const s=norm(q.value);
+    if(s.length<2){opts=[];draw();return}
+    const parts=s.split(" ");
+    opts=ALL.filter(p=>!guessed.has(p.name)&&parts.every(w=>p.key.split(" ").some(k=>k.startsWith(w)))).sort((x,y)=>(y.mp||0)-(x.mp||0)).slice(0,8);
+    sel=opts.length?0:-1;const exact=opts.find(p=>p.key===s);if(exact){pick=exact;go.disabled=false}
+    draw();
+  });
+  q.addEventListener("keydown",e=>{
+    if(e.key==="ArrowDown"&&opts.length){sel=(sel+1)%opts.length;draw();e.preventDefault()}
+    else if(e.key==="ArrowUp"&&opts.length){sel=(sel-1+opts.length)%opts.length;draw();e.preventDefault()}
+    else if(e.key==="Enter"){e.preventDefault();if(opts.length&&sel>=0)choose(sel);else if(pick)submit(pick.name)}
+    else if(e.key==="Escape"){opts=[];draw()}
+  });
+  list.addEventListener("mousedown",e=>{const li=e.target.closest("li");if(li){e.preventDefault();choose(+li.dataset.i)}});
+  q.addEventListener("blur",()=>setTimeout(()=>{opts=[];draw()},120));
+  go.onclick=()=>pick&&submit(pick.name);
+  $("#skip").onclick=()=>submit(null);
+  if(game.guesses.length&&document.activeElement===document.body)q.focus({preventScroll:true});
+}
+
+function submit(name){
+  game.guesses.push(name);
+  if(name===game.answer)game.status="won";
+  else if(game.guesses.length>=MAXG)game.status="lost";
+  if(!game.practice){if(game.status!=="playing"){store.best=Math.max(store.best||0,streak())}save()}
+  render(game.status==="playing"?game.guesses.length:false);
+  if(game.status!=="playing")$("#game .result")?.scrollIntoView({behavior:"smooth",block:"start"});
+  else $("#q")?.focus({preventScroll:true});
+}
+
+function points(gm){return gm.status==="won"?MAXG+1-gm.guesses.length:0}
+function streak(){
+  // Consecutive daily wins ending today (or yesterday, if today isn't finished yet).
+  let d=new Date(),n=0,k=dayKey(d);
+  if(!store.days[k]||store.days[k].status==="playing"){d.setDate(d.getDate()-1);k=dayKey(d)}
+  while(store.days[k]&&store.days[k].status==="won"){n++;d.setDate(d.getDate()-1);k=dayKey(d)}
+  return n;
+}
+function finished(){return Object.values(store.days).filter(g=>g.status!=="playing")}
+function meters(){
+  const f=finished(),s=streak();
+  $("#sStreak").textContent=s;$("#sBest").textContent=Math.max(store.best||0,s);$("#sPlayed").textContent=f.length;
+  $("#sAvg").textContent=f.length?(f.reduce((t,g)=>t+points(g),0)/f.length).toFixed(1):"–";
+}
+
+function shareText(){
+  const pts=points(game),row=game.guesses.map(g=>g===game.answer?"🟩":g===null?"⬛":"🟥").join("")+"⬜".repeat(MAXG-game.guesses.length);
+  const head=game.practice?"Guess the Player (practice)":`Guess the Player #${dayNum(game.key)+1}`;
+  return`${head} 🏀\n${row}  ${game.status==="won"?pts+"/6 pts":"X/6"}${game.practice?"":"\n🔥 Streak: "+streak()}`;
+}
+
+function resultCard(a){
+  const t=TEAM[a.team],won=game.status==="won",pts=points(game);
+  return`<section class="result" style="--tc:${t[1]}" aria-live="polite">
+    <p class="eyebrow">${won?`Got it · ${pts} ${pts===1?"point":"points"}`:"Not this time"}</p>
+    <div class="who"><img class="logo" src="logos/${a.team}.png" alt="" onerror="this.remove()"><div><h2>${esc(a.name)}</h2><p class="muted">${esc(t[0])} · age ${fmt(a.age)}</p></div></div>
+    <div class="facts">
+      <div><b>${money(a.sal)}</b><span>2026-27 salary</span></div>
+      <div><b>${sgn(a.sur)}</b><span>Surplus this season</span></div>
+      <div><b>${a.rank?ord(a.rank):"–"}</b><span>Trade value rank</span></div>
+      <div><b>${fmt(a.ws,1)}</b><span>Win Shares last season</span></div>
+    </div>
+    <pre class="share" id="shareTxt">${esc(shareText())}</pre>
+    <div class="btns">
+      <button class="btn primary" id="copy">Copy result</button>
+      <a class="btn" href="index.html#player/${encodeURIComponent(a.name)}" style="text-decoration:none">Open his contract</a>
+      <button class="btn" id="again">${game.practice?"Another practice round":"Play practice"}</button>
+    </div>
+    ${game.practice?"":`<p class="hint" id="next"></p>`}
+  </section>`;
+}
+
+function statsBlock(){
+  const f=finished(),dist=[6,5,4,3,2,1,0].map(p=>({p,n:f.filter(g=>points(g)===p).length})),max=Math.max(1,...dist.map(d=>d.n)),me=points(game);
+  return`<section aria-label="Points distribution"><h2 style="font-size:20px;margin-bottom:8px">Your daily scores</h2><div class="dist">${dist.map(d=>`<div><span>${d.p?d.p+" pts":"Miss"}</span><i class="${d.p===me?"me":""}" style="width:${Math.max(6,d.n/max*100)}%">${d.n}</i></div>`).join("")}</div></section>`;
+}
+
+document.addEventListener("click",e=>{
+  if(e.target.id==="copy"){
+    const txt=shareText(),done=()=>toast("Copied. Paste it in the group chat.");
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($("#shareTxt"));const s=getSelection();s.removeAllRanges();s.addRange(r);let ok=false;try{ok=document.execCommand("copy")}catch(_){}ok?done():toast("Text selected. Copy it with your keyboard.")};
+    navigator.clipboard?.writeText?navigator.clipboard.writeText(txt).then(done,fallback):fallback();
+  }
+  if(e.target.id==="again")setMode("practice");
+});
+function toast(m){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+setInterval(()=>{
+  const n=$("#next");if(n){const d=new Date(),m=new Date(d);m.setHours(24,0,0,0);const s=Math.max(0,(m-d)/1000|0);n.textContent=`Next daily player in ${s/3600|0}h ${String((s%3600)/60|0).padStart(2,"0")}m.`}
+  if(mode==="daily"&&game&&game.key&&game.key!==dayKey())setMode("daily");
+},1000);
+init();
+</script>
+</body></html>

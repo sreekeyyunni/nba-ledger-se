@@ -1,0 +1,216 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sentiment Pulse</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: weekly media sentiment. Your team's card on top, then every team as a diverging bar around neutral, then players, then the sources read that week. */
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#141D27; --muted:#5A6676; --line:#DAE0E7; --soft:#EBEFF3;
+  --team:#C2410C; --up:#2B6CB0; --down:#C2522B; --mid:#9AA5B1;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834;
+  --up:#4F8DD6; --down:#D4693F; --mid:#5C6877; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834;
+  --up:#4F8DD6; --down:#D4693F; --mid:#5C6877; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--team);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,6vw,58px);line-height:.95;margin:4px 0 8px;text-transform:uppercase;letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em}
+.lede{max-width:68ch;color:var(--muted);margin:0}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:500 13px var(--body);background:none;border:0;color:var(--muted);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--team);outline-offset:2px}
+.badge{flex:none;object-fit:contain}
+
+/* My team */
+.mine{border-top:4px solid var(--team);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px 28px}
+@media (max-width:760px){.mine{grid-template-columns:1fr}}
+.mine .who{display:flex;gap:14px;align-items:center}
+.mine .big{font:700 52px/1 var(--display)}
+.mine .lab{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mine ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.mine li{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.mine li span:first-child{min-width:0}
+.empty{color:var(--muted)}
+
+/* Diverging rows */
+.rows{display:flex;flex-direction:column;gap:2px}
+.row{display:grid;grid-template-columns:minmax(140px,240px) minmax(0,1fr) 48px;gap:10px;align-items:center;padding:4px 6px;border-radius:6px;position:relative}
+.row:hover,.row:focus-within,.row.on{background:var(--soft)}
+.row.me{box-shadow:inset 3px 0 0 var(--team)}
+.row .name{display:flex;align-items:center;gap:8px;min-width:0;font-size:14px}
+.row .name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .name small{color:var(--muted);font:12px var(--mono);white-space:nowrap;flex:none}
+.row .name .short{display:none}
+.track{position:relative;height:16px}
+.track::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--mid)}
+.bar{position:absolute;top:3px;height:10px}
+.bar.up{left:50%;background:var(--up);border-radius:0 4px 4px 0}
+.bar.down{right:50%;background:var(--down);border-radius:4px 0 0 4px}
+.row .val{text-align:right;font-size:13px}
+.row button.hit{position:absolute;inset:0;background:none;border:0;border-radius:6px;cursor:pointer}
+.scale{display:grid;grid-template-columns:minmax(140px,240px) minmax(0,1fr) 48px;gap:10px;padding:0 6px 6px;font:11px var(--mono);color:var(--muted)}
+.scale div:nth-child(2){display:flex;justify-content:space-between}
+@media (max-width:560px){.row,.scale{grid-template-columns:118px minmax(0,1fr) 40px}.row .name small{display:none}.row .name .full{display:none}.row .name .short{display:inline}}
+.tip{position:fixed;z-index:50;max-width:320px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.18);pointer-events:none}
+.tip b{font-weight:600}
+.tip .k{color:var(--muted);font:12px var(--mono)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+details summary{cursor:pointer;color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+.src{margin:0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.src a{color:var(--ink)}
+.src .k{font:12px var(--mono);color:var(--muted);margin-right:6px}
+</style></head><body>
+<script src="nav.js" data-page="sentiment"></script>
+<main class="wrap">
+  <header>
+    <p class="eyebrow" id="week">Weekly sentiment</p>
+    <h1>Sentiment pulse</h1>
+    <p class="lede">How the basketball media is talking about every team and its key players this week, scored from −100 (gloomy) to +100 (rolling). Built from a fixed set of power rankings, recaps and takeaway columns, read once a week. Hover or tap a row for the storyline and sources.</p>
+  </header>
+
+  <section class="card mine" id="mine" aria-live="polite"></section>
+
+  <section class="card">
+    <div class="head">
+      <div><h2>Teams</h2><p class="sub" id="tsub">Media sentiment this week</p></div>
+      <div class="seg" role="group" aria-label="Sort teams">
+        <button data-sort="score" aria-pressed="true">Sentiment</button>
+        <button data-sort="gap" aria-pressed="false">Vs. preseason</button>
+      </div>
+    </div>
+    <div class="scale" aria-hidden="true"><div></div><div><span>−100</span><span>0</span><span>+100</span></div><div></div></div>
+    <div class="rows" id="teams"></div>
+    <div class="legend"><span><i style="background:var(--up)"></i>Positive coverage</span><span><i style="background:var(--down)"></i>Negative coverage</span><span id="gapnote" hidden>“Vs. preseason” shows how much better or worse this week read than the preseason outlook.</span></div>
+    <details><summary>Show as a table</summary><div class="tablewrap"><table id="ttable"></table></div></details>
+  </section>
+
+  <section class="card">
+    <div class="head">
+      <div><h2>Players</h2><p class="sub">Who the coverage is lifting up or piling on</p></div>
+      <label class="sub">Team <select id="pteam"><option value="">All teams</option></select></label>
+    </div>
+    <div class="scale" aria-hidden="true"><div></div><div><span>−100</span><span>0</span><span>+100</span></div><div></div></div>
+    <div class="rows" id="players"></div>
+    <details><summary>Show as a table</summary><div class="tablewrap"><table id="ptable"></table></div></details>
+  </section>
+
+  <section class="card">
+    <h2>How it's scored</h2>
+    <p class="sub" style="margin-top:8px;max-width:72ch">Each week Claude reads the sources below and rates each team twice on a −2 to +2 scale: how its preseason outlook was framed, and how this week's results and play were written up. The team score weights this week at 60% and the outlook at 40%. Players get one rating from this week's coverage. Fan voices (Reddit team subs) aren't in yet. Early-season scores swing on one or two games, so read them as tone, not truth.</p>
+    <h3 class="sub" style="margin:14px 0 6px;font-weight:600">Sources this week</h3>
+    <ol class="src" id="sources"></ol>
+  </section>
+</main>
+<div class="tip" id="tip" hidden></div>
+<script>
+const TEAM_NAMES={ATL:"Atlanta Hawks",BOS:"Boston Celtics",BRK:"Brooklyn Nets",CHO:"Charlotte Hornets",CHI:"Chicago Bulls",CLE:"Cleveland Cavaliers",DAL:"Dallas Mavericks",DEN:"Denver Nuggets",DET:"Detroit Pistons",GSW:"Golden State Warriors",HOU:"Houston Rockets",IND:"Indiana Pacers",LAC:"LA Clippers",LAL:"Los Angeles Lakers",MEM:"Memphis Grizzlies",MIA:"Miami Heat",MIL:"Milwaukee Bucks",MIN:"Minnesota Timberwolves",NOP:"New Orleans Pelicans",NYK:"New York Knicks",OKC:"Oklahoma City Thunder",ORL:"Orlando Magic",PHI:"Philadelphia 76ers",PHO:"Phoenix Suns",POR:"Portland Trail Blazers",SAC:"Sacramento Kings",SAS:"San Antonio Spurs",TOR:"Toronto Raptors",UTA:"Utah Jazz",WAS:"Washington Wizards"};
+const nick=a=>(TEAM_NAMES[a]||a).replace("Portland Trail Blazers","Trail Blazers").split(" ").slice(-1)[0];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sg=v=>v===""||v==null?"":(v>0?"+":v<0?"−":"")+Math.abs(v);
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}" onerror="this.style.visibility='hidden'">`;
+function parseCSV(t){
+  const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l.replace(/\r$/,"")){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});
+  const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+const get=n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()}).then(parseCSV);
+const myTeam=()=>{try{return(window.appNav&&appNav.team())||localStorage.getItem("myTeam")}catch(e){return null}};
+
+let teams=[],players=[],sources={},sortKey="score";
+const tip=document.getElementById("tip");
+
+function bar(v){const w=Math.min(50,Math.abs(v)/2);return v>=0?`<div class="bar up" style="width:${w}%"></div>`:`<div class="bar down" style="width:${w}%"></div>`}
+function srcList(keys){const ks=keys.split(" ").filter(Boolean);return `${ks.length} source${ks.length==1?"":"s"}: ${ks.join(" · ")}`}
+
+function rowHTML(r,i,kind){
+  const v=kind==="team"&&sortKey==="gap"?r.gap:r.score;
+  const label=kind==="team"?`<span class="full">${esc(TEAM_NAMES[r.Team]||r.Team)}</span><span class="short">${esc(nick(r.Team))}</span><small>${esc(r.record)}</small>`:`<span>${esc(r.Player)}</span><small>${esc(r.Team)}</small>`;
+  const aria=kind==="team"?`${TEAM_NAMES[r.Team]}: ${sg(r.score)}, ${r.label}`:`${r.Player}: ${sg(r.score)}, ${r.label}`;
+  return `<div class="row${r.Team===myTeam()&&kind==="team"?" me":""}" data-kind="${kind}" data-i="${i}">
+    <div class="name">${badge(r.Team,20)}${label}</div>
+    <div class="track">${bar(v)}</div>
+    <div class="val num">${sg(v)||"0"}</div>
+    <button class="hit" aria-label="${esc(aria)}"></button></div>`;
+}
+
+function tipHTML(kind,r){
+  if(kind==="team")return `<b>${esc(TEAM_NAMES[r.Team])}</b> <span class="k">${esc(r.record)} · #${r.rank} of 30</span><br>${esc(r.storyline)}<br><span class="k">Score ${sg(r.score)} (${esc(r.label)})${r.change!==""?` · ${sg(+r.change)} vs last week`:""} · preseason tone ${sg(+r.preseason_tone)}, this week ${sg(+r.week_tone)}</span><br><span class="k">${esc(srcList(r.sources))}</span>`;
+  return `<b>${esc(r.Player)}</b> <span class="k">${esc(r.Team)}</span><br>${esc(r.note)}<br><span class="k">Score ${sg(r.score)} (${esc(r.label)})${r.change!==""?` · ${sg(+r.change)} vs last week`:""} </span><br><span class="k">${esc(srcList(r.sources))}</span>`;
+}
+
+function drawTeams(){
+  const list=[...teams].sort((a,b)=>sortKey==="gap"?b.gap-a.gap:b.score-a.score);
+  document.getElementById("teams").innerHTML=list.map((r,i)=>rowHTML(r,teams.indexOf(r),"team")).join("");
+  document.getElementById("tsub").textContent=sortKey==="gap"?"This week's coverage minus the preseason outlook":"Media sentiment this week";
+  document.getElementById("gapnote").hidden=sortKey!=="gap";
+}
+function drawPlayers(){
+  const t=document.getElementById("pteam").value;
+  const list=players.filter(p=>!t||p.Team===t);
+  document.getElementById("players").innerHTML=list.length?list.map(p=>rowHTML(p,players.indexOf(p),"player")).join(""):`<p class="empty">No players tracked for this team yet.</p>`;
+}
+function drawMine(){
+  const el=document.getElementById("mine"),t=myTeam(),r=teams.find(x=>x.Team===t);
+  if(!r){el.innerHTML=`<div><h2>Your team</h2><p class="empty" style="margin:6px 0 0">Pick your team from the top bar to see its pulse here.</p></div>`;return}
+  const ps=players.filter(p=>p.Team===t);
+  el.innerHTML=`<div><div class="who">${badge(t,56)}<div><p class="lab">Your team · #${r.rank} of 30</p><h2>${esc(TEAM_NAMES[t])}</h2></div></div>
+    <p style="margin:14px 0 0"><span class="big num">${sg(r.score)||"0"}</span> <span class="lab">${esc(r.label)}${r.change!==""?` · ${sg(+r.change)} vs last week`:""}</span></p>
+    <p style="margin:6px 0 0">${esc(r.storyline)}</p></div>
+    <div><p class="lab">Players in the coverage</p>${ps.length?`<ul>${ps.map(p=>`<li><span><b>${esc(p.Player)}</b> · ${esc(p.note)}</span><span class="num">${sg(p.score)||"0"}</span></li>`).join("")}</ul>`:`<p class="empty">No player storylines this week.</p>`}</div>`;
+  const pt=document.getElementById("pteam");if(!pt.dataset.touched&&ps.length){pt.value=t;drawPlayers()}
+}
+function drawTables(){
+  document.getElementById("ttable").innerHTML=`<thead><tr><th>#</th><th>Team</th><th>Rec</th><th>Score</th><th>Vs. pre</th><th>Storyline</th></tr></thead><tbody>${[...teams].sort((a,b)=>a.rank-b.rank).map(r=>`<tr><td class="num">${r.rank}</td><td>${esc(r.Team)}</td><td class="num">${esc(r.record)}</td><td class="num">${sg(r.score)||0}</td><td class="num">${sg(r.gap)||0}</td><td>${esc(r.storyline)}</td></tr>`).join("")}</tbody>`;
+  document.getElementById("ptable").innerHTML=`<thead><tr><th>Player</th><th>Team</th><th>Score</th><th>Note</th></tr></thead><tbody>${players.map(p=>`<tr><td>${esc(p.Player)}</td><td>${esc(p.Team)}</td><td class="num">${sg(p.score)||0}</td><td>${esc(p.note)}</td></tr>`).join("")}</tbody>`;
+}
+
+function showTip(row,x,y){
+  const r=row.dataset.kind==="team"?teams[row.dataset.i]:players[row.dataset.i];
+  tip.innerHTML=tipHTML(row.dataset.kind,r);tip.hidden=false;
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  tip.style.left=Math.max(8,Math.min(innerWidth-w-8,x+14))+"px";
+  tip.style.top=Math.max(8,y+h+20>innerHeight?y-h-14:y+14)+"px";
+}
+document.addEventListener("pointermove",e=>{const row=e.target.closest&&e.target.closest(".row");if(row&&e.pointerType==="mouse")showTip(row,e.clientX,e.clientY);else if(e.pointerType==="mouse")tip.hidden=true});
+document.addEventListener("click",e=>{const row=e.target.closest&&e.target.closest(".row");document.querySelectorAll(".row.on").forEach(x=>x.classList.remove("on"));if(row){row.classList.add("on");const b=row.getBoundingClientRect();showTip(row,b.left+b.width/3,b.bottom-6)}else tip.hidden=true});
+document.addEventListener("focusin",e=>{const row=e.target.closest&&e.target.closest(".row");if(row){const b=row.getBoundingClientRect();showTip(row,b.left+b.width/3,b.bottom-6)}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")tip.hidden=true});
+addEventListener("scroll",()=>{tip.hidden=true},{passive:true});
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{sortKey=b.dataset.sort;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));drawTeams()});
+document.getElementById("pteam").onchange=e=>{e.target.dataset.touched=1;drawPlayers()};
+addEventListener("storage",e=>{if(e.key==="myTeam"){drawMine();drawTeams()}});
+
+(async()=>{
+  try{
+    const [t,p,s]=await Promise.all([get("sentiment_teams"),get("sentiment_players"),get("sentiment_sources")]);
+    teams=t.map(r=>({...r,score:+r.score,gap:+r.gap,rank:+r.rank,mentions:+r.mentions,change:r.change===""?"":+r.change}));
+    players=p.map(r=>({...r,score:+r.score,mentions:+r.mentions,change:r.change===""?"":+r.change}));
+    s.forEach(r=>{const m=r.source.match(/^(.*?)\s+(https?:\/\/\S+)$/);sources[r.key]={label:m?m[1]:r.source,url:m?m[2]:""}});
+    const wk=t[0]&&t[0].week;if(wk)document.getElementById("week").textContent="Weekly sentiment · week of "+new Date(wk+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+    const sel=document.getElementById("pteam");
+    [...new Set(players.map(p=>p.Team))].sort((a,b)=>(TEAM_NAMES[a]||a).localeCompare(TEAM_NAMES[b]||b)).forEach(a=>sel.insertAdjacentHTML("beforeend",`<option value="${a}">${esc(TEAM_NAMES[a]||a)}</option>`));
+    document.getElementById("sources").innerHTML=Object.entries(sources).map(([k,v])=>`<li><span class="k">${esc(k)}</span>${v.url?`<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.label)}</a>`:esc(v.label)}</li>`).join("");
+    drawTeams();drawPlayers();drawMine();drawTables();
+  }catch(e){document.getElementById("teams").innerHTML=`<p class="empty">Couldn't load this week's sentiment data.</p>`}
+})();
+</script>
+</body></html>

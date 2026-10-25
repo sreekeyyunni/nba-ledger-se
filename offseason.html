@@ -1,0 +1,459 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="offseason"></script>
+<title>Offseason Mode</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: same ledger system as Contract Ledger. Team strip, sticky cap summary, four tabs (cap sheet, free agents, extensions, mock draft). */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
+  --accent:#C2410C; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --goodtint:rgba(21,128,61,.07); --dim:#C3CCD6;
+  --seg1:#2F6FAD; --seg2:#7A8CA3; --seg3:#C2410C; --seg4:#15803D;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --goodtint:rgba(74,222,128,.07); --dim:#33404E;
+  --seg1:#5B9BD5; --seg2:#6B7C91; --seg3:#F08A4B; --seg4:#4ADE80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --goodtint:rgba(74,222,128,.07); --dim:#33404E;
+  --seg1:#5B9BD5; --seg2:#6B7C91; --seg3:#F08A4B; --seg4:#4ADE80; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:.95;margin:6px 0 10px;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
+h3{font-size:22px}
+.lede{max-width:66ch;color:var(--muted);margin:0}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.pos{color:var(--good)} .neg{color:var(--bad)} .warn{color:var(--warn)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{font:500 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+select{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+input[type=search]{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px;width:180px}
+label.chk{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer}
+.chip{display:inline-block;font:500 11px var(--mono);padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.g{border-color:var(--good);color:var(--good)} .chip.b{border-color:var(--bad);color:var(--bad)} .chip.w{border-color:var(--warn);color:var(--warn)} .chip.a{border-color:var(--accent);color:var(--accent)}
+.badge{flex:none;vertical-align:middle;object-fit:contain}
+
+/* team picker */
+.picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+@media (max-width:520px){.picker{grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}.picker button{padding:6px 2px;font-size:11px}}
+.picker button{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 4px;cursor:pointer;font:500 12px var(--body);color:var(--muted)}
+.picker button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);color:var(--ink)}
+.picker button:hover{color:var(--ink)}
+
+/* team banner + sticky summary */
+.banner{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--teamc,var(--accent));border-radius:8px;padding:14px 16px}
+.banner .who{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 220px}
+.banner h2{font-size:clamp(28px,5vw,40px);line-height:1}
+.controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface);flex-wrap:wrap}
+.seg button{font:500 13px var(--body);color:var(--muted);background:none;border:0;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.space{display:flex;gap:6px 20px;flex-wrap:wrap;margin:0;margin-left:auto}
+.space div{display:flex;flex-direction:column}
+.space dt{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.space dd{margin:0;font:500 16px var(--mono);font-variant-numeric:tabular-nums}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.sectionhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.cols2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:900px){.cols2{grid-template-columns:minmax(0,1fr)}}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px;margin:0}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.kv .tot{font-weight:600;color:var(--ink);border-top:1px solid var(--line);padding-top:4px}
+
+/* tables */
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;max-height:620px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+th{position:sticky;top:0;background:var(--surface);z-index:1;font:600 11px var(--body);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+th.num,td.num{text-align:right;font-family:var(--mono)}
+tr.mine{background:var(--goodtint);box-shadow:inset 3px 0 0 var(--accent)}
+tr.off td{color:var(--muted)} tr.off td.amt{text-decoration:line-through}
+td.wrapc{white-space:normal;min-width:220px;max-width:420px}
+td select{font-size:13px;padding:3px 6px}
+
+/* cap gauge */
+.gauge svg{display:block;width:100%;height:auto}
+.gauge text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* extensions */
+.ext{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px}
+.ecard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px;border-left:5px solid var(--dim)}
+.ecard.g{border-left-color:var(--good)} .ecard.b{border-left-color:var(--bad)} .ecard.w{border-left-color:var(--warn)}
+.ecard h4{font-family:var(--display);font-size:24px;line-height:1;margin:0;text-transform:uppercase}
+.ecard .verdict{font-weight:600;margin:0}
+.yrs{display:grid;grid-template-columns:repeat(auto-fit,minmax(56px,1fr));gap:4px}
+.yrs div{background:var(--bg);border-radius:4px;padding:4px 6px;font:11px var(--mono);display:flex;flex-direction:column;gap:1px}
+.yrs b{font-weight:500;color:var(--ink)}
+
+/* draft */
+.oc{border:1px solid var(--accent);border-radius:8px;background:var(--surface);padding:14px;display:flex;flex-direction:column;gap:10px}
+.avail{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:8px}
+.avail button{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;cursor:pointer;font:13px var(--body);color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.avail button:hover{border-color:var(--accent)}
+.avail small{color:var(--muted);font-size:12px}
+.mypicks{display:flex;gap:10px;flex-wrap:wrap}
+footer{color:var(--muted);font-size:12px;max-width:84ch;border-top:1px solid var(--line);padding-top:14px}
+footer p{margin:0 0 6px}
+footer a{color:var(--muted)}
+.notice{font-size:13px;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin:0}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">NBA Asset Tracker · Summer 2027 planner · as of Oct 25, 2026</p>
+    <h1>Offseason Mode</h1>
+    <p class="lede">Pick your team and run its summer: how much cap space it really has, which free agents are worth chasing, who to extend, and who it takes in the draft. Every price comes from the Contract Ledger's numbers: a player's healthy production at the league minimum plus $6.20M per Win Share above replacement, aged a year and grown 7% with the cap.</p>
+  </header>
+
+  <section class="panel" id="pickerPanel" aria-label="Pick your team">
+    <div class="sectionhead"><h3 id="pickTitle">Pick your team</h3><p class="sub" id="pickNote">Your pick is remembered on this device. Add #BOS (or any team code) to the link to share a team.</p></div>
+    <button class="btn" id="changeTeam" hidden>Change team</button><div class="picker" id="picker"></div>
+  </section>
+
+  <div class="banner" id="banner"></div>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Section">
+      <button data-tab="cap" aria-pressed="true">Cap space</button>
+      <button data-tab="fa" aria-pressed="false">Free agents</button>
+      <button data-tab="ext" aria-pressed="false">Extensions</button>
+      <button data-tab="draft" aria-pressed="false">Mock draft</button>
+    </div>
+    <dl class="space" id="space"></dl>
+  </div>
+
+  <section id="v-cap" style="display:flex;flex-direction:column;gap:18px"></section>
+  <section id="v-fa" hidden style="flex-direction:column;gap:18px"></section>
+  <section id="v-ext" hidden style="flex-direction:column;gap:18px"></section>
+  <section id="v-draft" hidden style="flex-direction:column;gap:18px"></section>
+
+  <footer>
+    <p><b>Cap figures for 2027-28.</b> Cap $176.0M is the league's September 2026 projection; the tax line and aprons are scaled from 2026-27 by the same ratios (tax $213.8M, first apron $223.0M, second apron $236.5M). Exceptions are scaled from the 2025-26 amounts: non-taxpayer MLE $16.1M, taxpayer MLE $6.5M, room exception $10.0M.</p>
+    <p><b>Cap holds</b> are approximations of the CBA rules: 150% of last salary for players earning above about $13.5M, 190% below that, 250% for rookie-scale players, at least $2.4M, never above the player's max. First-round picks hold their slot's rookie scale (scaled from 2025 to 2027). Under 12 players, each empty spot is charged a rookie minimum ($1.36M). Dead money for 2027-28 comes from Spotrac's league cash table (Phoenix and Milwaukee carry the most). Two-way contracts are not counted.</p>
+    <p><b>Prices.</b> Fair price = healthy production value (Contract Ledger "If healthy" lens), then per year +7% for cap growth and an age curve (+8% through 23, +3% at 24-26, flat at 27-29, −5% at 30-31, −10% at 32-33, −16% after). Max salaries use age as a stand-in for years of service: 25% of the cap under 27, 30% at 27-29, 35% from 30. Extension surplus discounts later years 8% a year.</p>
+    <p><b>Draft.</b> Order and protections come from the tracker's 2027 pick map (projected standings, swaps and protections resolved by slot). The lottery button uses the real 2019 odds (14% each for the three worst teams). Prospects: Tankathon 2027 big board top 60, October 2026. Sources: Basketball Reference, Spotrac, <a href="https://www.nbcsports.com/nba/news/nba-informs-teams-of-slight-increase-in-salary-cap-projection-for-2027-28-season-to-176-million" target="_blank" rel="noopener">NBC Sports (cap projection)</a>, <a href="https://www.tankathon.com/big-board" target="_blank" rel="noopener">Tankathon</a>.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=v=>v==null||isNaN(v)?"–":"$"+v.toFixed(1)+"M";
+const sgn=v=>v==null||isNaN(v)?"–":(v>=0?"+":"−")+"$"+Math.abs(v).toFixed(1)+"M";
+const cls=v=>v==null?"":v>=0?"pos":"neg";
+function parseCSV(t){
+  const rows=t.trim().split("\n").map(l=>{l=l.replace(/\r$/,"");const out=[];let cur="",q=false;for(const c of l){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});
+  const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+const N=v=>v===""||v==null?null:+v;
+
+// ---- League constants (2027-28 projected; $M) -----------------------------
+const CAP=176.0, TAX=CAP*1.215, AP1=CAP*209.015/164.961, AP2=CAP*221.686/164.961;
+const NTMLE=CAP*0.0912, TPMLE=CAP*0.03676, ROOMEX=CAP*0.05678, RMIN=1.36, FLOOR=2.4;
+const capT=t=>t===0?164.961:CAP*Math.pow(1.07,t-1);   // t = seasons after 2026-27
+// 2025 rookie scale (120% figures) × 0.948 = 2027 scale amount for slots 1-30
+const SCALE=[13.83,12.37,11.11,10.02,9.09,8.27,7.55,6.92,6.36,5.91,5.61,5.33,5.07,4.82,4.58,4.35,4.14,3.97,3.82,3.68,3.54,3.40,3.27,3.16,3.08,3.01,2.95,2.88,2.83,2.82].map(v=>v*0.948);
+const YRS=["2026-27","2027-28","2028-29","2029-30","2030-31","2031-32"];
+const TEAM={ATL:["Atlanta Hawks","#C8102E"],BOS:["Boston Celtics","#007A33"],BRK:["Brooklyn Nets","#000000"],CHO:["Charlotte Hornets","#1D1160"],CHI:["Chicago Bulls","#CE1141"],CLE:["Cleveland Cavaliers","#860038"],DAL:["Dallas Mavericks","#00538C"],DEN:["Denver Nuggets","#0E2240"],DET:["Detroit Pistons","#C8102E"],GSW:["Golden State Warriors","#1D428A"],HOU:["Houston Rockets","#CE1141"],IND:["Indiana Pacers","#002D62"],LAC:["LA Clippers","#C8102E"],LAL:["Los Angeles Lakers","#552583"],MEM:["Memphis Grizzlies","#5D76A9"],MIA:["Miami Heat","#98002E"],MIL:["Milwaukee Bucks","#00471B"],MIN:["Minnesota Timberwolves","#0C2340"],NOP:["New Orleans Pelicans","#0C2340"],NYK:["New York Knicks","#006BB6"],OKC:["Oklahoma City Thunder","#007AC1"],ORL:["Orlando Magic","#0077C0"],PHI:["Philadelphia 76ers","#006BB6"],PHO:["Phoenix Suns","#1D1160"],POR:["Portland Trail Blazers","#E03A3E"],SAC:["Sacramento Kings","#5A2D81"],SAS:["San Antonio Spurs","#000000"],TOR:["Toronto Raptors","#CE1141"],UTA:["Utah Jazz","#002B5C"],WAS:["Washington Wizards","#002B5C"]};
+const tname=a=>(TEAM[a]||[a])[0];
+const nick=a=>tname(a).split(" ").slice(-1)[0];
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}" style="width:${s}px;height:${s}px">`;
+
+// ---- Valuation ------------------------------------------------------------
+const ageStep=a=>a<=23?1.08:a<=26?1.03:a<=29?1.0:a<=31?0.95:a<=33?0.9:0.84;
+function fair(p,t){if(p.hv==null)return null;let v=Math.max(p.hv,0),a=p.age;for(let i=0;i<t;i++){v*=ageStep(a)*1.07;a++}return v}
+const maxPct=a=>a<27?0.25:a<30?0.30:0.35;
+function ask(p,t){const f=fair(p,t);if(f==null)return null;return Math.min(Math.max(f,FLOOR*Math.pow(1.07,Math.max(0,t-1))),maxPct(p.age+t)*capT(t))}
+function capHold(p){const last=p.sal[0]||0;let h=p.rookie?2.5*last:last>=13.5?1.5*last:1.9*last;return Math.min(Math.max(h,FLOOR),maxPct(p.age+1)*CAP)}
+
+let players=[],picks=[],board=[],DEAD={};
+const st={team:"MEM",tab:"cap",dec:{},hold:{},pk:{},sign:[],faq:"",faFit:false,faType:"all",extYrs:{},draft:null,iPick:true,chosen:false};
+
+function load(){try{const s=JSON.parse(localStorage.getItem("offseason")||"{}");if(TEAM[s.team]){st.team=s.team;st.chosen=true}}catch(e){}
+  try{const m=localStorage.getItem("myTeam");if(TEAM[m]){st.team=m;st.chosen=true}}catch(e){}
+  const h=(location.hash||"").slice(1).toUpperCase();if(TEAM[h]){st.team=h;st.chosen=true}}
+function save(){try{localStorage.setItem("offseason",JSON.stringify({team:st.team}))}catch(e){}}
+
+// ---- Cap sheet ------------------------------------------------------------
+function optDefault(p,o){const s=p.sal[1],f=ask(p,1);if(o==="TO")return p.rookie||f==null||f>=s*0.9?"in":"out";return f==null||s>=f*0.95?"in":"out"}
+const optOf=p=>p.opts["2027-28"];
+function decision(p){const o=optOf(p);return o?(st.dec[p.name]||optDefault(p,o)):"in"}
+function becomesFA(p){if(!(p.sal[0]>=0.5))return false;if(!(p.sal[1]>0))return true;return !!optOf(p)&&decision(p)==="out"}
+function keepDefault(p){const f=ask(p,1);return f!=null&&f>=Math.max(3,0.8*(p.sal[0]||0))&&capHold(p)<=2*f}
+const keeps=p=>st.hold[p.name]??keepDefault(p);
+
+function sheet(team,opts={}){
+  const rows=[];const ros=players.filter(p=>p.team===team);
+  for(const p of ros){
+    const o=optOf(p);
+    if(p.sal[1]>0&&(!o||decision(p)==="in"))rows.push({kind:o?(o==="TO"?"Team option":"Player option"):"Guaranteed",p,amt:p.sal[1],on:true,opt:o});
+    else if(becomesFA(p)){const h=capHold(p);rows.push({kind:"Cap hold",p,amt:h,on:opts.renounce?false:keeps(p),opt:o,fa:true})}
+  }
+  // declined options are listed with the hold row; keep the option row visible as "declined"
+  for(const p of ros){const o=optOf(p);if(p.sal[1]>0&&o&&decision(p)==="out"){const r=rows.find(r=>r.p===p&&r.fa);if(r)r.declined=o}}
+  if(DEAD[team]>0.05)rows.push({kind:"Dead money",amt:DEAD[team],on:true});
+  for(const k of myFirsts(team)){rows.push({kind:"Draft pick",pick:k,amt:SCALE[k.slot-1],on:opts.renounce?true:(st.pk[k.id]??true)})}
+  if(team===st.team)for(const s of st.sign)rows.push({kind:"Signing",p:s.p,amt:s.price,on:true,how:s.how});
+  const on=rows.filter(r=>r.on);const count=on.length;
+  const charge=count<12?(12-count)*RMIN:0;
+  const total=on.reduce((s,r)=>s+r.amt,0)+charge;
+  return{rows,count,charge,total,space:CAP-total};
+}
+function tier(total){return total>AP2?"over 2nd apron":total>AP1?"over 1st apron":total>TAX?"over tax":total>CAP?"over cap":"under cap"}
+function fitFor(price,sh){
+  if(price==null)return{ok:false,how:"Not valued"};
+  if(sh.space>=price)return{ok:true,how:"Cap room"};
+  if(sh.space>0&&price<=ROOMEX&&sh.total<=CAP)return{ok:true,how:"Room exception"};
+  if(price<=NTMLE&&sh.total+price<=AP1)return{ok:true,how:"Non-taxpayer MLE"};
+  if(price<=TPMLE&&sh.total+price<=AP2)return{ok:true,how:"Taxpayer MLE"};
+  return{ok:false,how:"Needs a trade"};
+}
+
+// ---- Draft order ----------------------------------------------------------
+function baseOrder(){
+  // one entry per original team per round, in projected slot order
+  const rows=picks.filter(r=>r.year===2027&&!r.swap);const by={};
+  for(const r of rows){const k=r.round+"|"+r.orig;(by[k]=by[k]||[]).push(r)}
+  const out=Object.values(by).map(br=>({orig:br[0].orig,round:br[0].round,exp:br[0].exp,branches:br}));
+  const r1=out.filter(o=>o.round===1).sort((a,b)=>a.exp-b.exp),r2=out.filter(o=>o.round===2).sort((a,b)=>a.exp-b.exp);
+  return r1.map(o=>o.orig).concat(r2.map(o=>o.orig)).map((orig,i)=>({orig,round:i<r1.length?1:2,key:(i<r1.length?1:2)+"|"+orig,ent:out.find(o=>o.orig===orig&&o.round===(i<r1.length?1:2))}));
+}
+function resolve(order){
+  // assign each slot's owner from protections, then apply swap rights
+  order.forEach((o,i)=>{const slot=i+1;o.slot=slot;const br=o.ent.branches;
+    let b=br.find(x=>x.prot&&slot>=x.prot[0]&&slot<=x.prot[1]);
+    if(!b)b=br.slice().sort((x,y)=>y.p-x.p)[0];
+    o.owner=b.owner;o.note=br.length>1?`Protected ${br.map(x=>x.prot?`${x.prot[0]}-${x.prot[1]}`:"").filter(Boolean).join(" / ")}: ${slot} goes to ${nick(b.owner)}`:(b.notes||"");o.swapped=false;o.id="2027-"+o.round+"-"+o.orig});
+  for(const s of picks.filter(r=>r.year===2027&&r.swap&&r.value>0)){
+    const holder=s.owner,other=s.swapWith,round=s.round;
+    const so=order.find(o=>o.round===round&&o.orig===other),sh=order.find(o=>o.round===round&&o.orig===holder);
+    if(so&&sh&&so.owner===other&&sh.owner===holder&&so.slot<sh.slot){so.owner=holder;sh.owner=other;so.swapped=sh.swapped=true;so.note=`${nick(holder)} swap: takes ${nick(other)}'s higher pick`;sh.note=`Swapped to ${nick(other)}`}
+  }
+  return order;
+}
+function rng(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296}}
+const LOTTO=[140,140,140,125,105,90,75,60,45,30,20,15,10,5];
+function runLottery(order,r){
+  const lot=order.filter(o=>o.round===1).slice(0,14),w=lot.map((o,i)=>({o,w:LOTTO[i]})),won=[];
+  for(let k=0;k<4;k++){const tot=w.reduce((s,x)=>s+x.w,0);let x=r()*tot;let j=0;for(;j<w.length-1;j++){x-=w[j].w;if(x<0)break}won.push(w[j].o);w.splice(j,1)}
+  const rest=lot.filter(o=>!won.includes(o));const newTop=won.concat(rest);
+  return newTop.concat(order.filter(o=>!lot.includes(o)));
+}
+function newDraft(lottery){
+  let order=baseOrder().map(o=>({...o}));const seed=Math.floor(Math.random()*1e9);
+  if(lottery)order=runLottery(order,rng(seed));
+  order=resolve(order);
+  st.draft={order,picks:[],seed,lottery,r:rng(seed+7),avail:board.slice()};
+}
+function myFirsts(team){if(!st.draft)newDraft(false);return st.draft.order.filter(o=>o.round===1&&o.owner===team).map(o=>({id:o.id,slot:o.slot,orig:o.orig}))}
+function autoPick(){const d=st.draft,r=d.r;let best=null,bs=1e9;
+  for(const p of d.avail){const g=(r()+r()+r()-1.5)*1.9;const sc=p.rank+g*(1.5+p.rank*0.14);if(sc<bs){bs=sc;best=p}}
+  return best||{rank:99,name:"Draft-and-stash prospect",pos:"–",school:"International"};}
+function take(p){const d=st.draft;d.picks.push(p);d.avail=d.avail.filter(x=>x!==p)}
+function advance(){const d=st.draft;while(d.picks.length<d.order.length){const o=d.order[d.picks.length];if(st.iPick&&o.owner===st.team)return;take(autoPick())}}
+
+// ---- Rendering ------------------------------------------------------------
+function drawPicker(){
+  $("#picker").innerHTML=Object.keys(TEAM).sort((a,b)=>tname(a).localeCompare(tname(b))).map(t=>`<button data-team="${t}" aria-pressed="${t===st.team}">${badge(t,34)}<span>${nick(t)}</span></button>`).join("");
+  $("#pickTitle").textContent=st.chosen?"Your team":"Pick your team";$("#picker").hidden=st.chosen&&!st.showPicker;$("#changeTeam").hidden=!st.chosen||st.showPicker;
+  $("#pickNote").textContent=st.chosen?`Planning for the ${tname(st.team)}. Share this team with the page link plus #${st.team}.`:"Showing Memphis until you pick. Your pick is remembered on this device; add #BOS (or any team code) to the link to share a team.";
+}
+function drawBanner(sh){
+  const b=$("#banner");b.style.setProperty("--teamc",TEAM[st.team][1]);
+  const ros=players.filter(p=>p.team===st.team);const now=ros.reduce((s,p)=>s+(p.sal[0]||0),0);
+  const fas=ros.filter(becomesFA).length;const firsts=myFirsts(st.team);
+  b.innerHTML=`${badge(st.team,64)}<div class="who"><h2>${tname(st.team)}</h2><p class="sub">2026-27 contracts ${money(now)} · ${fas} free agents next summer · ${firsts.length?firsts.length+" first-round pick"+(firsts.length>1?"s":"")+" in 2027 (projected #"+firsts.map(f=>f.slot).join(", #")+")":"no 2027 first-round pick"}</p></div>`;
+}
+function drawSpace(sh,mx){
+  $("#space").innerHTML=`<div><dt>Your plan</dt><dd class="${cls(sh.space)}">${sh.space>=0?money(sh.space)+" space":money(-sh.space)+" over cap"}</dd></div><div><dt>Max space</dt><dd class="${cls(mx.space)}">${mx.space>=0?money(mx.space):"none"}</dd></div><div><dt>Status</dt><dd>${tier(sh.total)}</dd></div>`;
+}
+function gauge(sh){
+  const segs=[["Guaranteed + dead money","var(--seg1)"],["Options","var(--seg2)"],["Cap holds","var(--seg3)"],["Picks, signings, roster spots","var(--seg4)"]];
+  const on=sh.rows.filter(r=>r.on);const sum=f=>on.filter(f).reduce((s,r)=>s+r.amt,0);
+  const vals=[sum(r=>r.kind==="Guaranteed"||r.kind==="Dead money"),sum(r=>/option/.test(r.kind)),sum(r=>r.kind==="Cap hold"),sum(r=>r.kind==="Draft pick"||r.kind==="Signing")+sh.charge];
+  const W=720,H=110,l=8,r=8,xmax=Math.max(AP2+12,sh.total+10),x=v=>l+v/xmax*(W-l-r);
+  let cx=0,bars="";vals.forEach((v,i)=>{if(v>0){bars+=`<rect x="${x(cx)}" y="48" width="${Math.max(0,x(cx+v)-x(cx))}" height="26" fill="${segs[i][1]}"></rect>`;cx+=v}});
+  const lines=[["Cap",CAP],["Tax",TAX],["1st apron",AP1],["2nd apron",AP2]].map(([n,v],i)=>{const ty=[12,26,40,12][i];return `<line x1="${x(v)}" x2="${x(v)}" y1="${ty+4}" y2="80" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="${i?"3 3":""}"></line><text x="${x(v)}" y="${ty}" text-anchor="${i===3?"end":"middle"}">${n} ${v.toFixed(0)}</text>`}).join("");
+  return `<div class="gauge"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="2027-28 team salary against the cap and aprons"><rect x="${l}" y="48" width="${W-l-r}" height="26" fill="var(--bg)" stroke="var(--line)"></rect>${bars}${lines}<text x="${x(sh.total)}" y="98" text-anchor="middle" style="fill:var(--ink)">${money(sh.total)}</text></svg>
+  <div class="legend">${segs.map((s,i)=>`<span><i style="background:${s[1]}"></i>${s[0]} ${money(vals[i])}</span>`).join("")}</div></div>`;
+}
+function drawCap(sh,mx){
+  const rows=sh.rows.slice().sort((a,b)=>(b.on-a.on)||b.amt-a.amt);
+  const ctl=r=>{
+    if(r.kind==="Guaranteed")return `<span class="sub">Locked in</span>`;
+    if(r.kind==="Dead money")return `<span class="sub">Owed to waived players</span>`;
+    if(r.kind==="Draft pick")return `<select data-pk="${r.pick.id}"><option value="1"${r.on?" selected":""}>Keep the pick</option><option value="0"${!r.on?" selected":""}>Trade or stash it</option></select>`;
+    if(r.kind==="Signing")return `<button class="btn" data-unsign="${esc(r.p.name)}">Remove</button>`;
+    const o=r.opt,p=r.p;let h="";
+    if(o){const d=decision(p);h+=o==="TO"?`<select data-opt="${esc(p.name)}"><option value="in"${d==="in"?" selected":""}>Pick up option</option><option value="out"${d==="out"?" selected":""}>Decline option</option></select> `:`<select data-opt="${esc(p.name)}"><option value="in"${d==="in"?" selected":""}>He opts in</option><option value="out"${d==="out"?" selected":""}>He opts out</option></select> `}
+    if(r.fa)h+=`<select data-hold="${esc(p.name)}"><option value="1"${r.on?" selected":""}>Keep his rights</option><option value="0"${!r.on?" selected":""}>Renounce</option></select>`;
+    return h;
+  };
+  const who=r=>r.kind==="Dead money"?"Waived and stretched players":r.kind==="Draft pick"?`#${r.pick.slot} pick${r.pick.orig!==st.team?" (from "+nick(r.pick.orig)+")":""}`:esc(r.p.name)+(r.p.rookie?" <span class='chip'>rookie deal</span>":"");
+  const kind=r=>r.kind==="Cap hold"?(r.declined?`Free agent <span class="chip w">${r.declined==="TO"?"option declined":"opted out"}</span>`:(r.p.rookie?"Restricted free agent":"Free agent")):r.kind==="Signing"?`Signing <span class="chip g">${esc(r.how)}</span>`:r.kind;
+  const val=r=>r.p?money(ask(r.p,1)):"–";
+  const opts=sh.rows.filter(r=>r.opt).length,fas=sh.rows.filter(r=>r.fa).length;
+  const tools=sh.space>0?`Cap room of ${money(sh.space)}, then the ${money(ROOMEX)} room exception.`:sh.total<=AP1?`Over the cap: the ${money(NTMLE)} non-taxpayer MLE (hard-caps you at the first apron), plus Bird rights on your own free agents.`:sh.total<=AP2?`Over the first apron: the ${money(TPMLE)} taxpayer MLE and Bird rights.`:"Over the second apron: minimum contracts and Bird rights only. No MLE, no aggregating salaries in trades.";
+  $("#v-cap").innerHTML=`<div class="cols2"><div class="panel"><div class="sectionhead"><h3>2027-28 cap sheet</h3><p class="sub">${sh.count} roster spots filled</p></div>${gauge(sh)}
+    <p class="sub">Change any decision below and the space updates. Defaults: a player opts out when the tracker says he'd earn more on the open market; a team declines an option that costs more than the player is worth (rookie options are always picked up); a free agent's rights are kept when he's worth at least 80% of what he makes now.</p></div>
+  <div class="panel"><h3>The math</h3><dl class="kv">
+    <dt>Projected cap</dt><dd>${money(CAP)}</dd>
+    ${[["Guaranteed contracts",r=>r.kind==="Guaranteed"],["Dead money",r=>r.kind==="Dead money"],["Options picked up",r=>/option/.test(r.kind)],["Cap holds kept",r=>r.kind==="Cap hold"],["Draft picks",r=>r.kind==="Draft pick"],["Your signings",r=>r.kind==="Signing"]].map(([l,f])=>`<dt>− ${l}</dt><dd>${money(sh.rows.filter(r=>r.on&&f(r)).reduce((s,r)=>s+r.amt,0))}</dd>`).join("")}
+    <dt>− Empty roster spots (${Math.max(0,12-sh.count)} × ${money(RMIN)})</dt><dd>${money(sh.charge)}</dd>
+    <dt class="tot">Cap space with your plan</dt><dd class="tot ${cls(sh.space)}">${sgn(sh.space)}</dd>
+    <dt>Max space (renounce every free agent)</dt><dd class="${cls(mx.space)}">${sgn(mx.space)}</dd></dl>
+    <p class="sub"><b>Tools this summer:</b> ${tools}</p>
+    <p class="sub">${opts} option decision${opts===1?"":"s"} and ${fas} free agent${fas===1?"":"s"} on this roster.</p></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Player</th><th>Status</th><th class="num">2027-28 cap hit</th><th class="num">Fair price</th><th>Decision</th></tr></thead><tbody>
+  ${rows.map(r=>`<tr class="${r.on?"":"off"}"><td>${who(r)}</td><td>${kind(r)}</td><td class="num amt">${money(r.amt)}</td><td class="num">${val(r)}</td><td>${ctl(r)}</td></tr>`).join("")}
+  ${sh.charge?`<tr><td>Empty roster spots</td><td>Roster charge</td><td class="num">${money(sh.charge)}</td><td class="num">–</td><td><span class="sub">Fills as you add players</span></td></tr>`:""}
+  </tbody></table></div>`;
+}
+function faPool(){
+  return players.filter(p=>p.team!==st.team&&becomesFA(p)).map(p=>{const o=optOf(p);const type=p.sal[1]>0?(o==="TO"?"Team option, likely declined":"Player option, likely out"):p.rookie?"Restricted":"Unrestricted";return{p,type,price:ask(p,1)}});
+}
+function drawFA(sh){
+  const signed=new Set(st.sign.map(s=>s.p.name));
+  let list=faPool().filter(x=>!signed.has(x.p.name));
+  if(st.faq)list=list.filter(x=>x.p.name.toLowerCase().includes(st.faq.toLowerCase()));
+  if(st.faType!=="all")list=list.filter(x=>st.faType==="rfa"?x.type==="Restricted":st.faType==="opt"?/option/.test(x.type):x.type==="Unrestricted");
+  list.forEach(x=>x.fit=fitFor(x.price,sh));
+  if(st.faFit)list=list.filter(x=>x.fit.ok);
+  list.sort((a,b)=>(b.price??-1)-(a.price??-1));
+  const top=list.filter(x=>x.fit.ok&&x.price!=null).slice(0,3);
+  $("#v-fa").innerHTML=`<div class="sectionhead"><h3>Free agent targets · summer 2027</h3><p class="sub">${list.length} players · priced at what the tracker says they're worth next season</p></div>
+  <div class="panel"><p class="sub"><b>Best fits for ${tname(st.team)} right now:</b> ${top.length?top.map(x=>`${esc(x.p.name)} (${money(x.price)}, ${x.fit.how.toLowerCase()})`).join(", "):"nobody valued fits your space or exceptions. Renounce holds or decline options on the Cap space tab to open room."}.</p>
+  ${st.sign.length?`<p class="sub"><b>Signed so far:</b> ${st.sign.map(s=>`${esc(s.p.name)} ${money(s.price)} via ${s.how.toLowerCase()}`).join(" · ")}. Space left: <b class="${cls(sh.space)}">${sgn(sh.space)}</b>.</p>`:""}
+  <div style="display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center"><input type="search" id="faq" placeholder="Find a player" aria-label="Find a free agent" value="${esc(st.faq)}">
+  <select id="faType" aria-label="Free agent type"><option value="all">All types</option><option value="ufa">Unrestricted</option><option value="rfa">Restricted</option><option value="opt">Option decisions</option></select>
+  <label class="chk"><input type="checkbox" id="faFit"${st.faFit?" checked":""}> Only players we can afford</label></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Player</th><th>Now with</th><th class="num">Age</th><th>Type</th><th class="num">2026-27 salary</th><th class="num">WS/48</th><th class="num">Fair price 27-28</th><th>How you'd pay</th><th></th></tr></thead><tbody>
+  ${list.map(x=>`<tr><td>${esc(x.p.name)}${x.p.small?" <span class='chip w'>small sample</span>":""}</td><td>${badge(x.p.team,18)} ${x.p.team}</td><td class="num">${x.p.ageKnown?x.p.age:"–"}</td><td>${x.type}</td><td class="num">${money(x.p.sal[0])}</td><td class="num">${x.p.ws48==null?"–":x.p.ws48.toFixed(3)}</td><td class="num">${money(x.price)}</td><td><span class="chip ${x.fit.ok?"g":"b"}">${x.fit.how}</span></td><td>${x.fit.ok?`<button class="btn" data-sign="${esc(x.p.name)}">Sign</button>`:""}</td></tr>`).join("")}
+  </tbody></table></div>
+  <p class="sub">Restricted free agents' teams can match any offer. "Fair price" is the tracker's value, not a prediction of what he'll get; stars are capped at the max. Players the tracker hasn't valued yet (under 500 minutes) show no price.</p>`;
+  $("#faType").value=st.faType;
+}
+function extPlan(p,yrs){
+  const lastIdx=p.sal[1]>0&&decision(p)==="in"?1:0;const t0=lastIdx+1;const cur=p.sal[lastIdx];
+  const mkt=ask(p,t0);if(mkt==null)return null;
+  const limit=p.rookie?maxPct(p.age+t0)*capT(t0):1.4*cur;
+  const price=Math.min(mkt,limit);
+  let sur=0,num=0,den=0;const ys=[];
+  for(let k=0;k<yrs;k++){const t=t0+k,v=fair(p,t),s=price*Math.pow(1.08,k),d=Math.pow(1.08,-t);sur+=(v-s)*d;num+=v*d;den+=Math.pow(1.08,k)*d;ys.push({yr:YRS[t]||("20"+(26+t)+"-"+(27+t)),v,s})}
+  const cost=ys.reduce((s,y)=>s+y.s,0);
+  return{t0,lastIdx,cur,mkt,limit,price,sur,breakeven:num/den,ys,cost,capped:mkt>limit};
+}
+function drawExt(){
+  const ros=players.filter(p=>p.team===st.team&&(p.sal[0]||0)>=2&&p.hv!=null&&!(p.sal[2]>0));
+  const cards=ros.map(p=>{
+    const dy=st.extYrs[p.name]||(p.age<=28?4:p.age<=31?3:2);const e=extPlan(p,dy);if(!e)return null;
+    const rel=e.sur/e.cost;const v=rel>0.1?"g":rel<-0.1?"b":"w";
+    const verdict=v==="g"?"Extend":v==="b"?"Don't extend at this price":"Close call";
+    const when=p.rookie?(e.lastIdx===0?"Restricted free agent next summer (rookie extension window closed in October). You can match any offer sheet.":"Rookie-scale extension eligible in July 2027."):(e.lastIdx===0?"Contract ends this season: extend before June 30 or re-sign with Bird rights in July.":"Contract ends in 2027-28: extension eligible now and next summer.");
+    const why=v==="g"?(e.capped?`The ${p.rookie?"max":"140% raise"} limit keeps his price below what he's worth, so he's a bargain on a new deal.`:`At ${p.age} his value should hold up across the deal.`):v==="b"?`He's projected to decline faster than an 8% raise schedule. Worth it only starting at ${money(e.breakeven)} or less.`:`Roughly fair. Worth up to ${money(e.breakeven)} a year to start; let 2026-27 games settle it.`;
+    return{p,e,v,verdict,when,why,dy,rel};
+  }).filter(Boolean).sort((a,b)=>b.e.price-a.e.price);
+  $("#v-ext").innerHTML=`<div class="sectionhead"><h3>Extension decisions</h3><p class="sub">Players whose deals end in 2026-27 or 2027-28 · price = what he'd ask, within extension limits · raises 8% a year</p></div>
+  ${cards.length?`<div class="ext">${cards.map(c=>`<article class="ecard ${c.v}"><div class="sectionhead"><h4>${esc(c.p.name)}</h4><span class="chip">${c.p.ageKnown?"age "+c.p.age:"age n/a"}</span></div>
+   <p class="verdict ${c.v==="g"?"pos":c.v==="b"?"neg":"warn"}">${c.verdict}: ${c.dy} years, ${money(c.e.price)} to start (${money(c.e.cost)} total)</p>
+   <p class="sub">${c.why}</p>
+   <dl class="kv"><dt>Salary now</dt><dd>${money(c.e.cur)}</dd><dt>Open-market price</dt><dd>${money(c.e.mkt)}</dd><dt>${c.p.rookie?"Max allowed":"Extension limit (140%)"}</dt><dd>${money(c.e.limit)}</dd><dt>Surplus over the deal (today's $)</dt><dd class="${cls(c.e.sur)}">${sgn(c.e.sur)}</dd></dl>
+   <div class="yrs">${c.e.ys.map(y=>`<div><span>${y.yr}</span><b>${money(y.s)}</b><span class="${cls(y.v-y.s)}">worth ${y.v.toFixed(1)}</span></div>`).join("")}</div>
+   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><label class="sub" for="ey-${c.p.id}">Length</label><select id="ey-${c.p.id}" data-ext="${esc(c.p.name)}">${[1,2,3,4,5].map(n=>`<option value="${n}"${n===c.dy?" selected":""}>${n} year${n>1?"s":""}</option>`).join("")}</select></div>
+   <p class="sub">${c.when}</p></article>`).join("")}</div>`:`<p class="notice">No valued player on this roster has a contract ending in the next two seasons.</p>`}`;
+}
+function drawDraft(){
+  const d=st.draft;advance();
+  const done=d.picks.length>=d.order.length,cur=done?null:d.order[d.picks.length];
+  const mine=d.order.map((o,i)=>({o,p:d.picks[i]})).filter(x=>x.o.owner===st.team);
+  const map=picks.filter(r=>r.year===2027&&!r.swap&&(r.owner===st.team||r.orig===st.team));
+  const fut=picks.filter(r=>r.year>2027&&r.round===1&&!r.swap);
+  const own1=fut.filter(r=>r.owner===st.team&&r.p>=0.5).length,owe1=fut.filter(r=>r.orig===st.team&&r.owner!==st.team&&r.p>=0.5).length;
+  const val=picks.filter(r=>r.owner===st.team).reduce((s,r)=>s+r.value,0);
+  $("#v-draft").innerHTML=`<div class="sectionhead"><h3>2027 mock draft</h3><p class="sub">${d.lottery?"Lottery drawn: top four reshuffled by the real odds":"Projected order, no lottery yet"} · protections resolved for the slot each pick lands in</p></div>
+  <div style="display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center"><button class="btn primary" id="lottery">Run the lottery and redraft</button><button class="btn" id="redraft">Redraft, same order</button><button class="btn" id="projected">Back to projected order</button>
+  <label class="chk"><input type="checkbox" id="iPick"${st.iPick?" checked":""}> I make ${nick(st.team)} picks</label></div>
+  ${cur&&cur.owner===st.team&&st.iPick?`<div class="oc"><div class="sectionhead"><h3>${nick(st.team)} on the clock · pick #${cur.slot}</h3><button class="btn" id="autoMe">Pick for me</button></div><div class="avail">${d.avail.slice(0,12).map(p=>`<button data-draft="${p.rank}"><b>${esc(p.name)}</b><small>#${p.rank} on the board · ${esc(p.pos)} · ${esc(p.school)} · ${p.age}</small></button>`).join("")}</div></div>`:""}
+  <div class="cols2"><div class="tablewrap"><table><thead><tr><th class="num">Pick</th><th>Team</th><th>Player</th><th class="num">Board</th><th>Note</th></tr></thead><tbody>
+  ${d.order.map((o,i)=>{const p=d.picks[i];return `<tr class="${o.owner===st.team?"mine":""}"><td class="num">${o.slot}</td><td>${badge(o.owner,18)} ${nick(o.owner)}${o.orig!==o.owner?` <span class="sub">via ${o.orig}</span>`:""}</td><td>${p?`<b>${esc(p.name)}</b> <span class="sub">${esc(p.pos)} · ${esc(p.school)}</span>`:i===d.picks.length?"<span class='chip a'>on the clock</span>":""}</td><td class="num">${p?p.rank:""}</td><td class="sub" style="white-space:normal;min-width:180px">${esc(o.note)}</td></tr>`}).join("")}
+  </tbody></table></div>
+  <div style="display:flex;flex-direction:column;gap:14px;min-width:0"><div class="panel"><h3>${nick(st.team)} haul</h3>${mine.length?`<div class="mypicks">${mine.map(x=>`<span class="chip ${x.o.round===1?"a":""}">#${x.o.slot} ${x.p?esc(x.p.name):"pending"}</span>`).join("")}</div>`:`<p class="sub">No 2027 picks in this draft.</p>`}
+  <p class="sub">First-round picks you keep go on the cap sheet at their slot's rookie scale.</p></div>
+  <div class="panel"><h3>2027 pick map</h3><dl class="kv">${map.map(r=>`<dt>${r.round===1?"1st":"2nd"} · ${r.orig===st.team?"own":"from "+r.orig}${r.prot?` (${r.owner===st.team?"if":"to "+r.owner+" if"} slot ${r.prot[0]}-${r.prot[1]})`:r.owner!==st.team?" → owed to "+r.owner:""}</dt><dd>${r.owner===st.team?Math.round(r.p*100)+"%":"owed"}</dd>`).join("")||"<dt>No 2027 picks owned or owed</dt><dd></dd>"}</dl>
+  <p class="sub">2028-2033: ${own1} likely first-rounders owned, ${owe1} of your own owed to others. Total pick value ${money(val)} (tracker, today's dollars).</p></div></div></div>`;
+}
+function render(){
+  const sh=sheet(st.team),mx=sheet(st.team,{renounce:true});
+  drawPicker();drawBanner(sh);drawSpace(sh,mx);
+  document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.tab===st.tab));
+  ["cap","fa","ext","draft"].forEach(k=>{const v=$("#v-"+k);v.hidden=k!==st.tab;v.style.display=k===st.tab?"flex":""});
+  if(st.tab==="cap")drawCap(sh,mx);else if(st.tab==="fa")drawFA(sh);else if(st.tab==="ext")drawExt();else drawDraft();
+}
+function setTeam(t){st.team=t;st.chosen=true;if(window.appNav)appNav.setTeam(t);st.dec={};st.hold={};st.pk={};st.sign=[];st.extYrs={};const d=st.draft;if(d){d.picks=[];d.avail=board.slice();d.r=rng(d.seed+7)}save();try{history.replaceState(null,"","#"+t)}catch(e){}render()}
+
+document.addEventListener("click",e=>{
+  if(e.target.closest("#changeTeam")){st.showPicker=true;render();return}
+  const t=e.target.closest("[data-team]");if(t){st.showPicker=false;setTeam(t.dataset.team);return}
+  const tb=e.target.closest("[data-tab]");if(tb){st.tab=tb.dataset.tab;render();return}
+  const sg=e.target.closest("[data-sign]");if(sg){const x=faPool().find(x=>x.p.name===sg.dataset.sign);const sh=sheet(st.team);const f=fitFor(x.price,sh);if(f.ok){st.sign.push({p:x.p,price:x.price,how:f.how});render()}return}
+  const us=e.target.closest("[data-unsign]");if(us){st.sign=st.sign.filter(s=>s.p.name!==us.dataset.unsign);render();return}
+  if(e.target.closest("#lottery")){newDraft(true);render();return}
+  if(e.target.closest("#redraft")){const d=st.draft;d.seed=Math.floor(Math.random()*1e9);d.r=rng(d.seed);d.picks=[];d.avail=board.slice();render();return}
+  if(e.target.closest("#projected")){newDraft(false);render();return}
+  if(e.target.closest("#autoMe")){take(autoPick());render();return}
+  const dp=e.target.closest("[data-draft]");if(dp){take(st.draft.avail.find(p=>p.rank===+dp.dataset.draft));render();return}
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.opt){st.dec[t.dataset.opt]=t.value;render()}
+  else if(t.dataset.hold){st.hold[t.dataset.hold]=t.value==="1";render()}
+  else if(t.dataset.pk){st.pk[t.dataset.pk]=t.value==="1";render()}
+  else if(t.dataset.ext){st.extYrs[t.dataset.ext]=+t.value;render()}
+  else if(t.id==="faFit"){st.faFit=t.checked;render()}
+  else if(t.id==="faType"){st.faType=t.value;render()}
+  else if(t.id==="iPick"){st.iPick=t.checked;render()}
+});
+document.addEventListener("input",e=>{if(e.target.id==="faq"){st.faq=e.target.value;const pos=e.target.selectionStart;render();const q=$("#faq");q.focus();try{q.setSelectionRange(pos,pos)}catch(_){}}});
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1).toUpperCase();if(TEAM[h]&&h!==st.team)setTeam(h)});
+
+async function boot(){
+  let cc,cv,tv,dp,pr;
+  try{[cc,cv,tv,dp,pr]=await Promise.all(["contracts_clean","contract_value","trade_values","draft_picks","prospects"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})))}
+  catch(e){$("#v-cap").innerHTML="<p class='notice'>The data files did not load. Reload the page to try again.</p>";return}
+  const cvm={};parseCSV(cv).forEach(r=>{cvm[r.Player+"|"+r.Team]=r});
+  const tvm={};parseCSV(tv).forEach(r=>{tvm[r.Player+"|"+r.Team]=r});
+  players=parseCSV(cc).map((r,i)=>{
+    const opts={};(r.option_years||"").split(";").filter(Boolean).forEach(s=>{const[y,o]=s.split(":");opts[y]=o});
+    const c=cvm[r.Player+"|"+r.Team],t=tvm[r.Player+"|"+r.Team];
+    const rookiePat=/2028-29:TO;2029-30:TO|2027-28:TO;2028-29:TO|2026-27:TO;2027-28:TO/.test(r.option_years||"");
+    const fallbackAge=/2028-29:TO;2029-30:TO/.test(r.option_years||"")?20:/2027-28:TO;2028-29:TO/.test(r.option_years||"")?21:26;
+    return{id:i,name:r.Player,team:r.Team,sal:YRS.map(y=>N(r[y])),opts,
+      age:t?+t.Age:fallbackAge,ageKnown:!!t,rookie:t?t.rookie_scale==="True":(c?c.rookie_scale==="True":rookiePat),
+      hv:c&&c.healthy_surplus_m!==""?(+c.salary_m)+(+c.healthy_surplus_m):null,ws48:c?N(c["WS/48"]):null,small:c?(c.flag||"").includes("small"):false};
+  }).filter(p=>TEAM[p.team]);
+  picks=parseCSV(dp).map(r=>{const m=(r.protection||"").match(/slots (\d+)-(\d+)/);return{id:r.pick_id,year:+r.year,round:+r.round,orig:r.original_team,owner:r.owner,prot:m?[+m[1],+m[2]]:null,swap:r.pick_id.includes("SWAP"),swapWith:r.swap_with,exp:+r.exp_slot,p:+r.p_conveys,value:+r.value_m,notes:r.notes}});
+  try{const dd=await fetch("data/dead_2027_28.csv").then(r=>r.ok?r.text():"");if(dd)parseCSV(dd).forEach(r=>{DEAD[r.Team]=+r.dead_m||0})}catch(e){}
+  board=parseCSV(pr).map(r=>({rank:+r.Rank,name:r.Name,pos:r.Pos,school:r.School,age:r.Age}));
+  load();newDraft(false);
+  const h=(location.hash||"").slice(1);if(["cap","fa","ext","draft"].includes(h))st.tab=h;
+  render();
+}
+boot();
+})();
+</script>
+
+</body></html>

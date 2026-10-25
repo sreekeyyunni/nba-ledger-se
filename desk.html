@@ -1,0 +1,520 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="desk"></script>
+<title>AI GM Desk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a front-office desk. Team strip with a cap ruler on top, then the conversation with Claude beside a trade board that fills as Claude proposes deals. The accent takes on your team's color. */
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#141D27; --muted:#5A6676; --line:#DAE0E7; --soft:#EBEFF3;
+  --team:#C2410C; --good:#15803D; --bad:#B91C1C; --warn:#A16207;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834;
+  --good:#4ADE80; --bad:#F87171; --warn:#FACC15; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834;
+  --good:#4ADE80; --bad:#F87171; --warn:#FACC15; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--team);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,6vw,58px);line-height:.95;margin:4px 0 8px;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+h3{font-family:var(--display);font-weight:700;font-size:20px;margin:0;text-transform:uppercase;letter-spacing:.03em}
+.lede{max-width:66ch;color:var(--muted);margin:0}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--team);outline-offset:2px}
+.btn{font:600 14px var(--body);background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:8px 14px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.5;cursor:default}
+.badge{display:inline-block;flex:none;object-fit:contain}
+
+/* Team picker */
+.picker{display:flex;flex-direction:column;gap:18px}
+.conf{display:flex;flex-direction:column;gap:10px}
+.conf h3{color:var(--muted);font-size:16px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.tbtn{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-align:left;font-size:14px;font-weight:500;min-width:0}
+.tbtn:hover{border-color:var(--muted)}
+.tbtn span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Team strip */
+.strip{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--team);border-radius:10px;padding:16px 18px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr);gap:18px 28px}
+@media (max-width:820px){.strip{grid-template-columns:1fr}}
+.who{display:flex;gap:14px;align-items:center;min-width:0}
+.who .meta{min-width:0;display:flex;flex-direction:column;gap:4px}
+.pill{display:inline-block;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;border:1px solid currentColor;width:max-content}
+.pill.s2{color:var(--bad)} .pill.s1{color:var(--warn)} .pill.tax{color:var(--warn)} .pill.cap{color:var(--muted)} .pill.room{color:var(--good)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 18px;margin:0}
+.facts div{min-width:0}
+.facts dt{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:0;font-size:14px;font-weight:500;overflow-wrap:anywhere}
+.ruler{grid-column:1/-1}
+.ruler svg{width:100%;height:58px;display:block;overflow:visible}
+
+/* Desk */
+.desk{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:960px){.desk{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;min-width:0}
+.phead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid var(--line)}
+.log{display:flex;flex-direction:column;gap:14px;padding:16px;min-height:260px;max-height:68vh;overflow-y:auto}
+.msg{max-width:100%;min-width:0}
+.msg.me{align-self:flex-end;background:var(--soft);border-radius:10px 10px 2px 10px;padding:8px 12px;max-width:85%}
+.msg.ai .body{overflow-wrap:anywhere}
+.msg.ai .body p{margin:0 0 8px} .msg.ai .body p:last-child{margin-bottom:0}
+.msg.ai .body ul,.msg.ai .body ol{margin:0 0 8px;padding-left:20px}
+.msg.ai .body h4{font:700 16px var(--display);text-transform:uppercase;letter-spacing:.03em;margin:10px 0 4px}
+.who-ai{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--team);margin-bottom:4px}
+.work{font:12px var(--mono);color:var(--muted);margin-top:6px}
+.work::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--team);margin-right:7px;vertical-align:1px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.work::before{animation:none}}
+.loaded{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.loaded button{font:500 12px var(--mono);background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:4px 8px}
+.starters{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
+.starters button{background:none;border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:13px;text-align:left}
+.starters button:hover{border-color:var(--team)}
+.ask{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line);align-items:flex-end}
+.ask textarea{flex:1;min-width:0;resize:none;font:15px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px;min-height:44px;max-height:160px}
+.note{padding:12px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* Trade board */
+.board{display:flex;flex-direction:column;gap:12px;padding:14px 16px}
+.trade{border:1px solid var(--line);border-radius:8px;overflow:hidden;scroll-margin-top:12px}
+.trade.flash{box-shadow:0 0 0 2px var(--team)}
+.trade .th{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;background:var(--soft)}
+.trade .th b{font-size:14px;min-width:0;overflow-wrap:anywhere}
+.trade .th button{background:none;border:0;color:var(--muted);font-size:13px;padding:2px 4px}
+.sides{display:grid;grid-template-columns:1fr 1fr}
+@media (max-width:460px){.sides{grid-template-columns:1fr}}
+.side{padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.side+.side{border-left:1px solid var(--line)}
+@media (max-width:460px){.side+.side{border-left:0;border-top:1px solid var(--line)}}
+.side .sh{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.lbl{font:500 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.prow{display:flex;justify-content:space-between;gap:6px;font-size:13px;align-items:baseline}
+.prow .n{min-width:0;overflow-wrap:anywhere}
+.prow .x{background:none;border:0;color:var(--muted);padding:0 2px;font-size:13px}
+.side select{font:13px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px 6px;width:100%}
+.kv{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:12.5px;margin:4px 0 0}
+.kv dt{color:var(--muted)} .kv dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.ok{font-weight:600;font-size:13px}
+.why{font-size:12px;color:var(--muted);margin:0}
+.verdict{padding:8px 12px;border-top:1px solid var(--line);font-size:13px}
+.empty{padding:16px;color:var(--muted);font-size:14px}
+.newtrade{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.newtrade select{font:13px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.foot{max-width:90ch}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow" id="eyebrow">Front office · 2026-27</p>
+    <h1 id="h1">AI GM Desk</h1>
+    <p class="lede" id="lede">Ask anything about your team in plain English. Claude reads every contract's surplus and trade value and every team's draft picks, checks each idea against the CBA's salary-matching rules, and loads the legal ones onto your trade board.</p>
+  </header>
+
+  <section class="picker" id="picker" hidden>
+    <h2>Pick your team</h2>
+    <p class="sub">You can switch teams any time. Your pick is remembered on this device.</p>
+    <div class="conf"><h3>Eastern Conference</h3><div class="tgrid" id="east"></div></div>
+    <div class="conf"><h3>Western Conference</h3><div class="tgrid" id="west"></div></div>
+  </section>
+
+  <div id="main" hidden style="display:flex;flex-direction:column;gap:20px">
+    <section class="strip" id="strip" aria-label="Team snapshot"></section>
+    <div class="desk">
+      <section class="panel" aria-label="Ask Claude">
+        <div class="phead"><h2>Ask your GM</h2><span class="sub" id="chatSub">Answers use your Claude account</span></div>
+        <div class="log" id="log" aria-live="polite"></div>
+        <div class="starters" id="starters"></div>
+        <form class="ask" id="askForm">
+          <textarea id="q" rows="1" placeholder="e.g. What should we do with our worst contract?" aria-label="Ask a question"></textarea>
+          <button class="btn" id="send" type="submit">Ask</button>
+          <button class="btn ghost" id="stop" type="button" hidden>Stop</button>
+        </form>
+        <p class="note" id="noAI" hidden>Asking Claude only works when this page is open in Claude. You can still build and check trades by hand on the board.</p>
+      </section>
+      <section class="panel" aria-label="Trade board">
+        <div class="phead"><h2>Trade board</h2><span class="sub" id="boardSub"></span></div>
+        <div class="board" id="board"></div>
+        <div class="board" style="border-top:1px solid var(--line)">
+          <div class="newtrade"><span class="sub">Build one yourself with</span><select id="partner" aria-label="Trade partner"></select><button class="btn ghost" id="addTrade" type="button">New trade</button></div>
+        </div>
+      </section>
+    </div>
+    <p class="sub foot">Trade value adds up each remaining contract year: projected Win Shares with an aging curve, priced at a $/Win Share that grows 7% a year, minus salary, discounted 8% a year. This season's surplus is the 2026-27 year alone. Salary rules follow 2023 CBA Article VII 6(j) and 2(e) with the 2026-27 cap of $164.96M, tax line $200.43M and aprons $209.02M / $221.69M. Payroll is Spotrac total cash. Draft picks are valued by expected slot, protections and odds of conveying. The Stepien rule is checked. Not modeled: cash, trade exceptions, player options, rookie-deal team control, and the two-month re-trade rule. Same data as the Contract Ledger.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const N=v=>v===""||v==null?null:+v;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=v=>v==null?"–":"$"+v.toFixed(1)+"M";
+const sgn=v=>v==null?"–":(v>=0?"+":"−")+"$"+Math.abs(v).toFixed(1)+"M";
+const cls=v=>v==null?"":v>=0?"pos":"neg";
+const r1=v=>v==null?null:Math.round(v*10)/10;
+function parseCSV(t){
+  const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l.replace(/\r$/,"")){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});
+  const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+const TEAM={ATL:["Atlanta Hawks","#C8102E","#FDB927","E"],BOS:["Boston Celtics","#007A33","#BA9653","E"],BRK:["Brooklyn Nets","#000000","#A1A1A4","E"],CHO:["Charlotte Hornets","#1D1160","#00788C","E"],CHI:["Chicago Bulls","#CE1141","#000000","E"],CLE:["Cleveland Cavaliers","#860038","#FDBB30","E"],DAL:["Dallas Mavericks","#00538C","#B8C4CA","W"],DEN:["Denver Nuggets","#0E2240","#FEC524","W"],DET:["Detroit Pistons","#C8102E","#1D42BA","E"],GSW:["Golden State Warriors","#1D428A","#FFC72C","W"],HOU:["Houston Rockets","#CE1141","#C4CED4","W"],IND:["Indiana Pacers","#002D62","#FDBB30","E"],LAC:["LA Clippers","#C8102E","#1D428A","W"],LAL:["Los Angeles Lakers","#552583","#FDB927","W"],MEM:["Memphis Grizzlies","#5D76A9","#12173F","W"],MIA:["Miami Heat","#98002E","#F9A01B","E"],MIL:["Milwaukee Bucks","#00471B","#EEE1C6","E"],MIN:["Minnesota Timberwolves","#0C2340","#78BE20","W"],NOP:["New Orleans Pelicans","#0C2340","#C8102E","W"],NYK:["New York Knicks","#006BB6","#F58426","E"],OKC:["Oklahoma City Thunder","#007AC1","#EF3B24","W"],ORL:["Orlando Magic","#0077C0","#C4CED4","E"],PHI:["Philadelphia 76ers","#006BB6","#ED174C","E"],PHO:["Phoenix Suns","#1D1160","#E56020","W"],POR:["Portland Trail Blazers","#E03A3E","#000000","W"],SAC:["Sacramento Kings","#5A2D81","#63727A","W"],SAS:["San Antonio Spurs","#000000","#C4CED4","W"],TOR:["Toronto Raptors","#CE1141","#000000","E"],UTA:["Utah Jazz","#002B5C","#F9A01B","W"],WAS:["Washington Wizards","#002B5C","#E31837","E"]};
+const tname=a=>(TEAM[a]||[a])[0];
+const nick=a=>tname(a).split(" ").slice(-1)[0].replace("76ers","Sixers").replace("Blazers","Trail Blazers");
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}" style="width:${s}px;height:${s}px">`;
+const ALIAS={BKN:"BRK",CHA:"CHO",PHX:"PHO",NO:"NOP",NOLA:"NOP",SA:"SAS",GS:"GSW",NY:"NYK",UTAH:"UTA",WSH:"WAS",WIZ:"WAS",SIXERS:"PHI",BLAZERS:"POR",WOLVES:"MIN",CAVS:"CLE",MAVS:"DAL"};
+function teamCode(x){
+  if(!x)return null;const s=String(x).trim(),u=s.toUpperCase().replace(/[^A-Z0-9 ]/g,"");
+  if(TEAM[u])return u;if(ALIAS[u])return ALIAS[u];
+  for(const k in TEAM){const n=TEAM[k][0].toUpperCase();if(n===u||n.endsWith(" "+u)||n.includes(u)&&u.length>3)return k}
+  return null;
+}
+
+let tvals=[],caps={},summary={},picks=[];
+const norm=s=>String(s).normalize("NFKD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[.'’]/g,"").replace(/\b(jr|sr|ii|iii|iv)\b/g,"").replace(/\s+/g," ").trim();
+const roster=t=>tvals.filter(p=>p.team===t).sort((a,b)=>b.sal-a.sal);
+function findPlayer(name,team){
+  const k=norm(name);if(!k)return null;
+  const pool=team?roster(team):tvals;
+  let hit=pool.filter(p=>norm(p.name)===k);
+  if(!hit.length)hit=pool.filter(p=>norm(p.name).includes(k));
+  if(!hit.length){const last=k.split(" ").pop();hit=pool.filter(p=>norm(p.name).split(" ").pop()===last)}
+  return hit.length===1?hit[0]:null;
+}
+// Draft picks trade as assets with no salary. A team can send any pick or swap right it holds (positive-value rows).
+const ordinal=r=>r===1?"1st":"2nd";
+const pickOf=r=>({name:r.pick_id,team:r.owner,sal:0,tv:N(r.value_m)||0,y1:0,pick:true,label:`${r.year} ${r.original_team} ${r.swap_with?"swap right":ordinal(+r.round)}${r.protection?" ("+r.protection+")":""}`,year:+r.year,round:+r.round,original:r.original_team,protection:r.protection,p_conveys:N(r.p_conveys),exp_slot:N(r.exp_slot),notes:r.notes});
+const teamPicks=t=>picks.filter(p=>p.team===t&&p.tv>0).sort((a,b)=>a.year-b.year||a.round-b.round);
+function findAsset(name,team){
+  const k=String(name).trim().toUpperCase();
+  if(/20\d\d/.test(k)){const pool=team?teamPicks(team):picks.filter(p=>p.tv>0);const hit=pool.find(p=>p.name.toUpperCase()===k)||pool.find(p=>p.name.toUpperCase().includes(k));if(hit)return hit}
+  return findPlayer(name,team);
+}
+const label=p=>p.pick?p.label:p.name;
+
+// --- Salary matching: Art. VII 6(j)(1), 6(j)(3), 2(e)(4) rows E and H (same logic as the Ledger's trade machine)
+const CAP2324=136.021;
+const status=(c,pay)=>pay>c.apron2?"over 2nd apron":pay>c.apron1?"over 1st apron":pay>c.tax?"over tax":pay>c.cap?"over cap":"under cap";
+const pillCls=s=>s==="over 2nd apron"?"s2":s==="over 1st apron"?"s1":s==="over tax"?"tax":s==="over cap"?"cap":"room";
+function rule(team,outs,I){
+  const c=caps[team],O=outs.reduce((s,p)=>s+p.sal,0),n=outs.length,P=c.payroll,post=P-O+I,res={post,ok:false,how:"",hard:"",max:0};
+  if(I===0){res.ok=true;res.how="Only sends salary out, so no matching is needed.";return res}
+  const cush=post<=c.apron1?0.25:0,opts=[];
+  if(n){opts.push({max:Math.max(...outs.map(p=>p.sal))+cush,how:"standard trade exception (one outgoing salary"+(cush?" + $250K)":", no $250K cushion over the first apron)"),hard:""});
+    if(n>=2&&post<=c.apron2)opts.push({max:O+cush,how:"aggregated trade exception (combined outgoing salary"+(cush?" + $250K)":")"),hard:"Hard-capped at the second apron for the rest of the season."});
+    if(post<=c.apron1)opts.push({max:Math.max(Math.min(2*O+0.25,O+7.5*c.cap/CAP2324),1.25*O+0.25),how:"expanded trade exception",hard:"Hard-capped at the first apron for the rest of the season."})}
+  if(P<c.cap)opts.push({max:c.cap+0.25-(P-O),how:"cap room",hard:""});
+  if(!opts.length){res.how="Over the cap after the trade and sends no salary back.";return res}
+  const ok=opts.filter(o=>I<=o.max+1e-9).sort((a,b)=>a.max-b.max)[0],best=opts.sort((a,b)=>b.max-a.max)[0];
+  res.max=best.max;
+  if(ok){res.ok=true;res.how=`Fits the ${ok.how}: can take back up to $${ok.max.toFixed(1)}M.`;res.hard=ok.hard;return res}
+  res.how=`Takes back $${I.toFixed(1)}M but the most it can take is $${best.max.toFixed(1)}M (${best.how})${post>c.apron2&&n>=2?". Over the second apron after the trade, so it can't combine salaries":post>c.apron1?". Over the first apron after the trade, so the expanded exception is off the table":""}.`;return res;
+}
+const sum=(ps,k)=>ps.reduce((s,p)=>s+(p[k]||0),0);
+function evaluate(A,outA,B,outB){
+  const side=(team,outs,ins)=>{const I=sum(ins,"sal"),r=rule(team,outs.filter(p=>!p.pick),I),c=caps[team];
+    return{team,outs,ins,O:sum(outs,"sal"),I,r,before:status(c,c.payroll),after:status(c,r.post),dv:sum(ins,"tv")-sum(outs,"tv"),dy:sum(ins,"y1")-sum(outs,"y1")}};
+  const a=side(A,outA,outB),b=side(B,outB,outA);a.stp=stepien(A,outA,outB);b.stp=stepien(B,outB,outA);return{a,b,legal:a.r.ok&&b.r.ok&&!a.stp&&!b.stp};
+}
+// Stepien rule: a team can't be left without a first-round pick in two consecutive future drafts (only gaps this trade creates).
+function firstYears(team,out,inn){const ys=new Set();for(const p of picks){if(p.round!==1||/SWAP/.test(p.name)||(p.p_conveys??1)<0.5)continue;let own=p.team===team;if(out.has(p.name))own=false;if(inn.has(p.name))own=true;if(own)ys.add(p.year)}return ys}
+function stepien(team,outs,ins){const o=new Set(outs.filter(p=>p.pick).map(p=>p.name)),i=new Set(ins.filter(p=>p.pick).map(p=>p.name));if(!o.size)return null;
+  const b=firstYears(team,new Set(),new Set()),a=firstYears(team,o,i);
+  for(let y=2027;y<2033;y++)if(!a.has(y)&&!a.has(y+1)&&(b.has(y)||b.has(y+1)))return `Breaks the Stepien rule: no first-round pick in ${y} or ${y+1}.`;return null
+}
+function evalSummary(e){
+  const s=x=>({team:x.team,sends:x.outs.map(label),receives:x.ins.map(label),salary_out_m:r1(x.O),salary_in_m:r1(x.I),payroll_after_m:r1(x.r.post),cap_position:x.before===x.after?x.after:`${x.before} -> ${x.after}`,salary_works:x.r.ok,salary_rule:x.r.how+(x.r.hard?" "+x.r.hard:""),stepien_rule:x.stp||"ok",trade_value_change_m:r1(x.dv),this_season_surplus_change_m:r1(x.dy)});
+  return{legal:e.legal,sides:[s(e.a),s(e.b)]};
+}
+
+// --- Trade search for a team: 1-3 players a side, legal both ways, ranked by the team's goal
+function combos(ps,k){const out=[],cur=[];const rec=i=>{out.push(cur.slice());if(cur.length===k)return;for(let j=i;j<ps.length;j++){cur.push(ps[j]);rec(j+1);cur.pop()}};rec(0);return out}
+function searchTrades({team,partner,must_send=[],must_get=[],goal="balanced",max_players_per_side}){
+  const A=teamCode(team);if(!A)throw new Error("Unknown team "+team);
+  const lockA=[],miss=[];for(const n of must_send){const p=findPlayer(n,A);p?lockA.push(p):miss.push(n)}
+  const gets=[];for(const n of must_get){const p=findPlayer(n);p?gets.push(p):miss.push(n)}
+  if(miss.length)throw new Error("Couldn't find: "+miss.join(", ")+". Check names with find_players.");
+  let partners=partner?[teamCode(partner)]:gets.length?[gets[0].team]:Object.keys(caps).filter(t=>t!==A);
+  if(partners.some(p=>!p))throw new Error("Unknown partner "+partner);
+  if(gets.some(p=>p.team!==partners[0]&&partners.length===1))throw new Error("must_get players have to come from one team in a two-team trade.");
+  const k=Math.min(Number(max_players_per_side)||3,partners.length===1?3:2);
+  const pk=(lock,ps)=>combos(ps,Math.max(0,k-lock.length)).map(c=>lock.concat(c));
+  const PA=pk(lockA,roster(A).filter(p=>!p.small&&!lockA.includes(p))).filter(x=>x.length);
+  const res=[];
+  for(const B of partners){const lockB=gets.filter(p=>p.team===B);
+    const PB=pk(lockB,roster(B).filter(p=>!p.small&&!lockB.includes(p)));
+    for(const a of PA){const sa=sum(a,"sal"),ta=sum(a,"tv"),ya=sum(a,"y1"),bigA=a.some(p=>p.sal>=8);
+      for(const b of PB){if(!bigA&&!b.some(p=>p.sal>=8))continue;const sb=sum(b,"sal");
+        if(!rule(A,a,sb).ok||!rule(B,b,sa).ok)continue;
+        const dv=sum(b,"tv")-ta,dy=sum(b,"y1")-ya,benB=Math.max(-dv,-dy),sweet=benB<0?-benB:0,saved=sa-sb;
+        let score;
+        if(goal==="win_now")score=dy-0.5*sweet;
+        else if(goal==="long_term")score=dv-0.5*sweet;
+        else if(goal==="dump_salary")score=saved-0.6*sweet+0.2*dv;
+        else score=Math.min(Math.max(dv,dy),benB)-0.25*Math.abs(dv);
+        if(goal!=="dump_salary"&&sweet>15)continue;
+        res.push({B,a,b,dv,dy,saved,sweet,score})}}}
+  res.sort((x,y)=>y.score-x.score);
+  const seen=new Set(),list=[];for(const r of res){const key=r.a.map(p=>p.name).sort().join()+"|"+r.B;if(seen.has(key))continue;seen.add(key);list.push(r);if(list.length>=8)break}
+  return{team:A,goal,searched_partners:partners.length,candidates:list.map(r=>({partner:r.B,team_sends:r.a.map(p=>p.name),team_gets:r.b.map(p=>p.name),team_trade_value_change_m:r1(r.dv),team_this_season_change_m:r1(r.dy),team_salary_saved_m:r1(r.saved),partner_trade_value_change_m:r1(-r.dv),partner_this_season_change_m:r1(-r.dy),sweetener_partner_would_want_m:r1(r.sweet)})),
+    note:list.length?"All candidates are legal under the salary rules. A positive sweetener means the partner loses on both value measures, so it would need picks or a young player to say yes.":"No legal trade found with these limits. Loosen a constraint or try another partner."};
+}
+
+// --- State
+const st={team:null,trades:[],seq:1,turns:[],busy:false};
+try{const s=JSON.parse(localStorage.getItem("gmdesk")||"{}");if(s.team)st.team=s.team;if(Array.isArray(s.trades))st.trades=s.trades;if(s.seq)st.seq=s.seq}catch(e){}
+try{const m=localStorage.getItem("myTeam");if(m&&TEAM[m])st.team=m}catch(e){}
+const save=()=>{try{localStorage.setItem("gmdesk",JSON.stringify({team:st.team,trades:st.trades.slice(0,20),seq:st.seq}))}catch(e){}};
+
+function setAccent(t){
+  const [,p,s]=TEAM[t];const surf=getComputedStyle(document.documentElement).getPropertyValue("--surface").trim()||"#fff";
+  const lum=h=>{const m=h.replace("#","").match(/../g);if(!m)return 1;const c=m.map(x=>{x=parseInt(x,16)/255;return x<=.03928?x/12.92:((x+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+  const ct=(a,b)=>{const x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+  document.documentElement.style.setProperty("--team",ct(p,surf)>=3?p:ct(s,surf)>=3?s:"#C2410C");
+}
+
+// --- Picker
+function drawPicker(){
+  const btn=t=>`<button class="tbtn" data-team="${t}" type="button">${badge(t,28)}<span>${esc(tname(t))}</span></button>`;
+  const ks=Object.keys(TEAM).sort((a,b)=>tname(a).localeCompare(tname(b)));
+  $("#east").innerHTML=ks.filter(k=>TEAM[k][3]==="E").map(btn).join("");
+  $("#west").innerHTML=ks.filter(k=>TEAM[k][3]==="W").map(btn).join("");
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".tbtn");if(b)chooseTeam(b.dataset.team)});
+function chooseTeam(t){
+  if(st.team!==t){st.turns=[];$("#log").innerHTML=""}
+  st.team=t;save();if(window.appNav)appNav.setTeam(t);show();
+}
+function show(){
+  const picked=!!st.team&&!!caps[st.team];
+  $("#picker").hidden=picked;$("#main").hidden=!picked;
+  if(!picked){$("#h1").textContent="AI GM Desk";$("#eyebrow").textContent="Front office · 2026-27";return}
+  setAccent(st.team);
+  $("#eyebrow").textContent=`Front office · ${tname(st.team)}`;
+  $("#h1").textContent=`${nick(st.team)} GM Desk`;
+  document.title="AI GM Desk";
+  drawStrip();drawStarters();drawBoard();drawPartner();
+  if(!$("#log").children.length)greet();
+}
+
+// --- Team strip with cap ruler
+function teamRank(t){const r=Object.values(summary).sort((a,b)=>b.net-a.net);return r.findIndex(x=>x.team===t)+1}
+function drawStrip(){
+  const t=st.team,c=caps[t],s=summary[t]||{},ps=roster(t),pay=c.payroll,stt=status(c,pay);
+  const byTV=ps.slice().sort((a,b)=>b.tv-a.tv),chip=byTV[0],anchor=byTV[byTV.length-1];
+  const lines=[["Cap",c.cap],["Tax",c.tax],["1st apron",c.apron1],["2nd apron",c.apron2]];
+  const lo=150,hi=235,X=v=>((Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*100);
+  const ticks=lines.map(([l,v],i)=>`<line x1="${X(v)}%" x2="${X(v)}%" y1="14" y2="34" stroke="var(--muted)" stroke-width="1"/><text x="${X(v)}%" y="${i%2?52:10}" text-anchor="middle" font-size="10.5" font-family="IBM Plex Mono, monospace" fill="var(--muted)">${l} ${v.toFixed(0)}</text>`).join("");
+  const nextLine=lines.find(([,v])=>v>pay);
+  $("#strip").innerHTML=`<div class="who">${badge(t,64)}<div class="meta"><h2>${esc(tname(t))}</h2><span class="pill ${pillCls(stt)}">${stt}</span><span class="sub">Payroll <b class="num">${money(pay)}</b>${nextLine?` · ${money(nextLine[1]-pay)} under the ${nextLine[0].toLowerCase()}`:` · ${money(pay-c.apron2)} over the 2nd apron`}</span><button class="btn ghost" id="change" type="button" style="width:max-content;padding:4px 10px;font-size:13px">Change team</button></div></div>
+  <dl class="facts">
+    <div><dt>Asset rank</dt><dd>#${teamRank(t)} of 30 · <span class="num ${cls(s.net)}">${sgn(s.net)}</span></dd></div>
+    <div><dt>Top trade chip</dt><dd>${esc(chip?chip.name:"–")} <span class="num pos">${chip?sgn(chip.tv):""}</span></dd></div>
+    <div><dt>Heaviest contract</dt><dd>${esc(anchor?anchor.name:"–")} <span class="num neg">${anchor?sgn(anchor.tv):""}</span></dd></div>
+    <div><dt>Best deal this season</dt><dd>${esc(s.best||"–")}</dd></div>
+    <div><dt>Worst deal this season</dt><dd>${esc(s.worst||"–")}</dd></div>
+    <div><dt>Draft pick value</dt><dd><span class="num">${money(s.picks||0)}</span> · ${teamPicks(t).filter(p=>p.round===1).length} firsts</dd></div>
+  </dl>
+  <div class="ruler"><svg role="img" aria-label="Payroll ${money(pay)} against the cap, tax and aprons"><rect x="0" y="20" width="100%" height="8" rx="4" fill="var(--soft)"/><rect x="0" y="20" width="${X(pay)}%" height="8" rx="4" fill="var(--team)"/>${ticks}<circle cx="${X(pay)}%" cy="24" r="7" fill="var(--team)" stroke="var(--surface)" stroke-width="2"/></svg></div>`;
+  $("#change").onclick=()=>{st.team=null;save();show();window.scrollTo(0,0)};
+}
+
+// --- Board
+function resolveTrade(tr){
+  const outA=tr.sends[tr.a].map(n=>findAsset(n,tr.a)).filter(Boolean),outB=tr.sends[tr.b].map(n=>findAsset(n,tr.b)).filter(Boolean);
+  return{outA,outB,e:evaluate(tr.a,outA,tr.b,outB)};
+}
+function sideHTML(tr,key,x){
+  const team=tr[key],taken=new Set(tr.sends[team]);
+  const opts=roster(team).filter(p=>!taken.has(p.name)).map(p=>`<option value="${esc(p.name)}">${esc(p.name)} · ${money(p.sal)}</option>`).join("")+teamPicks(team).filter(p=>!taken.has(p.name)).map(p=>`<option value="${esc(p.name)}">${esc(p.label)} · pick</option>`).join("");
+  const rows=x.outs.map(p=>`<div class="prow"><span class="n">${esc(label(p))}</span><span class="num">${p.pick?"pick":money(p.sal)}</span><span class="num ${cls(p.tv)}">${sgn(p.tv)}</span><button class="x" type="button" data-rm="${tr.id}" data-team="${team}" data-name="${esc(p.name)}" aria-label="Remove ${esc(p.name)}">✕</button></div>`).join("")||`<p class="why">Sends nobody yet.</p>`;
+  return `<div class="side"><div class="sh">${badge(team,22)}${esc(nick(team))} send</div>${rows}
+    <select data-add="${tr.id}" data-team="${team}" aria-label="Add a ${esc(nick(team))} player"><option value="">+ Add a player or pick</option>${opts}</select>
+    <dl class="kv"><dt>${esc(nick(team))} value change</dt><dd class="${cls(x.dv)}">${sgn(x.dv)}</dd><dt>This season</dt><dd class="${cls(x.dy)}">${sgn(x.dy)}</dd><dt>Salary out / in</dt><dd>${money(x.O)} / ${money(x.I)}</dd><dt>Payroll after</dt><dd>${money(x.r.post)}</dd></dl>
+    <span class="ok ${x.r.ok?"pos":"neg"}">${x.r.ok?"✓ Salary works":"✗ Salary doesn't work"}</span>${x.stp?`<span class="ok neg">✗ ${esc(x.stp)}</span>`:""}<p class="why">${esc(x.r.how)}${x.r.hard?" "+esc(x.r.hard):""}${x.before!==x.after?` Goes from ${x.before} to ${x.after}.`:""}</p></div>`;
+}
+function drawBoard(){
+  const mine=st.trades.filter(t=>t.a===st.team||t.b===st.team);
+  $("#boardSub").textContent=mine.length?`${mine.length} trade${mine.length>1?"s":""}`:"";
+  if(!mine.length){$("#board").innerHTML=`<p class="empty">Trades Claude proposes show up here, checked against the salary rules. You can add or remove players on any of them.</p>`;return}
+  $("#board").innerHTML=mine.map(tr=>{const {e}=resolveTrade(tr),empty=!tr.sends[tr.a].length&&!tr.sends[tr.b].length;
+    const lead=Math.abs(e.a.dv)<1?"About even on trade value.":`${nick(e.a.dv>0?tr.a:tr.b)} win the value side by ${money(Math.abs(e.a.dv))}.`;
+    return `<article class="trade" id="trade-${tr.id}"><div class="th"><b>#${tr.id} · ${esc(tr.title||`${nick(tr.a)} and ${nick(tr.b)}`)}</b><button type="button" data-del="${tr.id}" aria-label="Remove trade ${tr.id}">Remove</button></div>
+    <div class="sides">${sideHTML(tr,"a",e.a)}${sideHTML(tr,"b",e.b)}</div>
+    <div class="verdict">${empty?"Add players to either side.":`<b class="${e.legal?"pos":"neg"}">${e.legal?"Legal under the salary and pick rules.":"Not legal as built."}</b> ${lead}`}${tr.why?`<p class="why" style="margin-top:4px">${esc(tr.why)}</p>`:""}</div></article>`}).join("");
+}
+function drawPartner(){
+  $("#partner").innerHTML=Object.keys(caps).filter(t=>t!==st.team).sort((a,b)=>tname(a).localeCompare(tname(b))).map(t=>`<option value="${t}">${esc(tname(t))}</option>`).join("");
+}
+function addTrade({a,b,sendsA=[],sendsB=[],title="",why=""}){
+  const tr={id:st.seq++,a,b,sends:{[a]:sendsA,[b]:sendsB},title,why};st.trades.unshift(tr);save();drawBoard();return tr;
+}
+function flash(id){const el=$("#trade-"+id);if(!el)return;el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"nearest"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600)}
+document.addEventListener("click",e=>{
+  const rm=e.target.closest("[data-rm]");if(rm){const tr=st.trades.find(t=>t.id==rm.dataset.rm);tr.sends[rm.dataset.team]=tr.sends[rm.dataset.team].filter(n=>n!==rm.dataset.name);save();drawBoard();return}
+  const del=e.target.closest("[data-del]");if(del){st.trades=st.trades.filter(t=>t.id!=del.dataset.del);save();drawBoard();return}
+  const go=e.target.closest("[data-goto]");if(go)flash(go.dataset.goto);
+});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-add]");if(s&&s.value){const tr=st.trades.find(t=>t.id==s.dataset.add);tr.sends[s.dataset.team].push(s.value);save();drawBoard()}});
+$("#addTrade").onclick=()=>{const tr=addTrade({a:st.team,b:$("#partner").value});flash(tr.id)};
+
+// --- Chat
+function md(s){
+  const lines=esc(s).split("\n"),out=[];let list=null;
+  const inline=t=>t.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>").replace(/`([^`]+)`/g,"<code>$1</code>");
+  const close=()=>{if(list){out.push(`</${list}>`);list=null}};
+  for(const l of lines){let m;
+    if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(list!=="ul"){close();out.push("<ul>");list="ul"}out.push(`<li>${inline(m[1])}</li>`)}
+    else if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(list!=="ol"){close();out.push("<ol>");list="ol"}out.push(`<li>${inline(m[1])}</li>`)}
+    else if((m=l.match(/^#{1,4}\s+(.*)/))){close();out.push(`<h4>${inline(m[1])}</h4>`)}
+    else if(!l.trim())close();
+    else{close();out.push(`<p>${inline(l)}</p>`)}}
+  close();return out.join("");
+}
+function bubble(role,text){
+  const d=document.createElement("div");d.className="msg "+role;
+  d.innerHTML=role==="ai"?`<div class="who-ai">Claude · GM</div><div class="body"></div><div class="loaded"></div><div class="work" hidden></div>`:`<div class="body"></div>`;
+  if(text!=null){role==="ai"?d.querySelector(".body").innerHTML=md(text):d.querySelector(".body").textContent=text}
+  $("#log").appendChild(d);$("#log").scrollTop=$("#log").scrollHeight;return d;
+}
+function greet(){
+  const t=st.team,ps=roster(t),c=caps[t],byTV=ps.slice().sort((a,b)=>b.tv-a.tv);
+  bubble("ai",`Welcome to the ${nick(t)} front office. You're at **${money(c.payroll)}**, ${status(c,c.payroll)}, with the **#${teamRank(t)}** asset sheet in the league. Your best trade chip is **${byTV[0].name}** (${sgn(byTV[0].tv)} of trade value) and your heaviest contract is **${byTV[byTV.length-1].name}** (${sgn(byTV[byTV.length-1].tv)}).\n\nAsk me anything, or tap a question below.`);
+}
+function drawStarters(){
+  const ps=roster(st.team),byTV=ps.slice().sort((a,b)=>b.tv-a.tv),worst=byTV[byTV.length-1],best=byTV[0];
+  const qs=[`What should we do with ${worst.name}?`,`What could ${best.name} get us on the market?`,`Find a trade that makes us better this season without adding salary`,`Are we buyers or sellers this year? Give me a plan.`,`Who's a star we could realistically trade for?`];
+  $("#starters").innerHTML=qs.map(q=>`<button type="button">${esc(q)}</button>`).join("");
+  $("#starters").querySelectorAll("button").forEach((b,i)=>b.onclick=()=>ask(qs[i]));
+}
+function leagueTable(){
+  return Object.keys(caps).sort((a,b)=>caps[b].payroll-caps[a].payroll).map(t=>{const s=summary[t]||{},ps=roster(t).slice().sort((a,b)=>b.tv-a.tv);
+    return `${t} ${tname(t)} | payroll ${caps[t].payroll.toFixed(1)} (${status(caps[t],caps[t].payroll)}) | asset net ${r1(s.net)} | picks ${r1(s.picks)} | top chip ${ps[0]?ps[0].name+" "+r1(ps[0].tv):"-"} | heaviest ${ps.length?ps[ps.length-1].name+" "+r1(ps[ps.length-1].tv):"-"}`}).join("\n");
+}
+function rosterRows(t){return roster(t).map(p=>`${p.name} | age ${p.age} | ${money(p.sal)} this season, ${p.yrs} yrs, ${money(p.tot)} total | trade value ${sgn(p.tv)} | this season surplus ${sgn(p.y1)}${p.rookie?" | rookie scale":""}${p.small?" | small sample":""}`).join("\n")}
+function rules(){
+  const t=st.team,c=caps[t];
+  return `You are the AI assistant GM for the ${tname(t)} (${t}) on a fan's NBA asset-tracker page. It is the 2026-27 season (October 2026). The fan runs this team and asks you questions in plain English.
+
+How the numbers work (all money in $M):
+- Trade value = each remaining contract year's projected Win Shares (aging curve) priced at a market $/Win Share that grows 7%/yr, minus salary, discounted 8%/yr, summed. Positive = asset, negative = liability.
+- This season surplus = the 2026-27 year alone (what the player is worth now minus salary).
+- Based on full 2025-26 stats plus the first few 2026-27 games. "small sample" players have too few minutes to value well.
+- Draft picks are in the data: each pick a team holds has a value_m (expected slot, protections and chance it conveys). Picks carry no salary and can be included in trades by pick_id (get_team_picks lists them). Use them as sweeteners, and only offer picks a team actually holds. The Stepien rule (a team can't be without a first in two straight future drafts) IS checked by check_trade and search results only include legal trades.
+- Not modeled: cash, trade exceptions, player/team options, rookie-deal restricted free agency control, injuries this season.
+
+CBA salary matching (2023 CBA Art. VII), 2026-27 cap ${c.cap}, tax ${c.tax}, 1st apron ${c.apron1}, 2nd apron ${c.apron2}:
+- Under the cap: absorb up to cap room + $0.25M. Expanded exception (only if post-trade payroll stays under the 1st apron): take back roughly 200% of outgoing + $0.25M for small salaries, about outgoing + $8.3M in the middle, 125% + $0.25M for big ones. Standard: one outgoing salary + $0.25M (no $0.25M over the 1st apron). Aggregating 2+ players is banned if post-trade payroll is over the 2nd apron.
+- You don't need to do this math: the check_trade tool does it exactly. Never propose a trade you haven't checked.
+
+How to work:
+- Use the tools: get_team_roster for any team, find_players to scan the league, search_trades to have the page brute-force legal packages, check_trade to verify, load_trade to put a deal on the fan's trade board.
+- When you recommend concrete trades, load the best 1-3 with load_trade (only legal ones), and refer to them by the number it returns, e.g. "Trade #4".
+- Think like a real front office: the partner has to want it. A trade where the partner loses on both value measures needs a sweetener; say so.
+- Answer conversationally, in short paragraphs and bullets with **bold** names, usually under 220 words. Lead with the recommendation. Use player names, $M figures and the model's numbers. Be candid that this is a model, not insider info.
+- Only discuss players in the data; if a name isn't found, say so.
+
+${tname(t)} roster (sorted by salary):
+${rosterRows(t)}
+
+${tname(t)} draft picks held (pick_id | what | value):
+${teamPicks(t).map(p=>`${p.name} | ${p.label}${p.notes?" | "+p.notes.slice(0,90):""} | ${money(p.tv)}`).join("\n")||"none"}
+
+League (team | payroll | cap position | asset net = team surplus minus dead money | draft pick value | top chip | heaviest contract):
+${leagueTable()}`;
+}
+const pub=p=>({name:p.name,team:p.team,age:p.age,salary_2026_27_m:r1(p.sal),years_left:p.yrs,total_remaining_m:r1(p.tot),trade_value_m:r1(p.tv),this_season_surplus_m:r1(p.y1),rookie_scale:p.rookie,small_sample:p.small});
+function needTeam(x){const t=teamCode(x);if(!t)throw new Error(`Unknown team "${x}". Use a code like WAS or a name like Wizards.`);return t}
+function resolveSends(team,names){const out=[],bad=[];for(const n of names||[]){const p=findAsset(String(n),team);if(p)out.push(p);else{const any=findPlayer(String(n));bad.push(any?`${n} plays for ${any.team}, not ${team}`:`${n} not found on ${team}`)}}if(bad.length)throw new Error(bad.join("; "));return out}
+function tools(work,bub){
+  const say=s=>{work.hidden=false;work.textContent=s};
+  const arr={type:"array",items:{type:"string"}};
+  return[
+    {name:"get_team_roster",description:"Returns a team's payroll, cap position, room under each line, and every player with salary, years left, trade value and this-season surplus. Use for any team other than the fan's (theirs is in the prompt).",
+     inputSchema:{type:"object",properties:{team:{type:"string",description:"Team code like LAL or name like Lakers"}},required:["team"]},
+     execute:({team})=>{const t=needTeam(team),c=caps[t];say(`Reading the ${nick(t)} books…`);return{team:t,name:tname(t),payroll_m:c.payroll,cap_position:status(c,c.payroll),under_tax_m:r1(c.tax-c.payroll),under_apron1_m:r1(c.apron1-c.payroll),under_apron2_m:r1(c.apron2-c.payroll),asset_net_m:r1((summary[t]||{}).net),players:roster(t).map(pub)}}},
+    {name:"get_team_picks",description:"Lists the draft picks and swap rights a team holds, with pick_id, year, round, original team, protection, chance it conveys, expected slot and value in $M. Use pick_ids in check_trade and load_trade.",
+     inputSchema:{type:"object",properties:{team:{type:"string"}},required:["team"]},
+     execute:({team})=>{const t=needTeam(team);say(`Reading the ${nick(t)} pick sheet…`);return{team:t,pick_value_m:r1((summary[t]||{}).picks),picks:teamPicks(t).map(p=>({pick_id:p.name,what:p.label,year:p.year,round:p.round,original_team:p.original,protection:p.protection||null,p_conveys:p.p_conveys,expected_slot:p.exp_slot,value_m:r1(p.tv),notes:p.notes||null}))}}},
+    {name:"find_players",description:"Scan the whole league for players matching filters. Returns up to `limit` players (default 15) with salary, age, trade value and this-season surplus. Good for finding stars, value contracts, or salary filler.",
+     inputSchema:{type:"object",properties:{team:{type:"string"},exclude_team:{type:"string"},min_salary_m:{type:"number"},max_salary_m:{type:"number"},max_age:{type:"number"},min_age:{type:"number"},min_trade_value_m:{type:"number"},max_trade_value_m:{type:"number"},min_this_season_surplus_m:{type:"number"},name_contains:{type:"string"},sort_by:{type:"string",enum:["trade_value","this_season","salary","worst_trade_value"]},limit:{type:"number"}}},
+     execute:f=>{say("Scanning the league…");let ps=tvals.slice();const T=f.team&&needTeam(f.team),X=f.exclude_team&&needTeam(f.exclude_team);
+       ps=ps.filter(p=>(!T||p.team===T)&&(!X||p.team!==X)&&(f.min_salary_m==null||p.sal>=f.min_salary_m)&&(f.max_salary_m==null||p.sal<=f.max_salary_m)&&(f.max_age==null||p.age<=f.max_age)&&(f.min_age==null||p.age>=f.min_age)&&(f.min_trade_value_m==null||p.tv>=f.min_trade_value_m)&&(f.max_trade_value_m==null||p.tv<=f.max_trade_value_m)&&(f.min_this_season_surplus_m==null||p.y1>=f.min_this_season_surplus_m)&&(!f.name_contains||norm(p.name).includes(norm(f.name_contains))));
+       const k={trade_value:p=>-p.tv,this_season:p=>-p.y1,salary:p=>-p.sal,worst_trade_value:p=>p.tv}[f.sort_by]||(p=>-p.tv);ps.sort((a,b)=>k(a)-k(b));
+       return{count:ps.length,players:ps.slice(0,Math.min(40,Number(f.limit)||15)).map(pub)}}},
+    {name:"search_trades",description:"Has the page brute-force every legal two-team package (1-3 players a side) for a team and rank them by goal. Give a partner or must_get to focus; with neither it scans all 29 teams with up to 2 players a side. Returns up to 8 legal candidates with value changes for both teams and the sweetener the partner would want.",
+     inputSchema:{type:"object",properties:{team:{type:"string",description:"Team doing the searching, usually the fan's"},partner:{type:"string"},must_send:{...arr,description:"Players the team must include"},must_get:{...arr,description:"Players the team wants back (sets the partner)"},goal:{type:"string",enum:["balanced","win_now","long_term","dump_salary"]},max_players_per_side:{type:"number"}},required:["team"]},
+     execute:a=>{say(`Running the trade machine${a.partner?" with the "+nick(teamCode(a.partner)||""):a.must_get&&a.must_get.length?" for "+a.must_get.join(", "):" across the league"}…`);return searchTrades(a)}},
+    {name:"check_trade",description:"Checks a two-team trade (players by name, picks by pick_id) against the CBA salary-matching rules and returns, for each team, salary in/out, payroll after, cap position change, whether salary works and why, and the change in trade value and this-season surplus.",
+     inputSchema:{type:"object",properties:{team_a:{type:"string"},sends_a:arr,team_b:{type:"string"},sends_b:arr},required:["team_a","sends_a","team_b","sends_b"]},
+     execute:a=>{const A=needTeam(a.team_a),B=needTeam(a.team_b);say(`Checking salaries: ${nick(A)} and ${nick(B)}…`);return evalSummary(evaluate(A,resolveSends(A,a.sends_a),B,resolveSends(B,a.sends_b)))}},
+    {name:"load_trade",description:"Puts a two-team trade (players by name, picks by pick_id) on the fan's trade board, where they can see and edit it. Returns its board number and the salary check. Use for the 1-3 trades you actually recommend.",
+     inputSchema:{type:"object",properties:{title:{type:"string",description:"Short name, e.g. 'AD to the Lakers'"},team_a:{type:"string"},sends_a:arr,team_b:{type:"string"},sends_b:arr,why:{type:"string",description:"One sentence on why this helps the fan's team"}},required:["title","team_a","sends_a","team_b","sends_b"]},
+     execute:a=>{const A=needTeam(a.team_a),B=needTeam(a.team_b),oa=resolveSends(A,a.sends_a),ob=resolveSends(B,a.sends_b);
+       const e=evaluate(A,oa,B,ob);let mineA=A===st.team||B!==st.team;const tr=addTrade({a:mineA?A:B,b:mineA?B:A,sendsA:(mineA?oa:ob).map(p=>p.name),sendsB:(mineA?ob:oa).map(p=>p.name),title:String(a.title||"").slice(0,80),why:String(a.why||"").slice(0,240)});
+       const chip=document.createElement("button");chip.type="button";chip.dataset.goto=tr.id;chip.textContent=`Trade #${tr.id} ${e.legal?"✓":"✗"} ${tr.title||nick(A)+" / "+nick(B)}`;bub.querySelector(".loaded").appendChild(chip);
+       bub.loads=(bub.loads||[]).concat(`#${tr.id} ${tr.title}: ${nick(A)} send ${oa.map(label).join(", ")||"nothing"}; ${nick(B)} send ${ob.map(label).join(", ")||"nothing"}`);
+       say("Loaded onto the trade board…");return{board_number:tr.id,...evalSummary(e)}}},
+  ];
+}
+let sample=null,canTools=false,ctl=null;
+const errCopy={not_granted:"Claude isn't allowed on this page for you. You can still use the trade board.",sampling_disabled:"Claude isn't available on this account.",rate_limited:"That's a lot of questions at once. Give it a minute and ask again.",session_expired:"Sign in to Claude again, then ask.",refused:"Claude declined that one. Try asking another way.",prompt_too_large:"That conversation got too long. Reload the page to start fresh.",empty_completion:"Claude came back empty. Try rephrasing."};
+async function ask(q){
+  q=String(q||"").trim();if(!q||st.busy)return;
+  if(!sample){$("#noAI").hidden=false;return}
+  st.busy=true;$("#q").value="";$("#send").disabled=true;$("#stop").hidden=false;$("#starters").hidden=true;
+  bubble("me",q);const b=bubble("ai"),body=b.querySelector(".body"),work=b.querySelector(".work");
+  body.innerHTML=`<p class="sub">Thinking…</p>`;work.hidden=true;
+  st.turns.push({role:"user",content:q});
+  const recent=st.turns.slice(-12);while(recent.length&&recent[0].role!=="user")recent.shift();
+  const input=[{role:"user",content:rules()},{role:"assistant",content:`Got it. I'm the ${tname(st.team)} GM assistant and I'll check every trade before I propose it.`},...recent];
+  ctl=new AbortController();
+  try{
+    const opts={signal:ctl.signal,onText:({text})=>{body.innerHTML=md(text);$("#log").scrollTop=$("#log").scrollHeight}};
+    if(canTools)opts.tools=tools(work,b);else opts.cache=false;
+    const {text,truncated}=await sample(input,opts);
+    body.innerHTML=md(text)+(truncated?`<p class="sub">The answer was cut short. Ask for less at a time.</p>`:"");
+    st.turns.push({role:"assistant",content:text+(b.loads?"\n\n(Loaded to the trade board: "+b.loads.join(" | ")+")":"")});
+  }catch(e){
+    const keep=e&&e.text;body.innerHTML=keep&&e.code!=="refused"?md(keep):"";
+    if(e&&e.code!=="cancelled")body.insertAdjacentHTML("beforeend",`<p class="sub">${esc(errCopy[e.code]||"Something went wrong reaching Claude. Ask again in a moment.")}</p>`);
+    else body.insertAdjacentHTML("beforeend",`<p class="sub">Stopped.</p>`);
+    if(keep)st.turns.push({role:"assistant",content:keep});else st.turns.pop();
+    if(e&&(e.code==="not_granted"||e.code==="sampling_disabled"))disableAI();
+  }finally{work.hidden=true;st.busy=false;$("#send").disabled=false;$("#stop").hidden=true;$("#log").scrollTop=$("#log").scrollHeight}
+}
+function disableAI(){sample=null;$("#askForm").hidden=true;$("#starters").hidden=true;$("#noAI").hidden=false;$("#chatSub").textContent="Claude unavailable"}
+$("#askForm").addEventListener("submit",e=>{e.preventDefault();ask($("#q").value)});
+$("#q").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask($("#q").value)}});
+$("#q").addEventListener("input",e=>{e.target.style.height="auto";e.target.style.height=Math.min(160,e.target.scrollHeight)+"px"});
+$("#stop").onclick=()=>ctl&&ctl.abort();
+
+async function boot(){
+  try{
+    const [vc,cc,sc]=await Promise.all(["trade_values","team_cap","team_summary"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})));
+    tvals=parseCSV(vc).map(r=>({name:r.Player,team:r.Team,age:N(r.Age),yrs:N(r.years_left),sal:N(r.salary_2026_27_m),tot:N(r.total_salary_m),tv:N(r.trade_value_m),y1:N(r.sv_y1),rookie:r.rookie_scale==="True",small:(r.flag||"").includes("small")})).filter(p=>p.sal!=null&&p.tv!=null);
+    parseCSV(cc).forEach(r=>caps[r.Team]={payroll:N(r.payroll_m),cap:N(r.cap_m),tax:N(r.tax_m),apron1:N(r.apron1_m),apron2:N(r.apron2_m)});
+    parseCSV(sc).forEach(r=>summary[r.Team]={team:r.Team,net:N(r.net_m),dead:N(r.dead_m),picks:N(r.pick_value_m),best:r.best_contract,worst:r.worst_contract});
+    try{const pc=await fetch("data/draft_picks.csv").then(r=>{if(!r.ok)throw 0;return r.text()});picks=parseCSV(pc).map(pickOf)}catch(e){picks=[]}
+  }catch(e){$("#lede").textContent="The data files didn't load. Reload the page to try again.";return}
+  drawPicker();
+  const h=(location.hash||"").slice(1).toUpperCase();if(TEAM[h]&&caps[h])st.team=h;
+  show();
+  const api=window.claude&&window.claude.use?await window.claude.use("sample"):null;
+  if(!api){disableAI();return}
+  sample=api;try{const lim=await sample.limits();canTools=!!lim.tools}catch(e){canTools=false}
+}
+boot();
+})();
+</script>
+
+</body></html>
