@@ -1,0 +1,639 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="ledger"></script>
+<title>Contract Ledger</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column ledger; chart + player card side by side on wide screens, tables below */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
+  --accent:#C2410C; --good:#15803D; --bad:#B91C1C; --goodtint:rgba(21,128,61,.07); --dim:#C3CCD6;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --goodtint:rgba(74,222,128,.07); --dim:#33404E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --goodtint:rgba(74,222,128,.07); --dim:#33404E; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:.95;margin:6px 0 10px;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+.lede b{color:var(--ink);font-weight:600}
+.how{list-style:none;counter-reset:s;padding:0;margin:16px 0 10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.how li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px;color:var(--muted);display:block}
+.how li::before{display:block;margin-bottom:4px;content:"Step " counter(s);font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.how b{color:var(--ink)}
+.controls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 13px var(--body);color:var(--muted);background:none;border:0;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tabs button[aria-pressed="true"]{background:var(--accent);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+label.chk{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer}
+select,input[type=search]{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
+input[type=search]{width:170px}
+.lensnote{font-size:13px;color:var(--muted);margin:-8px 0 0;max-width:80ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+figure{margin:0;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;padding:4px 4px 8px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+svg .lbl{fill:var(--ink);font-family:var(--body);font-size:12px;font-weight:600}
+svg .zone{font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.dot{cursor:pointer;transition:r .12s}
+.dot.dim{fill:var(--dim)!important;pointer-events:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:5px;white-space:nowrap;transform:translate(-50%,-115%)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card h2{font-family:var(--display);font-size:30px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.01em}
+.card .sub{color:var(--muted);font-size:13px;margin:-6px 0 0}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px;margin:0}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.lensrow{display:grid;grid-template-columns:96px 1fr 70px;gap:8px;align-items:center;font-size:13px}
+.lensrow .bar{height:8px;background:var(--line);border-radius:4px;position:relative;overflow:hidden}
+.lensrow .bar i{position:absolute;top:0;bottom:0}
+.lensrow .v{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.lensrow.on{font-weight:600}
+.chip{display:inline-block;font:500 11px var(--mono);padding:1px 6px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.warn{border-color:var(--accent);color:var(--accent)}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;max-height:560px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{position:sticky;top:0;background:var(--surface);z-index:1}
+th button{font:600 12px var(--body);color:var(--muted);background:none;border:0;padding:0;cursor:pointer;text-transform:uppercase;letter-spacing:.05em}
+th.num,td.num{text-align:right;font-family:var(--mono)}
+tbody tr{cursor:pointer} tbody tr:hover{background:var(--goodtint)}
+tbody tr.sel{background:var(--goodtint);box-shadow:inset 3px 0 0 var(--accent)}
+h3{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.03em;margin:0}
+.sectionhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sectionhead p{margin:0;color:var(--muted);font-size:13px}
+footer{color:var(--muted);font-size:12px;max-width:80ch;border-top:1px solid var(--line);padding-top:14px}
+footer p{margin:0 0 6px}
+@media (prefers-reduced-motion:reduce){.dot{transition:none}}
+[hidden]{display:none!important}
+.banner{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--teamc,var(--accent));border-radius:8px;padding:14px 16px}
+.banner .who{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 220px}
+.banner h2{font-family:var(--display);font-size:clamp(28px,5vw,40px);line-height:1;margin:0;text-transform:uppercase;letter-spacing:.01em}
+.banner .sub{color:var(--muted);font-size:13px;margin:0}
+.banner .stats{display:flex;gap:6px 22px;flex-wrap:wrap;margin:0}
+.banner .stats div{display:flex;flex-direction:column}
+.banner .stats dt{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.banner .stats dd{margin:0;font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums}
+.btn{font:500 13px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+.badge{flex:none;vertical-align:middle}
+td .badge{margin-right:8px}
+.picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.pteam{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:600 13px var(--body);color:var(--ink);cursor:pointer;text-align:left}
+.pteam:hover{border-color:var(--accent)}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.hcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.hcard h4{font-family:var(--display);font-size:18px;text-transform:uppercase;letter-spacing:.04em;margin:0}
+.pkmap td{vertical-align:top;min-width:92px}
+.pkmap th{text-align:left}
+.pk{display:flex;justify-content:space-between;gap:6px;font-size:12px;padding:3px 6px;border-radius:4px;margin-bottom:4px;white-space:nowrap}
+.pk b{font-family:var(--mono);font-weight:500}
+.pk.own,.pk.in{background:var(--goodtint);border:1px solid var(--good)}
+.pk.in{border-style:dashed}
+.pk.gone{color:var(--muted);text-decoration:line-through;border:1px solid var(--line)}
+.hlist{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none;font-size:14px}
+.hlist li{display:flex;justify-content:space-between;gap:10px}
+.hlist .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.idea{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid var(--line);padding-top:10px;font-size:13px;flex-wrap:wrap}
+.idea:first-of-type{border-top:0;padding-top:0}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}
+.tside,.tres{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.thead{display:flex;gap:10px;align-items:center}
+.thead select{flex:1;min-width:0;font-weight:600}
+.tcols,.trow{display:grid;grid-template-columns:minmax(0,1fr) 72px 92px;gap:8px;align-items:center}
+.tcols{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:0 8px 0 30px}
+.tlist{display:flex;flex-direction:column;max-height:360px;overflow-y:auto;border-top:1px solid var(--line)}
+.trow{grid-template-columns:18px minmax(0,1fr) 72px 92px;padding:6px 8px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px}
+.trow.on{background:var(--goodtint);box-shadow:inset 3px 0 0 var(--accent)}
+.trow .num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tverdict{border-radius:8px;padding:12px 16px;border:1px solid var(--line);background:var(--surface);border-left:5px solid var(--good)}
+.tverdict.bad{border-left-color:var(--bad)}
+.verdict{font-weight:600;margin:4px 0 0}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">NBA Asset Tracker · 2026-27 contracts · as of Oct 25, 2026</p>
+    <h1>Contract Ledger</h1>
+    <p class="lede">What if you read an NBA team like a balance sheet? Contracts are what a front office spends; production is what it gets back. This ledger prices every 2026-27 contract against what the player actually produces, to see which teams spend their money best.</p>
+    <ol class="how">
+      <li><b>Price a win.</b> A replacement-level player costs the league minimum ($1.36M). Every Win Share above replacement is worth <b>$6.20M</b>, the rate at which total value matches total league salary.</li>
+      <li><b>Value each player.</b> The minimum plus $6.20M for each Win Share above replacement is what his production is worth. Small samples are pulled toward average, and bench bigs get a rebounding discount. Subtract his salary and you get <b>surplus</b>: positive is a bargain, negative is overpaid.</li>
+      <li><b>Add up each team.</b> Sum the surplus on a roster and subtract dead money (salary still owed to players who are gone) to rank all 30 front offices.</li>
+    </ol>
+    <p class="lede" style="font-size:13px">Click any dot, row or team to dig in. Built by Sreekar as a weekend project; data from Basketball Reference and Spotrac.</p>
+  </header>
+
+  <div class="controls">
+    <div class="seg tabs" role="group" aria-label="View" hidden>
+      <button id="tab-home" aria-pressed="false">My team</button>
+      <button id="tab-players" aria-pressed="true">Players</button>
+      <button id="tab-teams" aria-pressed="false">Teams</button>
+      <button id="tab-trade" aria-pressed="false">Trade machine</button>
+    </div>
+    <div class="seg lensonly" role="group" aria-label="Value lens" id="lens">
+      <button data-l="actual" aria-pressed="false">Last season</button>
+      <button data-l="healthy" aria-pressed="true">If healthy</button>
+      <button data-l="blended" aria-pressed="false">Healthy + 2026-27</button>
+    </div>
+    <label class="chk lensonly"><input type="checkbox" id="hideSmall" checked> Hide small samples</label>
+    <label class="chk lensonly"><input type="checkbox" id="hideRookie"> Hide rookie deals</label>
+    <select id="teamSel" class="lensonly" aria-label="Team"><option value="">All teams</option></select>
+    <input type="search" id="q" class="lensonly" placeholder="Find a player" aria-label="Find a player">
+  </div>
+  <p class="lensnote lensonly" id="lensnote"></p>
+
+  <section id="home-view" hidden style="flex-direction:column;gap:18px"></section>
+
+  <section id="players-view" style="display:flex;flex-direction:column;gap:18px">
+    <div class="banner" id="teamBanner" hidden></div>
+    <div class="grid">
+      <figure>
+        <figcaption><span>x: salary 2026-27 ($M)</span><span>y: production value ($M)</span><span>diagonal = fair price</span></figcaption>
+        <svg id="scatter" viewBox="0 0 720 440" role="img" aria-label="Salary versus production value"></svg>
+        <div class="tip" id="tip" hidden></div>
+      </figure>
+      <aside class="card" id="detail" aria-live="polite"></aside>
+    </div>
+    <div class="sectionhead"><h3>All contracts</h3><p id="pcount"></p></div>
+    <div class="tablewrap"><table id="ptable"></table></div>
+  </section>
+
+  <section id="teams-view" hidden style="flex-direction:column;gap:18px">
+    <div class="sectionhead"><h3>Front office ranking</h3><p>Sum of player surplus minus dead money. Click a team to see its roster.</p></div>
+    <figure><svg id="bars" viewBox="0 0 720 700" role="img" aria-label="Team net surplus"></svg></figure>
+    <div class="tablewrap"><table id="ttable"></table></div>
+  </section>
+
+  <section id="trade-view" hidden style="flex-direction:column;gap:18px"></section>
+  <section id="player-view" hidden style="flex-direction:column;gap:18px"></section>
+
+  <footer>
+    <p>Sources: Basketball Reference advanced stats (2025-26 full season, 2026-27 through about 3 games) and player contracts; Spotrac team cash for dead and retained money. Players under 500 minutes last season are left out unless they have 2026-27 minutes, in which case they are valued on this season alone and flagged as small samples.</p>
+    <p>"If healthy" projects each player to all 82 games at his own minutes per game. "With 2026-27" pools both seasons by minutes, so it barely moves until December. Rookie deals are first-round picks from the 2023-2026 drafts, whose pay is set by the league's rookie scale. VORP is shown as a second opinion; it ranks players much like Win Shares (rank correlation 0.83) but rates high-usage creators higher.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const NS="http://www.w3.org/2000/svg";
+function parseCSV(t){
+  const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});
+  const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+const N=v=>v===""||v==null?null:+v;
+let players=[],teams=[];
+const mapPlayer=(r,i)=>({id:i,name:r.Player,team:r.Team,prev:r["2025-26 team"],g:N(r.G),mp:N(r.MP),projmp:N(r.proj_MP),ws:N(r.WS),ws48:N(r["WS/48"]),vorp:N(r.VORP),sal:N(r.salary_m),actual:N(r.surplus_m),healthy:N(r.healthy_surplus_m),blended:N(r.blended_surplus_m),g27:N(r["G_26-27"]),ws48b:N(r["WS/48_26-27"]),rookie:r.rookie_scale==="True",small:(r.flag||"").includes("small"),split:(r.flag||"").includes("split")});
+const mapTeam=r=>({team:r.Team,picks:N(r.pick_value_m),active:N(r.active_m),dead:N(r.dead_m),retained:N(r.retained_m),cash:N(r.total_cash_m)});
+const TEAM={ATL:["Atlanta Hawks","#C8102E","#FDB927"],BOS:["Boston Celtics","#007A33","#BA9653"],BRK:["Brooklyn Nets","#000000","#A1A1A4"],CHO:["Charlotte Hornets","#1D1160","#00788C"],CHI:["Chicago Bulls","#CE1141","#000000"],CLE:["Cleveland Cavaliers","#860038","#FDBB30"],DAL:["Dallas Mavericks","#00538C","#B8C4CA"],DEN:["Denver Nuggets","#0E2240","#FEC524"],DET:["Detroit Pistons","#C8102E","#1D42BA"],GSW:["Golden State Warriors","#1D428A","#FFC72C"],HOU:["Houston Rockets","#CE1141","#C4CED4"],IND:["Indiana Pacers","#002D62","#FDBB30"],LAC:["LA Clippers","#C8102E","#1D428A"],LAL:["Los Angeles Lakers","#552583","#FDB927"],MEM:["Memphis Grizzlies","#5D76A9","#12173F"],MIA:["Miami Heat","#98002E","#F9A01B"],MIL:["Milwaukee Bucks","#00471B","#EEE1C6"],MIN:["Minnesota Timberwolves","#0C2340","#78BE20"],NOP:["New Orleans Pelicans","#0C2340","#C8102E"],NYK:["New York Knicks","#006BB6","#F58426"],OKC:["Oklahoma City Thunder","#007AC1","#EF3B24"],ORL:["Orlando Magic","#0077C0","#C4CED4"],PHI:["Philadelphia 76ers","#006BB6","#ED174C"],PHO:["Phoenix Suns","#1D1160","#E56020"],POR:["Portland Trail Blazers","#E03A3E","#000000"],SAC:["Sacramento Kings","#5A2D81","#63727A"],SAS:["San Antonio Spurs","#000000","#C4CED4"],TOR:["Toronto Raptors","#CE1141","#000000"],UTA:["Utah Jazz","#002B5C","#F9A01B"],WAS:["Washington Wizards","#002B5C","#E31837"]};
+const tinfo=a=>TEAM[a]||[a,"#5B6878","#C3CCD6"];
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}" style="width:${s}px;height:${s}px;object-fit:contain">`;
+function badgeEl(a,cx,cy,r,parent,op){return el("image",{href:`logos/${a}.png`,x:cx-r,y:cy-r,width:2*r,height:2*r,opacity:op==null?1:op,"pointer-events":"none",preserveAspectRatio:"xMidYMid meet"},parent)}
+const LENS={actual:{label:"Last season",note:"Last season: 2025-26 Win Shares as they happened. Injured players are charged for the games they missed."},
+  healthy:{label:"If healthy",note:"If healthy: each player is projected to all 82 games at his own minutes per game, so injured starters get full credit and bench players stay bench-sized."},
+  blended:{label:"Healthy + 2026-27",note:"Healthy + 2026-27: the if-healthy projection, with this season's games pooled in by minutes so recent form counts more as the season goes on. About 3 games in, it barely moves most players; small-sample players (rookies, last season's injured) are valued on this season alone."}};
+const st={tab:"players",lens:"healthy",hideSmall:true,hideRookie:false,team:"",q:"",sort:{k:"sur",d:-1},sel:null,tsort:{k:"net",d:-1}};
+try{const s=JSON.parse(localStorage.getItem("ledger")||"{}");if(s.lens in LENS)st.lens=s.lens;if(typeof s.hideSmall==="boolean")st.hideSmall=s.hideSmall}catch(e){}
+const save=()=>{try{localStorage.setItem("ledger",JSON.stringify({lens:st.lens,hideSmall:st.hideSmall}))}catch(e){}};
+
+const money=v=>v==null?"–":"$"+v.toFixed(1)+"M";
+const sgn=v=>v==null?"–":(v>=0?"+":"−")+"$"+Math.abs(v).toFixed(1)+"M";
+const cls=v=>v==null?"":v>=0?"pos":"neg";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+const visible=()=>players.filter(p=>p[st.lens]!=null&&!(st.hideSmall&&p.small)&&!(st.hideRookie&&p.rookie));
+function teamStats(t){const ps=visible().filter(p=>p.team===t.team);const s=ps.reduce((a,p)=>a+p[st.lens],0);const o=ps.slice().sort((a,b)=>b[st.lens]-a[st.lens]);return{sur:s,n:ps.length,best:o[0]?o[0].name:"–",worst:o.length?o[o.length-1].name:"–"}}
+const match=p=>(!st.team||p.team===st.team)&&(!st.q||p.name.toLowerCase().includes(st.q.toLowerCase()));
+
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+
+function drawScatter(){
+  const svg=$("#scatter");svg.innerHTML="";
+  const W=720,H=440,m={l:44,r:16,t:14,b:36};
+  const pts=visible();
+  const xmax=Math.max(70,Math.ceil(Math.max(...pts.map(p=>p.sal))/10)*10);
+  const ymax=Math.max(50,Math.ceil(Math.max(...pts.map(p=>p.sal+p[st.lens]))/10)*10);
+  const x=v=>m.l+v/xmax*(W-m.l-m.r), y=v=>H-m.b-Math.max(0,v)/ymax*(H-m.t-m.b);
+  const defs=el("defs",{},svg);const cp=el("clipPath",{id:"plot"},defs);el("rect",{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b},cp);
+  const g=el("g",{"clip-path":"url(#plot)"},svg);
+  el("polygon",{points:`${x(0)},${y(0)} ${x(0)},${y(ymax)} ${x(ymax)},${y(ymax)}`,fill:css("--goodtint")},g);
+  for(let v=0;v<=xmax;v+=10){el("line",{x1:x(v),x2:x(v),y1:m.t,y2:H-m.b,stroke:css("--line"),"stroke-width":1},svg);const t=el("text",{x:x(v),y:H-m.b+16,"text-anchor":"middle"},svg);t.textContent=v}
+  for(let v=0;v<=ymax;v+=10){el("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:css("--line"),"stroke-width":1},svg);const t=el("text",{x:m.l-6,y:y(v)+4,"text-anchor":"end"},svg);t.textContent=v}
+  el("line",{x1:x(0),y1:y(0),x2:x(Math.max(xmax,ymax)),y2:y(Math.max(xmax,ymax)),stroke:css("--muted"),"stroke-dasharray":"4 4","stroke-width":1.2},g);
+  const z1=el("text",{x:m.l+10,y:m.t+22,class:"zone",fill:css("--good"),style:`fill:${css("--good")}`},svg);z1.textContent="Bargains";
+  const z2=el("text",{x:W-m.r-10,y:H-m.b-12,class:"zone","text-anchor":"end",style:`fill:${css("--bad")}`},svg);z2.textContent="Overpaid";
+  if(st.team)badgeEl(st.team,W-m.r-62,m.t+62,52,svg,.16);
+  const any=st.team||st.q;
+  const sorted=pts.slice().sort((a,b)=>(match(a)?1:0)-(match(b)?1:0)||(a.id===st.sel)-(b.id===st.sel));
+  for(const p of sorted){
+    const hi=match(p),s=p[st.lens],tm=st.team&&hi;
+    const c=el("circle",{cx:x(p.sal),cy:y(p.sal+s),r:p.id===st.sel?8:(tm?6.5:any&&hi?5.5:4),class:"dot"+(hi?"":" dim"),fill:tm?tinfo(p.team)[1]:s>=0?css("--good"):css("--bad"),"fill-opacity":tm?1:p.small?.45:.8,stroke:p.id===st.sel?css("--ink"):tm?(s>=0?css("--good"):css("--bad")):"none","stroke-width":tm?2.5:2,tabindex:hi?0:-1},g);
+    c.addEventListener("mouseenter",e=>tip(p,e));c.addEventListener("mouseleave",()=>$("#tip").hidden=true);
+    c.addEventListener("click",()=>select(p.id));c.addEventListener("keydown",e=>{if(e.key==="Enter")select(p.id)});
+  }
+  // labels: selected, plus team roster when filtering by team, else the extremes
+  let lab=[];const hits=pts.filter(match);
+  if(st.team&&hits.length<=16)lab=hits;else{const s=hits.slice().sort((a,b)=>b[st.lens]-a[st.lens]);lab=s.slice(0,2).concat(s.slice(-2))}
+  const selP=players.find(p=>p.id===st.sel);if(selP&&pts.includes(selP)&&!lab.includes(selP))lab.push(selP);
+  const placed=[];
+  for(const p of lab){const px=x(p.sal),right=px>W*0.7;let py=y(p.sal+p[st.lens]);
+    while(placed.some(q=>Math.abs(q.y-py)<13&&Math.abs(q.x-px)<110))py+=13;placed.push({x:px,y:py});
+    const t=el("text",{x:px+(right?-9:9),y:py+4,class:"lbl","text-anchor":right?"end":"start"},svg);t.textContent=p.name.split(" ").slice(-1)[0]==="Jr."||p.name.split(" ").slice(-1)[0]==="III"?p.name:p.name.replace(/^\S+\s/,"")}
+}
+function tip(p,e){
+  const t=$("#tip"),f=t.parentElement.getBoundingClientRect(),r=e.target.getBoundingClientRect();
+  t.innerHTML=`<b>${esc(p.name)}</b> · ${p.team} · ${money(p.sal)} · ${sgn(p[st.lens])}`;
+  t.style.left=Math.min(Math.max(r.left-f.left+r.width/2,90),f.width-90)+"px";t.style.top=(r.top-f.top)+"px";t.hidden=false;
+}
+function select(id){st.sel=id;render();}
+
+function drawDetail(){
+  const pts=visible().filter(match);
+  let p=players.find(q=>q.id===st.sel);
+  if(!p){p=pts.slice().sort((a,b)=>b[st.lens]-a[st.lens])[0];}
+  const d=$("#detail");if(!p){d.innerHTML="<p class='sub'>No players match.</p>";return}
+  const chips=[p.small?"<span class='chip warn'>small sample</span>":"",p.rookie?"<span class='chip'>rookie deal</span>":"",p.split?"<span class='chip warn'>split contract</span>":"",p.prev&&p.prev!==p.team?`<span class='chip'>was ${p.prev} in 2025-26</span>`:""].join(" ");
+  const max=Math.max(45,...["actual","healthy","blended"].map(k=>Math.abs(p[k]||0)));
+  const row=k=>{const v=p[k];const w=v==null?0:Math.abs(v)/max*50;return `<div class="lensrow${k===st.lens?" on":""}"><span>${LENS[k].label}</span><span class="bar"><i style="left:${v!=null&&v<0?50-w:50}%;width:${w}%;background:${v>=0?"var(--good)":"var(--bad)"}"></i><i style="left:50%;width:1px;background:var(--muted)"></i></span><span class="v ${cls(v)}">${sgn(v)}</span></div>`};
+  d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h2>${esc(p.name)}</h2><button class="btn" data-player="${esc(p.name)}" data-pt="${p.team}">Player page</button></div><p class="sub">${badge(p.team,20)} ${tinfo(p.team)[0]} · ${money(p.sal)} this season</p>
+  ${chips.trim()?`<div style="display:flex;gap:6px;flex-wrap:wrap">${chips}</div>`:""}
+  <div style="display:flex;flex-direction:column;gap:6px">${row("actual")}${row("healthy")}${row("blended")}</div>
+  <dl class="kv"><dt>2025-26 games / minutes</dt><dd>${p.g==null?"–":p.g.toFixed(0)} / ${p.mp==null?"–":p.mp.toFixed(0)}</dd><dt>Healthy projection</dt><dd>${p.projmp==null?"–":p.projmp.toFixed(0)+" min"}</dd><dt>VORP (2nd opinion)</dt><dd>${p.vorp==null?"–":p.vorp.toFixed(1)}</dd><dt>2025-26 Win Shares</dt><dd>${p.ws==null?"–":p.ws.toFixed(1)}</dd><dt>WS per 48 min</dt><dd>${p.ws48==null?"–":p.ws48.toFixed(3)}</dd><dt>2026-27 games</dt><dd>${p.g27==null?"–":p.g27.toFixed(0)}</dd><dt>2026-27 WS per 48</dt><dd>${p.ws48b==null?"–":p.ws48b.toFixed(3)}</dd></dl>`;
+}
+
+const PCOLS=[{k:"name",l:"Player"},{k:"team",l:"Team"},{k:"g",l:"Games",n:1},{k:"sal",l:"Salary",n:1},{k:"ws48",l:"WS/48",n:1},{k:"val",l:"Value",n:1},{k:"sur",l:"Surplus",n:1}];
+const pval=(p,k)=>k==="val"?(p[st.lens]==null?null:p.sal+p[st.lens]):k==="sur"?p[st.lens]:p[k];
+function sortBy(arr,get,s){return arr.sort((a,b)=>{const A=get(a,s.k),B=get(b,s.k);if(A==null)return 1;if(B==null)return -1;return(typeof A==="string"?A.localeCompare(B):A-B)*s.d})}
+function head(cols,s,id){return "<thead><tr>"+cols.map(c=>`<th class="${c.n?"num":""}"><button data-k="${c.k}" data-t="${id}">${c.l}${s.k===c.k?(s.d<0?" ↓":" ↑"):""}</button></th>`).join("")+"</tr></thead>"}
+function drawPTable(){
+  const rows=sortBy(visible().filter(match),pval,st.sort);
+  $("#pcount").textContent=`${rows.length} players · ${LENS[st.lens].label.toLowerCase()} view`;
+  $("#ptable").innerHTML=head(PCOLS,st.sort,"p")+"<tbody>"+rows.map(p=>`<tr data-id="${p.id}" class="${p.id===st.sel?"sel":""}"><td>${esc(p.name)} ${p.small?"<span class='chip warn'>small</span>":""}${p.split?" <span class='chip warn'>split</span>":""}${p.rookie?" <span class='chip'>rookie</span>":""}</td><td>${p.team}</td><td class="num">${p.g==null?"–":p.g.toFixed(0)}</td><td class="num">${money(p.sal)}</td><td class="num">${p.ws48==null?"–":p.ws48.toFixed(3)}</td><td class="num">${money(pval(p,"val"))}</td><td class="num ${cls(p[st.lens])}">${sgn(p[st.lens])}</td></tr>`).join("")+"</tbody>";
+}
+
+const TCOLS=[{k:"team",l:"Team"},{k:"net",l:"Net",n:1},{k:"sur",l:"Contract surplus",n:1},{k:"dead",l:"Dead money",n:1},{k:"picks",l:"Draft picks",n:1},{k:"all",l:"Net + picks",n:1},{k:"active",l:"Payroll",n:1},{k:"cash",l:"Total cash",n:1},{k:"n",l:"Valued",n:1},{k:"best",l:"Best contract"},{k:"worst",l:"Worst contract"}];
+const tval=(t,k)=>{if(k==="net")return teamStats(t).sur-t.dead;if(k==="all")return teamStats(t).sur-t.dead+(t.picks||0);if(["sur","n","best","worst"].includes(k))return teamStats(t)[k];return t[k]};
+function drawTeams(){
+  const ts=teams.slice().sort((a,b)=>tval(b,"net")-tval(a,"net"));
+  const svg=$("#bars");svg.innerHTML="";
+  const rh=22,W=720,m={l:46,r:64,t:10,b:10},H=m.t+m.b+rh*ts.length;svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const vals=ts.map(t=>tval(t,"net"));const lo=Math.min(0,...vals),hi=Math.max(0,...vals);
+  const x=v=>m.l+(v-lo)/(hi-lo)*(W-m.l-m.r);
+  el("line",{x1:x(0),x2:x(0),y1:m.t-4,y2:H-m.b+4,stroke:css("--muted"),"stroke-width":1},svg);
+  ts.forEach((t,i)=>{const v=tval(t,"net"),yy=m.t+i*rh;
+    const g=el("g",{style:"cursor:pointer",tabindex:0},svg);
+    el("rect",{x:0,y:yy,width:W,height:rh,fill:"transparent"},g);
+    el("rect",{x:Math.min(x(0),x(v)),y:yy+4,width:Math.max(1,Math.abs(x(v)-x(0))),height:rh-8,rx:2,fill:v>=0?css("--good"):css("--bad"),"fill-opacity":t.team===st.team?1:.75},g);
+    if(t.dead>0){const w=Math.abs(x(t.dead)-x(0));el("rect",{x:v>=0?x(v):x(v)-w,y:yy+4,width:w,height:rh-8,fill:"none",stroke:css("--bad"),"stroke-dasharray":"3 2"},g)}
+    badgeEl(t.team,m.l-16,yy+rh/2,10.5,g);
+    const vt=el("text",{x:v>=0?x(v)+(t.dead>0?Math.abs(x(t.dead)-x(0)):0)+6:x(v)-6,y:yy+rh/2+4,"text-anchor":v>=0?"start":"end"},g);vt.textContent=sgn(v);
+    const go=()=>{st.team=t.team;$("#teamSel").value=t.team;st.sel=null;setTab("players")};
+    g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
+  });
+  const rows=sortBy(teams.slice(),tval,st.tsort);
+  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b></td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
+}
+
+function drawBanner(){
+  const b=$("#teamBanner");const t=teams.find(q=>q.team===st.team);
+  if(!t){b.hidden=true;return}
+  const ranked=teams.slice().sort((a,c)=>tval(c,"net")-tval(a,"net"));const rank=ranked.indexOf(t)+1;const ti=tinfo(t.team);
+  b.style.setProperty("--teamc",ti[1]);b.hidden=false;
+  b.innerHTML=`${badge(t.team,64)}<div class="who"><h2>${ti[0]}</h2><p class="sub">#${rank} of 30 front offices · ${LENS[st.lens].label.toLowerCase()} view</p></div>
+  <dl class="stats"><div><dt>Net</dt><dd class="${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</dd></div><div><dt>Contract surplus</dt><dd class="${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</dd></div><div><dt>Dead money</dt><dd>${t.dead?money(t.dead):"–"}</dd></div><div><dt>Payroll</dt><dd>${money(t.active)}</dd></div><div><dt>Best</dt><dd>${esc(tval(t,"best"))}</dd></div><div><dt>Worst</dt><dd>${esc(tval(t,"worst"))}</dd></div></dl>
+  <button class="btn" id="allTeams">All teams</button>`;
+  $("#allTeams").addEventListener("click",()=>{st.team="";$("#teamSel").value="";st.sel=null;render()});
+}
+function render(){
+  document.querySelectorAll("#lens button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===st.lens));
+  $("#lensnote").textContent=LENS[st.lens].note+(st.tab==="teams"?" Dashed outline on a bar is that team's dead money, already subtracted.":"");
+  if(st.tab==="home")drawHome();else if(st.tab==="player")drawPlayer();else if(st.tab==="players"){drawBanner();drawScatter();drawDetail();drawPTable()}else drawTeams();
+}
+function setTab(t){st.tab=t;["home","players","teams","trade","player"].forEach(k=>{const tb=$("#tab-"+k);if(tb)tb.setAttribute("aria-pressed",k===t||(k==="players"&&t==="player"));const v=$("#"+k+"-view");v.hidden=k!==t;if(k!=="players")v.style.display=k===t?"flex":""});
+  document.querySelectorAll(".lensonly").forEach(e=>e.hidden=t==="trade"||t==="home"||t==="player");
+  try{history.replaceState(null,"","#"+(t==="player"?"player/"+encodeURIComponent(st.pname):t))}catch(e){}if(window.appNav)appNav.refresh();if(t==="trade")drawTrade();else render()}
+function openPlayer(name,team){if(st.tab!=="player")st.pfrom=st.tab;st.pname=name;st.pteam=team||null;setTab("player");scrollTo(0,0)}
+
+// ---- My team home ---------------------------------------------------------
+let myTeam=null;try{myTeam=localStorage.getItem("myTeam")}catch(e){}
+// Sibling pages built on the same data; add each one here once it exists.
+const TOOLS=[{name:"Be the GM",url:"gm.html",what:"Take over the front office and play out a season"},{name:"AI GM",url:"desk.html",what:"Ask Claude what your team should do"},{name:"Offseason",url:"offseason.html",what:"Plan next summer: cap space, free agents, extensions, draft"},{name:"Trade grader",url:"grader.html",what:"Paste any trade or rumor and grade it"},{name:"Predictions",url:"predict.html",what:"Win odds for tonight's games, with the record so far"},{name:"Sentiment",url:"sentiment.html",what:"How the media is talking about every team this week"},{name:"Guess the player",url:"guess.html",what:"A daily mystery player in six clues"}];
+let ideas=null;
+const byName=(x,y)=>tinfo(x)[0].localeCompare(tinfo(y)[0]);
+function capBar(c){
+  const W=720,H=74,m={l:8,r:8},top=Math.max(c.apron2*1.08,c.payroll*1.04),x=v=>m.l+v/top*(W-m.l-m.r);
+  const lines=[["Cap",c.cap],["Tax",c.tax],["1st apron",c.apron1],["2nd apron",c.apron2]];
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Payroll against the cap and aprons"><rect x="${m.l}" y="30" width="${W-m.l-m.r}" height="18" rx="3" fill="${css("--line")}"/><rect x="${m.l}" y="30" width="${x(c.payroll)-m.l}" height="18" rx="3" fill="${css(c.payroll>c.apron1?"--bad":c.payroll>c.tax?"--accent":"--good")}"/>`+
+   lines.map(([l,v],i)=>`<line x1="${x(v)}" x2="${x(v)}" y1="24" y2="54" stroke="${css("--ink")}" stroke-width="1.5"/><text x="${x(v)}" y="${i%2?68:18}" text-anchor="middle">${l} ${money(v)}</text>`).join("")+`</svg>`;
+}
+function findIdeas(A){
+  const sum=(ps,k)=>ps.reduce((s,p)=>s+(p[k]||0),0),pool=t=>roster(t).filter(p=>!p.small),out=[];
+  const PA=combos(pool(A),2).filter(x=>x.length);
+  for(const B of Object.keys(caps)){if(B===A)continue;const best={};const PB=combos(pool(B),2).filter(x=>x.length);
+    for(const a of PA){const sa=sum(a,"sal"),ta=sum(a,"tv"),ya=sum(a,"y1");
+      for(const b of PB){if(!a.some(p=>p.sal>=8)&&!b.some(p=>p.sal>=8))continue;const sb=sum(b,"sal");
+        if(!rule(A,a,sb).ok||!rule(B,b,sa).ok)continue;
+        const w=sweeten({a,b,dv:sum(b,"tv")-ta,dy:sum(b,"y1")-ya},A,B),dv=w.dv,dy=w.dy,score=Math.min(Math.max(dv,dy),Math.max(-dv,-dy))+0.5*Math.max(dv,0)-0.25*Math.abs(dv);
+        const k=a.map(p=>p.name).join("|");if(!best[k]||score>best[k].score)best[k]={B,a:w.a,b:w.b,dv,dy,score}}}
+    out.push(...Object.values(best))}
+  // one idea per partner, and no player of ours in more than one idea
+  const used=new Set(),seen=new Set(),pick=[];
+  for(const x of out.sort((x,y)=>y.score-x.score)){if(pick.length>=6)break;
+    if(seen.has(x.B)||x.a.some(p=>used.has(key(p))))continue;
+    seen.add(x.B);x.a.forEach(p=>used.add(key(p)));pick.push(x)}
+  return pick;
+}
+
+const SEASONS=["2026-27","2027-28","2028-29","2029-30","2030-31","2031-32"];
+function similar(t){
+  return tvals.filter(q=>q!==t&&q.sal>0&&q.tv!=null).map(q=>({q,d:2*Math.abs(Math.log(q.sal/Math.max(t.sal,1)))+Math.abs((q.age||27)-(t.age||27))/4+Math.abs((q.yrs||1)-(t.yrs||1))/2}))
+    .sort((a,b)=>a.d-b.d).slice(0,6).map(x=>x.q)}
+function pChart(rows,{salary}){
+  // rows: {label, sal, sur, past}; bars = surplus (diverging); salary drawn as a thin tick on a second scale when known
+  const W=640,H=230,L=56,R=12,T=16,B=34,n=rows.length,bw=Math.min(56,(W-L-R)/n*.55);
+  const vals=rows.flatMap(r=>[r.sur||0]),mx=Math.max(10,...vals.map(Math.abs))*1.15,y=v=>T+(H-T-B)/2-(v/mx)*(H-T-B)/2,x=i=>L+(i+.5)*(W-L-R)/n;
+  const tick=Math.pow(10,Math.floor(Math.log10(mx)));const step=mx/tick>5?tick*2:mx/tick>2.5?tick:tick/2;const ticks=[];for(let v=-Math.floor(mx/step)*step;v<=mx;v+=step)ticks.push(v);
+  let g=ticks.map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" ${v===0?'stroke-width="1.5" stroke="var(--muted)"':""}/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${v===0?"$0":(v>0?"+":"−")+Math.abs(v)+"M"}</text>`).join("");
+  rows.forEach((r,i)=>{const v=r.sur;if(v!=null){const y0=y(0),y1=y(v);g+=`<rect x="${x(i)-bw/2}" y="${Math.min(y0,y1)}" width="${bw}" height="${Math.max(1,Math.abs(y1-y0))}" rx="2" fill="${v>=0?"var(--good)":"var(--bad)"}" opacity="${r.past?1:.55}"><title>${r.label}: ${sgn(v)} surplus${r.sal!=null?", salary "+money(r.sal):""}</title></rect>
+    <text x="${x(i)}" y="${v>=0?y1-5:y1+13}" text-anchor="middle" font-size="11" font-family="var(--mono)" fill="var(--ink)">${sgn(v).replace(".0M","M")}</text>`}
+    g+=`<text x="${x(i)}" y="${H-B+16}" text-anchor="middle" font-size="12" fill="var(--muted)">${r.label}</text>`;
+    if(salary&&r.sal!=null)g+=`<text x="${x(i)}" y="${H-B+29}" text-anchor="middle" font-size="10.5" font-family="var(--mono)" fill="var(--muted)">${money(r.sal)}${r.opt?" "+r.opt:""}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H+(salary?10:0)}" role="img" aria-label="Surplus by season" style="width:100%;height:auto">${g}</svg>`}
+function drawPlayer(){
+  const v=$("#player-view"),nm=st.pname;
+  const t=tvals.find(q=>q.name===nm&&(!st.pteam||q.team===st.pteam))||tvals.find(q=>q.name===nm);
+  const p=players.find(q=>q.name===nm&&(!st.pteam||q.team===st.pteam))||players.find(q=>q.name===nm);
+  if(!t&&!p){v.innerHTML=`<p class="sub">No player called ${esc(nm||"")}. <a href="#" id="pBack">Back</a></p>`;return}
+  const team=(t||p).team,ti=tinfo(team),c=(contracts[nm]||[]).find(o=>!o.team||o.team===team)||(contracts[nm]||[])[0];
+  const yrs=t&&t.yrs?Math.round(t.yrs):1;
+  const opt=s=>{const m=c&&c.opt&&new RegExp(s+"\\s*:?\\s*(PO|TO|ETO|player|team)","i").exec(c.opt);return m?(/^p/i.test(m[1])?"PO":/^t/i.test(m[1])?"TO":m[1].toUpperCase()):""};
+  const rows=[];
+  if(p&&p.actual!=null)rows.push({label:"2025-26",sur:p.actual,past:true});
+  for(let i=0;i<Math.min(yrs,6);i++){const s=SEASONS[i],ci=c?c.years.indexOf(s):-1;rows.push({label:s,sur:t?t.sv[i]:i===0&&p?p.blended:null,sal:ci>=0?c.sal[ci]:i===0?(t||p).sal:null,opt:opt(s)})}
+  const sim=t?similar(t):[];
+  const owed=t&&t.tot!=null?t.tot:null;
+  v.innerHTML=`<div class="banner" style="--teamc:${ti[1]}">${badge(team,64)}<div class="who"><h2>${esc(nm)}</h2><p class="sub">${ti[0]}${t&&t.age?` · age ${t.age.toFixed(0)}`:""}${p&&p.rookie||t&&t.rookie?" · rookie deal":""}${p&&p.small||t&&t.small?" · small sample":""}</p></div>
+    <dl class="stats"><div><dt>2026-27 salary</dt><dd>${money((t||p).sal)}</dd></div><div><dt>Years left</dt><dd>${t&&t.yrs!=null?t.yrs.toFixed(0):"–"}</dd></div><div><dt>Owed, all years</dt><dd>${money(owed)}</dd></div><div><dt>Trade value</dt><dd class="${cls(t&&t.tv)}">${sgn(t&&t.tv)}</dd></div></dl>
+    <button class="btn" id="pBack">Back</button></div>
+  <div class="hcard"><h4>Contract timeline and value by season</h4>${pChart(rows,{salary:true})}
+    <p class="sub">Bars are surplus: what the player is worth in Win Shares minus what he's paid. 2025-26 is what actually happened; the lighter bars are the projection behind his trade value (aging curve, salary cap growth, discounted 8% a year). ${c?"Salaries under each season come from his contract"+(c.opt?", with PO/TO marking player and team options.":"."):"Per-season salaries arrive with the next data refresh."}</p></div>
+  <div class="hgrid"><div class="hcard"><h4>How he's played</h4><dl class="kv">
+    <dt>2025-26 games / minutes</dt><dd>${p&&p.g!=null?p.g.toFixed(0):"–"} / ${p&&p.mp!=null?p.mp.toFixed(0):"–"}</dd>
+    <dt>2025-26 Win Shares</dt><dd>${p&&p.ws!=null?p.ws.toFixed(1):"–"}</dd><dt>WS per 48 min</dt><dd>${p&&p.ws48!=null?p.ws48.toFixed(3):"–"}</dd>
+    <dt>VORP</dt><dd>${p&&p.vorp!=null?p.vorp.toFixed(1):"–"}</dd><dt>2026-27 games so far</dt><dd>${p&&p.g27!=null?p.g27.toFixed(0):"–"}</dd><dt>2026-27 WS per 48</dt><dd>${p&&p.ws48b!=null?p.ws48b.toFixed(3):"–"}</dd></dl></div>
+   <div class="hcard"><h4>Surplus this season, three ways</h4><dl class="kv"><dt>Actual 2025-26</dt><dd class="${cls(p&&p.actual)}">${sgn(p&&p.actual)}</dd><dt>If healthy</dt><dd class="${cls(p&&p.healthy)}">${sgn(p&&p.healthy)}</dd><dt>Healthy + 2026-27</dt><dd class="${cls(p&&p.blended)}">${sgn(p&&p.blended)}</dd></dl></div></div>
+  ${sim.length?`<div class="hcard"><h4>Similar contracts</h4><p class="sub">Closest by salary, age and years left. If he's worth less than these, his deal is the worse one.</p>
+   <div class="tablewrap"><table><thead><tr><th>Player</th><th>Team</th><th class="num">Age</th><th class="num">Salary</th><th class="num">Years</th><th class="num">Trade value</th></tr></thead><tbody>
+   ${[t,...sim].map(q=>`<tr${q===t?' class="sel"':""}><td>${q===t?esc(q.name):`<a href="#" data-player="${esc(q.name)}" data-pt="${q.team}">${esc(q.name)}</a>`}</td><td>${q.team}</td><td class="num">${q.age!=null?q.age.toFixed(0):"–"}</td><td class="num">${money(q.sal)}</td><td class="num">${q.yrs!=null?q.yrs.toFixed(0):"–"}</td><td class="num ${cls(q.tv)}">${sgn(q.tv)}</td></tr>`).join("")}</tbody></table></div></div>`:""}`;
+}
+
+function pickMap(T){
+  if(!picks.length)return "";
+  const yrs=[2027,2028,2029,2030,2031,2032,2033],mine=picks.filter(p=>p.team===T&&p.tv>0.05),total=picks.filter(p=>p.team===T).reduce((s,p)=>s+p.tv,0);
+  const cell=(y,rd)=>{
+    const own=picks.filter(p=>p.year===y&&p.round===rd&&p.orig===T&&!p.swap),items=[];
+    // Our own pick: kept, conditional, or gone (and to whom)
+    const keep=own.filter(p=>p.team===T&&p.tv>0.05),away=own.filter(p=>p.team!==T);
+    keep.forEach(p=>items.push(`<span class="pk own" title="${esc(p.notes)}">Own${p.prot?" if "+p.prot:""}<b>${money(p.tv)}</b></span>`));
+    away.forEach(p=>items.push(`<span class="pk gone" title="${esc(p.notes)}">→ ${p.team}${p.prot?" if "+p.prot:""}</span>`));
+    mine.filter(p=>p.year===y&&p.round===rd&&(p.swap||p.orig!==T)).forEach(p=>items.push(`<span class="pk in" title="${esc(p.notes)}">${p.swap?"Swap w/ "+p.swapWith:"From "+p.orig}${p.prot?" if "+p.prot:""}<b>${money(p.tv)}</b></span>`));
+    picks.filter(p=>p.year===y&&p.round===rd&&p.swap&&p.tv<0&&p.team===T).forEach(p=>items.push(`<span class="pk gone" title="${esc(p.notes)}">${p.swapWith} can swap</span>`));
+    return `<td>${items.join("")||"<span class='sub'>–</span>"}</td>`};
+  return `<div class="hcard"><div class="sectionhead"><h4>Draft picks</h4><span class="sub">Worth ${money(total)} in all, today's dollars</span></div>
+  <div class="tablewrap" style="border:0;max-height:none"><table class="pkmap"><thead><tr><th></th>${yrs.map(y=>`<th>${y}</th>`).join("")}</tr></thead>
+  <tbody><tr><th>1st</th>${yrs.map(y=>cell(y,1)).join("")}</tr><tr><th>2nd</th>${yrs.map(y=>cell(y,2)).join("")}</tr></tbody></table></div>
+  <p class="sub">Green is a pick ${tinfo(T)[0]} hold, struck through is one they've traded away. Hover a pick for the full terms. Values come from where each pick is expected to land, simulated over 5,000 seasons.</p></div>`}
+function drawHome(){
+  const v=$("#home-view");
+  if(!myTeam||!caps[myTeam]){
+    v.innerHTML=`<div class="sectionhead"><h3>Pick your team</h3><p>The page will open on your team next time. <a href="#players" id="skipHome">Or browse the whole league</a>.</p></div><div class="picker">${Object.keys(caps).sort(byName).map(k=>`<button class="pteam" data-team="${k}">${badge(k,40)}<span>${tinfo(k)[0]}</span></button>`).join("")}</div>`;return}
+  const T=myTeam,c=caps[T],t=teams.find(x=>x.team===T),ti=tinfo(T),lens="healthy";
+  const ranked=teams.slice().sort((a,b)=>tval(b,"net")-tval(a,"net")),rank=ranked.indexOf(t)+1;
+  const ros=tvals.filter(p=>p.team===T).map(p=>({...p,now:(players.find(q=>q.team===T&&q.name===p.name)||{})[st.lens]}));
+  const byTV=ros.slice().sort((a,b)=>b.tv-a.tv);
+  const li=p=>`<li><span><a href="#" class="plink" data-player="${esc(p.name)}" data-pt="${p.team}">${esc(p.name)}</a>${p.rookie?" <span class='chip'>rookie</span>":""}</span><span class="num ${cls(p.tv)}">${sgn(p.tv)}</span></li>`;
+  const owed=ros.reduce((s,p)=>s+(p.tot||0),0);
+  v.innerHTML=`<div class="banner" style="--teamc:${ti[1]}">${badge(T,64)}<div class="who"><h2>${ti[0]}</h2><p class="sub">#${rank} of 30 front offices · ${status(c,c.payroll)}</p></div>
+   <dl class="stats"><div><dt>Payroll</dt><dd>${money(c.payroll)}</dd></div><div><dt>Dead money</dt><dd>${t.dead?money(t.dead):"–"}</dd></div><div><dt>Contract surplus</dt><dd class="${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</dd></div><div><dt>Roster trade value</dt><dd class="${cls(ros.reduce((s,p)=>s+p.tv,0))}">${sgn(ros.reduce((s,p)=>s+p.tv,0))}</dd></div><div><dt>Committed, all years</dt><dd>${money(owed)}</dd></div></dl>
+   <button class="btn" id="changeTeam">Change team</button></div>
+  <div class="hcard"><h4>Cap sheet, 2026-27</h4>${capBar(c)}<p class="sub">${c.payroll>c.apron2?"Over the second apron: can't combine salaries in trades and can only take back what one player earns.":c.payroll>c.apron1?"Over the first apron: no expanded trade exception and no $250K cushion when matching salary.":c.payroll>c.tax?"Paying the luxury tax, with room below the first apron.":c.payroll>c.cap?"Over the cap but under the tax.":"Under the cap, with room to absorb salary."}</p></div>
+  <div class="hgrid"><div class="hcard"><h4>Best contracts</h4><ul class="hlist">${byTV.slice(0,4).map(li).join("")}</ul></div><div class="hcard"><h4>Worst contracts</h4><ul class="hlist">${byTV.slice(-4).reverse().map(li).join("")}</ul></div></div>
+  <div class="hcard"><div class="sectionhead"><h4>Trade ideas</h4><button class="btn" id="findIdeas">${ideas&&ideas.team===T?"Search again":"Find trade ideas"}</button></div>
+   ${ideas&&ideas.team===T?(ideas.list.length?ideas.list.map((r,i)=>`<div class="idea"><span>${badge(r.B,22)} Send <b>${r.a.map(p=>esc(p.pick?p.name+" pick":p.name)).join(" + ")}</b> to ${tinfo(r.B)[0]} for <b>${r.b.map(p=>esc(p.pick?p.name+" pick":p.name)).join(" + ")}</b> <span class="sub">· ${r.dy>0?"better now":"worse now"}, ${r.dv>=0?"+":"−"}${money(Math.abs(r.dv)).slice(1)} long term</span></span><button class="btn" data-idea="${i}">Open in trade machine</button></div>`).join(""):"<p class='sub'>No legal one- or two-player trades found.</p>"):`<p class="sub">Searches every other team for legal one- or two-player trades that help ${ti[0]} and still give the other side something.</p>`}</div>
+  <div class="hcard"><h4>Roster</h4><div class="tablewrap" style="border:0;max-height:none"><table><thead><tr><th>Player</th><th class="num">2026-27</th><th class="num">Years</th><th class="num">Total owed</th><th class="num">This season</th><th class="num">Trade value</th></tr></thead><tbody>${byTV.map(p=>`<tr><td><a href="#" data-player="${esc(p.name)}" data-pt="${p.team}">${esc(p.name)}</a>${p.rookie?" <span class='chip'>rookie</span>":""}${p.small?" <span class='chip warn'>small</span>":""}</td><td class="num">${money(p.sal)}</td><td class="num">${p.yrs==null?"–":p.yrs.toFixed(0)}</td><td class="num">${money(p.tot)}</td><td class="num ${cls(p.now)}">${sgn(p.now)}</td><td class="num ${cls(p.tv)}">${sgn(p.tv)}</td></tr>`).join("")}</tbody></table></div></div>
+  ${pickMap(T)}
+  ${TOOLS.length?`<div class="hcard"><h4>More tools for ${ti[0]}</h4><ul class="hlist">${TOOLS.map(t=>`<li><span><a href="${t.url}">${t.name}</a></span><span class="sub">${t.what}</span></li>`).join("")}</ul></div>`:""}`;
+}
+document.addEventListener("click",e=>{
+  const pt=e.target.closest(".pteam");if(pt){myTeam=pt.dataset.team;try{localStorage.setItem("myTeam",myTeam)}catch(_){}if(window.appNav)appNav.refresh();ideas=null;drawHome();window.scrollTo({top:$("#home-view").offsetTop-80});return}
+  if(e.target.closest("#changeTeam")){myTeam=null;ideas=null;drawHome();return}
+  if(e.target.closest("#skipHome")){e.preventDefault();setTab("players");return}
+  if(e.target.closest("#findIdeas")){const b=e.target.closest("#findIdeas");b.textContent="Searching…";b.disabled=true;setTimeout(()=>{ideas={team:myTeam,list:findIdeas(myTeam)};drawHome()},30);return}
+  const id=e.target.closest("[data-idea]");if(id){const r=ideas.list[+id.dataset.idea];tr.a=myTeam;tr.b=r.B;tr.out[myTeam]=new Set(r.a.map(key));tr.out[r.B]=new Set(r.b.map(key));sugg=null;setTab("trade");window.scrollTo({top:$("#trade-view").offsetTop-80})}
+});
+
+
+// ---- Save and share --------------------------------------------------------
+// Saved trades live in the page's shared db (everyone with the link sees the board); the verdict
+// image is drawn on a canvas and handed to the viewer through the downloads capability.
+let DB=null,DL=null,UID=null,board=[],lastTrade=null,saveMsg="";
+(async()=>{if(!window.claude||!claude.use)return;
+  try{DL=await claude.use("downloads")}catch(e){}
+  try{const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(db){UID=user?await user.id():null;DB=db;
+      db.collection("trades").orderBy("at","desc").limit(60).onSnapshot(q=>{board=q.docs.map(d=>({id:d.id,...d.data()}));if(st.tab==="trade")drawTrade()},()=>{DB=null;if(st.tab==="trade")drawTrade()})}}catch(e){}
+  if(st.tab==="trade")drawTrade()})();
+const label=p=>p.pick?p.name+" pick":p.name;
+function boardHTML(){
+  const rows=board.filter(t=>caps[t.a]&&caps[t.b]).map(t=>`<div class="idea"><span>${badge(t.a,22)} ${t.a} send <b>${(t.labelA||[]).map(esc).join(", ")||"nothing"}</b> · ${badge(t.b,22)} ${t.b} send <b>${(t.labelB||[]).map(esc).join(", ")||"nothing"}</b> <span class="sub">· ${t.legal?"legal":"not legal"}, ${esc(t.verdict||"")}</span></span><span style="display:flex;gap:6px"><button class="btn" data-open="${esc(t.id)}">Open</button>${UID&&t.by===UID?`<button class="btn" data-del="${esc(t.id)}">Delete</button>`:""}</span></div>`).join("");
+  return `<div class="hcard"><h4>Trade board</h4><p class="sub">Trades saved by anyone with this page, newest first. Values are re-scored with today's data when you open one.</p>${rows||"<p class='sub'>Nothing saved yet.</p>"}</div>`}
+async function saveTrade(){
+  const t=lastTrade;if(!DB||!t)return;saveMsg="Saving…";drawTrade();
+  try{await DB.collection("trades").add({a:t.A,b:t.B,outA:t.oa.map(key),outB:t.ob.map(key),labelA:t.oa.map(label),labelB:t.ob.map(label),legal:t.legal,verdict:t.win,dv:Math.round(t.sa.dv*10)/10,by:UID,at:Date.now()});saveMsg="Saved to the trade board."}
+  catch(e){saveMsg=e&&e.code==="invalid_argument"?"You can view the board but not save to it.":e&&e.code==="quota_exceeded"?"The board is full. Delete an old trade first.":"Couldn't save. Try again."}
+  drawTrade()}
+function openSaved(id){const t=board.find(x=>x.id===id);if(!t)return;tr.a=t.a;tr.b=t.b;tr.out[t.a]=new Set(t.outA||[]);tr.out[t.b]=new Set(t.outB||[]);sugg=null;saveMsg="";drawTrade();scrollTo({top:$("#trade-view").offsetTop-80})}
+const loadImg=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
+async function verdictImage(){
+  const t=lastTrade,W=1200,H=630,c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d");
+  const ink="#16212D",muted="#5B6878",good="#15803D",bad="#B91C1C";
+  g.fillStyle="#F4F6F8";g.fillRect(0,0,W,H);g.fillStyle="#C2410C";g.fillRect(0,0,W,10);
+  g.fillStyle="#C2410C";g.font="600 22px 'IBM Plex Mono',monospace";g.fillText("CONTRACT LEDGER · TRADE VERDICT",60,62);
+  const wrap=(txt,x,y,w,lh,max)=>{const lines=[];let line="";for(const wd of txt.split(" ")){const tst=line?line+" "+wd:wd;if(g.measureText(tst).width>w&&line){lines.push(line);line=wd}else line=tst}lines.push(line);
+    if(lines.length>max){lines.length=max;lines[max-1]+=" …"}lines.forEach((l,i)=>g.fillText(l,x,y+i*lh))};
+  for(const [i,s] of [[0,t.sa],[1,t.sb]]){const x=60+i*560,img=await loadImg(`logos/${s.team}.png`);
+    g.fillStyle="#FFFFFF";g.fillRect(x,96,520,330);g.fillStyle=tinfo(s.team)[1]||ink;g.fillRect(x,96,520,6);
+    if(img)g.drawImage(img,x+24,124,64,64);
+    g.fillStyle=ink;g.font="700 40px 'Barlow Condensed','Arial Narrow',sans-serif";g.fillText(tinfo(s.team)[0].toUpperCase(),x+104,170);
+    g.fillStyle=muted;g.font="500 18px 'IBM Plex Sans',sans-serif";g.fillText("GETS",x+24,232);
+    g.fillStyle=ink;g.font="500 24px 'IBM Plex Sans',sans-serif";wrap(s.ins.map(label).join(", ")||"Nothing",x+24,266,470,32,4);
+    g.fillStyle=s.dv>=0?good:bad;g.font="600 34px 'IBM Plex Mono',monospace";g.fillText(sgn(s.dv),x+24,400);const vw=g.measureText(sgn(s.dv)).width;
+    g.fillStyle=muted;g.font="400 18px 'IBM Plex Sans',sans-serif";g.fillText("trade value",x+36+vw,400)}
+  g.fillStyle=t.legal?good:bad;g.font="600 26px 'IBM Plex Sans',sans-serif";g.fillText(t.legal?"✓ Legal under the CBA salary rules":"✗ Salary doesn't work as built",60,482);
+  g.fillStyle=ink;g.font="500 26px 'IBM Plex Sans',sans-serif";wrap(t.win,60,524,1080,34,2);
+  g.fillStyle=muted;g.font="400 16px 'IBM Plex Sans',sans-serif";g.fillText("Trade value = projected Win Shares × price per win − salary, every remaining year, discounted. Data: Basketball Reference, Spotrac. As of "+new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})+".",60,600);
+  return await new Promise(r=>c.toBlob(r,"image/png"))}
+async function downloadImage(){
+  if(!DL||!lastTrade)return;try{const blob=await verdictImage();await DL.save({filename:`trade-${lastTrade.A}-${lastTrade.B}.png`,data:blob});saveMsg="Image saved."}
+  catch(e){saveMsg=e&&e.code==="declined"?"":e&&(e.code==="unavailable"||e.code==="not_granted")?"Downloads aren't available here.":"Couldn't make the image."}
+  drawTrade()}
+
+// ---- Trade machine -------------------------------------------------------
+// Salary matching follows the 2023 CBA, Article VII 6(j) and 2(e); amounts in $M of 2026-27 salary.
+let tvals=[],caps={},contracts={},picks=[];
+const CAP2324=136.021;
+const tr={a:"SAC",b:"MEM",out:{SAC:new Set(["Zach LaVine"]),MEM:new Set(["Jerami Grant","Cole Anthony","Kris Murray"])}};
+const roster=team=>tvals.filter(p=>p.team===team).sort((a,b)=>b.sal-a.sal);
+const pick=(team,name)=>tvals.find(p=>p.team===team&&p.name===name)||picks.find(p=>p.team===team&&p.id===name);
+const pickAssets=team=>picks.filter(p=>p.team===team&&p.tv>0.05).sort((a,b)=>a.year-b.year||a.round-b.round||b.tv-a.tv);
+const key=p=>p.pick?p.id:p.name;
+// Stepien rule (CBA Art. VII 8(e)): a team can't be left without a first-round pick in two consecutive future drafts.
+// Only flags gaps the trade creates, since conditional picks in the data make some teams look short already.
+function firstYears(team,out,inn){const ys=new Set();for(const p of picks){if(p.round!==1||p.swap||p.p<0.5)continue;let own=p.team===team;if(out.has(p.id))own=false;if(inn.has(p.id))own=true;if(own)ys.add(p.year)}return ys}
+function stepien(team,outs,ins){const o=new Set(outs.filter(p=>p.pick).map(p=>p.id)),i=new Set(ins.filter(p=>p.pick).map(p=>p.id));if(!o.size)return null;
+  const b=firstYears(team,new Set(),new Set()),a=firstYears(team,o,i);
+  for(let y=2027;y<2033;y++)if(!a.has(y)&&!a.has(y+1)&&(b.has(y)||b.has(y+1)))return `Breaks the Stepien rule: no first-round pick in ${y} or ${y+1}.`;return null}
+function rule(team,outs,I){
+  // Max incoming = best exception the team is eligible for after the trade (Art. VII 6(j)(1), 6(j)(3), 2(e)(4) rows E and H).
+  outs=outs.filter(p=>!p.pick);
+  const c=caps[team],O=outs.reduce((s,p)=>s+p.sal,0),n=outs.length,P=c.payroll,post=P-O+I,res={post,ok:false,how:"",hard:"",max:0};
+  if(I===0){res.ok=true;res.how="Only sends salary out, so no matching is needed.";return res}
+  const cush=post<=c.apron1?0.25:0,opts=[];
+  if(n){opts.push({max:Math.max(...outs.map(p=>p.sal))+cush,how:"standard trade exception (one outgoing salary"+(cush?" + $250K)":", no $250K cushion over the first apron)"),hard:""});
+    if(n>=2&&post<=c.apron2)opts.push({max:O+cush,how:"aggregated trade exception (combined outgoing salary"+(cush?" + $250K)":")"),hard:"Hard-capped at the second apron for the rest of the season."});
+    if(post<=c.apron1)opts.push({max:Math.max(Math.min(2*O+0.25,O+7.5*c.cap/CAP2324),1.25*O+0.25),how:"expanded trade exception",hard:"Hard-capped at the first apron for the rest of the season."})}
+  if(P<c.cap)opts.push({max:c.cap+0.25-(P-O),how:"cap room",hard:""});
+  if(!opts.length){res.how="Over the cap after the trade and sends no salary back.";return res}
+  const ok=opts.filter(o=>I<=o.max+1e-9).sort((a,b)=>a.max-b.max)[0],best=opts.sort((a,b)=>b.max-a.max)[0];
+  res.max=best.max;
+  if(ok){res.ok=true;res.how=`Fits the ${ok.how}: can take back up to $${ok.max.toFixed(1)}M.`;res.hard=ok.hard;return res}
+  res.how=`Takes back $${I.toFixed(1)}M but the most it can take is $${best.max.toFixed(1)}M (${best.how})${post>c.apron2&&n>=2?". Over the second apron after the trade, so it can't combine salaries":post>c.apron1?". Over the first apron after the trade, so the expanded exception is off the table":""}.`;return res;
+}
+// Suggest: search 1-3 player packages per side (plus anything already ticked), keep legal trades,
+// and rank the ones where each team gains on at least one axis (now vs. long term).
+let sugg=null;
+// The side that comes out ahead adds the one pick of its own that best evens the trade value.
+function sweeten(r,A,B){
+  if(Math.abs(r.dv)<3)return r;const giver=r.dv>0?A:B,need=Math.abs(r.dv),used=new Set([...r.a,...r.b].map(key));
+  let best=null;for(const p of pickAssets(giver)){if(used.has(p.id))continue;const left=Math.abs(need-p.tv);if(left<need-1&&(!best||left<Math.abs(need-best.tv)))best=p}
+  if(!best)return r;if(stepien(giver,(r.dv>0?r.a:r.b).concat(best),r.dv>0?r.b:r.a))return r;const dv=r.dv>0?r.dv-best.tv:r.dv+best.tv;
+  return{...r,a:r.dv>0?r.a.concat(best):r.a,b:r.dv>0?r.b:r.b.concat(best),dv}}
+function combos(ps,k){const out=[],cur=[];const rec=i=>{out.push(cur.slice());if(cur.length===k)return;for(let j=i;j<ps.length;j++){cur.push(ps[j]);rec(j+1);cur.pop()}};rec(0);return out}
+function buildSuggestions(){
+  const A=tr.a,B=tr.b,lockA=[...tr.out[A]||[]].map(n=>pick(A,n)).filter(Boolean),lockB=[...tr.out[B]||[]].map(n=>pick(B,n)).filter(Boolean);
+  const pool=(t,lock)=>roster(t).filter(p=>!p.small&&!lock.includes(p));
+  const pk=(lock,ps)=>combos(ps,Math.max(0,3-lock.length)).map(c=>lock.concat(c)).filter(x=>x.length);
+  const PA=pk(lockA,pool(A,lockA)),PB=pk(lockB,pool(B,lockB)),sum=(ps,k)=>ps.reduce((s,p)=>s+(p[k]||0),0),res=[];
+  for(const a of PA){const sa=sum(a,"sal"),ta=sum(a,"tv"),ya=sum(a,"y1"),bigA=a.some(p=>p.sal>=8);
+    for(const b of PB){if(!bigA&&!b.some(p=>p.sal>=8))continue;const sb=sum(b,"sal");
+      if(!rule(A,a,sb).ok||!rule(B,b,sa).ok)continue;
+      const dv=sum(b,"tv")-ta,dy=sum(b,"y1")-ya,benA=Math.max(dv,dy),benB=Math.max(-dv,-dy);
+      const w=sweeten({a,b,dv,dy},A,B),bA=Math.max(w.dv,dy),bB=Math.max(-w.dv,-dy);
+      res.push({...w,score:Math.min(bA,bB)-0.25*Math.abs(w.dv)})}}
+  res.sort((x,y)=>y.score-x.score);
+  const seen=new Set(),list=[];for(const r of res){const k=r.a.filter(p=>!p.pick).map(p=>p.name).sort().join()+"|";if(seen.has(k))continue;seen.add(k);list.push(r);if(list.length>=12)break}
+  return{key:A+"|"+B,list,i:-1};
+}
+function suggest(){
+  if(!sugg||sugg.key!==tr.a+"|"+tr.b)sugg=buildSuggestions();
+  if(!sugg.list.length){sugg.msg="No legal trade found with up to three players a side. Try other teams or untick a player.";drawTrade();return}
+  sugg.i=(sugg.i+1)%sugg.list.length;const r=sugg.list[sugg.i],A=tr.a,B=tr.b;
+  tr.out[A]=new Set(r.a.map(key));tr.out[B]=new Set(r.b.map(key));
+  const nowW=r.dy>0?A:B,lateW=r.dv>0?A:B;
+  sugg.msg=`Suggestion ${sugg.i+1} of ${sugg.list.length}. `+(nowW!==lateW?`${tinfo(nowW)[0]} get more value this season; ${tinfo(lateW)[0]} get more over the long run.`:`${tinfo(nowW)[0]} gain on both counts, so the other side would need a sweetener like a pick.`);
+  drawTrade();
+}
+const status=(c,pay)=>pay>c.apron2?"over 2nd apron":pay>c.apron1?"over 1st apron":pay>c.tax?"over tax":pay>c.cap?"over cap":"under cap";
+function sideHTML(side){
+  const team=tr[side],other=tr[side==="a"?"b":"a"],out=tr.out[team]||(tr.out[team]=new Set());
+  const opts=Object.keys(caps).sort((x,y)=>tinfo(x)[0].localeCompare(tinfo(y)[0])).map(k=>`<option value="${k}"${k===team?" selected":""}${k===other?" disabled":""}>${tinfo(k)[0]}</option>`).join("");
+  const prow=p=>`<label class="trow${out.has(p.id)?" on":""}" title="${esc(p.notes||"")}"><input type="checkbox" data-side="${side}" data-name="${esc(p.id)}"${out.has(p.id)?" checked":""}><span class="tn">${esc(p.name)}${p.p<0.995?` <span class="chip">${Math.round(p.p*100)}% conveys</span>`:""}</span><span class="num">pick</span><span class="num ${cls(p.tv)}">${sgn(p.tv)}</span></label>`;
+  const pa=pickAssets(team);
+  const rows=roster(team).map(p=>`<label class="trow${out.has(p.name)?" on":""}"><input type="checkbox" data-side="${side}" data-name="${esc(p.name)}"${out.has(p.name)?" checked":""}><span class="tn">${esc(p.name)}${p.rookie?" <span class='chip'>rookie</span>":""}${p.small?" <span class='chip warn'>small</span>":""}</span><span class="num">${money(p.sal)}</span><span class="num ${cls(p.tv)}">${sgn(p.tv)}</span></label>`).join("");
+  return `<div class="tside"><div class="thead">${badge(team,36)}<select data-side="${side}" aria-label="Team ${side.toUpperCase()}">${opts}</select></div><p class="sub">${status(caps[team],caps[team].payroll)} · payroll ${money(caps[team].payroll)}</p><div class="tcols"><span>Sends out</span><span class="num">2026-27</span><span class="num">Trade value</span></div><div class="tlist">${rows}${pa.length?`<div class="tcols" style="margin-top:8px"><span>Draft picks</span><span></span><span class="num">Value</span></div>${pa.map(prow).join("")}`:""}</div></div>`;
+}
+function drawTrade(){
+  const A=tr.a,B=tr.b,oa=[...tr.out[A]||[]].map(n=>pick(A,n)).filter(Boolean),ob=[...tr.out[B]||[]].map(n=>pick(B,n)).filter(Boolean);
+  const sum=(ps,k)=>ps.reduce((s,p)=>s+(p[k]||0),0);
+  const side=(team,outs,ins)=>{const O=sum(outs,"sal"),I=sum(ins,"sal"),r=rule(team,outs,I),c=caps[team];
+    return{team,O,I,r,stp:stepien(team,outs,ins),before:status(c,c.payroll),after:status(c,r.post),dv:sum(ins,"tv")-sum(outs,"tv"),dyr:sum(ins,"y1")-sum(outs,"y1"),ins,outs}};
+  const sa=side(A,oa,ob),sb=side(B,ob,oa);
+  const empty=!oa.length&&!ob.length,legal=sa.r.ok&&sb.r.ok&&!sa.stp&&!sb.stp;
+  const win=Math.abs(sa.dv)<1?"About even on trade value.":`${tinfo(sa.dv>0?A:B)[0]} come out ahead by ${money(Math.abs(sa.dv))} of trade value.`;
+  lastTrade={A,B,oa,ob,sa,sb,legal,win};
+  const card=s=>`<div class="tres"><div class="thead">${badge(s.team,28)}<b>${tinfo(s.team)[0]}</b></div>
+    <p class="sub">Gets: ${s.ins.length?s.ins.map(p=>esc(p.pick?p.name+" pick":p.name)).join(", "):"nothing"}</p>
+    <dl class="kv"><dt>Trade value change</dt><dd class="${cls(s.dv)}">${sgn(s.dv)}</dd><dt>This season's surplus change</dt><dd class="${cls(s.dyr)}">${sgn(s.dyr)}</dd><dt>Salary out / in</dt><dd>${money(s.O)} / ${money(s.I)}</dd><dt>Payroll after</dt><dd>${money(s.r.post)}</dd><dt>Cap position</dt><dd>${s.before}${s.after!==s.before?" → "+s.after:""}</dd></dl>
+    <p class="verdict ${s.r.ok?"pos":"neg"}">${s.r.ok?"✓ Salary works":"✗ Salary doesn't work"}</p><p class="sub">${s.r.how}${s.r.hard?" "+s.r.hard:""}</p>${s.stp?`<p class="verdict neg">✗ ${s.stp}</p>`:""}</div>`;
+  $("#trade-view").innerHTML=`<div class="sectionhead"><h3>Trade machine</h3><p>Tick players each team sends out, or let it find one. Values use the contracts' full remaining years.</p></div>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" id="suggest">${sugg&&sugg.key===tr.a+"|"+tr.b&&sugg.i>=0?"Suggest another":"Suggest a trade"}</button>${sugg&&sugg.msg&&sugg.key===tr.a+"|"+tr.b?`<span class="sub">${sugg.msg}</span>`:`<span class="sub">Finds legal trades where each team gains something. Tick a player first to build around him.</span>`}</div>
+  <div class="tgrid">${sideHTML("a")}${sideHTML("b")}</div>
+  ${empty?`<div class="card"><p class="sub">Tick at least one player to build a trade.</p></div>`:`<div class="tverdict ${legal?"ok":"bad"}"><b>${legal?"Legal under the CBA salary and pick rules.":"Not legal as built."}</b> ${win}</div><div class="tgrid">${card(sa)}${card(sb)}</div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${DB?`<button class="btn" id="saveTrade">Save to trade board</button>`:""}${DL?`<button class="btn" id="tradeImg">Download verdict image</button>`:""}<span class="sub" id="saveMsg">${saveMsg}</span></div>`}
+  ${DB?boardHTML():""}
+  <p class="sub" style="max-width:80ch">Trade value adds up each remaining contract year: projected Win Shares (with an aging curve) × a price per Win Share that grows 7% a year with the cap, minus salary, with later years discounted 8% a year. Salary rules: 2023 CBA Article VII 6(j) and 2(e), using 2026-27 cap $164.96M, tax $200.43M, aprons $209.02M / $221.69M. Payroll is Spotrac total cash, so teams near an apron can differ from the official figure. Picks are valued from a slot curve fit on recent drafts, with each team’s finish simulated 5,000 times. The Stepien rule (no first-round pick in two straight future drafts) is checked. Not modeled: frozen picks for teams over the second apron, cash, trade exceptions, options, and the 2-month re-trade rule.</p>`;
+}
+document.addEventListener("change",e=>{
+  const cb=e.target.closest("#trade-view input[type=checkbox]");if(cb){sugg=null;saveMsg="";const t=tr[cb.dataset.side],s=tr.out[t];cb.checked?s.add(cb.dataset.name):s.delete(cb.dataset.name);drawTrade();return}
+  const ts=e.target.closest("#trade-view select");if(ts){sugg=null;tr[ts.dataset.side]=ts.value;tr.out[ts.value]=tr.out[ts.value]||new Set();drawTrade()}
+});
+
+async function boot(){
+  try{
+    const [pc,tc,vc,cc]=await Promise.all(["contract_value","team_summary","trade_values","team_cap"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})));
+    players=parseCSV(pc).map(mapPlayer);teams=parseCSV(tc).map(mapTeam);
+    tvals=parseCSV(vc).map(r=>({name:r.Player,team:r.Team,age:N(r.Age),yrs:N(r.years_left),sal:N(r.salary_2026_27_m),tot:N(r.total_salary_m),tv:N(r.trade_value_m),y1:N(r.sv_y1),sv:[1,2,3,4,5,6].map(i=>N(r["sv_y"+i])),rookie:r.rookie_scale==="True",small:(r.flag||"").includes("small")}));
+    const pk=await fetch("data/draft_picks.csv").then(r=>r.ok?r.text():"").catch(()=>"");
+    if(pk)picks=parseCSV(pk).map(r=>{const swap=/SWAP/.test(r.pick_id),rd=r.round==="1"?"1st":"2nd",prot=(r.protection||"").replace("slots ","");
+      return{id:r.pick_id+"@"+r.owner,pick:true,year:+r.year,round:+r.round,orig:r.original_team,team:r.owner,swap,swapWith:r.swap_with,prot,slot:N(r.exp_slot),p:N(r.p_conveys),tv:N(r.value_m)||0,sal:0,y1:0,notes:r.notes||"",
+        name:swap?`${r.year} ${rd} swap with ${r.swap_with}`:`${r.original_team} ${r.year} ${rd}${prot?" (if "+prot+")":""}`}});
+    const yc=await fetch("data/contracts_clean.csv").then(r=>r.ok?r.text():"").catch(()=>"");
+    if(yc){const rows=parseCSV(yc),ycols=Object.keys(rows[0]||{}).filter(k=>/^20\d\d-\d\d$/.test(k)).sort();
+      rows.forEach(r=>{const sal=ycols.map(k=>{let v=N(String(r[k]||"").replace(/[$,]/g,""));return v!=null&&v>1000?v/1e6:v}),opt=r.option_years||r.options||"";
+        const o={team:r.Team||r.Tm,years:ycols,sal,opt};(contracts[r.Player]=contracts[r.Player]||[]).push(o)})}
+    parseCSV(cc).forEach(r=>caps[r.Team]={payroll:N(r.payroll_m),cap:N(r.cap_m),tax:N(r.tax_m),apron1:N(r.apron1_m),apron2:N(r.apron2_m)});
+  }catch(e){$("#detail").innerHTML="<p class='sub'>The data files did not load. Reload the page to try again.</p>";return}
+const sel=$("#teamSel");teams.map(t=>t.team).sort((a,b)=>tinfo(a)[0].localeCompare(tinfo(b)[0])).forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=tinfo(t)[0];sel.appendChild(o)});
+sel.addEventListener("change",()=>{st.team=sel.value;st.sel=null;render()});
+$("#q").addEventListener("input",e=>{st.q=e.target.value;const hits=visible().filter(match);st.sel=hits.length===1?hits[0].id:null;render()});
+$("#hideRookie").addEventListener("change",e=>{st.hideRookie=e.target.checked;render()});
+$("#hideSmall").checked=st.hideSmall;$("#hideSmall").addEventListener("change",e=>{st.hideSmall=e.target.checked;save();render()});
+document.querySelectorAll("#lens button").forEach(b=>b.addEventListener("click",()=>{st.lens=b.dataset.l;save();render()}));
+["home","players","teams","trade"].forEach(k=>$("#tab-"+k).addEventListener("click",()=>setTab(k)));
+document.addEventListener("click",e=>{
+  if(e.target.closest("#suggest")){suggest();return}
+  if(e.target.closest("#saveTrade")){saveTrade();return}
+  if(e.target.closest("#tradeImg")){downloadImage();return}
+  const so=e.target.closest("[data-open]");if(so){openSaved(so.dataset.open);return}
+  const sd=e.target.closest("[data-del]");if(sd&&DB){DB.collection("trades").doc(sd.dataset.del).delete().catch(()=>{});return}
+  const pl=e.target.closest("[data-player]");if(pl){e.preventDefault();openPlayer(pl.dataset.player,pl.dataset.pt);return}
+  if(e.target.closest("#pBack")){setTab(st.pfrom||"players");return}
+  const b=e.target.closest("th button");if(b){const s=b.dataset.t==="p"?st.sort:st.tsort;if(s.k===b.dataset.k)s.d*=-1;else{s.k=b.dataset.k;s.d=["name","team","best","worst"].includes(s.k)?1:-1}render();return}
+  const tr=e.target.closest("#ptable tbody tr");if(tr){select(+tr.dataset.id);return}
+  const tt=e.target.closest("#ttable tbody tr");if(tt){st.team=tt.dataset.team;sel.value=st.team;st.sel=null;setTab("players")}
+});
+const mq=window.matchMedia("(prefers-color-scheme: dark)");mq.addEventListener&&mq.addEventListener("change",render);
+new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(h.startsWith("player/")){const n=decodeURIComponent(h.slice(7));if(st.tab!=="player"||st.pname!==n)openPlayer(n)}else if(["home","players","teams","trade"].includes(h)&&h!==st.tab){setTab(h);scrollTo(0,0)}});
+if(location.hash.startsWith("#player/")){st.pfrom="players";openPlayer(decodeURIComponent(location.hash.slice(8)))}else setTab(["#home","#players","#teams","#trade"].includes(location.hash)?location.hash.slice(1):"home");
+}
+boot();
+})();
+</script>
+
+</body></html>
