@@ -1,0 +1,378 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<script src="nav.js" data-page="series"></script>
+<title>Starting Five Series</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: pick five players, pick an opponent, see the tale of the tape, then play a best-of-7 game by game. Same ink as the Contract Ledger. */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
+  --accent:#C2410C; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --tint:rgba(22,33,45,.04); --track:#E5EAF0;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(230,235,241,.04); --track:#26313D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
+  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(230,235,241,.04); --track:#26313D; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:.95;margin:6px 0 10px;letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em}
+.lede{max-width:66ch;color:var(--muted);margin:0}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:22px}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:500 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;font-size:15px;padding:10px 18px}
+button.primary:disabled{opacity:.45;cursor:not-allowed}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select{font:15px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:0}
+/* five slots */
+.slots{display:flex;flex-direction:column;gap:8px}
+.slot{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px 10px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--tint)}
+.slot .n{font:700 20px var(--display);color:var(--muted);text-align:center}
+.slot input{width:100%;box-sizing:border-box}
+.slot .info{grid-column:2;display:flex;gap:4px 12px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);min-height:18px}
+.slot .info b{color:var(--ink);font-weight:600}
+.slot .info img{width:16px;height:16px;object-fit:contain;vertical-align:-3px;margin-right:3px}
+.risk-low{color:var(--good)!important} .risk-med{color:var(--warn)!important} .risk-high{color:var(--bad)!important}
+/* opponent */
+.opp{display:flex;align-items:center;gap:12px}
+.opp img{width:48px;height:48px;object-fit:contain}
+.opp .nm{font:700 26px/1 var(--display);text-transform:uppercase}
+/* tale of the tape */
+.tape{display:grid;grid-template-columns:1fr auto 1fr;gap:6px 14px;align-items:center}
+.tape .side{font:700 22px/1 var(--display);text-transform:uppercase}
+.tape .side.r{text-align:right}
+.tape .k{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center}
+.tape .v{font:600 15px var(--mono);font-variant-numeric:tabular-nums}
+.tape .v.r{text-align:right}
+.odds{display:flex;flex-direction:column;gap:6px}
+.odds .big{font:700 44px/1 var(--display)}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--track)}
+.bar span{display:block;height:100%}
+.dist{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;align-items:end;height:64px}
+.dist div{background:var(--accent);border-radius:2px 2px 0 0;min-height:2px}
+.dist div.l{background:var(--muted);opacity:.6}
+.distlab{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;font:500 10.5px var(--mono);color:var(--muted);text-align:center}
+.notes{list-style:none;margin:0;padding:0;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.notes li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warn);margin-right:7px;vertical-align:1px}
+.notes li.good::before{background:var(--good)}
+/* series */
+.banner{font:700 clamp(30px,5vw,44px)/1 var(--display);text-transform:uppercase}
+.banner.win{color:var(--good)} .banner.loss{color:var(--bad)}
+.games{display:flex;flex-direction:column;gap:8px}
+.game{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:4px 14px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);animation:in .35s ease both}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.game{animation:none}}
+.game .g{font:700 18px/1.1 var(--display);text-transform:uppercase}
+.game .g small{display:block;font:500 11px var(--mono);color:var(--muted);letter-spacing:.04em}
+.game .score{font:600 18px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.game .res{font:700 14px var(--mono);padding:2px 8px;border-radius:4px;color:#fff}
+.game .res.w{background:var(--good)} .game .res.l{background:var(--bad)}
+.game .det{grid-column:2/4;font-size:13px;color:var(--muted)}
+.game .det b{color:var(--ink);font-weight:600}
+.game .det .hurt{color:var(--bad)}
+.tally{font:600 14px var(--mono);color:var(--muted)}
+details{font-size:14px;color:var(--muted)}
+details summary{cursor:pointer;color:var(--ink);font-weight:500}
+details ul{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px;max-width:74ch}
+.err{color:var(--bad)}
+</style>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Best of seven</p>
+    <h1>Pick your starting five</h1>
+    <p class="lede">Build any five from around the league and take on a conference's top team, or anyone you like, in a seven-game series. Every game counts talent, stamina, how well the five fit together, how ball-dominant they are and how often they get hurt.</p>
+  </header>
+  <div class="cols">
+    <section class="card">
+      <h2>Your five</h2>
+      <div class="slots" id="slots"></div>
+      <div class="row">
+        <button type="button" id="mine">My team's starters</button>
+        <button type="button" id="random">Random five</button>
+        <button type="button" id="clear">Clear</button>
+      </div>
+      <datalist id="plist"></datalist>
+    </section>
+    <section class="card">
+      <h2>Opponent</h2>
+      <div class="row" role="group" aria-label="Opponent">
+        <button type="button" data-o="E" aria-pressed="true">East #1</button>
+        <button type="button" data-o="W" aria-pressed="false">West #1</button>
+        <button type="button" data-o="pick" aria-pressed="false">Pick a team</button>
+        <select id="teamsel" hidden aria-label="Team to play"></select>
+      </div>
+      <div class="opp" id="opp"></div>
+      <p class="sub" id="oppnote"></p>
+    </section>
+  </div>
+  <section class="card" id="tapecard">
+    <h2>Tale of the tape</h2>
+    <div class="cols">
+      <div class="tape" id="tape"></div>
+      <div class="odds" id="odds"></div>
+    </div>
+    <ul class="notes" id="notes"></ul>
+    <div class="row"><button type="button" class="primary" id="play">Play the series</button><span class="sub" id="playnote"></span></div>
+  </section>
+  <section class="card" id="series" hidden>
+    <div class="row" style="justify-content:space-between"><div class="banner" id="banner"></div><span class="tally" id="tally"></span></div>
+    <div class="games" id="games"></div>
+    <div class="row"><button type="button" id="again">Run it back</button></div>
+  </section>
+  <details>
+    <summary>How the series is simulated</summary>
+    <ul>
+      <li><b>Talent:</b> each player's WS/48 (last season blended with this one, the same numbers the game predictor uses). Starters play up to 8 minutes more than their usual load, capped at 38; the rest of the 240 minutes go to a generic bench.</li>
+      <li><b>Stamina:</b> every minute past a player's normal load costs him about 1.2% efficiency, and the strain grows from Game 4 on. Stretched players also get hurt a little more often.</li>
+      <li><b>Too many cooks:</b> when the five's combined usage rate passes 105%, they cost each other about 1 point per 10% over, because there's only one ball.</li>
+      <li><b>Fit:</b> the Play styles model scores how the five cover shot creation, shooting, rim pressure, passing, rebounding, rim protection and defense, compared with real teams' top five. Worth up to ±3 points.</li>
+      <li><b>Injury luck:</b> the more games a player missed last season, the more likely he gets hurt in a game (about 2% a game for an ironman, 7% for someone who missed half the year). Injuries last 1 to 5 games. The opponent's rotation rolls the same dice.</li>
+      <li><b>Opponent:</b> the team's rest-of-season rating from the Season sim (roster plus form). Players you pick are taken off their team. The opponent has home court (games 1, 2, 5 and 7), and each game lands within about 11.5 points of the expected margin.</li>
+    </ul>
+  </details>
+</div>
+<script src="sim.js"></script>
+<script src="fit.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function parseCSV(t){
+  const rows=t.trim().split("\n").map(l=>{const out=[];let cur="",q=false;for(const c of l.replace(/\r$/,"")){if(c==='"')q=!q;else if(c===","&&!q){out.push(cur);cur=""}else cur+=c}out.push(cur);return out});
+  const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+const TEAM={ATL:"Atlanta Hawks",BOS:"Boston Celtics",BRK:"Brooklyn Nets",CHO:"Charlotte Hornets",CHI:"Chicago Bulls",CLE:"Cleveland Cavaliers",DAL:"Dallas Mavericks",DEN:"Denver Nuggets",DET:"Detroit Pistons",GSW:"Golden State Warriors",HOU:"Houston Rockets",IND:"Indiana Pacers",LAC:"LA Clippers",LAL:"Los Angeles Lakers",MEM:"Memphis Grizzlies",MIA:"Miami Heat",MIL:"Milwaukee Bucks",MIN:"Minnesota Timberwolves",NOP:"New Orleans Pelicans",NYK:"New York Knicks",OKC:"Oklahoma City Thunder",ORL:"Orlando Magic",PHI:"Philadelphia 76ers",PHO:"Phoenix Suns",POR:"Portland Trail Blazers",SAC:"Sacramento Kings",SAS:"San Antonio Spurs",TOR:"Toronto Raptors",UTA:"Utah Jazz",WAS:"Washington Wizards"};
+const nick=a=>TEAM[a]?TEAM[a].split(" ").slice(a==="POR"?-2:-1).join(" "):a;
+const logo=(a,s)=>`<img src="logos/${a}.png" alt="" width="${s}" height="${s}" onerror="this.style.visibility='hidden'">`;
+const myTeam=()=>{try{return(window.appNav&&appNav.team())||localStorage.getItem("myTeam")}catch(e){return null}};
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const sg=v=>(v>0.05?"+":v<-0.05?"−":"")+Math.abs(v).toFixed(1);
+// BBRef and NBA.com spell names differently: compare without accents, punctuation or Jr./II
+const ALIAS={"ronald holland":"ron holland"};
+const nkey=n=>{const x=String(n).normalize("NFKD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z ]/g,"").trim().replace(/ (jr|sr|ii|iii|iv)$/,"");return ALIAS[x]||x};
+
+const BENCH_WS48=0.070, MAX_MIN=38, EXTRA_MIN=8, STRETCH_COST=0.012, USG_CAP=1.05, USG_COST=10, FIT_MAX=3;
+const INJ=["ankle","hamstring","knee","back","calf","wrist","groin","shoulder"];
+let DATA, P=[], BYKEY=new Map(), FIT=null, FITCAL=null, lineup=[null,null,null,null,null], oppMode="E", oppPick=null, seriesSeed=Date.now()>>>0;
+
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
+function normal(R){let u=R();while(u===0)u=R();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*R())}
+
+function missRate(p){return p.g==null?0.15:clamp((82-p.g)/82,0.03,0.6)}
+function riskLabel(p){const m=missRate(p);return m<0.12?["Low","risk-low"]:m<0.3?["Medium","risk-med"]:["High","risk-high"]}
+function mins(p){return Math.min(MAX_MIN,p.mpg+EXTRA_MIN)}
+function stretch(p){return Math.max(0,mins(p)-p.mpg)}
+
+// Your five's strength in points vs an average team. avail: name -> share of the game played (0, 0.5, 1)
+function myStrength(five,avail,game){
+  const pr=DATA.params;let ws=0,used=0,usg=0,stam=0;
+  for(const p of five){
+    const f=avail?avail.get(p.name)??1:1;if(!f)continue;
+    const m=mins(p)*f,s=stretch(p),tired=s*0.004*Math.max(0,(game||0)-3);
+    const eff=p.ws48*(1-STRETCH_COST*s-tired);
+    ws+=eff*m/48;stam+=(p.ws48-eff)*m/48;used+=m;usg+=p.usg*f;
+  }
+  ws+=BENCH_WS48*(240-used)/48;
+  const toPts=x=>((x-0.5)*pr.points_per_win_pct-pr.mean_raw)*pr.spread;
+  const talent=toPts(ws+stam),total=toPts(ws);
+  const usage=-USG_COST*Math.max(0,usg-USG_CAP);
+  return{talent,stamina:total-talent,usage,usg,base:total+usage};
+}
+function fitPts(names){
+  if(!FIT||!FITCAL)return{pts:0,b:null};
+  const sn=names.map(n=>BYKEY.get(nkey(n))).filter(p=>p&&p.style).map(p=>p.style);
+  if(sn.length<3)return{pts:0,b:null};
+  const b=FIT.balance("YOU",{roster:sn});
+  return{pts:clamp(1.5*(b.score-FITCAL.m)/FITCAL.sd,-FIT_MAX,FIT_MAX),b};
+}
+function calibrateFit(){
+  const sc=Object.keys(TEAM).map(t=>{const top=P.filter(p=>p.team===t).sort((a,b)=>b.mpg-a.mpg).slice(0,5).filter(p=>p.style).map(p=>p.style);return top.length>=3?FIT.balance(t,{roster:top}).score:null}).filter(x=>x!=null);
+  const m=sc.reduce((a,b)=>a+b,0)/sc.length;FITCAL={m,sd:Math.sqrt(sc.reduce((a,b)=>a+(b-m)**2,0)/sc.length)||10};
+}
+
+function oppTeam(){
+  if(oppMode==="pick"&&oppPick)return oppPick;
+  return Object.entries(DATA.teams).filter(([t,v])=>v.conf===oppMode).sort((a,b)=>(b[1].roster+b[1].form)-(a[1].roster+a[1].form))[0][0];
+}
+// Opponent: season-sim rating, minus anyone you took from them. Their top 8 can get hurt too.
+function oppInfo(t,five){
+  const info=DATA.teams[t],taken=new Set(five.map(p=>p.name));
+  const roster=DATA.players.filter(x=>x[1]===t&&!taken.has(x[0]));
+  const full=SeasonSim.teamRating(DATA,DATA.players.filter(x=>x[1]===t));
+  const now=SeasonSim.teamRating(DATA,roster);
+  const base=info.roster+(now-full)+info.form;
+  const rot=roster.slice().sort((a,b)=>b[3]*b[4]-a[3]*a[4]).slice(0,8).map(x=>{
+    const p=BYKEY.get(nkey(x[0]))||{name:x[0],g:null,usg:0.18,mpg:x[3]};
+    return{name:x[0],p,cost:now-SeasonSim.teamRating(DATA,roster.filter(y=>y!==x)),usg:p.usg,mpg:x[3]*x[4]};
+  });
+  return{t,base,lost:now-full,rot,form:info.form};
+}
+
+function playSeries(five,opp,seed,log){
+  const R=rng(seed),pr=DATA.params,fit=fitPts(five.map(p=>p.name)).pts;
+  const outMe=new Map(),outOpp=new Map(),games=[];
+  for(const p of five)if(p.avail===0)outMe.set(p.name,99);
+  let w=0,l=0,g=0;
+  const fitCache=new Map();
+  while(w<4&&l<4){
+    g++;
+    const oppHome=[1,1,0,0,1,0,1][g-1];
+    const avail=new Map(),notes=[];
+    for(const p of five)avail.set(p.name,outMe.has(p.name)?0:1);
+    const oppAvail=new Map();for(const o of opp.rot)oppAvail.set(o.name,outOpp.has(o.name)?0:1);
+    // in-game injuries: he plays half the game and misses the next 1-5
+    const hurt=(name,risk,mine,map,outs)=>{
+      if(map.get(name)!==1||R()>=risk)return;
+      const d=1+Math.floor(R()*R()*5);map.set(name,0.5);outs.set(name,d+1);
+      if(log)notes.push({mine,text:`${name} (${INJ[Math.floor(R()*INJ.length)]}) left early, out ${d>=7-g?"for the series":d===1?"next game":`${d} games`}`});
+    };
+    for(const p of five)hurt(p.name,0.015+0.09*missRate(p)+0.002*stretch(p),true,avail,outMe);
+    for(const o of opp.rot)hurt(o.name,0.015+0.09*missRate(o.p),false,oppAvail,outOpp);
+    const s=myStrength(five,avail,g);
+    const playing=five.filter(p=>avail.get(p.name)).map(p=>p.name).join("|");
+    if(!fitCache.has(playing))fitCache.set(playing,playing.split("|").length===five.length?fit:fitPts(playing.split("|")).pts);
+    const me=s.base+fitCache.get(playing);
+    let them=opp.base;for(const o of opp.rot)them-=o.cost*(1-oppAvail.get(o.name));
+    const exp=me-them+(oppHome?-pr.home_court:pr.home_court);
+    const margin=exp+pr.margin_sd*normal(R);
+    const won=margin>0;won?w++:l++;
+    if(log){
+      const total=224+11*normal(R);let a=Math.round((total+margin)/2),b=Math.round((total-margin)/2),ot="";
+      if(Math.abs(margin)<1.2){ot=" OT";a+=9;b+=9}
+      if(won&&a<=b)a=b+1;if(!won&&b<=a)b=a+1;
+      const star=(list,pts)=>{let best=null;for(const x of list){const v=pts*x.share*(0.75+0.5*R());if(!best||v>best.v)best={n:x.name,v}}return best};
+      const myList=five.filter(p=>avail.get(p.name)).map(p=>({name:p.name,w:p.usg*mins(p)*avail.get(p.name)}));
+      const myW=myList.reduce((s,x)=>s+x.w,0)+0.17*Math.max(0,240-myList.reduce((s,x)=>s+mins(BYKEY.get(nkey(x.name))||{mpg:30})*avail.get(x.name),0));
+      myList.forEach(x=>x.share=x.w/myW);
+      const opList=opp.rot.filter(o=>oppAvail.get(o.name)).map(o=>({name:o.name,mpg:o.mpg,w:o.usg*o.mpg*oppAvail.get(o.name)}));
+      const opW=opList.reduce((s,x)=>s+x.w,0)+0.17*Math.max(0,240-opList.reduce((s,x)=>s+x.mpg,0));
+      opList.forEach(x=>x.share=x.w/opW);
+      games.push({g,oppHome,a,b,ot,won,w,l,exp,notes,me:star(myList,a),them:star(opList,b),missing:five.filter(p=>avail.get(p.name)===0).map(p=>p.name)});
+    }
+    for(const m of [outMe,outOpp])for(const [k,v] of [...m]){if(v>=99)continue;v<=1?m.delete(k):m.set(k,v-1)}
+  }
+  return{w,l,games};
+}
+
+// ---------- UI ----------
+function fullFive(){return lineup.every(Boolean)?lineup:null}
+function drawSlots(){
+  $("#slots").innerHTML=lineup.map((p,i)=>{
+    let info="";
+    if(p){const [rl,rc]=riskLabel(p);const roles=FIT&&p.style?(FIT.profile(p.style)||{}).roles||[]:[];
+      info=`<span>${logo(p.team,16)}${esc(p.team)}</span><span>WS/48 <b>${p.ws48.toFixed(3)}</b></span><span>Stamina <b>${p.mpg.toFixed(0)} mpg</b></span><span class="${rc}">Injury risk ${rl}${p.g!=null?` (${Math.round(p.g)} games last year)`:""}</span>${p.avail===0?'<span class="risk-high">Out for the season</span>':""}${roles.length?`<span>${esc(roles.join(", "))}</span>`:""}`;}
+    return `<div class="slot"><span class="n">${i+1}</span><input list="plist" data-i="${i}" placeholder="Search a player" value="${p?esc(p.name+" ("+p.team+")"):""}" aria-label="Starter ${i+1}"><div class="info">${info}</div></div>`;
+  }).join("");
+}
+function drawOpp(){
+  const t=oppTeam(),five=lineup.filter(Boolean),o=oppInfo(t,five);
+  document.querySelectorAll("[data-o]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.o===oppMode));
+  $("#teamsel").hidden=oppMode!=="pick";
+  $("#opp").innerHTML=`${logo(t,48)}<div><div class="nm">${esc(TEAM[t])}</div><div class="sub">${oppMode==="pick"?"Your pick":"Projected #1 seed in the "+(oppMode==="E"?"East":"West")} · rating ${sg(o.base)} · ${DATA.teams[t].w}–${DATA.teams[t].l}</div></div>`;
+  $("#oppnote").textContent=o.lost<-0.05?`You took ${five.filter(p=>p.team===t).map(p=>p.name).join(" and ")} from them, which costs them ${(-o.lost).toFixed(1)} points.`:"They have home court: games 1, 2, 5 and 7 in their building.";
+  return o;
+}
+function draw(){
+  store.set("s5",{lineup:lineup.map(p=>p&&p.name),oppMode,oppPick});
+  const o=drawOpp(),five=fullFive();
+  $("#play").disabled=!five;
+  if(!five){$("#tape").innerHTML="";$("#odds").innerHTML="";$("#notes").innerHTML="";$("#playnote").textContent=`Pick ${lineup.filter(p=>!p).length} more.`;return}
+  $("#playnote").textContent="";
+  const s=myStrength(five,null,0),f=fitPts(five.map(p=>p.name)),me=s.base+f.pts;
+  const row=(k,a,b)=>`<div class="v">${a}</div><div class="k">${k}</div><div class="v r">${b}</div>`;
+  $("#tape").innerHTML=`<div class="side">Your five</div><div></div><div class="side r">${esc(nick(o.t))}</div>`+
+    row("Talent",sg(s.talent),sg(o.base-o.form))+row("Stamina",sg(s.stamina),"–")+row("Usage "+Math.round(s.usg*100)+"%",sg(s.usage),"–")+
+    row("Fit",f.b?sg(f.pts):"–",sg(o.form)+" form")+row("Rating",`<b>${sg(me)}</b>`,`<b>${sg(o.base)}</b>`)+row("Home court","","+"+DATA.params.home_court);
+  // odds from 4,000 series with fresh luck each time
+  const N=4000,dist=new Array(8).fill(0);let wins=0;
+  for(let i=0;i<N;i++){const r=playSeries(five,o,90001+i*31,false);if(r.w===4){wins++;dist[r.l]++}else dist[7-r.w]++}
+  const p=wins/N;
+  $("#odds").innerHTML=`<div class="k" style="font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Chance you win the series</div><div class="big">${Math.round(p*100)}%</div>
+    <div class="bar" role="img" aria-label="You ${Math.round(p*100)}%"><span style="width:${p*100}%;background:var(--accent)"></span></div>
+    <div class="dist" aria-hidden="true">${dist.map((c,i)=>`<div class="${i>=4?"l":""}" style="height:${Math.max(2,c/Math.max(...dist)*100)}%"></div>`).join("")}</div>
+    <div class="distlab"><span>4–0</span><span>4–1</span><span>4–2</span><span>4–3</span><span>3–4</span><span>2–4</span><span>1–4</span><span>0–4</span></div>`;
+  const notes=[];
+  if(f.b){if(f.b.strengths.length)notes.push({good:true,t:"Strengths: "+f.b.strengths.slice(0,3).join(", ")});if(f.b.needs.length)notes.push({t:"Holes: "+f.b.needs.slice(0,3).join(", ")})}
+  if(s.usage<-0.05)notes.push({t:`Usage adds up to ${Math.round(s.usg*100)}%: too many players who need the ball`});
+  const tired=five.filter(x=>stretch(x)>=8);if(tired.length)notes.push({t:`${tired.map(x=>x.name).join(", ")} usually ${tired.length>1?"play":"plays"} under 30 minutes, so the extra load wears on them`});
+  const fragile=five.filter(x=>missRate(x)>=0.3);if(fragile.length)notes.push({t:`Injury risk: ${fragile.map(x=>x.name).join(", ")}`});
+  const gone=five.filter(x=>x.avail===0);if(gone.length)notes.push({t:`${gone.map(x=>x.name).join(", ")} ${gone.length>1?"are":"is"} out for the season and won't suit up`});
+  $("#notes").innerHTML=notes.map(n=>`<li class="${n.good?"good":""}">${esc(n.t)}</li>`).join("");
+}
+function play(){
+  const five=fullFive();if(!five)return;
+  const o=oppInfo(oppTeam(),five),opp=nick(o.t);
+  seriesSeed=(seriesSeed*1103515245+12345)>>>0;
+  const r=playSeries(five,o,seriesSeed,true);
+  $("#series").hidden=false;$("#banner").textContent="";$("#banner").className="banner";$("#tally").textContent="";$("#games").innerHTML="";
+  r.games.forEach((x,i)=>setTimeout(()=>{
+    const det=[];
+    if(x.me)det.push(`<b>${esc(x.me.n)}</b> ${Math.round(x.me.v)} pts`);
+    if(x.them)det.push(`${esc(opp)}: <b>${esc(x.them.n)}</b> ${Math.round(x.them.v)}`);
+    if(x.missing.length)det.push(`<span class="hurt">Out: ${esc(x.missing.join(", "))}</span>`);
+    x.notes.forEach(n=>det.push(`<span class="hurt">${n.mine?"":esc(opp)+": "}${esc(n.text)}</span>`));
+    $("#games").insertAdjacentHTML("beforeend",`<div class="game"><div class="g">Game ${x.g}<small>${x.oppHome?"at "+esc(opp):"home"}</small></div>
+      <div class="score">You ${x.a} – ${x.b} ${esc(opp)}${x.ot}</div><span class="res ${x.won?"w":"l"}">${x.won?"W":"L"}</span>
+      <div class="det">${det.join(" · ")} · <span>series ${x.w}–${x.l}</span></div></div>`);
+    $("#tally").textContent=`Series ${x.w}–${x.l}`;
+    if(i===r.games.length-1){const win=r.w===4;$("#banner").textContent=win?`You win ${r.w}–${r.l}`:`${opp} win ${r.l}–${r.w}`;$("#banner").className="banner "+(win?"win":"loss")}
+  },i*450));
+  $("#series").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function setFive(names){lineup=[0,1,2,3,4].map(i=>names[i]?BYKEY.get(nkey(names[i]))||null:null);drawSlots();draw()}
+function teamStarters(t){return P.filter(p=>p.team===t&&p.avail>0).sort((a,b)=>b.mpg-a.mpg).slice(0,5).map(p=>p.name)}
+
+$("#slots").addEventListener("change",e=>{
+  const inp=e.target.closest("input[data-i]");if(!inp)return;
+  const v=inp.value.trim(),name=v.replace(/\s*\([A-Z]{3}\)$/,"");
+  const p=BYKEY.get(nkey(name))||P.find(x=>nkey(x.name).includes(nkey(name))&&nkey(name).length>=4);
+  if(p&&lineup.some((q,j)=>q===p&&j!==+inp.dataset.i)){inp.value="";return}
+  lineup[+inp.dataset.i]=v?p||null:null;drawSlots();draw();
+});
+$("#mine").addEventListener("click",()=>setFive(teamStarters(myTeam()||"WAS")));
+$("#random").addEventListener("click",()=>{const pool=P.filter(p=>p.mpg>=20&&p.avail>0),pick=[];while(pick.length<5){const p=pool[Math.floor(Math.random()*pool.length)];if(!pick.includes(p.name))pick.push(p.name)}setFive(pick)});
+$("#clear").addEventListener("click",()=>setFive([]));
+document.querySelectorAll("[data-o]").forEach(b=>b.addEventListener("click",()=>{oppMode=b.dataset.o;if(oppMode==="pick"&&!oppPick)oppPick=$("#teamsel").value;draw()}));
+$("#teamsel").addEventListener("change",e=>{oppPick=e.target.value;draw()});
+$("#play").addEventListener("click",play);
+$("#again").addEventListener("click",play);
+
+Promise.all([fetch("data/sim_data.json").then(r=>{if(!r.ok)throw new Error("sim_data.json");return r.json()}),
+  ...["contract_value","player_styles"].map(n=>fetch(`data/${n}.csv`).then(r=>r.ok?r.text():"").catch(()=>""))
+]).then(async([data,cvT,psT])=>{
+  DATA=data;
+  const games={},usg={},style={};
+  if(cvT)parseCSV(cvT).forEach(r=>{if(r.G!=="")games[nkey(r.Player)]=+r.G});
+  if(psT)parseCSV(psT).forEach(r=>{const k=nkey(r.Player);if(r.usg_pct!=="")usg[k]=+r.usg_pct;style[k]=r.Player});
+  for(const [name,team,ws48,mpg,avail] of data.players){
+    const k=nkey(name),prev=BYKEY.get(k);
+    if(prev&&prev.mpg>=mpg)continue;          // same player listed under two spellings
+    const p={name,team,ws48,mpg,avail,g:games[k]??null,usg:usg[k]??0.18,style:style[k]||null};
+    if(prev)P.splice(P.indexOf(prev),1);
+    P.push(p);BYKEY.set(k,p);
+  }
+  P.sort((a,b)=>a.name.localeCompare(b.name));
+  $("#plist").innerHTML=P.map(p=>`<option value="${esc(p.name+" ("+p.team+")")}"></option>`).join("");
+  $("#teamsel").innerHTML=Object.keys(TEAM).map(t=>`<option value="${t}">${esc(TEAM[t])}</option>`).join("");
+  if(window.StyleFit){FIT=await StyleFit.ready;if(FIT)calibrateFit()}
+  const saved=store.get("s5");
+  if(saved){oppMode=saved.oppMode||"E";oppPick=saved.oppPick||null;if(oppPick)$("#teamsel").value=oppPick}
+  else{const mt=myTeam();if(mt&&DATA.teams[mt])oppMode=DATA.teams[mt].conf}
+  setFive(saved&&saved.lineup&&saved.lineup.some(Boolean)?saved.lineup:teamStarters(myTeam()||"WAS"));
+}).catch(e=>{$("#tapecard").innerHTML=`<p class="err">Couldn't load the player data (${esc(e.message)}).</p>`});
+})();
+</script>
+</body></html>
