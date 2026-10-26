@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # Copy the app's published files into this repo and apply the few site-only tweaks.
 # Usage: scripts/sync.sh <folder holding the Contract Ledger artifact's files>
-# The folder is the artifact's file layout: *.html, nav.js, data/*.csv, logos/*.png.
+# The folder is the artifact's file layout: *.html, *.js, data/*.csv and *.json, logos/*.png.
 set -euo pipefail
 src="${1:?usage: scripts/sync.sh <artifact files folder>}"
 repo="$(cd "$(dirname "$0")/.." && pwd)"
 
-cp "$src"/*.html "$src"/nav.js "$repo"/
+cp "$src"/*.html "$src"/*.js "$repo"/
 mkdir -p "$repo/data" "$repo/logos"
 cp "$src"/data/*.csv "$repo/data/"
+cp "$src"/data/*.json "$repo/data/" 2>/dev/null || true
 cp "$src"/logos/*.png "$repo/logos/"
 
 # Share links in Be the GM point at the site, not the Claude artifact.

@@ -1,6 +1,9 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="grader"></script>
-<title>Trade Grader</title>
+<script src="fit.js"></script>
+<script src="sim.js"></script>
+<script src="simui.js"></script>
+<title>Transaction Grader</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -87,14 +90,39 @@ details summary{cursor:pointer;font-weight:600}
 .method p{margin:0}
 @media (max-width:520px){.moves{grid-template-columns:1fr}.letter{font-size:54px}}
 @media (prefers-reduced-motion:no-preference){.verdict,.team{animation:rise .25s ease-out both}@keyframes rise{from{transform:translateY(4px)}to{transform:none}}}
+.fitwhy{list-style:none;margin:0;padding:0;font-size:13px;display:flex;flex-direction:column;gap:2px}
+.feed{display:flex;flex-direction:column}
+.tx{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.tx:last-child{border-bottom:0}
+.tx .d{font:500 12px var(--mono);color:var(--muted);line-height:1.3}
+.tx .d b{display:block;color:var(--ink);font-weight:500;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+.tx .what{min-width:0;font-size:14px}
+.tx .what .sub{display:block;margin-top:2px}
+.tx .gr{display:flex;gap:10px;align-items:center;justify-content:flex-end}
+.tx .lt{font:700 30px/1 var(--display);min-width:1.4em;text-align:right}
+.tx .lt.na{font:500 12px var(--mono);color:var(--muted)}
+.tx .teams{display:flex;gap:4px;flex-wrap:wrap}
+.tx .tg{display:inline-flex;align-items:center;gap:3px;font:600 14px var(--mono)}
+.tx .open{font-size:12px;padding:4px 8px}
+@media (max-width:560px){.tx{grid-template-columns:58px minmax(0,1fr)}.tx .gr{grid-column:2;justify-content:flex-start}}
+select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
 </style>
 
 <div class="wrap">
   <header>
-    <p class="eyebrow">NBA Asset Tracker · Trade grader</p>
-    <h1>Grade the deal</h1>
-    <p class="lede">Paste a real trade or a rumor, the way a reporter tweets it or your group chat writes it. The grader reads who goes where, scores each side on the same contract trade values as the <a href="index.html#players">Contract Ledger</a>, checks the CBA salary-matching rules, and writes a verdict you can share.</p>
+    <p class="eyebrow">NBA Asset Tracker · Transaction grader</p>
+    <h1>Grade every move</h1>
+    <p class="lede">Every NBA trade, signing, extension and waiver this season, graded on contract value and play-style fit as it comes in from NBA.com's transaction feed. Below the feed, paste a real trade or a rumor, the way a reporter tweets it or your group chat writes it. The grader reads who goes where, scores each side on the same contract trade values as the <a href="index.html#players">Contract Ledger</a>, checks the CBA salary-matching rules, and writes a verdict you can share.</p>
   </header>
+
+  <section class="card" aria-labelledby="feedhead">
+    <div class="row" style="justify-content:space-between;align-items:flex-end"><div><h2 id="feedhead">Transaction feed</h2><p class="sub" id="feedsub">Loading…</p></div>
+      <div class="row"><select id="ftype" aria-label="Kind of move"><option value="">All moves</option><option value="trade">Trades</option><option value="sign">Signings and extensions</option><option value="waive">Waivers</option><option value="two">Two-way and claims</option></select>
+      <select id="fteam" aria-label="Team"><option value="">All teams</option></select>
+      <label class="sub" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="fgraded" checked> Graded only</label></div></div>
+    <div id="feed" class="feed"></div>
+    <div class="row"><button class="btn ghost" id="fmore" hidden>Show more</button></div>
+  </section>
 
   <section class="card" aria-labelledby="pastelabel">
     <label id="pastelabel" for="deal" class="sub">The trade, in plain words</label>
@@ -131,7 +159,7 @@ details summary{cursor:pointer;font-weight:600}
 
   <section class="method">
     <div class="scale" aria-label="Grade scale"><span><b>A+</b>+$40M</span><span><b>A</b>+$25M</span><span><b>A−</b>+$15M</span><span><b>B+</b>+$8M</span><span><b>B</b>+$3M</span><span><b>B−</b>even</span><span><b>C+</b>−$3M</span><span><b>C</b>−$8M</span><span><b>C−</b>−$15M</span><span><b>D</b>−$25M</span><span><b>F</b>−$40M</span></div>
-    <p><b>How a grade is set.</b> Each team's grade is the trade value it takes in minus the trade value it sends out. A player's trade value is the Contract Ledger's number: every remaining contract year, projected Win Shares with an aging curve times a price per Win Share that grows 7% a year, minus his salary, with later years discounted 8% a year. A cheap, productive contract is worth a lot; an overpaid one is worth less than nothing, so dumping it counts as a gain.</p>
+    <p><b>How a grade is set.</b> Each team's grade is the trade value it takes in minus the trade value it sends out. A player's trade value is the Contract Ledger's number: every remaining contract year, projected Win Shares with an aging curve times a price per Win Share that grows 7% a year, minus his salary, with later years discounted 8% a year. A cheap, productive contract is worth a lot; an overpaid one is worth less than nothing, so dumping it counts as a gain. Play-style fit then moves the grade: each point of fit (−10 to +10, from NBA.com play-type and tracking data) counts like $1.5M of trade value, so a deal that fills a team's holes grades better than one that doubles up on what it already has. Playoff odds, title odds and projected wins come from the <a href="sim.html">Season sim</a>, which plays out the rest of the season 2,000 times with and without the deal (for a trade that already happened, "before" puts the players back). They show what the deal does to this season, not the grade.</p>
     <p><b>What it can't see.</b> Grades measure contract value, not talent alone. A star on a max deal is worth about what he's paid here, so trading him for good-value role players can grade as a win for the team getting the role players. Draft picks use the Ledger's pick values (2027-2033, with each team's finish simulated and existing protections and swaps priced in). A pick the Ledger doesn't list, a new swap, or a protection the deal adds gets a rough adjustment, and the deal table marks it as an estimate. Players missing from the tracker (two-way and minimum deals, recent signings) count as $0 until you type their salary.</p>
     <p><b>Salary rules.</b> 2023 CBA Article VII 6(j) and 2(e), with the 2026-27 cap at $164.96M, tax $200.43M, aprons $209.02M and $221.69M. Payroll is Spotrac total cash, so teams right at an apron can differ from the official number. Not checked: cash, existing trade exceptions, sign-and-trades, and the re-trade waiting periods.</p>
   </section>
@@ -231,15 +259,18 @@ function grade(){
     const vin=gets.reduce((s,a)=>s+assetVal(a),0),vout=gives.reduce((s,a)=>s+assetVal(a),0);
     const I=gets.reduce((s,a)=>s+assetSal(a),0),outs=gives.filter(a=>a.kind!=="pick"&&assetSal(a)>0).map(assetSal);
     const y1=gets.reduce((s,a)=>s+assetY1(a),0)-gives.reduce((s,a)=>s+assetY1(a),0);
-    const net=vin-vout;
-    return{team:t,gets,gives,vin,vout,net,y1,I,O:outs.reduce((s,v)=>s+v,0),r:rule(t,outs,I),g:letter(net)};
-  }).sort((a,b)=>b.net-a.net);
+    const net=vin-vout,F=window.StyleFit,nm=as=>as.filter(a=>a.kind!=="pick"&&a.p).map(a=>a.p.name);
+    // Play-style fit nudges the grade: each fit point counts like $1.5M of trade value.
+    const pre=deal.past&&F&&F.roster?{roster:F.roster(t).filter(n=>!nm(gets).includes(n)).concat(nm(gives))}:undefined;
+    const fit=F&&F.has&&F.teams().length?F.trade(t,nm(gives),nm(gets),pre):null,adj=net+(fit?1.5*fit.score:0);
+    return{team:t,gets,gives,vin,vout,net,adj,fit,y1,I,O:outs.reduce((s,v)=>s+v,0),r:rule(t,outs,I),g:letter(adj)};
+  }).sort((a,b)=>b.adj-a.adj);
   return{teams:out,skipped:deal.assets.length-live.length};
 }
 
 function verdictText(G){
   const T=G.teams;if(T.length<2)return"";
-  const grades=T.map(t=>`${t.team} ${t.g} (${sgn(t.net)})`).join(", ");
+  const grades=T.map(t=>`${t.team} ${t.g} (${sgn(t.net)}${t.fit?", "+t.fit.label.toLowerCase():""})`).join(", ");
   const top=T[0],spread=top.net-T[T.length-1].net;
   const who=spread<4?"Close to even.":`${nick(top.team)} win it.`;
   const legal=T.every(t=>t.r.ok)?"Legal under CBA salary matching.":`Fails salary matching for ${T.filter(t=>!t.r.ok).map(t=>t.team).join(" and ")}.`;
@@ -351,7 +382,7 @@ The trade:
     const res=await sample.json(prompt,{modelTier:"quick",signal:ctl.signal});
     const list=Array.isArray(res&&res.assets)?res.assets:[];
     const ok=c=>CODES.includes(c)?c:null;
-    deal.assets=list.map(a=>{
+    deal.past=false;deal.assets=list.map(a=>{
       if(a.kind==="pick")return{kind:"pick",round:a.round===2?2:1,year:+a.year||null,count:Math.max(1,+a.count||1),swap:!!a.swap,protection:a.protection||"",orig:ok(a.orig)||ok(a.from),from:ok(a.from),to:ok(a.to),id:++seq};
       const p=byKey[normName(a.name||"")];
       return p?{kind:"player",p,from:ok(a.from)||p.team,to:ok(a.to),id:++seq}:{kind:"player",name:String(a.name||"Unknown player"),sal:null,from:ok(a.from),to:ok(a.to),id:++seq};
@@ -381,7 +412,21 @@ function drawDeal(){
   $("#dealtable").innerHTML=`<thead><tr><th>Player or pick</th><th>From</th><th>To</th><th class="num">2026-27</th><th class="num">Trade value</th><th></th></tr></thead><tbody>${rows||`<tr><td colspan="6" class="sub">Nothing found yet. Paste a trade above, or add players and picks here.</td></tr>`}</tbody>`;
 }
 function li(a){return`<li><span>${esc(assetName(a))}</span><span class="${cls(assetVal(a))}">${sgn(assetVal(a))}</span></li>`}
+// Season-sim odds for the deal's players, computed a beat after the cards draw.
+// A trade that already happened is compared against the rosters without it.
+let simOdds={key:"",res:null};
+function simFor(){
+  if(!window.SimUI||!SimUI.ready())return null;
+  const mv=deal.assets.filter(a=>a.kind!=="pick"&&a.from&&a.to&&a.from!==a.to).map(a=>({name:a.p?a.p.name:a.name,from:a.from,to:a.to}));
+  if(!mv.length)return null;
+  const k=JSON.stringify(mv);
+  if(simOdds.key===k)return simOdds.res||"wait";
+  simOdds={key:k,res:null};
+  setTimeout(()=>{if(simOdds.key!==k)return;simOdds.res=SimUI.odds(mv);drawResults(grade())},30);
+  return"wait";
+}
 function drawResults(G){
+  const so=simFor();
   const T=G.teams,el=$("#results");
   if(T.length<2){el.innerHTML=deal.assets.length?`<div class="card"><p class="sub">Every player and pick needs a From and a To team before the deal can be graded. The rows marked in orange are missing one.</p></div>`:"";$("#sharecard").hidden=true;return}
   const legal=T.every(t=>t.r.ok),top=T[0],bot=T[T.length-1];
@@ -392,7 +437,8 @@ function drawResults(G){
     <div class="shareline" id="vline">${esc(vt)}</div></div>
   <div class="grades">${T.map(t=>`<article class="card team"><div class="top">${badge(t.team,44)}<div><div class="name">${esc(nick(t.team))}</div><div class="sub">${t.team} · ${t.net>=0?"gains":"loses"} ${money(Math.abs(t.net))} of trade value</div></div><div class="letter ${gclass(t.g)}" aria-label="Grade ${t.g}">${t.g}</div></div>
     <div class="moves"><div><h3>Gets</h3><ul>${t.gets.map(li).join("")||'<li class="sub">Nothing</li>'}</ul></div><div><h3>Gives</h3><ul>${t.gives.map(li).join("")||'<li class="sub">Nothing</li>'}</ul></div></div>
-    <dl class="kv"><dt>This season's surplus change</dt><dd class="${cls(t.y1)}">${sgn(t.y1)}</dd><dt>Salary out / in</dt><dd>${money(t.O)} / ${money(t.I)}</dd><dt>Payroll after</dt><dd>${t.r.post==null?"–":money(t.r.post)}</dd></dl>
+    <dl class="kv"><dt>This season's surplus change</dt><dd class="${cls(t.y1)}">${sgn(t.y1)}</dd><dt>Salary out / in</dt><dd>${money(t.O)} / ${money(t.I)}</dd><dt>Payroll after</dt><dd>${t.r.post==null?"–":money(t.r.post)}</dd>${t.fit?`<dt>Play-style fit</dt><dd class="${t.fit.score>=1.5?"pos":t.fit.score<=-1.5?"neg":""}">${t.fit.label} (${t.fit.score>0?"+":""}${t.fit.score.toFixed(1)})</dd>`:""}${so==="wait"?`<dt>Season odds</dt><dd class="sub">simulating…</dd>`:so?SimUI.rows(so,t.team):""}</dl>
+    ${t.fit&&t.fit.reasons.length?`<ul class="fitwhy">${t.fit.reasons.map(x=>`<li class="${x.good?"pos":"neg"}">${x.good?"+":"−"} ${esc(x.text)}</li>`).join("")}</ul>`:""}
     <p class="rule ${t.r.ok?"ok":"bad"}"><b>${t.r.ok?"Works":"Doesn't work"}.</b> ${esc(t.r.how)}${t.r.hard?" "+esc(t.r.hard):""}</p></article>`).join("")}</div>`;
   $("#sharecard").hidden=false;drawCard(G,headline,vt);
 }
@@ -425,7 +471,7 @@ async function drawCard(G,headline,vt){
     x.fillStyle=t.r.ok?C.good:C.bad;x.fillText(t.r.ok?"Salary matching works":"Salary doesn't match",cx+24,top+336);
   });
   x.fillStyle=C.muted;x.font='400 20px "IBM Plex Mono",monospace';
-  x.fillText("Grades = trade value in minus trade value out (contract surplus, all remaining years).",60,H-44);
+  x.fillText("Grades = trade value in minus out (all contract years), adjusted for play-style fit.",60,H-44);
   if(G.teams.length>4)x.fillText(`+${G.teams.length-4} more teams in this deal`,60,H-16);
 }
 
@@ -434,7 +480,7 @@ const EXAMPLES=[
   "Hearing the Lakers are close to sending Austin Reaves and Dalton Knecht to the Mavericks for Daniel Gafford, Naji Marshall, Caleb Martin and a 2030 first-round pick (top-10 protected).",
   "Heat get: Myles Turner, Kyle Kuzma, two second-round picks\nBucks get: Bam Adebayo",
   "Three-team deal being discussed: Jalen Green to the Heat, Andrew Wiggins to the Warriors, Moses Moody and Kristaps Porzingis to the Suns."];
-function gradeLocal(){const text=$("#deal").value;const r=localParse(text);deal.assets=r.assets;deal.note="";lastSource="local";
+function gradeLocal(){const text=$("#deal").value;const r=localParse(text);deal.assets=r.assets;deal.past=false;deal.note="";lastSource="local";
   const miss=r.assets.filter(a=>!a.from||!a.to).length;
   if(!r.assets.length)setStatus("Couldn't find any players or picks in that."+(sample?" Try Read it with Claude.":" Check the spelling, or add them below."),true);
   else if(miss)setStatus(`${miss} item${miss>1?"s":""} need${miss>1?"":"s"} a team. Pick ${miss>1?"them":"it"} below${sample?", or let Claude read it":""}.`,true);
@@ -458,6 +504,76 @@ $("#saveimg").addEventListener("click",()=>{$("#cv").toBlob(async b=>{if(!b||!do
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>render());
 function save(){try{localStorage.setItem("grader-text",$("#deal").value)}catch(e){}}
 
+document.addEventListener("stylefit",()=>{if(tvals.length)render()});
+document.addEventListener("seasonsim",()=>{if(tvals.length&&deal.assets.length)drawResults(grade())});
+// ---- Transaction feed -----------------------------------------------------
+// data/transactions.csv comes from NBA.com's player movement feed (ESPN as backup), pulled on the Mac.
+// Trades are graded like a pasted deal; single moves are graded on the contract's trade value plus fit.
+const FULL={};Object.keys(TEAM).forEach(k=>FULL[TEAM[k][0].toLowerCase()]=k);FULL["la clippers"]="LAC";FULL["los angeles clippers"]="LAC";
+const codeOf=name=>FULL[String(name||"").toLowerCase().trim()]||null;
+const ONE=[[30,"A+"],[18,"A"],[10,"A−"],[5,"B+"],[1.5,"B"],[-1.5,"B−"],[-5,"C+"],[-10,"C"],[-18,"C−"],[-30,"D"]];
+const letterOne=v=>{for(const [t,g] of ONE)if(v>=t)return g;return "F"};
+const KIND={trade:"Trade",signing:"Signing",extension:"Extension",waive:"Waiver",two_way:"Two-way",conversion:"Conversion",claim:"Claim",other:"Move"};
+let TX=[],feedN=25;
+const fmtD=d=>new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+function tradeAssets(rows){
+  const out=[];
+  for(const r of rows){const m=/received (.*?) from (.+?)\.?$/i.exec(r.description||"");const from=m?codeOf(m[2]):null,to=r.team;if(!from||!to)continue;
+    if(r.player){const p=byKey[normName(r.player)];out.push(p?{kind:"player",p,from,to,id:++seq}:{kind:"player",name:r.player,sal:null,from,to,id:++seq});continue}
+    const pk=/(\d{4}).*?(first|second|1st|2nd)[ -]round/i.exec(m[1]);if(pk)out.push({kind:"pick",year:+pk[1],round:/^(second|2nd)/i.test(pk[2])?2:1,orig:from,from,to,id:++seq});
+  }
+  return out;
+}
+function gradeTrade(rows){const saved=deal.assets,past=deal.past;deal.assets=tradeAssets(rows);deal.past=true;const G=grade(),assets=deal.assets;deal.assets=saved;deal.past=past;return{G,assets}}
+function gradeOne(r){
+  const p=r.player?byKey[normName(r.player)]:null;
+  if(r.type==="waive")return{na:p?"Waived":"Not graded",why:p?`Waived with ${sgn(p.tv)} of trade value left; guaranteed salary turns into dead money.`:"Not on a standard contract in the model, so there's nothing to grade."};
+  if(r.type==="two_way"||r.type==="conversion")return{na:"Not graded",why:"Two-way deals don't count against the cap, so the model doesn't value them."};
+  if(!p)return{na:"Not graded",why:"Not on a standard contract in the model yet."};
+  const F=window.StyleFit,fit=F&&F.has&&F.teams().length&&F.has(p.name)?F.trade(r.team,[],[p.name],{roster:F.roster(r.team).filter(n=>n!==p.name)}):null;
+  const adj=p.tv+(fit?0.8*fit.score:0);
+  return{g:letterOne(adj),p,fit,why:`${p.yrs!=null?Math.round(p.yrs)+" year"+(Math.round(p.yrs)===1?"":"s")+" left, ":""}${money(p.sal)} this season · trade value ${sgn(p.tv)}${fit?` · ${fit.label.toLowerCase()}${fit.reasons[0]&&fit.reasons[0].good?" ("+fit.reasons[0].text.replace(p.name+" adds ","adds ")+")":""}`:""}`};
+}
+function buildFeed(rows){
+  const groups={},items=[];
+  rows.forEach(r=>{if(r.type==="trade"&&r.group_id){if(!groups[r.group_id]){groups[r.group_id]=[];items.push({trade:true,gid:r.group_id,rows:groups[r.group_id],date:r.date})}groups[r.group_id].push(r)}else items.push({trade:false,r,date:r.date,type:r.type})});
+  items.forEach(it=>{if(it.trade){const g=gradeTrade(it.rows);it.G=g.G;it.assets=g.assets;it.cons=new Set(it.rows.filter(r=>!r.player&&/consideration/i.test(r.description)).map(r=>r.team));it.teams=[...new Set(it.rows.flatMap(r=>{const m=/from (.+?)\.?$/i.exec(r.description);return[r.team,m?codeOf(m[1]):null]}).filter(Boolean))]}else{it.res=gradeOne(it.r);it.teams=[it.r.team]}});
+  return items;
+}
+function txHTML(it){
+  if(it.trade){const T=it.G.teams;const line=T.length?T.map(t=>`${esc(nick(t.team))} get ${t.gets.map(a=>esc(assetName(a))).concat(it.cons.has(t.team)?["draft consideration"]:[]).join(", ")||"nothing"}`).join("; "):it.rows.map(r=>esc(r.description)).join(" ");
+    return `<div class="tx"><div class="d"><b>Trade</b>${fmtD(it.date)}</div><div class="what">${line}<span class="sub">${T.map(t=>`${t.team} ${sgn(t.net)}${t.fit?", "+t.fit.label.toLowerCase():""}`).join(" · ")}</span></div>
+      <div class="gr"><span class="teams">${T.map(t=>`<span class="tg">${badge(t.team,20)}<span class="${gclass(t.g)}">${t.g}</span></span>`).join("")}</span><button class="btn ghost open" data-open="${esc(it.gid)}">Breakdown</button></div></div>`}
+  const r=it.r,x=it.res;
+  return `<div class="tx"><div class="d"><b>${KIND[r.type]||"Move"}</b>${fmtD(it.date)}</div><div class="what">${badge(r.team,18)} ${esc(r.description)}<span class="sub">${esc(x.why)}</span></div>
+    <div class="gr">${x.g?`<span class="lt ${gclass(x.g)}">${x.g}</span>`:`<span class="lt na">${esc(x.na)}</span>`}</div></div>`;
+}
+function drawFeed(){
+  const ty=$("#ftype").value,tm=$("#fteam").value,go=$("#fgraded").checked;
+  const ok=it=>(!tm||it.teams.includes(tm))&&(!ty||(ty==="trade"?it.trade:ty==="sign"?!it.trade&&(it.type==="signing"||it.type==="extension"):ty==="waive"?it.type==="waive":!it.trade&&(it.type==="two_way"||it.type==="conversion"||it.type==="claim")))&&(!go||it.trade||it.res.g);
+  const list=TX.filter(ok);
+  $("#feed").innerHTML=list.slice(0,feedN).map(txHTML).join("")||`<p class="sub">No moves match.</p>`;
+  $("#fmore").hidden=list.length<=feedN;
+  const gr=TX.filter(it=>it.trade||it.res.g).length,newest=TX[0]&&TX[0].date;
+  $("#feedsub").textContent=`${TX.length} moves since July 1, ${gr} graded${newest?` · newest ${fmtD(newest)}`:""} · from NBA.com, refreshed with the data. NBA.com lists picks in trades only as “draft consideration”, so those aren't valued.`;
+}
+async function loadFeed(){
+  try{const t=await fetch("data/transactions.csv").then(r=>{if(!r.ok)throw new Error("tx");return r.text()});
+    TX=buildFeed(parseCSV(t));
+    $("#fteam").innerHTML=`<option value="">All teams</option>`+CODES.slice().sort((a,b)=>TEAM[a][0].localeCompare(TEAM[b][0])).map(c=>`<option value="${c}">${esc(TEAM[c][0])}</option>`).join("");
+    let mt=null;try{mt=(window.appNav&&appNav.team())||localStorage.getItem("myTeam")}catch(e){}
+    drawFeed();
+  }catch(e){$("#feedsub").textContent="The transaction feed didn't load.";$("#feed").innerHTML=""}
+}
+["ftype","fteam","fgraded"].forEach(id=>document.addEventListener("change",e=>{if(e.target.id===id){feedN=25;drawFeed()}}));
+document.addEventListener("click",e=>{
+  if(e.target.id==="fmore"){feedN+=25;drawFeed();return}
+  const o=e.target.closest("[data-open]");if(o){const it=TX.find(x=>x.trade&&x.gid===o.dataset.open);if(!it)return;
+    deal.assets=tradeAssets(it.rows);deal.past=true;deal.note="";lastSource="feed";
+    $("#deal").value=it.rows.map(r=>r.description).join("\n");setStatus("Completed trade from the feed. The salary check uses today's payrolls, so it can differ from when the deal was made.",false);
+    render();$("#dealcard").scrollIntoView({behavior:"smooth"})}
+});
+document.addEventListener("stylefit",()=>{if(TX.length){TX=buildFeed(TX.flatMap(it=>it.trade?it.rows:[it.r]));drawFeed()}});
 // ---- Boot -----------------------------------------------------------------
 (async function(){
   let saved="";try{saved=localStorage.getItem("grader-text")||""}catch(e){}
@@ -473,6 +589,7 @@ function save(){try{localStorage.setItem("grader-text",$("#deal").value)}catch(e
   buildIndex();
   $("#plist").innerHTML=tvals.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(p=>`<option value="${esc(p.name)} (${p.team})"></option>`).join("");
   gradeLocal();
+  loadFeed();
   if(window.claude&&window.claude.use){
     claude.use("sample").then(s=>{if(s){sample=s;$("#askclaude").hidden=false}}).catch(()=>{});
     claude.use("downloads").then(d=>{if(d){downloads=d;$("#saveimg").hidden=false;$("#sharenote").textContent="Save the image, or right-click or long-press it."}}).catch(()=>{});

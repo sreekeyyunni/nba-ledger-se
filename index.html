@@ -1,5 +1,8 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="ledger"></script>
+<script src="fit.js"></script>
+<script src="sim.js"></script>
+<script src="simui.js"></script>
 <title>Contract Ledger</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -122,6 +125,7 @@ td .badge{margin-right:8px}
 .tverdict{border-radius:8px;padding:12px 16px;border:1px solid var(--line);background:var(--surface);border-left:5px solid var(--good)}
 .tverdict.bad{border-left-color:var(--bad)}
 .verdict{font-weight:600;margin:4px 0 0}
+.fitwhy{list-style:none;margin:6px 0 0;padding:0;font-size:13px;display:flex;flex-direction:column;gap:2px}
 </style>
 
 <div class="wrap">
@@ -134,7 +138,7 @@ td .badge{margin-right:8px}
       <li><b>Value each player.</b> The minimum plus $6.20M for each Win Share above replacement is what his production is worth. Small samples are pulled toward average, and bench bigs get a rebounding discount. Subtract his salary and you get <b>surplus</b>: positive is a bargain, negative is overpaid.</li>
       <li><b>Add up each team.</b> Sum the surplus on a roster and subtract dead money (salary still owed to players who are gone) to rank all 30 front offices.</li>
     </ol>
-    <p class="lede" style="font-size:13px">Click any dot, row or team to dig in. Built by Sreekar as a weekend project; data from Basketball Reference and Spotrac.</p>
+    <p class="lede" style="font-size:13px">Click any dot, row or team to dig in. Built by Sreekar as a weekend project; data from NBA.com, Basketball Reference and Spotrac.</p>
   </header>
 
   <div class="controls">
@@ -286,8 +290,24 @@ function drawPTable(){
   $("#ptable").innerHTML=head(PCOLS,st.sort,"p")+"<tbody>"+rows.map(p=>`<tr data-id="${p.id}" class="${p.id===st.sel?"sel":""}"><td>${esc(p.name)} ${p.small?"<span class='chip warn'>small</span>":""}${p.split?" <span class='chip warn'>split</span>":""}${p.rookie?" <span class='chip'>rookie</span>":""}</td><td>${p.team}</td><td class="num">${p.g==null?"–":p.g.toFixed(0)}</td><td class="num">${money(p.sal)}</td><td class="num">${p.ws48==null?"–":p.ws48.toFixed(3)}</td><td class="num">${money(pval(p,"val"))}</td><td class="num ${cls(p[st.lens])}">${sgn(p[st.lens])}</td></tr>`).join("")+"</tbody>";
 }
 
-const TCOLS=[{k:"team",l:"Team"},{k:"net",l:"Net",n:1},{k:"sur",l:"Contract surplus",n:1},{k:"dead",l:"Dead money",n:1},{k:"picks",l:"Draft picks",n:1},{k:"all",l:"Net + picks",n:1},{k:"active",l:"Payroll",n:1},{k:"cash",l:"Total cash",n:1},{k:"n",l:"Valued",n:1},{k:"best",l:"Best contract"},{k:"worst",l:"Worst contract"}];
-const tval=(t,k)=>{if(k==="net")return teamStats(t).sur-t.dead;if(k==="all")return teamStats(t).sur-t.dead+(t.picks||0);if(["sur","n","best","worst"].includes(k))return teamStats(t)[k];return t[k]};
+// Season-sim odds for a trade: computed once per trade, a beat after the card draws so ticking stays snappy.
+let simOdds={key:"",res:null};
+function simFor(A,B,oa,ob){
+  if(!window.SimUI||!SimUI.ready())return null;
+  const mv=[...oa.filter(p=>!p.pick).map(p=>({name:p.name,from:A,to:B})),...ob.filter(p=>!p.pick).map(p=>({name:p.name,from:B,to:A}))];
+  if(!mv.length)return null;
+  const k=JSON.stringify(mv);
+  if(simOdds.key===k)return simOdds.res||"wait";
+  simOdds={key:k,res:null};
+  setTimeout(()=>{if(simOdds.key!==k)return;simOdds.res=SimUI.odds(mv);if(st.tab==="trade")drawTrade()},30);
+  return"wait";
+}
+const SF=()=>window.StyleFit&&StyleFit.has&&StyleFit.teams().length?StyleFit:null;
+const fitOf=(team,outs,ins)=>{const F=SF();return F?F.trade(team,outs.filter(p=>!p.pick).map(p=>p.name),ins.filter(p=>!p.pick).map(p=>p.name)):null};
+const fitCls=s=>s>=1.5?"pos":s<=-1.5?"neg":"";
+const fitTxt=f=>f?`${f.label} (${f.score>0?"+":""}${f.score.toFixed(1)})`:"–";
+const TCOLS=[{k:"team",l:"Team"},{k:"net",l:"Net",n:1},{k:"sur",l:"Contract surplus",n:1},{k:"dead",l:"Dead money",n:1},{k:"picks",l:"Draft picks",n:1},{k:"all",l:"Net + picks",n:1},{k:"fit",l:"Style fit",n:1},{k:"active",l:"Payroll",n:1},{k:"cash",l:"Total cash",n:1},{k:"n",l:"Valued",n:1},{k:"best",l:"Best contract"},{k:"worst",l:"Worst contract"}];
+const tval=(t,k)=>{if(k==="net")return teamStats(t).sur-t.dead;if(k==="all")return teamStats(t).sur-t.dead+(t.picks||0);if(k==="fit"){const b=SF()&&SF().balance(t.team);return b?b.score:-1}if(["sur","n","best","worst"].includes(k))return teamStats(t)[k];return t[k]};
 function drawTeams(){
   const ts=teams.slice().sort((a,b)=>tval(b,"net")-tval(a,"net"));
   const svg=$("#bars");svg.innerHTML="";
@@ -306,7 +326,7 @@ function drawTeams(){
     g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
   });
   const rows=sortBy(teams.slice(),tval,st.tsort);
-  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b></td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
+  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b></td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num" title="${(()=>{const b=SF()&&SF().balance(t.team);return b?esc((b.needs.length?"Needs: "+b.needs.join(", "):"No clear holes")+(b.strengths.length?". Deep in: "+b.strengths.join(", "):"")):""})()}">${tval(t,"fit")<0?"–":tval(t,"fit")}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
 }
 
 function drawBanner(){
@@ -332,7 +352,7 @@ function openPlayer(name,team){if(st.tab!=="player")st.pfrom=st.tab;st.pname=nam
 // ---- My team home ---------------------------------------------------------
 let myTeam=null;try{myTeam=localStorage.getItem("myTeam")}catch(e){}
 // Sibling pages built on the same data; add each one here once it exists.
-const TOOLS=[{name:"Be the GM",url:"gm.html",what:"Take over the front office and play out a season"},{name:"AI GM",url:"desk.html",what:"Ask Claude what your team should do"},{name:"Offseason",url:"offseason.html",what:"Plan next summer: cap space, free agents, extensions, draft"},{name:"Trade grader",url:"grader.html",what:"Paste any trade or rumor and grade it"},{name:"Play styles",url:"styles.html",what:"How every team plays: play types, shot mix, pace"},{name:"Predictions",url:"predict.html",what:"Win odds for tonight's games, with the record so far"},{name:"Sentiment",url:"sentiment.html",what:"How the media is talking about every team this week"},{name:"Guess the player",url:"guess.html",what:"A daily mystery player in six clues"}];
+const TOOLS=[{name:"Be the GM",url:"gm.html",what:"Take over the front office and play out a season"},{name:"AI GM",url:"desk.html",what:"Ask Claude what your team should do"},{name:"Offseason",url:"offseason.html",what:"Plan next summer: cap space, free agents, extensions, draft"},{name:"Transaction grader",url:"grader.html",what:"Every NBA move this season, graded, plus any rumor you paste"},{name:"Season sim",url:"sim.html",what:"Every team's playoff and title odds, from 5,000 simulated seasons"},{name:"Play styles",url:"styles.html",what:"How every team plays: play types, shot mix, pace"},{name:"Predictions",url:"predict.html",what:"Win odds for tonight's games, with the record so far"},{name:"Sentiment",url:"sentiment.html",what:"How the media is talking about every team this week"},{name:"Guess the player",url:"guess.html",what:"A daily mystery player in six clues"}];
 let ideas=null;
 const byName=(x,y)=>tinfo(x)[0].localeCompare(tinfo(y)[0]);
 function capBar(c){
@@ -348,8 +368,8 @@ function findIdeas(A){
     for(const a of PA){const sa=sum(a,"sal"),ta=sum(a,"tv"),ya=sum(a,"y1");
       for(const b of PB){if(!a.some(p=>p.sal>=8)&&!b.some(p=>p.sal>=8))continue;const sb=sum(b,"sal");
         if(!rule(A,a,sb).ok||!rule(B,b,sa).ok)continue;
-        const w=sweeten({a,b,dv:sum(b,"tv")-ta,dy:sum(b,"y1")-ya},A,B),dv=w.dv,dy=w.dy,score=Math.min(Math.max(dv,dy),Math.max(-dv,-dy))+0.5*Math.max(dv,0)-0.25*Math.abs(dv);
-        const k=a.map(p=>p.name).join("|");if(!best[k]||score>best[k].score)best[k]={B,a:w.a,b:w.b,dv,dy,score}}}
+        const w=sweeten({a,b,dv:sum(b,"tv")-ta,dy:sum(b,"y1")-ya},A,B),dv=w.dv,dy=w.dy,f=fitOf(A,a,b),score=Math.min(Math.max(dv,dy),Math.max(-dv,-dy))+0.5*Math.max(dv,0)-0.25*Math.abs(dv)+(f?0.8*f.score:0);
+        const k=a.map(p=>p.name).join("|");if(!best[k]||score>best[k].score)best[k]={B,a:w.a,b:w.b,dv,dy,score,fit:f}}}
     out.push(...Object.values(best))}
   // one idea per partner, and no player of ours in more than one idea
   const used=new Set(),seen=new Set(),pick=[];
@@ -397,6 +417,8 @@ function drawPlayer(){
     <dt>2025-26 Win Shares</dt><dd>${p&&p.ws!=null?p.ws.toFixed(1):"–"}</dd><dt>WS per 48 min</dt><dd>${p&&p.ws48!=null?p.ws48.toFixed(3):"–"}</dd>
     <dt>VORP</dt><dd>${p&&p.vorp!=null?p.vorp.toFixed(1):"–"}</dd><dt>2026-27 games so far</dt><dd>${p&&p.g27!=null?p.g27.toFixed(0):"–"}</dd><dt>2026-27 WS per 48</dt><dd>${p&&p.ws48b!=null?p.ws48b.toFixed(3):"–"}</dd></dl></div>
    <div class="hcard"><h4>Surplus this season, three ways</h4><dl class="kv"><dt>Actual 2025-26</dt><dd class="${cls(p&&p.actual)}">${sgn(p&&p.actual)}</dd><dt>If healthy</dt><dd class="${cls(p&&p.healthy)}">${sgn(p&&p.healthy)}</dd><dt>Healthy + 2026-27</dt><dd class="${cls(p&&p.blended)}">${sgn(p&&p.blended)}</dd></dl></div></div>
+  ${(()=>{const F=SF(),pr=F&&F.profile(nm);if(!pr)return"";const fits=F.teams().filter(x=>x!==team).map(x=>({t:x,f:F.trade(x,[],[nm])})).sort((a,b)=>b.f.score-a.f.score).slice(0,5);
+    return `<div class="hcard"><h4>Play style</h4><p class="sub" style="margin:4px 0 8px">${pr.roles.length?"Stands out for <b>"+pr.roles.join(", ")+"</b>":"No standout role in the play-type data"} (${pr.season}, ${Math.round(pr.mp)} minutes). Teams whose role mix he'd fit best:</p><ul class="hlist">${fits.map(x=>`<li><span>${badge(x.t,20)} ${tinfo(x.t)[0]}</span><span class="sub">${esc(x.f.reasons[0]?x.f.reasons[0].text.replace(nm+" adds ","Needs ").replace(", a weak spot",""):"")}</span><span class="num ${fitCls(x.f.score)}">${x.f.score>0?"+":""}${x.f.score.toFixed(1)}</span></li>`).join("")}</ul></div>`})()}
   ${sim.length?`<div class="hcard"><h4>Similar contracts</h4><p class="sub">Closest by salary, age and years left. If he's worth less than these, his deal is the worse one.</p>
    <div class="tablewrap"><table><thead><tr><th>Player</th><th>Team</th><th class="num">Age</th><th class="num">Salary</th><th class="num">Years</th><th class="num">Trade value</th></tr></thead><tbody>
    ${[t,...sim].map(q=>`<tr${q===t?' class="sel"':""}><td>${q===t?esc(q.name):`<a href="#" data-player="${esc(q.name)}" data-pt="${q.team}">${esc(q.name)}</a>`}</td><td>${q.team}</td><td class="num">${q.age!=null?q.age.toFixed(0):"–"}</td><td class="num">${money(q.sal)}</td><td class="num">${q.yrs!=null?q.yrs.toFixed(0):"–"}</td><td class="num ${cls(q.tv)}">${sgn(q.tv)}</td></tr>`).join("")}</tbody></table></div></div>`:""}`;
@@ -432,9 +454,11 @@ function drawHome(){
    <dl class="stats"><div><dt>Payroll</dt><dd>${money(c.payroll)}</dd></div><div><dt>Dead money</dt><dd>${t.dead?money(t.dead):"–"}</dd></div><div><dt>Contract surplus</dt><dd class="${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</dd></div><div><dt>Roster trade value</dt><dd class="${cls(ros.reduce((s,p)=>s+p.tv,0))}">${sgn(ros.reduce((s,p)=>s+p.tv,0))}</dd></div><div><dt>Committed, all years</dt><dd>${money(owed)}</dd></div></dl>
    <button class="btn" id="changeTeam">Change team</button></div>
   <div class="hcard"><h4>Cap sheet, 2026-27</h4>${capBar(c)}<p class="sub">${c.payroll>c.apron2?"Over the second apron: can't combine salaries in trades and can only take back what one player earns.":c.payroll>c.apron1?"Over the first apron: no expanded trade exception and no $250K cushion when matching salary.":c.payroll>c.tax?"Paying the luxury tax, with room below the first apron.":c.payroll>c.cap?"Over the cap but under the tax.":"Under the cap, with room to absorb salary."}</p></div>
+  ${(()=>{const o=window.SimUI&&SimUI.ready()&&SimUI.base()[T];return o?`<div class="hcard"><h4>Season sim: ${SimUI.pct(o.playoffs)} to make the playoffs</h4><p class="sub" style="margin:4px 0 0">Projected ${o.projW.toFixed(0)}-${o.projL.toFixed(0)}, ${SimUI.pct(o.playin)} to land in the play-in, ${SimUI.pct(o.title)} to win the title. <a href="sim.html">See the full odds</a>.</p></div>`:""})()}
+  ${(()=>{const b=SF()&&SF().balance(T);return b?`<div class="hcard"><h4>Play-style fit: ${b.score} / 100</h4><p class="sub" style="margin:4px 0 0">${b.needs.length?`Short on <b>${b.needs.join(", ")}</b>. `:"No clear holes in the role mix. "}${b.strengths.length?`Deep in ${b.strengths.join(", ")}.`:""} Trade ideas and suggestions favor deals that fill these. <a href="styles.html">See how ${ti[0]} play</a>.</p></div>`:""})()}
   <div class="hgrid"><div class="hcard"><h4>Best contracts</h4><ul class="hlist">${byTV.slice(0,4).map(li).join("")}</ul></div><div class="hcard"><h4>Worst contracts</h4><ul class="hlist">${byTV.slice(-4).reverse().map(li).join("")}</ul></div></div>
   <div class="hcard"><div class="sectionhead"><h4>Trade ideas</h4><button class="btn" id="findIdeas">${ideas&&ideas.team===T?"Search again":"Find trade ideas"}</button></div>
-   ${ideas&&ideas.team===T?(ideas.list.length?ideas.list.map((r,i)=>`<div class="idea"><span>${badge(r.B,22)} Send <b>${r.a.map(p=>esc(p.pick?p.name+" pick":p.name)).join(" + ")}</b> to ${tinfo(r.B)[0]} for <b>${r.b.map(p=>esc(p.pick?p.name+" pick":p.name)).join(" + ")}</b> <span class="sub">· ${r.dy>0?"better now":"worse now"}, ${r.dv>=0?"+":"−"}${money(Math.abs(r.dv)).slice(1)} long term</span></span><button class="btn" data-idea="${i}">Open in trade machine</button></div>`).join(""):"<p class='sub'>No legal one- or two-player trades found.</p>"):`<p class="sub">Searches every other team for legal one- or two-player trades that help ${ti[0]} and still give the other side something.</p>`}</div>
+   ${ideas&&ideas.team===T?(ideas.list.length?ideas.list.map((r,i)=>`<div class="idea"><span>${badge(r.B,22)} Send <b>${r.a.map(p=>esc(p.pick?p.name+" pick":p.name)).join(" + ")}</b> to ${tinfo(r.B)[0]} for <b>${r.b.map(p=>esc(p.pick?p.name+" pick":p.name)).join(" + ")}</b> <span class="sub">· ${r.dy>0?"better now":"worse now"}, ${r.dv>=0?"+":"−"}${money(Math.abs(r.dv)).slice(1)} long term${r.fit?`, ${r.fit.label.toLowerCase()}`:""}</span></span><button class="btn" data-idea="${i}">Open in trade machine</button></div>`).join(""):"<p class='sub'>No legal one- or two-player trades found.</p>"):`<p class="sub">Searches every other team for legal one- or two-player trades that help ${ti[0]} and still give the other side something.</p>`}</div>
   <div class="hcard"><h4>Roster</h4><div class="tablewrap" style="border:0;max-height:none"><table><thead><tr><th>Player</th><th class="num">2026-27</th><th class="num">Years</th><th class="num">Total owed</th><th class="num">This season</th><th class="num">Trade value</th></tr></thead><tbody>${byTV.map(p=>`<tr><td><a href="#" data-player="${esc(p.name)}" data-pt="${p.team}">${esc(p.name)}</a>${p.rookie?" <span class='chip'>rookie</span>":""}${p.small?" <span class='chip warn'>small</span>":""}</td><td class="num">${money(p.sal)}</td><td class="num">${p.yrs==null?"–":p.yrs.toFixed(0)}</td><td class="num">${money(p.tot)}</td><td class="num ${cls(p.now)}">${sgn(p.now)}</td><td class="num ${cls(p.tv)}">${sgn(p.tv)}</td></tr>`).join("")}</tbody></table></div></div>
   ${pickMap(T)}
   ${TOOLS.length?`<div class="hcard"><h4>More tools for ${ti[0]}</h4><ul class="hlist">${TOOLS.map(t=>`<li><span><a href="${t.url}">${t.name}</a></span><span class="sub">${t.what}</span></li>`).join("")}</ul></div>`:""}`;
@@ -544,7 +568,8 @@ function buildSuggestions(){
       if(!rule(A,a,sb).ok||!rule(B,b,sa).ok)continue;
       const dv=sum(b,"tv")-ta,dy=sum(b,"y1")-ya,benA=Math.max(dv,dy),benB=Math.max(-dv,-dy);
       const w=sweeten({a,b,dv,dy},A,B),bA=Math.max(w.dv,dy),bB=Math.max(-w.dv,-dy);
-      res.push({...w,score:Math.min(bA,bB)-0.25*Math.abs(w.dv)})}}
+      const fA=fitOf(A,a,b),fB=fitOf(B,b,a);
+      res.push({...w,fA,fB,score:Math.min(bA,bB)-0.25*Math.abs(w.dv)+(fA&&fB?0.4*(fA.score+fB.score)+0.2*Math.min(fA.score,fB.score):0)})}}
   res.sort((x,y)=>y.score-x.score);
   const seen=new Set(),list=[];for(const r of res){const k=r.a.filter(p=>!p.pick).map(p=>p.name).sort().join()+"|";if(seen.has(k))continue;seen.add(k);list.push(r);if(list.length>=12)break}
   return{key:A+"|"+B,list,i:-1};
@@ -555,7 +580,7 @@ function suggest(){
   sugg.i=(sugg.i+1)%sugg.list.length;const r=sugg.list[sugg.i],A=tr.a,B=tr.b;
   tr.out[A]=new Set(r.a.map(key));tr.out[B]=new Set(r.b.map(key));
   const nowW=r.dy>0?A:B,lateW=r.dv>0?A:B;
-  sugg.msg=`Suggestion ${sugg.i+1} of ${sugg.list.length}. `+(nowW!==lateW?`${tinfo(nowW)[0]} get more value this season; ${tinfo(lateW)[0]} get more over the long run.`:`${tinfo(nowW)[0]} gain on both counts, so the other side would need a sweetener like a pick.`);
+  sugg.msg=`Suggestion ${sugg.i+1} of ${sugg.list.length}. `+(nowW!==lateW?`${tinfo(nowW)[0]} get more value this season; ${tinfo(lateW)[0]} get more over the long run.`:`${tinfo(nowW)[0]} gain on both counts, so the other side would need a sweetener like a pick.`)+(r.fA&&r.fB?` Style fit: ${tinfo(A)[0]} ${r.fA.label.toLowerCase()}, ${tinfo(B)[0]} ${r.fB.label.toLowerCase()}.`:"");
   drawTrade();
 }
 const status=(c,pay)=>pay>c.apron2?"over 2nd apron":pay>c.apron1?"over 1st apron":pay>c.tax?"over tax":pay>c.cap?"over cap":"under cap";
@@ -571,14 +596,16 @@ function drawTrade(){
   const A=tr.a,B=tr.b,oa=[...tr.out[A]||[]].map(n=>pick(A,n)).filter(Boolean),ob=[...tr.out[B]||[]].map(n=>pick(B,n)).filter(Boolean);
   const sum=(ps,k)=>ps.reduce((s,p)=>s+(p[k]||0),0);
   const side=(team,outs,ins)=>{const O=sum(outs,"sal"),I=sum(ins,"sal"),r=rule(team,outs,I),c=caps[team];
-    return{team,O,I,r,stp:stepien(team,outs,ins),before:status(c,c.payroll),after:status(c,r.post),dv:sum(ins,"tv")-sum(outs,"tv"),dyr:sum(ins,"y1")-sum(outs,"y1"),ins,outs}};
+    return{team,O,I,r,fit:fitOf(team,outs,ins),stp:stepien(team,outs,ins),before:status(c,c.payroll),after:status(c,r.post),dv:sum(ins,"tv")-sum(outs,"tv"),dyr:sum(ins,"y1")-sum(outs,"y1"),ins,outs}};
   const sa=side(A,oa,ob),sb=side(B,ob,oa);
+  const so=simFor(A,B,oa,ob);
   const empty=!oa.length&&!ob.length,legal=sa.r.ok&&sb.r.ok&&!sa.stp&&!sb.stp;
   const win=Math.abs(sa.dv)<1?"About even on trade value.":`${tinfo(sa.dv>0?A:B)[0]} come out ahead by ${money(Math.abs(sa.dv))} of trade value.`;
   lastTrade={A,B,oa,ob,sa,sb,legal,win};
   const card=s=>`<div class="tres"><div class="thead">${badge(s.team,28)}<b>${tinfo(s.team)[0]}</b></div>
     <p class="sub">Gets: ${s.ins.length?s.ins.map(p=>esc(p.pick?p.name+" pick":p.name)).join(", "):"nothing"}</p>
-    <dl class="kv"><dt>Trade value change</dt><dd class="${cls(s.dv)}">${sgn(s.dv)}</dd><dt>This season's surplus change</dt><dd class="${cls(s.dyr)}">${sgn(s.dyr)}</dd><dt>Salary out / in</dt><dd>${money(s.O)} / ${money(s.I)}</dd><dt>Payroll after</dt><dd>${money(s.r.post)}</dd><dt>Cap position</dt><dd>${s.before}${s.after!==s.before?" → "+s.after:""}</dd></dl>
+    <dl class="kv"><dt>Trade value change</dt><dd class="${cls(s.dv)}">${sgn(s.dv)}</dd><dt>This season's surplus change</dt><dd class="${cls(s.dyr)}">${sgn(s.dyr)}</dd><dt>Salary out / in</dt><dd>${money(s.O)} / ${money(s.I)}</dd><dt>Payroll after</dt><dd>${money(s.r.post)}</dd><dt>Cap position</dt><dd>${s.before}${s.after!==s.before?" → "+s.after:""}</dd>${s.fit?`<dt>Play-style fit</dt><dd class="${fitCls(s.fit.score)}">${fitTxt(s.fit)}</dd>`:""}${so==="wait"?`<dt>Season odds</dt><dd class="sub">simulating…</dd>`:so?SimUI.rows(so,s.team):""}</dl>
+    ${s.fit&&s.fit.reasons.length?`<ul class="fitwhy">${s.fit.reasons.map(x=>`<li class="${x.good?"pos":"neg"}">${x.good?"+":"−"} ${esc(x.text)}</li>`).join("")}</ul>`:""}
     <p class="verdict ${s.r.ok?"pos":"neg"}">${s.r.ok?"✓ Salary works":"✗ Salary doesn't work"}</p><p class="sub">${s.r.how}${s.r.hard?" "+s.r.hard:""}</p>${s.stp?`<p class="verdict neg">✗ ${s.stp}</p>`:""}</div>`;
   $("#trade-view").innerHTML=`<div class="sectionhead"><h3>Trade machine</h3><p>Tick players each team sends out, or let it find one. Values use the contracts' full remaining years.</p></div>
   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" id="suggest">${sugg&&sugg.key===tr.a+"|"+tr.b&&sugg.i>=0?"Suggest another":"Suggest a trade"}</button>${sugg&&sugg.msg&&sugg.key===tr.a+"|"+tr.b?`<span class="sub">${sugg.msg}</span>`:`<span class="sub">Finds legal trades where each team gains something. Tick a player first to build around him.</span>`}</div>
@@ -586,7 +613,7 @@ function drawTrade(){
   ${empty?`<div class="card"><p class="sub">Tick at least one player to build a trade.</p></div>`:`<div class="tverdict ${legal?"ok":"bad"}"><b>${legal?"Legal under the CBA salary and pick rules.":"Not legal as built."}</b> ${win}</div><div class="tgrid">${card(sa)}${card(sb)}</div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${DB?`<button class="btn" id="saveTrade">Save to trade board</button>`:""}${DL?`<button class="btn" id="tradeImg">Download verdict image</button>`:""}<span class="sub" id="saveMsg">${saveMsg}</span></div>`}
   ${DB?boardHTML():""}
-  <p class="sub" style="max-width:80ch">Trade value adds up each remaining contract year: projected Win Shares (with an aging curve) × a price per Win Share that grows 7% a year with the cap, minus salary, with later years discounted 8% a year. Salary rules: 2023 CBA Article VII 6(j) and 2(e), using 2026-27 cap $164.96M, tax $200.43M, aprons $209.02M / $221.69M. Payroll is Spotrac total cash, so teams near an apron can differ from the official figure. Picks are valued from a slot curve fit on recent drafts, with each team’s finish simulated 5,000 times. The Stepien rule (no first-round pick in two straight future drafts) is checked. Not modeled: frozen picks for teams over the second apron, cash, trade exceptions, options, and the 2-month re-trade rule.</p>`;
+  <p class="sub" style="max-width:80ch">Trade value adds up each remaining contract year: projected Win Shares (with an aging curve) × a price per Win Share that grows 7% a year with the cap, minus salary, with later years discounted 8% a year. Salary rules: 2023 CBA Article VII 6(j) and 2(e), using 2026-27 cap $164.96M, tax $200.43M, aprons $209.02M / $221.69M. Payroll is Spotrac total cash, so teams near an apron can differ from the official figure. Picks are valued from a slot curve fit on recent drafts, with each team’s finish simulated 5,000 times. The Stepien rule (no first-round pick in two straight future drafts) is checked. Play-style fit (−10 to +10) asks whether incoming players fill roles the team is short on, such as shooting, shot creation or rim protection, without doubling up on what it already has, and nets out the roles the outgoing players were filling. It comes from NBA.com play-type and tracking data and is separate from trade value; suggestions weigh both. Playoff odds, title odds and projected wins come from the <a href="sim.html">Season sim</a>: the rest of the season played 2,000 times with and without the trade, same luck both ways, so the change is the trade. Not modeled: frozen picks for teams over the second apron, cash, trade exceptions, options, and the 2-month re-trade rule.</p>`;
 }
 document.addEventListener("change",e=>{
   const cb=e.target.closest("#trade-view input[type=checkbox]");if(cb){sugg=null;saveMsg="";const t=tr[cb.dataset.side],s=tr.out[t];cb.checked?s.add(cb.dataset.name):s.delete(cb.dataset.name);drawTrade();return}
@@ -632,8 +659,9 @@ new MutationObserver(render).observe(document.documentElement,{attributes:true,a
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(h.startsWith("player/")){const n=decodeURIComponent(h.slice(7));if(st.tab!=="player"||st.pname!==n)openPlayer(n)}else if(["home","players","teams","trade"].includes(h)&&h!==st.tab){setTab(h);scrollTo(0,0)}});
 if(location.hash.startsWith("#player/")){st.pfrom="players";openPlayer(decodeURIComponent(location.hash.slice(8)))}else setTab(["#home","#players","#teams","#trade"].includes(location.hash)?location.hash.slice(1):"home");
 }
+document.addEventListener("seasonsim",()=>{if(!players.length)return;if(st.tab==="trade")drawTrade();else if(st.tab==="home")render()});
+document.addEventListener("stylefit",()=>{if(!players.length)return;if(st.tab==="trade")drawTrade();else render()});
 boot();
 })();
 </script>
-
 </body></html>

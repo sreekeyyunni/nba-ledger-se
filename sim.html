@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Season Sim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: your team's odds and seed spread, then East and West odds tables (click a row for its seed spread), then how it works. */
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#141D27; --muted:#5A6676; --line:#DAE0E7; --soft:#EBEFF3; --track:#E3E8EE;
+  --team:#C2410C; --base:#141D27; --good:#15803D; --bad:#B91C1C;
+  --z1:#C2410C; --z2:#E07B3E; --z3:#8A97A6; --z4:#2B6CB0; --z5:#7FA7D6;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834; --track:#26313D;
+  --team:#F08A4B; --base:#E5EAF0; --good:#4ADE80; --bad:#F87171;
+  --z1:#F08A4B; --z2:#B8612F; --z3:#6B7887; --z4:#4F8DD6; --z5:#2F5F95; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834; --track:#26313D;
+  --team:#F08A4B; --base:#E5EAF0; --good:#4ADE80; --bad:#F87171;
+  --z1:#F08A4B; --z2:#B8612F; --z3:#6B7887; --z4:#4F8DD6; --z5:#2F5F95; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--team);margin:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,6vw,58px);line-height:.95;margin:4px 0 8px;text-transform:uppercase;letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em}
+h3{font:600 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.lede{max-width:70ch;color:var(--muted);margin:0}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+select,button.btn{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 10px;max-width:100%}
+button.btn{cursor:pointer;font-weight:500}
+button.btn:hover{background:var(--soft)}
+select:focus-visible,button:focus-visible,tr[tabindex]:focus-visible{outline:2px solid var(--team);outline-offset:2px}
+.pick{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.pick label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.badge{flex:none;object-fit:contain;vertical-align:middle}
+.mine{border-top:4px solid var(--team)}
+.who{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:4px 0 14px}
+.kpi .k{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font:700 32px/1.05 var(--display)}
+.kpi .r{font-size:12px;color:var(--muted)}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpi .v{font-size:26px}}
+.seedbars{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:3px;align-items:end;height:96px;margin-top:6px}
+.seedbars div{background:var(--track);border-radius:3px 3px 0 0;position:relative;min-height:2px}
+.seedbars div.po{background:var(--team)}
+.seedbars div.pi{background:var(--z2)}
+.seedlab{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:3px;font:11px var(--mono);color:var(--muted);text-align:center;margin-top:3px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.o{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
+table.o th,table.o td{padding:6px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.o th:nth-child(-n+2),table.o td:nth-child(-n+2){text-align:left}
+table.o th{font:500 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);position:sticky;top:0;background:var(--surface)}
+table.o td.tm{display:flex;gap:8px;align-items:center;min-width:150px}
+table.o tr.me td{background:color-mix(in srgb,var(--team) 10%,transparent)}
+table.o tr.cut td{border-bottom:2px solid var(--muted)}
+table.o tr.cut6 td{border-bottom:2px dashed var(--line)}
+table.o tbody tr{cursor:pointer}
+table.o tbody tr:hover td{background:var(--soft)}
+.pc{display:inline-block;min-width:44px;padding:1px 5px;border-radius:4px;text-align:center;font-family:var(--mono)}
+.strip{display:inline-grid;grid-template-columns:repeat(15,6px);gap:1px;vertical-align:middle}
+.strip i{height:14px;border-radius:1px;background:var(--team)}
+.det td{background:var(--soft);white-space:normal!important;text-align:left!important}
+.note{font-size:13px;color:var(--muted);max-width:80ch}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+</style></head><body>
+<script src="nav.js" data-page="sim"></script>
+<script src="sim.js"></script>
+<main class="wrap">
+  <header><p class="eyebrow">Season simulator</p><h1>Season sim</h1>
+  <p class="lede">Plays out every remaining game of the 2026-27 season thousands of times, then the play-in and playoffs, and counts how often each team gets there. Trades in the Trade machine and the Transactions page show how a deal moves these odds.</p></header>
+  <div class="pick"><label>Simulations <select id="sims"><option value="2000">2,000 (fast)</option><option value="5000" selected>5,000</option><option value="20000">20,000 (slow)</option></select></label><label>Team <select id="team"></select></label><span class="sub" id="stamp"></span></div>
+  <section class="card mine" id="mine" aria-live="polite"><p class="sub">Running the season…</p></section>
+  <section class="card"><div class="head"><h2>East</h2><p class="sub">Solid line: top 6 seeds above, play-in 7–10 below the dashed line. Click a team for its seed spread.</p></div><div class="tw"><table class="o" id="E"></table></div></section>
+  <section class="card"><div class="head"><h2>West</h2></div><div class="tw"><table class="o" id="W"></table></div></section>
+  <p class="note"><b>How it works.</b> Each team gets a rating from its roster (Win Shares per 48 minutes times projected minutes, filled to 240 minutes with replacement-level players) plus its form so far, the same ratings as the Predictions page. Every remaining game is played with home court worth 2.3 points, a 1.5-point penalty on the second night of a back-to-back, and a game-to-game spread of 11.5 points. Each simulated season also shifts every team's rating by a random amount (about 2 points), because ratings this early are uncertain. Seeds 1–6 go straight to the playoffs; 7–10 play the play-in (7 v 8, then the loser hosts the 9 v 10 winner). Playoff rounds are best of seven with home court to the better record. Ties in the standings are coin flips, not the real tiebreakers. Long injuries count for the rest of the season; day-to-day ones don't. Data refreshes with the Predictions page.</p>
+</main>
+<script>
+(()=>{
+const TEAM_NAMES={ATL:"Atlanta Hawks",BOS:"Boston Celtics",BRK:"Brooklyn Nets",CHO:"Charlotte Hornets",CHI:"Chicago Bulls",CLE:"Cleveland Cavaliers",DAL:"Dallas Mavericks",DEN:"Denver Nuggets",DET:"Detroit Pistons",GSW:"Golden State Warriors",HOU:"Houston Rockets",IND:"Indiana Pacers",LAC:"LA Clippers",LAL:"Los Angeles Lakers",MEM:"Memphis Grizzlies",MIA:"Miami Heat",MIL:"Milwaukee Bucks",MIN:"Minnesota Timberwolves",NOP:"New Orleans Pelicans",NYK:"New York Knicks",OKC:"Oklahoma City Thunder",ORL:"Orlando Magic",PHI:"Philadelphia 76ers",PHO:"Phoenix Suns",POR:"Portland Trail Blazers",SAC:"Sacramento Kings",SAS:"San Antonio Spurs",TOR:"Toronto Raptors",UTA:"Utah Jazz",WAS:"Washington Wizards"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}" onerror="this.style.visibility='hidden'">`;
+const myTeam=()=>{try{return(window.appNav&&appNav.team())||localStorage.getItem("myTeam")}catch(e){return null}};
+const pct=x=>x>=0.995?">99%":x>0&&x<0.005?"<1%":Math.round(x*100)+"%";
+// cell shade by probability, team color at full strength
+const shade=x=>`style="background:color-mix(in srgb,var(--team) ${Math.round(Math.min(1,x)*70)}%,transparent);${x>0.55?"color:#fff":""}"`;
+let D=null,R=null,team=null,open=new Set();
+const ALIAS={"ronald holland":"ron holland"};
+const norm=s=>{const k=String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[.'’]/g,"").replace(/\b(jr|sr|ii|iii|iv)\b/g,"").replace(/[^a-z]+/g," ").trim();return ALIAS[k]||k};
+function dedupe(d){const seen=new Set(),hit=new Set();d.players=d.players.filter(p=>{const k=norm(p[0])+"|"+p[1];if(seen.has(k)){hit.add(p[1]);return false}seen.add(k);return true});hit.forEach(t=>{d.teams[t].roster=SeasonSim.teamRating(d,d.players.filter(p=>p[1]===t))})}
+const ord=n=>n+(n%10===1&&n!==11?"st":n%10===2&&n!==12?"nd":n%10===3&&n!==13?"rd":"th");
+function seedRange(sd){let lo=0,hi=14,c=0;for(let i=0;i<15;i++){c+=sd[i];if(c<0.1)lo=i+1}c=0;for(let i=14;i>=0;i--){c+=sd[i];if(c<0.1)hi=i-1}return lo===hi?ord(lo+1):`${ord(lo+1)}–${ord(hi+1)}`}
+function mine(){
+  const o=R.teams[team];if(!o){$("#mine").innerHTML="";return}
+  const mx=Math.max(...o.seeds,0.01);
+  $("#mine").innerHTML=`<div class="who">${badge(team,52)}<div><p class="eyebrow" style="color:var(--muted)">${o.conf==="E"?"Eastern":"Western"} Conference · ${o.w}-${o.l} so far</p><h2>${esc(TEAM_NAMES[team])}</h2></div></div>
+  <div class="kpis"><div class="kpi"><div class="k">Projected</div><div class="v num">${o.projW.toFixed(0)}-${o.projL.toFixed(0)}</div><div class="r">likely seed ${seedRange(o.seeds)}</div></div>
+  <div class="kpi"><div class="k">Playoffs</div><div class="v">${pct(o.playoffs)}</div><div class="r">${pct(o.top6)} top 6</div></div>
+  <div class="kpi"><div class="k">Play-in</div><div class="v">${pct(o.playin)}</div><div class="r">seeds 7–10</div></div>
+  <div class="kpi"><div class="k">Conf finals</div><div class="v">${pct(o.confFinals)}</div><div class="r">${pct(o.finals)} reach Finals</div></div>
+  <div class="kpi"><div class="k">Title</div><div class="v">${pct(o.title)}</div><div class="r">rating ${o.rating>0?"+":""}${o.rating.toFixed(1)}</div></div></div>
+  <h3>Where they finish in the ${o.conf==="E"?"East":"West"}</h3>
+  <div class="seedbars" role="img" aria-label="Seed distribution: ${o.seeds.map((p,i)=>ord(i+1)+" "+pct(p)).join(", ")}">${o.seeds.map((p,i)=>`<div class="${i<6?"po":i<10?"pi":""}" style="height:${Math.max(2,p/mx*100)}%" title="${ord(i+1)} seed: ${pct(p)}"></div>`).join("")}</div>
+  <div class="seedlab">${o.seeds.map((p,i)=>`<span>${i+1}</span>`).join("")}</div>
+  <div class="legend"><span><i style="background:var(--team)"></i>Top 6</span><span><i style="background:var(--z2)"></i>Play-in</span><span><i style="background:var(--track)"></i>Lottery</span></div>`;
+}
+function table(c){
+  const rows=Object.entries(R.teams).filter(([t,o])=>o.conf===c).sort((a,b)=>b[1].projW-a[1].projW||b[1].playoffs-a[1].playoffs);
+  $("#"+c).innerHTML=`<thead><tr><th>#</th><th>Team</th><th>Now</th><th>Proj</th><th>Seed spread</th><th>Play-in</th><th>Playoffs</th><th>2nd rd</th><th>Conf finals</th><th>Finals</th><th>Title</th></tr></thead><tbody>${rows.map(([t,o],i)=>{
+    const mx=Math.max(...o.seeds,0.01);
+    return`<tr data-t="${t}" tabindex="0" class="${t===team?"me ":""}${i===5?"cut6":i===9?"cut":""}" aria-expanded="${open.has(t)}"><td class="num">${i+1}</td><td class="tm">${badge(t,22)}<span>${esc(TEAM_NAMES[t])}</span></td><td class="num">${o.w}-${o.l}</td><td class="num">${o.projW.toFixed(1)}-${o.projL.toFixed(1)}</td>
+    <td><span class="strip" title="Likely seed ${seedRange(o.seeds)}">${o.seeds.map(p=>`<i style="opacity:${p<0.005?0.08:0.15+0.85*p/mx}"></i>`).join("")}</span></td>
+    ${["playin","playoffs","semis","confFinals","finals","title"].map(k=>`<td><span class="pc" ${shade(o[k])}>${pct(o[k])}</span></td>`).join("")}</tr>${open.has(t)?`<tr class="det"><td colspan="11">Seed odds: ${o.seeds.map((p,k)=>p>=0.005?`<b>${ord(k+1)}</b> ${pct(p)}`:"").filter(Boolean).join(" · ")}. Rating ${o.rating>0?"+":""}${o.rating.toFixed(1)} points vs an average team.</td></tr>`:""}`}).join("")}</tbody>`;
+}
+function draw(){mine();table("E");table("W")}
+function run(){
+  $("#mine").setAttribute("aria-busy","true");
+  setTimeout(()=>{const t0=performance.now();R=SeasonSim.run(D,{sims:+$("#sims").value});draw();$("#mine").removeAttribute("aria-busy");
+    $("#stamp").textContent=`${(+$("#sims").value).toLocaleString()} seasons in ${((performance.now()-t0)/1000).toFixed(1)}s · ${D.games.length} games left · data ${String(D.generated||"").slice(0,10)}`},20);
+}
+document.addEventListener("click",e=>{const tr=e.target.closest("tbody tr[data-t]");if(!tr)return;const t=tr.dataset.t;open.has(t)?open.delete(t):open.add(t);table(R.teams[t].conf)});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("tr[data-t]")){e.preventDefault();e.target.click()}});
+addEventListener("storage",e=>{if(e.key==="myTeam"&&e.newValue&&TEAM_NAMES[e.newValue]){team=e.newValue;$("#team").value=team;if(R)draw()}});
+fetch("data/sim_data.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(d=>{
+  dedupe(d);D=d;
+  const opts=Object.keys(d.teams).sort((a,b)=>TEAM_NAMES[a].localeCompare(TEAM_NAMES[b]));
+  $("#team").innerHTML=opts.map(a=>`<option value="${a}">${esc(TEAM_NAMES[a])}</option>`).join("");
+  const mt=myTeam();team=d.teams[mt]?mt:"WAS";$("#team").value=team;
+  $("#team").onchange=e=>{team=e.target.value;draw()};
+  $("#sims").onchange=run;run();
+}).catch(e=>{$("#mine").innerHTML=`<p class="sub">Couldn't load the simulator data (${esc(e.message)}).</p>`});
+})();
+</script>
+</body></html>

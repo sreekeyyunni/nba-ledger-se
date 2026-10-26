@@ -1,5 +1,6 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="desk"></script>
+<script src="fit.js"></script>
 <title>AI GM Desk</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -220,9 +221,11 @@ function rule(team,outs,I){
   res.how=`Takes back $${I.toFixed(1)}M but the most it can take is $${best.max.toFixed(1)}M (${best.how})${post>c.apron2&&n>=2?". Over the second apron after the trade, so it can't combine salaries":post>c.apron1?". Over the first apron after the trade, so the expanded exception is off the table":""}.`;return res;
 }
 const sum=(ps,k)=>ps.reduce((s,p)=>s+(p[k]||0),0);
+const SFok=()=>window.StyleFit&&StyleFit.has&&StyleFit.teams().length;
+const fitOf=(team,outs,ins)=>SFok()?StyleFit.trade(team,outs.filter(p=>!p.pick).map(p=>p.name),ins.filter(p=>!p.pick).map(p=>p.name)):null;
 function evaluate(A,outA,B,outB){
   const side=(team,outs,ins)=>{const I=sum(ins,"sal"),r=rule(team,outs.filter(p=>!p.pick),I),c=caps[team];
-    return{team,outs,ins,O:sum(outs,"sal"),I,r,before:status(c,c.payroll),after:status(c,r.post),dv:sum(ins,"tv")-sum(outs,"tv"),dy:sum(ins,"y1")-sum(outs,"y1")}};
+    return{team,outs,ins,O:sum(outs,"sal"),I,r,before:status(c,c.payroll),after:status(c,r.post),dv:sum(ins,"tv")-sum(outs,"tv"),dy:sum(ins,"y1")-sum(outs,"y1"),fit:fitOf(team,outs,ins)}};
   const a=side(A,outA,outB),b=side(B,outB,outA);a.stp=stepien(A,outA,outB);b.stp=stepien(B,outB,outA);return{a,b,legal:a.r.ok&&b.r.ok&&!a.stp&&!b.stp};
 }
 // Stepien rule: a team can't be left without a first-round pick in two consecutive future drafts (only gaps this trade creates).
@@ -232,7 +235,7 @@ function stepien(team,outs,ins){const o=new Set(outs.filter(p=>p.pick).map(p=>p.
   for(let y=2027;y<2033;y++)if(!a.has(y)&&!a.has(y+1)&&(b.has(y)||b.has(y+1)))return `Breaks the Stepien rule: no first-round pick in ${y} or ${y+1}.`;return null
 }
 function evalSummary(e){
-  const s=x=>({team:x.team,sends:x.outs.map(label),receives:x.ins.map(label),salary_out_m:r1(x.O),salary_in_m:r1(x.I),payroll_after_m:r1(x.r.post),cap_position:x.before===x.after?x.after:`${x.before} -> ${x.after}`,salary_works:x.r.ok,salary_rule:x.r.how+(x.r.hard?" "+x.r.hard:""),stepien_rule:x.stp||"ok",trade_value_change_m:r1(x.dv),this_season_surplus_change_m:r1(x.dy)});
+  const s=x=>({team:x.team,sends:x.outs.map(label),receives:x.ins.map(label),salary_out_m:r1(x.O),salary_in_m:r1(x.I),payroll_after_m:r1(x.r.post),cap_position:x.before===x.after?x.after:`${x.before} -> ${x.after}`,salary_works:x.r.ok,salary_rule:x.r.how+(x.r.hard?" "+x.r.hard:""),stepien_rule:x.stp||"ok",trade_value_change_m:r1(x.dv),this_season_surplus_change_m:r1(x.dy),style_fit:x.fit?{score:x.fit.score,label:x.fit.label,why:x.fit.reasons.map(q=>(q.good?"+ ":"- ")+q.text)}:null});
   return{legal:e.legal,sides:[s(e.a),s(e.b)]};
 }
 
@@ -256,16 +259,18 @@ function searchTrades({team,partner,must_send=[],must_get=[],goal="balanced",max
       for(const b of PB){if(!bigA&&!b.some(p=>p.sal>=8))continue;const sb=sum(b,"sal");
         if(!rule(A,a,sb).ok||!rule(B,b,sa).ok)continue;
         const dv=sum(b,"tv")-ta,dy=sum(b,"y1")-ya,benB=Math.max(-dv,-dy),sweet=benB<0?-benB:0,saved=sa-sb;
+        const fA=fitOf(A,a,b),fB=fitOf(B,b,a),fs=fA?0.8*fA.score+(fB&&fB.score<-4?0.3*fB.score:0):0;
         let score;
         if(goal==="win_now")score=dy-0.5*sweet;
         else if(goal==="long_term")score=dv-0.5*sweet;
         else if(goal==="dump_salary")score=saved-0.6*sweet+0.2*dv;
         else score=Math.min(Math.max(dv,dy),benB)-0.25*Math.abs(dv);
         if(goal!=="dump_salary"&&sweet>15)continue;
-        res.push({B,a,b,dv,dy,saved,sweet,score})}}}
+        score+=goal==="dump_salary"?0.3*fs:fs;
+        res.push({B,a,b,dv,dy,saved,sweet,score,fA,fB})}}}
   res.sort((x,y)=>y.score-x.score);
   const seen=new Set(),list=[];for(const r of res){const key=r.a.map(p=>p.name).sort().join()+"|"+r.B;if(seen.has(key))continue;seen.add(key);list.push(r);if(list.length>=8)break}
-  return{team:A,goal,searched_partners:partners.length,candidates:list.map(r=>({partner:r.B,team_sends:r.a.map(p=>p.name),team_gets:r.b.map(p=>p.name),team_trade_value_change_m:r1(r.dv),team_this_season_change_m:r1(r.dy),team_salary_saved_m:r1(r.saved),partner_trade_value_change_m:r1(-r.dv),partner_this_season_change_m:r1(-r.dy),sweetener_partner_would_want_m:r1(r.sweet)})),
+  return{team:A,goal,searched_partners:partners.length,candidates:list.map(r=>({partner:r.B,team_sends:r.a.map(p=>p.name),team_gets:r.b.map(p=>p.name),team_trade_value_change_m:r1(r.dv),team_this_season_change_m:r1(r.dy),team_salary_saved_m:r1(r.saved),partner_trade_value_change_m:r1(-r.dv),partner_this_season_change_m:r1(-r.dy),sweetener_partner_would_want_m:r1(r.sweet),team_style_fit:r.fA?`${r.fA.label} (${r.fA.score})`:null,partner_style_fit:r.fB?`${r.fB.label} (${r.fB.score})`:null})),
     note:list.length?"All candidates are legal under the salary rules. A positive sweetener means the partner loses on both value measures, so it would need picks or a young player to say yes.":"No legal trade found with these limits. Loosen a constraint or try another partner."};
 }
 
@@ -339,7 +344,7 @@ function sideHTML(tr,key,x){
   const rows=x.outs.map(p=>`<div class="prow"><span class="n">${esc(label(p))}</span><span class="num">${p.pick?"pick":money(p.sal)}</span><span class="num ${cls(p.tv)}">${sgn(p.tv)}</span><button class="x" type="button" data-rm="${tr.id}" data-team="${team}" data-name="${esc(p.name)}" aria-label="Remove ${esc(p.name)}">✕</button></div>`).join("")||`<p class="why">Sends nobody yet.</p>`;
   return `<div class="side"><div class="sh">${badge(team,22)}${esc(nick(team))} send</div>${rows}
     <select data-add="${tr.id}" data-team="${team}" aria-label="Add a ${esc(nick(team))} player"><option value="">+ Add a player or pick</option>${opts}</select>
-    <dl class="kv"><dt>${esc(nick(team))} value change</dt><dd class="${cls(x.dv)}">${sgn(x.dv)}</dd><dt>This season</dt><dd class="${cls(x.dy)}">${sgn(x.dy)}</dd><dt>Salary out / in</dt><dd>${money(x.O)} / ${money(x.I)}</dd><dt>Payroll after</dt><dd>${money(x.r.post)}</dd></dl>
+    <dl class="kv"><dt>${esc(nick(team))} value change</dt><dd class="${cls(x.dv)}">${sgn(x.dv)}</dd><dt>This season</dt><dd class="${cls(x.dy)}">${sgn(x.dy)}</dd><dt>Salary out / in</dt><dd>${money(x.O)} / ${money(x.I)}</dd><dt>Payroll after</dt><dd>${money(x.r.post)}</dd>${x.fit?`<dt>Play-style fit</dt><dd class="${x.fit.score>=1.5?"pos":x.fit.score<=-1.5?"neg":""}" title="${esc(x.fit.reasons.map(q=>(q.good?"+ ":"− ")+q.text).join("\n"))}">${x.fit.label} (${x.fit.score>0?"+":""}${x.fit.score.toFixed(1)})</dd>`:""}</dl>
     <span class="ok ${x.r.ok?"pos":"neg"}">${x.r.ok?"✓ Salary works":"✗ Salary doesn't work"}</span>${x.stp?`<span class="ok neg">✗ ${esc(x.stp)}</span>`:""}<p class="why">${esc(x.r.how)}${x.r.hard?" "+esc(x.r.hard):""}${x.before!==x.after?` Goes from ${x.before} to ${x.after}.`:""}</p></div>`;
 }
 function drawBoard(){
@@ -410,6 +415,7 @@ How the numbers work (all money in $M):
 - This season surplus = the 2026-27 year alone (what the player is worth now minus salary).
 - Based on full 2025-26 stats plus the first few 2026-27 games. "small sample" players have too few minutes to value well.
 - Draft picks are in the data: each pick a team holds has a value_m (expected slot, protections and chance it conveys). Picks carry no salary and can be included in trades by pick_id (get_team_picks lists them). Use them as sweeteners, and only offer picks a team actually holds. The Stepien rule (a team can't be without a first in two straight future drafts) IS checked by check_trade and search results only include legal trades.
+- Play-style fit (-10 to +10) is in check_trade and search_trades results: whether incoming players fill roles the team is short on (shot creation, shooting, rim pressure, playmaking, rim running, rebounding, rim protection, post scoring, steals) without doubling up on what it has, net of the roles outgoing players filled. Search already weighs it. Mention fit when it is strong either way, and use get_style_needs to see a team's holes.
 - Not modeled: cash, trade exceptions, player/team options, rookie-deal restricted free agency control, injuries this season.
 
 CBA salary matching (2023 CBA Art. VII), 2026-27 cap ${c.cap}, tax ${c.tax}, 1st apron ${c.apron1}, 2nd apron ${c.apron2}:
@@ -454,6 +460,13 @@ function tools(work,bub){
     {name:"search_trades",description:"Has the page brute-force every legal two-team package (1-3 players a side) for a team and rank them by goal. Give a partner or must_get to focus; with neither it scans all 29 teams with up to 2 players a side. Returns up to 8 legal candidates with value changes for both teams and the sweetener the partner would want.",
      inputSchema:{type:"object",properties:{team:{type:"string",description:"Team doing the searching, usually the fan's"},partner:{type:"string"},must_send:{...arr,description:"Players the team must include"},must_get:{...arr,description:"Players the team wants back (sets the partner)"},goal:{type:"string",enum:["balanced","win_now","long_term","dump_salary"]},max_players_per_side:{type:"number"}},required:["team"]},
      execute:a=>{say(`Running the trade machine${a.partner?" with the "+nick(teamCode(a.partner)||""):a.must_get&&a.must_get.length?" for "+a.must_get.join(", "):" across the league"}…`);return searchTrades(a)}},
+    {name:"get_style_needs",description:"A team's play-style profile from NBA.com play-type and tracking data: roster balance (0-100), the roles it is short on and the roles it is deep in. Use it before hunting for a fit.",
+     inputSchema:{type:"object",properties:{team:{type:"string"}},required:["team"]},
+     execute:({team})=>{const t=needTeam(team);say(`Reading how the ${nick(t)} play…`);if(!SFok())return{error:"Play-style data isn't loaded."};const b=StyleFit.balance(t);return{team:t,balance:b.score,needs:b.needs,deep_in:b.strengths}}},
+    {name:"get_player_style",description:"A player's standout play-style roles (e.g. shooting, rim protection) and the 5 teams whose role mix he'd fit best.",
+     inputSchema:{type:"object",properties:{name:{type:"string"}},required:["name"]},
+     execute:({name})=>{const p=findPlayer(String(name));if(!p)throw new Error(name+" not found");if(!SFok())return{error:"Play-style data isn't loaded."};const pr=StyleFit.profile(p.name);if(!pr)return{name:p.name,roles:[],note:"No play-type data"};
+       return{name:p.name,team:p.team,roles:pr.roles,data_season:pr.season,best_fits:StyleFit.teams().filter(t=>t!==p.team).map(t=>({team:t,f:StyleFit.trade(t,[],[p.name])})).sort((a,b)=>b.f.score-a.f.score).slice(0,5).map(x=>({team:x.t,fit:x.f.score,why:x.f.reasons.map(q=>q.text)}))}}},
     {name:"check_trade",description:"Checks a two-team trade (players by name, picks by pick_id) against the CBA salary-matching rules and returns, for each team, salary in/out, payroll after, cap position change, whether salary works and why, and the change in trade value and this-season surplus.",
      inputSchema:{type:"object",properties:{team_a:{type:"string"},sends_a:arr,team_b:{type:"string"},sends_b:arr},required:["team_a","sends_a","team_b","sends_b"]},
      execute:a=>{const A=needTeam(a.team_a),B=needTeam(a.team_b);say(`Checking salaries: ${nick(A)} and ${nick(B)}…`);return evalSummary(evaluate(A,resolveSends(A,a.sends_a),B,resolveSends(B,a.sends_b)))}},
@@ -466,6 +479,7 @@ function tools(work,bub){
        say("Loaded onto the trade board…");return{board_number:tr.id,...evalSummary(e)}}},
   ];
 }
+document.addEventListener("stylefit",()=>{try{if(st.team&&Object.keys(caps).length)drawBoard()}catch(e){}});
 let sample=null,canTools=false,ctl=null;
 const errCopy={not_granted:"Claude isn't allowed on this page for you. You can still use the trade board.",sampling_disabled:"Claude isn't available on this account.",rate_limited:"That's a lot of questions at once. Give it a minute and ask again.",session_expired:"Sign in to Claude again, then ask.",refused:"Claude declined that one. Try asking another way.",prompt_too_large:"That conversation got too long. Reload the page to start fresh.",empty_completion:"Claude came back empty. Try rephrasing."};
 async function ask(q){

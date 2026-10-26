@@ -1,5 +1,6 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="gm"></script>
+<script src="fit.js"></script>
 <title>Be the GM</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Public+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
@@ -268,6 +269,11 @@ function rule(team,outs,I){
 
 // ---- How a front office values a trade ----
 function posture(team,exp){if(team===S.me)return MANDATES[S.mandate].posture;const w=exp[team];return w>=47?"win":w<=34?"rebuild":"mid"}
+// Play-style fit from fit.js, on the rosters as they stand in this run; cached until the next move.
+const FITC={};
+function fitG(team,outs,ins){const F=window.StyleFit;if(!F||!F.has||!F.teams().length)return null;const k=team+"|"+outs.join()+"|"+ins.join()+"|"+S.log.length+"|"+now().toFixed(3);
+  return FITC[k]||(FITC[k]=F.trade(team,outs.map(id=>pl(id).name),ins.map(id=>pl(id).name),{roster:rosterNow(team).map(id=>pl(id).name)}))}
+const FITW={win:1.5,mid:1.0,rebuild:0.4,cut:0.4};
 const wsc=id=>rEff(id,now())*Math.min(mpEff(id,now()),2600)/48;
 function value(team,post,ins,outs,pIn,pOut,exp){
   const dTV=ins.reduce((s,id)=>s+tvEff(id),0)-outs.reduce((s,id)=>s+tvEff(id),0);
@@ -275,11 +281,12 @@ function value(team,post,ins,outs,pIn,pOut,exp){
   const dWS=ins.reduce((s,id)=>s+wsc(id),0)-outs.reduce((s,id)=>s+wsc(id),0);
   const dSal=ins.reduce((s,id)=>s+pl(id).sal,0)-outs.reduce((s,id)=>s+pl(id).sal,0);
   const taxed=S.pay[team]+dSal>TAX;const old=ins.filter(id=>pl(id).age>=31).length;
+  const f=fitG(team,outs,ins),fv=f?(FITW[post]||1)*f.score:0;
   switch(post){
-    case"win":return 0.35*dTV+0.8*dP+6*dWS-(taxed?1.5:0.4)*dSal;
-    case"rebuild":return 0.9*dTV+0.9*dP+0.8*dWS-0.3*dSal-2*old;
-    case"cut":return 0.4*dTV+0.6*dP+1*dWS-1.3*dSal;
-    default:return 0.6*dTV+0.8*dP+3*dWS-(taxed?1.0:0.3)*dSal;
+    case"win":return 0.35*dTV+0.8*dP+6*dWS-(taxed?1.5:0.4)*dSal+fv;
+    case"rebuild":return 0.9*dTV+0.9*dP+0.8*dWS-0.3*dSal-2*old+fv;
+    case"cut":return 0.4*dTV+0.6*dP+1*dWS-1.3*dSal+fv;
+    default:return 0.6*dTV+0.8*dP+3*dWS-(taxed?1.0:0.3)*dSal+fv;
   }
 }
 // A deal: {a:team, b:team, aOut:[ids], bOut:[ids], aPk:[pick ids], bPk:[pick ids]}
@@ -289,7 +296,7 @@ function judge(d,exp){
   const ra=rule(d.a,d.aOut,d.bOut.reduce((s,id)=>s+pl(id).sal,0)),rb=rule(d.b,d.bOut,d.aOut.reduce((s,id)=>s+pl(id).sal,0));
   const va=value(d.a,posture(d.a,exp),d.bOut,d.aOut,d.bPk.map(pk),d.aPk.map(pk),exp);
   const vb=value(d.b,posture(d.b,exp),d.aOut,d.bOut,d.aPk.map(pk),d.bPk.map(pk),exp);
-  return{ra,rb,legal:ra.ok&&rb.ok,va,vb,accept:vb>=2};
+  return{ra,rb,legal:ra.ok&&rb.ok,va,vb,accept:vb>=2,fa:fitG(d.a,d.aOut,d.bOut)};
 }
 function combos(ids,k){const out=[];for(let i=0;i<ids.length;i++){out.push([ids[i]]);if(k>1)for(let j=i+1;j<ids.length;j++)out.push([ids[i],ids[j]])}return out}
 function findOffer(partner,exp,opt){
@@ -549,8 +556,8 @@ function tradeDeskHTML(){
   const d=tdDeal(),empty=!d.aOut.length&&!d.bOut.length&&!d.aPk.length&&!d.bPk.length;
   let verdict="";
   if(!empty){const j=judge(d,exp);const tone=j.vb>=2?"Deal. They'd sign off on this.":j.vb>=-3?"Close. They want a little more.":"Not interested.";
-    verdict=`<div class="verdict ${j.legal&&j.accept?"ok":"no"}"><b>${j.legal?"✓ Legal under the CBA salary rules.":"✗ Salaries don't work."}</b>${!j.ra.ok?`<span>You: ${esc(j.ra.how)}</span>`:""}${!j.rb.ok?`<span>${nick(d.b)}: ${esc(j.rb.how)}</span>`:""}<span><b>${nick(d.b)} front office:</b> ${tone}</span><span class="muted">For your ${MANDATES[S.mandate].label.toLowerCase()} plan this deal is ${j.va>=3?"a clear win":j.va>=-3?"about even":"a step back"}.</span></div>`}
-  const offers=TD.offers?`<div class="offers">${TD.offers.length?TD.offers.map((o,i)=>`<button class="offerbtn" data-offer="${i}">${badge(o.d.b,26)}<span><b>${nick(o.d.b)}:</b> ${esc(dealSide(o.d.aOut,o.d.aPk).join(", "))} for ${esc(dealSide(o.d.bOut,o.d.bPk).join(", "))}</span></button>`).join(""):"<p class='muted'>No team has a legal deal that works for both sides right now.</p>"}</div>`:"";
+    verdict=`<div class="verdict ${j.legal&&j.accept?"ok":"no"}"><b>${j.legal?"✓ Legal under the CBA salary rules.":"✗ Salaries don't work."}</b>${!j.ra.ok?`<span>You: ${esc(j.ra.how)}</span>`:""}${!j.rb.ok?`<span>${nick(d.b)}: ${esc(j.rb.how)}</span>`:""}<span><b>${nick(d.b)} front office:</b> ${tone}</span><span class="muted">For your ${MANDATES[S.mandate].label.toLowerCase()} plan this deal is ${j.va>=3?"a clear win":j.va>=-3?"about even":"a step back"}.</span>${j.fa?`<span><b>Play-style fit:</b> ${j.fa.label} (${j.fa.score>0?"+":""}${j.fa.score.toFixed(1)})${j.fa.reasons.length?" · "+esc(j.fa.reasons.slice(0,2).map(x=>x.text).join("; ")):""}</span>`:""}</div>`}
+  const offers=TD.offers?`<div class="offers">${TD.offers.length?TD.offers.map((o,i)=>`<button class="offerbtn" data-offer="${i}">${badge(o.d.b,26)}<span><b>${nick(o.d.b)}:</b> ${esc(dealSide(o.d.aOut,o.d.aPk).join(", "))} for ${esc(dealSide(o.d.bOut,o.d.bPk).join(", "))}${o.j&&o.j.fa?` <span class="muted">· ${o.j.fa.label.toLowerCase()}</span>`:""}</span></button>`).join(""):"<p class='muted'>No team has a legal deal that works for both sides right now.</p>"}</div>`:"";
   return `<div class="row"><button class="btn" id="getoffers">${TD.offers?"Ask other teams":"Ask the market for offers"}</button><span class="muted" style="font-size:13px">Deals made today: ${S.deadlineDeals} of 2</span></div>${offers}
   <div class="tgrid">${side(S.me,TD.aOut,TD.aPk,true)}${side(TD.b,TD.bOut,TD.bPk,false)}</div>${verdict}
   ${TD.msg?`<div class="outcome"><p>${esc(TD.msg)}</p></div>`:""}
