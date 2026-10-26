@@ -1,0 +1,114 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cap Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#fff;--ink:#16212D;--muted:#5B6878;--line:#DCE2E9;--accent:#C2410C;--good:#15803D;--bad:#B91C1C;--warn:#B45309;color-scheme:light;
+--display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;--body:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;--warn:#FBBF24;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;--warn:#FBBF24;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 48px;display:flex;flex-direction:column;gap:18px}
+.eyebrow{font:12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font:700 clamp(40px,7vw,64px)/.95 var(--display);margin:6px 0 10px;text-transform:uppercase}
+h3{font:600 22px var(--display);text-transform:uppercase;margin:0}
+.lede,.sub{color:var(--muted);margin:0}.sub{font-size:13px}.lede{max-width:68ch}
+.pos{color:var(--good)}.neg{color:var(--bad)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 13px var(--body);color:var(--muted);background:none;border:0;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+select{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.bar{display:flex;gap:12px 18px;flex-wrap:wrap;align-items:center}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--surface);font:600 11px var(--body);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+th.num,td.num{text-align:right;font-family:var(--mono)}
+tbody tr.row{cursor:pointer}tbody tr.row:hover{background:rgba(127,127,127,.08)}tr.mine{box-shadow:inset 3px 0 0 var(--accent)}
+.chip{display:inline-block;font:500 11px var(--mono);padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.g{border-color:var(--good);color:var(--good)}.chip.b{border-color:var(--bad);color:var(--bad)}.chip.w{border-color:var(--warn);color:var(--warn)}
+.badge{vertical-align:middle;object-fit:contain}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+@media (max-width:900px){.cols3{grid-template-columns:minmax(0,1fr)}}
+.kv{display:grid;grid-template-columns:1fr auto;gap:3px 12px;font-size:13px;margin:0}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-family:var(--mono);text-align:right}.kv .tot{font-weight:600;color:var(--ink);border-top:1px solid var(--line);padding-top:4px}
+.gauge{height:10px;background:var(--line);border-radius:5px;position:relative;overflow:hidden}.gauge i{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+.line{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:2px 0;border-bottom:1px dotted var(--line)}.line span:last-child{font-family:var(--mono)}
+footer{color:var(--muted);font-size:12px;max-width:84ch;border-top:1px solid var(--line);padding-top:14px}footer p{margin:0 0 6px}
+.notice{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin:0}
+</style></head><body>
+<script src="nav.js" data-page="capsheet"></script>
+<div class="wrap">
+<header><p class="eyebrow">NBA Asset Tracker · Three-year cap math · Oct 26, 2026</p><h1>Cap Sheet</h1>
+<p class="lede">Every team's payroll, luxury tax, apron status, exceptions, cap holds, dead money and picks for 2026-27, 2027-28 and 2028-29. Click a team for every line item.</p></header>
+<div class="bar"><div class="seg" id="seasons" role="group" aria-label="Season"></div><span class="sub" id="seasonNote"></span></div>
+<div class="tablewrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+<section class="panel" id="detail" aria-live="polite"></section>
+<footer><p><b>How to read it.</b> Payroll = guaranteed + options (assumed picked up) + dead money + first-round picks at their expected slot's rookie scale + a minimum-contract charge for each roster spot under 12 (2027-28 on). Cap holds are shown separately, because renouncing a free agent removes his hold: "Space" ignores holds, "Space with holds" counts them. Holds use 150% of last salary above $13.5M, 190% below, 250% for rookie-scale players, floor $2.4M, cap 35% of the cap.</p>
+<p><b>Cap numbers.</b> 2026-27: cap $165.0M, tax $200.4M, aprons $209.0M and $221.7M (Spotrac). 2027-28: cap $176.0M (September 2026 projection), others scaled. 2028-29: +7%. Exceptions: room exception 5.678% of the cap, non-taxpayer MLE 9.12% (hard-caps a team at the first apron), taxpayer MLE 3.676%, over the second apron minimum contracts only.</p>
+<p><b>Limits.</b> 2026-27 payroll is Spotrac's cash total (includes dead money). Dead money beyond 2027-28 is not tracked yet, 2028-29 only counts contracts already signed (so most teams show lots of room that future signings will eat), and the tax bill uses non-repeater rates ($1.50 per dollar, rising each $5M) because repeater status isn't tracked. Two-way contracts are not counted. Sources: Spotrac, Basketball Reference, NBC Sports.</p></footer>
+</div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const m=v=>v==null||isNaN(v)?"–":"$"+v.toFixed(1)+"M";
+const sg=v=>(v>=0?"+":"−")+"$"+Math.abs(v).toFixed(1)+"M";
+function parseCSV(t){const rows=t.trim().split("\n").map(l=>{l=l.replace(/\r$/,"");const o=[];let c="",q=false;for(const ch of l){if(ch==='"')q=!q;else if(ch===","&&!q){o.push(c);c=""}else c+=ch}o.push(c);return o});const h=rows.shift();return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])))}
+const TEAM={ATL:["Atlanta Hawks","#C8102E"],BOS:["Boston Celtics","#007A33"],BRK:["Brooklyn Nets","#000000"],CHO:["Charlotte Hornets","#1D1160"],CHI:["Chicago Bulls","#CE1141"],CLE:["Cleveland Cavaliers","#860038"],DAL:["Dallas Mavericks","#00538C"],DEN:["Denver Nuggets","#0E2240"],DET:["Detroit Pistons","#C8102E"],GSW:["Golden State Warriors","#1D428A"],HOU:["Houston Rockets","#CE1141"],IND:["Indiana Pacers","#002D62"],LAC:["LA Clippers","#C8102E"],LAL:["Los Angeles Lakers","#552583"],MEM:["Memphis Grizzlies","#5D76A9"],MIA:["Miami Heat","#98002E"],MIL:["Milwaukee Bucks","#00471B"],MIN:["Minnesota Timberwolves","#0C2340"],NOP:["New Orleans Pelicans","#0C2340"],NYK:["New York Knicks","#006BB6"],OKC:["Oklahoma City Thunder","#007AC1"],ORL:["Orlando Magic","#0077C0"],PHI:["Philadelphia 76ers","#006BB6"],PHO:["Phoenix Suns","#1D1160"],POR:["Portland Trail Blazers","#E03A3E"],SAC:["Sacramento Kings","#5A2D81"],SAS:["San Antonio Spurs","#000000"],TOR:["Toronto Raptors","#CE1141"],UTA:["Utah Jazz","#002B5C"],WAS:["Washington Wizards","#002B5C"]};
+const tname=a=>(TEAM[a]||[a])[0];
+const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" height="${s}">`;
+const SEAS=["2026-27","2027-28","2028-29"];
+const NOTE={"2026-27":"Current season: Spotrac cash payroll.","2027-28":"Projected: options assumed picked up, roster filled to 12.","2028-29":"Signed contracts only, so room is overstated."};
+const TIERC={"under cap":"g","over cap":"","over tax":"w","over 1st apron":"w","over 2nd apron":"b"};
+let rows=[],lines=[];
+let myTeam="";try{myTeam=localStorage.getItem("myTeam")||""}catch(e){}
+const st={s:"2027-28",team:/^[A-Z]{3}$/.test(myTeam)?myTeam:"",sort:"payroll",dir:-1};
+const COLS=[["Team","Team",0],["payroll","Payroll",1],["status","Status",0],["space","Cap space",1],["space_with_holds","With holds",1],["to_apron1","To 1st apron",1],["to_apron2","To 2nd apron",1],["tax_bill","Tax bill",1],["dead","Dead $",1],["holds","Holds",1],["firsts","1sts",1],["seconds","2nds",1],["exception","Exception",0]];
+function draw(){
+  $("#seasons").innerHTML=SEAS.map(s=>`<button data-s="${s}" aria-pressed="${s===st.s}">${s}</button>`).join("");
+  $("#seasonNote").textContent=NOTE[st.s];
+  $("#thead").innerHTML="<tr>"+COLS.map(([k,l,n])=>`<th class="${n?"num":""}" data-k="${k}">${l}${st.sort===k?(st.dir<0?" ▼":" ▲"):""}</th>`).join("")+"</tr>";
+  const d=rows.filter(r=>r.season===st.s).sort((a,b)=>{const x=a[st.sort],y=b[st.sort];return (typeof x==="string"?x.localeCompare(y):x-y)*st.dir});
+  const cell=(r,k)=>{const v=r[k];
+    if(k==="Team")return `<td>${badge(r.Team,18)} ${esc(tname(r.Team))}</td>`;
+    if(k==="status")return `<td><span class="chip ${TIERC[v]||""}">${esc(v)}</span></td>`;
+    if(k==="exception")return `<td>${esc(v)}</td>`;
+    if(k==="firsts"||k==="seconds")return `<td class="num">${v}</td>`;
+    if(["space","space_with_holds","to_apron1","to_apron2"].includes(k))return `<td class="num ${v>=0?"pos":"neg"}">${sg(v)}</td>`;
+    if(k==="tax_bill"||k==="dead"||k==="holds")return `<td class="num">${v>0.05?m(v):"–"}</td>`;
+    return `<td class="num">${m(v)}</td>`};
+  $("#tbody").innerHTML=d.map(r=>`<tr class="row${r.Team===st.team?" mine":""}" data-t="${r.Team}" tabindex="0">`+COLS.map(([k])=>cell(r,k)).join("")+"</tr>").join("");
+  drawDetail();
+}
+function drawDetail(){
+  const p=$("#detail");
+  if(!st.team){p.innerHTML='<p class="notice">Pick a team in the table to see its full sheet.</p>';return}
+  const opts=Object.keys(TEAM).sort((a,b)=>tname(a).localeCompare(tname(b))).map(t=>`<option value="${t}"${t===st.team?" selected":""}>${esc(tname(t))}</option>`).join("");
+  const cols=SEAS.map(s=>{
+    const r=rows.find(x=>x.Team===st.team&&x.season===s);
+    const L=lines.filter(x=>x.Team===st.team&&x.season===s).sort((a,b)=>+b.amt_m-+a.amt_m);
+    const pct=Math.min(100,r.payroll/r.apron2*100);
+    const item=x=>`<div class="line"><span>${esc(x.item)} <span class="chip ${x.kind==="Cap hold"?"w":x.kind==="Dead money"?"b":""}">${esc(x.kind)}</span></span><span>${m(+x.amt_m)}</span></div>`;
+    return `<div class="panel" style="gap:8px"><div><h3>${s}</h3><p class="sub"><span class="chip ${TIERC[r.status]||""}">${esc(r.status)}</span> ${esc(r.exception)}</p></div>
+    <div class="gauge" title="Payroll as share of second apron"><i style="width:${pct}%"></i></div>
+    <dl class="kv"><dt>Guaranteed</dt><dd>${m(r.guaranteed)}</dd><dt>Options</dt><dd>${m(r.options)}</dd><dt>Dead money</dt><dd>${m(r.dead)}</dd><dt>First-round picks</dt><dd>${m(r.picks)}</dd><dt>Roster fill</dt><dd>${m(r.roster_fill)}</dd>
+    <dt class="tot">Payroll</dt><dd class="tot">${m(r.payroll)}</dd><dt>Cap / tax / 2nd apron</dt><dd>${r.cap.toFixed(0)} / ${r.tax_line.toFixed(0)} / ${r.apron2.toFixed(0)}</dd>
+    <dt>Cap space</dt><dd class="${r.space>=0?"pos":"neg"}">${sg(r.space)}</dd><dt>Cap holds</dt><dd>${m(r.holds)}</dd><dt>Space with holds</dt><dd class="${r.space_with_holds>=0?"pos":"neg"}">${sg(r.space_with_holds)}</dd>
+    <dt>Tax bill</dt><dd>${r.tax_bill>0?m(r.tax_bill):"none"}</dd><dt>Picks (1st / 2nd, ${2027+SEAS.indexOf(s)} draft)</dt><dd>${r.firsts} / ${r.seconds}</dd></dl>
+    <details><summary class="sub" style="cursor:pointer">${L.length} line items</summary>${L.map(item).join("")||'<p class="sub">None</p>'}</details></div>`}).join("");
+  p.innerHTML=`<div class="bar"><h3>${badge(st.team,28)} ${esc(tname(st.team))}</h3><select id="tsel" aria-label="Team">${opts}</select></div><div class="cols3">${cols}</div>`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-s]");if(b){st.s=b.dataset.s;draw();return}
+  const h=e.target.closest("th[data-k]");if(h){const k=h.dataset.k;st.dir=st.sort===k?-st.dir:(k==="Team"||k==="status"?1:-1);st.sort=k;draw();return}
+  const t=e.target.closest("tr[data-t]");if(t){st.team=t.dataset.t;draw();$("#detail").scrollIntoView({behavior:"smooth",block:"nearest"})}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"){const t=e.target.closest&&e.target.closest("tr[data-t]");if(t){st.team=t.dataset.t;draw()}}});
+document.addEventListener("change",e=>{if(e.target.id==="tsel"){st.team=e.target.value;draw()}});
+Promise.all(["data/cap_sheet.csv","data/cap_sheet_lines.csv"].map(f=>fetch(f).then(r=>{if(!r.ok)throw 0;return r.text()}))).then(([a,b])=>{
+  rows=parseCSV(a).map(r=>{for(const k in r)if(k!=="Team"&&k!=="season"&&k!=="status"&&k!=="exception")r[k]=+r[k];return r});
+  lines=parseCSV(b);const h=(location.hash||"").slice(1).toUpperCase();if(TEAM[h])st.team=h;draw();
+}).catch(()=>{$("#tbody").innerHTML='<tr><td>The data files did not load. Reload the page to try again.</td></tr>'});
+})();
+</script></body></html>
