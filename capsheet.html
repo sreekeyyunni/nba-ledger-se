@@ -98,16 +98,22 @@ function drawDetail(){
     <dt>Cap space</dt><dd class="${r.space>=0?"pos":"neg"}">${sg(r.space)}</dd><dt>Cap holds</dt><dd>${m(r.holds)}</dd><dt>Space with holds</dt><dd class="${r.space_with_holds>=0?"pos":"neg"}">${sg(r.space_with_holds)}</dd>
     <dt>Tax bill</dt><dd>${r.tax_bill>0?m(r.tax_bill):"none"}</dd><dt>Picks (1st / 2nd, ${2027+SEAS.indexOf(s)} draft)</dt><dd>${r.firsts} / ${r.seconds}</dd></dl>
     <details><summary class="sub" style="cursor:pointer">${L.length} line items</summary>${L.map(item).join("")||'<p class="sub">None</p>'}</details></div>`}).join("");
-  // Player-by-season grid: one row per player (or pick / dead money), one column per season
-  const TAG={"Team option":["TO",""],"Player option":["PO",""],"Cap hold":["hold","w"],"Dead money":["dead","b"],"Draft pick":["pick",""]};
-  const by=new Map();
-  lines.filter(x=>x.Team===st.team).forEach(x=>{if(!by.has(x.item))by.set(x.item,{});by.get(x.item)[x.season]=x});
-  const amt=(r,s)=>r[s]&&r[s].kind!=="Cap hold"?+r[s].amt_m:0;
-  const grid=[...by.entries()].sort((a,b)=>SEAS.reduce((d,s)=>d||amt(b[1],s)-amt(a[1],s),0));
-  const gcell=x=>{if(!x)return'<td class="num sub">–</td>';const t=TAG[x.kind];return`<td class="num"${x.kind==="Cap hold"?' style="color:var(--muted)"':""}>${m(+x.amt_m)}${t?` <span class="chip ${t[1]}">${t[0]}</span>`:""}</td>`};
-  const tot=s=>grid.reduce((a,[,r])=>a+amt(r,s),0);
-  const table=`<div class="tablewrap"><table><thead><tr><th>Player</th>${SEAS.map(s=>`<th class="num">${s}</th>`).join("")}</tr></thead><tbody>${grid.map(([n,r])=>`<tr><td>${esc(n)}</td>${SEAS.map(s=>gcell(r[s])).join("")}</tr>`).join("")}<tr><td><b>Total on the books</b></td>${SEAS.map(s=>`<td class="num"><b>${m(tot(s))}</b></td>`).join("")}</tr></tbody></table></div><p class="sub">TO = team option, PO = player option (both counted as picked up). Grey "hold" amounts are cap holds for free agents, not salary, and aren't in the total. Totals here leave out the roster-fill charge, so they can differ a little from the payroll above.</p>`;
-  p.innerHTML=`<div class="bar"><h3>${badge(st.team,28)} ${esc(tname(st.team))}</h3><select id="tsel" aria-label="Team">${opts}</select></div><h3 style="font-size:18px">Who gets paid</h3>${table}<div class="cols3">${cols}</div>`;
+  // One season by player: pick a year, see who is paid what that year (salary first, then picks, dead money and holds)
+  const TAG={"Guaranteed":["Guaranteed",""],"Team option":["Team option",""],"Player option":["Player option",""],"Cap hold":["Cap hold","w"],"Dead money":["Dead money","b"],"Draft pick":["Draft pick",""]};
+  const ORDER=["Guaranteed","Player option","Team option","Draft pick","Dead money","Cap hold"];
+  const R=rows.find(x=>x.Team===st.team&&x.season===st.s);
+  const yl=lines.filter(x=>x.Team===st.team&&x.season===st.s).sort((a,b)=>(a.kind==="Cap hold")-(b.kind==="Cap hold")||+b.amt_m-+a.amt_m);
+  const later=n=>SEAS.slice(SEAS.indexOf(st.s)+1).filter(s=>lines.some(x=>x.Team===st.team&&x.season===s&&x.item===n&&x.kind!=="Cap hold")).length;
+  const onBooks=yl.filter(x=>x.kind!=="Cap hold").reduce((a,x)=>a+ +x.amt_m,0);
+  const yrow=x=>{const t=TAG[x.kind]||[x.kind,""],hold=x.kind==="Cap hold",n=later(x.item);
+    return`<tr${hold?' style="color:var(--muted)"':""}><td>${esc(x.item)}</td><td><span class="chip ${t[1]}">${esc(t[0])}</span></td><td class="num">${m(+x.amt_m)}</td><td class="num">${(+x.amt_m/R.cap*100).toFixed(1)}%</td><td class="num">${hold||x.kind==="Dead money"||x.kind==="Draft pick"?"–":n?`+${n} yr${n>1?"s":""}`:"expiring"}</td></tr>`};
+  const table=`<div class="bar"><h3 style="font-size:18px">Who gets paid in</h3><div class="seg" role="group" aria-label="Season for player view">${SEAS.map(s=>`<button data-s="${s}" aria-pressed="${s===st.s}">${s}</button>`).join("")}</div></div>
+  <div class="tablewrap"><table><thead><tr><th>Player</th><th>Type</th><th class="num">${st.s}</th><th class="num">% of cap</th><th class="num">Left after</th></tr></thead><tbody>${yl.map(yrow).join("")||'<tr><td colspan="5" class="sub">Nothing on the books.</td></tr>'}
+  <tr><td colspan="2"><b>On the books</b> <span class="sub">(salary, picks, dead money)</span></td><td class="num"><b>${m(onBooks)}</b></td><td class="num">${(onBooks/R.cap*100).toFixed(0)}%</td><td></td></tr>
+  ${R.roster_fill>0.05?`<tr><td colspan="2">Roster fill to 12 players</td><td class="num">${m(R.roster_fill)}</td><td></td><td></td></tr>`:""}
+  <tr><td colspan="2"><b>Payroll</b> <span class="chip ${TIERC[R.status]||""}">${esc(R.status)}</span></td><td class="num"><b>${m(R.payroll)}</b></td><td class="num">${(R.payroll/R.cap*100).toFixed(0)}%</td><td></td></tr></tbody></table></div>
+  <p class="sub">Options are counted as picked up. Cap holds (grey) are placeholders for the team's own free agents, not salary: they count against cap space until renounced and aren't in the payroll. ${NOTE[st.s]}</p>`;
+  p.innerHTML=`<div class="bar"><h3>${badge(st.team,28)} ${esc(tname(st.team))}</h3><select id="tsel" aria-label="Team">${opts}</select></div>${table}<div class="cols3">${cols}</div>`;
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-s]");if(b){st.s=b.dataset.s;draw();return}
