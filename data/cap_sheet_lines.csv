@@ -32,7 +32,7 @@ ATL,2027-28,Guaranteed,Nickeil Alexander-Walker,15.162
 ATL,2027-28,Guaranteed,Onyeka Okongwu,16.88
 ATL,2027-28,Guaranteed,Dyson Daniels,25.0
 ATL,2027-28,Guaranteed,Jalen Johnson,30.0
-ATL,2027-28,Draft pick,"2027 1st (MIL, ~#8)",6.56
+ATL,2027-28,Draft pick,"2027 1st (MIL, ~#9)",6.029
 ATL,2028-29,Team option,Asa Newell,6.043
 ATL,2028-29,Guaranteed,Henri Veesaar,2.694
 ATL,2028-29,Team option,Zuby Ejiofor,3.798
@@ -73,7 +73,7 @@ BOS,2027-28,Player option,Paul George,56.587
 BOS,2027-28,Guaranteed,Neemias Queta,12.5
 BOS,2027-28,Guaranteed,Derrick White,32.596
 BOS,2027-28,Guaranteed,Jayson Tatum,62.787
-BOS,2027-28,Draft pick,"2027 1st (BOS, ~#24)",2.996
+BOS,2027-28,Draft pick,"2027 1st (BOS, ~#25)",2.92
 BOS,2028-29,Cap hold,Baylor Scheierman,12.382
 BOS,2028-29,Team option,Hugo González,5.528
 BOS,2028-29,Team option,Chris Cenac Jr.,3.287
@@ -87,7 +87,6 @@ BOS,2028-29,Guaranteed,Neemias Queta,13.5
 BOS,2028-29,Player option,Derrick White,34.844
 BOS,2028-29,Guaranteed,Jayson Tatum,67.117
 BOS,2028-29,Draft pick,"2028 1st (LAC, ~#12)",5.407
-BOS,2028-29,Draft pick,"2028 1st (BOS, ~#21)",3.591
 BOS,2028-29,Draft pick,"2028 1st (BOS, ~#21)",3.591
 BRK,2026-27,Guaranteed,Danny Wolf,2.941
 BRK,2026-27,Guaranteed,Ben Saraf,3.029
@@ -177,7 +176,7 @@ CHI,2028-29,Team option,Caleb Wilson,11.752
 CHI,2028-29,Player option,Patrick Williams,18.0
 CHI,2028-29,Cap hold,Nic Claxton,31.415
 CHI,2028-29,Guaranteed,Josh Giddey,25.0
-CHI,2028-29,Draft pick,"2028 1st (CHI, ~#12)",5.407
+CHI,2028-29,Draft pick,"2028 1st (CHI, ~#11)",5.691
 CHO,2026-27,Guaranteed,Ryan Nembhard,2.151
 CHO,2026-27,Guaranteed,Ryan Kalkbrenner,2.411
 CHO,2026-27,Guaranteed,Sion James,2.411
@@ -481,7 +480,7 @@ HOU,2027-28,Guaranteed,Alperen Şengün,37.339
 HOU,2027-28,Guaranteed,Jabari Smith Jr.,21.752
 HOU,2027-28,Guaranteed,Amen Thompson,35.862
 HOU,2027-28,Draft pick,"2027 1st (BRK, ~#4)",9.499
-HOU,2027-28,Draft pick,"2027 1st (PHO, ~#17)",3.925
+HOU,2027-28,Draft pick,"2027 1st (PHO, ~#15)",4.342
 HOU,2027-28,Draft pick,"2027 1st (HOU, ~#22)",3.223
 HOU,2028-29,Guaranteed,Bruce Thornton,2.694
 HOU,2028-29,Cap hold,Isaiah Crawford,5.062
@@ -949,7 +948,7 @@ OKC,2028-29,Guaranteed,Chet Holmgren,48.14
 OKC,2028-29,Cap hold,Ajay Mitchell,5.415
 OKC,2028-29,Draft pick,"2028 1st (DAL, ~#12)",5.407
 OKC,2028-29,Draft pick,"2028 1st (DEN, ~#23)",3.317
-OKC,2028-29,Draft pick,"2028 1st (OKC, ~#25)",3.124
+OKC,2028-29,Draft pick,"2028 1st (OKC, ~#26)",3.053
 ORL,2026-27,Guaranteed,Noah Penda,2.151
 ORL,2026-27,Guaranteed,Nikola Vučević,2.449
 ORL,2026-27,Guaranteed,Jevon Carter,2.449
@@ -1206,8 +1205,7 @@ SAS,2028-29,Guaranteed,Julian Champagnie,16.111
 SAS,2028-29,Guaranteed,Devin Vassell,27.0
 SAS,2028-29,Guaranteed,Victor Wembanyama,46.98
 SAS,2028-29,Guaranteed,De'Aaron Fox,57.768
-SAS,2028-29,Draft pick,"2028 1st (BOS, ~#21)",3.591
-SAS,2028-29,Draft pick,"2028 1st (SAS, ~#21)",3.591
+SAS,2028-29,Draft pick,"2028 1st (SAS, ~#22)",3.449
 TOR,2026-27,Guaranteed,Jaden Bradley,1.358
 TOR,2026-27,Guaranteed,Alijah Martin,2.185
 TOR,2026-27,Team option,Trayce Jackson-Davis,2.406
