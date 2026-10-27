@@ -1,464 +1,464 @@
 pick_id,year,round,original_team,owner,protection,swap_with,exp_slot,p_conveys,value_m,notes
-2027-BKN-R1,2027,1,BRK,BRK,,,4.2,1.0,17.16,Or swap with HOU (via HOU swap for BKN)
-2027-SAC-R1,2027,1,SAC,SAC,,,4.2,1.0,17.11,
-2027-SWAP-HOU-BKN-R1,2027,1,BRK,HOU,,BRK,4.2,0.994,10.57,Swap right held by HOU over BKN's pick: Or swap with HOU (via HOU swap for BKN)
-2027-SWAP-HOU-BKN-R1-OWED,2027,1,BRK,BRK,,HOU,4.2,0.994,-10.57,Swap right held by HOU over BKN's pick: Or swap with HOU (via HOU swap for BKN)
-2027-UTA-R1,2027,1,UTA,MEM,,,5.1,1.0,16.24,"Most favorable of CLE, MIN and UTA then others to PHX and UTA (via UTA) [pool]"
-2027-WAS-R1,2027,1,WAS,WAS,,,5.1,1.0,15.76,
-2027-IND-R1,2027,1,IND,IND,,,8.1,1.0,12.46,
-2027-NOP-R1,2027,1,NOP,NOP,,,8.4,1.0,15.29,Most favorable of MIL and NOP then other to ATL [pool]
-2027-CHI-R1,2027,1,CHI,CHI,,,8.6,1.0,12.03,
-2027-MIL-R1,2027,1,MIL,ATL,,,8.8,1.0,8.61,Least favorable of MIL and NOP then other to NOP (via NOP) [pool]
-2027-DAL-R1,2027,1,DAL,DAL,slots 1-2,,9.3,0.108,2.79,If 1-2 · If 3-30
-2027-DAL-R1-CHA,2027,1,DAL,CHO,slots 3-30,,9.3,0.892,8.63,If 1-2 · If 3-30
-2027-LAC-R1,2027,1,LAC,OKC,,,9.7,1.0,8.79,"Two most favorable of DEN 6-30, LAC and OKC (via OKC swap for LAC) [pool; slot limits in pool ignored]"
-2027-ORL-R1,2027,1,ORL,ORL,,,12.9,1.0,9.09,
-2027-MIA-R1,2027,1,MIA,MIA,slots 1-14,,13.0,0.6,6.37,If 1-14 · If 15-30
-2027-MIA-R1-CHA,2027,1,MIA,CHO,slots 15-30,,13.0,0.4,2.65,If 1-14 · If 15-30
-2027-ATL-R1,2027,1,ATL,SAS,,,14.9,1.0,8.28,
-2027-CHA-R1,2027,1,CHO,CHO,,,15.1,1.0,8.14,
-2027-PHX-R1,2027,1,PHO,HOU,,,15.2,1.0,8.13,(via BKN)
-2027-MEM-R1,2027,1,MEM,MEM,,,15.2,1.0,8.06,
-2027-POR-R1,2027,1,POR,POR,,,15.4,1.0,8.06,
-2027-GSW-R1,2027,1,GSW,GSW,,,15.8,1.0,7.93,
-2027-MIN-R1,2027,1,MIN,UTA,,,17.7,1.0,7.21,"Second most favorable of CLE, MIN and UTA then others to MEM and PHX [pool]"
-2027-PHI-R1,2027,1,PHI,PHI,,,18.7,1.0,7.17,
-2027-LAL-R1,2027,1,LAL,LAL,slots 1-4,,20.3,0.016,0.34,If 1-4 · If 5-30 (via UTA)
-2027-LAL-R1-MEM,2027,1,LAL,MEM,slots 5-30,,20.3,0.984,6.56,If 1-4 · If 5-30 (via UTA)
-2027-CLE-R1,2027,1,CLE,PHO,,,22.3,1.0,6.46,"Least favorable of CLE, MIN and UTA then others to MEM and UTA (via UTA) [pool]"
-2027-HOU-R1,2027,1,HOU,HOU,,,22.5,1.0,6.64,Or swap with BKN (via HOU swap for BKN)
-2027-TOR-R1,2027,1,TOR,TOR,,,23.1,1.0,6.57,LAC right to swap
-2027-NYK-R1,2027,1,NYK,BRK,,,23.2,1.0,6.56,
-2027-DET-R1,2027,1,DET,DET,,,23.9,1.0,6.52,
-2027-BOS-R1,2027,1,BOS,BOS,,,24.6,1.0,6.5,
-2027-SAS-R1,2027,1,SAS,SAC,slots 1-16,,24.8,0.044,0.34,If 1-16 · If 17-30 (via SAC)
-2027-SAS-R1-OKC,2027,1,SAS,OKC,slots 17-30,,24.8,0.956,6.14,If 1-16 · If 17-30 (via SAC)
-2027-DEN-R1,2027,1,DEN,DEN,slots 1-5,,26.1,0.001,0.02,If 1-5 · If 6-30
-2027-DEN-R1-OKC,2027,1,DEN,OKC,slots 6-30,,26.1,0.999,6.42,If 1-5 · If 6-30
-2027-OKC-R1,2027,1,OKC,LAC,,,29.0,1.0,6.39,"Two most favorable of DEN 6-30, LAC and OKC (via OKC swap for LAC) [pool; slot limits in pool ignored]"
-2027-SAC-R2,2027,2,SAC,OKC,,,34.2,1.0,2.24,"OKC If SAS is 1-16, SAC If SAS is 17-30"
-2027-BKN-R2,2027,2,BRK,WAS,,,34.2,1.0,2.24,More favorable of BKN and DAL to WAS then other to DET
-2027-UTA-R2,2027,2,UTA,IND,,,35.1,1.0,1.12,(via CLE) or to NOP if IND does not convey 1st to NOP by 2027
-2027-WAS-R2,2027,2,WAS,NYK,,,35.1,1.0,2.24,(via HOU to OKC)
-2027-IND-R2,2027,2,IND,NYK,,,38.1,1.0,2.24,"Third most favorable of HOU, IND, MIA and OKC to NYK; then others to PHI and SAS (via HOU to DET to UTA to OKC)"
-2027-NOP-R2,2027,2,NOP,CHO,,,38.4,1.0,2.24,More favorable of NOP and POR to CHA then other to POR (via POR)
-2027-CHI-R2,2027,2,CHI,OKC,,,38.6,1.0,2.24,(via WAS to NOP to WAS to DAL)
-2027-MIL-R2,2027,2,MIL,MIL,,,38.8,1.0,2.24,(via PHI to DET)
-2027-DAL-R2,2027,2,DAL,MIL,,,39.3,1.0,2.24,Less favorable of BKN and DAL to MIL then other to WAS (via DET)
-2027-LAC-R2,2027,2,LAC,UTA,,,39.7,1.0,2.24,(via ATL to LAC)
-2027-ORL-R2,2027,2,ORL,UTA,,,42.9,1.0,2.24,More favorable of BOS and UTA then other to CHA (via BOS to ORL to BOS to ORL)
-2027-MIA-R2,2027,2,MIA,PHI,,,43.0,1.0,2.24,"Most favorable of HOU, IND, MIA and OKC to PHI; then others to NYK and SAS (via HOU to DET to UTA to OKC)"
-2027-ATL-R2,2027,2,ATL,ATL,,,44.9,1.0,2.24,(via BOS to MEM to POR)
-2027-CHA-R2,2027,2,CHO,OKC,,,45.1,1.0,2.24,"OKC If SAS is 1-16, SAC If SAS is 17-30"
-2027-MEM-R2,2027,2,MEM,CHO,,,45.2,1.0,2.24,(via LAC to HOU)
-2027-PHX-R2,2027,2,PHO,PHI,,,45.2,1.0,2.24,Most favorable of GSW and PHX to PHI then other to WAS (via WAS)
-2027-POR-R2,2027,2,POR,HOU,,,45.4,1.0,2.24,If POR 56-60 then less favorable of NOP and POR 56-60 (via POR to BOS)
-2027-GSW-R2,2027,2,GSW,WAS,,,45.8,1.0,2.24,Least favorable of GSW and PHX to WAS then other to PHI (via WAS to PHI)
-2027-MIN-R2,2027,2,MIN,POR,,,47.7,1.0,2.24,(via HOU to OKC to NYK)
-2027-PHI-R2,2027,2,PHI,CHO,,,48.7,1.0,2.24,"(via LAC) Second most favorable of (i) PHL, (ii) more favorable of GOS and PHX (via WAS) and (iii) most favorable of OKC, HOU, IND and MIA (via HOU to DET to OKC; via IND and MIA to OKC)"
-2027-LAL-R2,2027,2,LAL,UTA,,,50.3,1.0,1.12,If LAL does not convey 1st to UTA in 2027 or to BKN
-2027-CLE-R2,2027,2,CLE,CHI,,,52.3,1.0,2.24,(via ATL to MIN)
-2027-HOU-R2,2027,2,HOU,NOP,,,52.5,1.0,2.24,"Second most favorable of HOU, IND, MIA and OKC to NYK; then others to PHI and SAS (via HOU to DET to UTA to OKC)"
-2027-TOR-R2,2027,2,TOR,TOR,,,53.1,1.0,2.24,
-2027-NYK-R2,2027,2,NYK,NYK,,,53.2,1.0,2.24,
-2027-DET-R2,2027,2,DET,DET,,,53.9,1.0,2.24,
-2027-BOS-R2,2027,2,BOS,WAS,,,54.6,1.0,2.24,More favorable of BKN and DAL to WAS then other to DET
-2027-SAS-R2,2027,2,SAS,SAS,,,54.8,1.0,2.24,"More favorable SAS and least favorable of HOU, IND, MIA and OKC then others to NYK and PHI (via HOU to DET to OKC; via UTA to SAS)"
-2027-DEN-R2,2027,2,DEN,UTA,,,56.1,1.0,2.24,(via CLE to CHI to BOS)
-2027-OKC-R2,2027,2,OKC,MIA,,,59.0,1.0,2.24,"Least favorable of HOU, IND, MIA and OKC then others to NYK, PHI and SAS (via HOU to DET to OKC; via UTA to SAS)"
-2028-SAC-R1,2028,1,SAC,SAC,,,6.5,1.0,13.58,
-2028-BKN-R1,2028,1,BRK,BRK,,,6.7,1.0,11.57,"Two most favorable of BKN, PHI 9-30 and PHX (via BKN swap for PHX) Or swap with NYK [pool; slot limits in pool ignored]"
-2028-UTA-R1,2028,1,UTA,UTA,,,7.9,1.0,13.68,Most favorable of LAL and more favorable or CLE and UTA then other to LAL (via UTA swap for CLE and LAL) [pool]
-2028-WAS-R1,2028,1,WAS,WAS,,,7.9,1.0,17.82,"Most Favorable of WAS and BKN, PHI 9-30 and PHX (via BKN and WAS swap for PHX) or swap for MIL or POR [pool; slot limits in pool ignored]"
-2028-IND-R1,2028,1,IND,IND,,,11.0,1.0,10.41,
-2028-NOP-R1,2028,1,NOP,NOP,,,11.2,1.0,10.25,
-2028-MIL-R1,2028,1,MIL,MIL,,,11.3,1.0,10.16,Or swap with POR (via POR swap for MIL)
-2028-SWAP-POR-MIL-R1,2028,1,MIL,POR,,MIL,11.3,0.655,3.47,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL)
-2028-SWAP-POR-MIL-R1-OWED,2028,1,MIL,MIL,,POR,11.3,0.655,-3.47,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL)
-2028-CHI-R1,2028,1,CHI,CHI,,,11.4,1.0,10.18,
-2028-DAL-R1,2028,1,DAL,DAL,,,11.6,1.0,9.98,Or swap with OKC (via OKC swap for DAL)
-2028-SWAP-OKC-DAL-R1,2028,1,DAL,OKC,,DAL,11.6,0.926,3.99,Swap right held by OKC over DAL's pick: Or swap with OKC (via OKC swap for DAL)
-2028-SWAP-OKC-DAL-R1-OWED,2028,1,DAL,DAL,,OKC,11.6,0.926,-3.99,Swap right held by OKC over DAL's pick: Or swap with OKC (via OKC swap for DAL)
-2028-LAC-R1,2028,1,LAC,BOS,,,11.9,1.0,9.89,(via PHI)
-2028-SWAP-BOS-LAC-R1,2028,1,LAC,BOS,,LAC,11.9,0.434,0.31,Swap right held by BOS over LAC's pick: If 1-8 or LAC or BOS (via BOS swap for LAC or PHI 1-8) · If 9-30
-2028-SWAP-BOS-LAC-R1-OWED,2028,1,LAC,LAC,,BOS,11.9,0.434,-0.31,Swap right held by BOS over LAC's pick: If 1-8 or LAC or BOS (via BOS swap for LAC or PHI 1-8) · If 9-30
-2028-MIA-R1,2028,1,MIA,MIA,,,14.0,1.0,4.38,If MIA does not convey 1st to CHA in 2027
-2028-ORL-R1,2028,1,ORL,POR,,,14.0,1.0,8.8,(via MEM)
-2028-ATL-R1,2028,1,ATL,ATL,,,15.1,1.0,14.15,More favorable of (i) ATL and less favorable (ii) CLE and UTA then other to CLE (via ATL swap for CLE or UTA) [pool]
-2028-MEM-R1,2028,1,MEM,MEM,,,15.4,1.0,8.34,
-2028-CHA-R1,2028,1,CHO,CHO,,,15.5,1.0,8.19,Or swap for MIN (via CHA swap for MIN)
-2028-PHX-R1,2028,1,PHO,PHO,,,15.5,1.0,6.13,"Least Favorable of WAS and BKN, PHI 9-30 and PHX (via BKN and WAS swap for PHX) [pool; slot limits in pool ignored]"
-2028-POR-R1,2028,1,POR,POR,,,15.6,1.0,8.24,or swap with MIL
-2028-GSW-R1,2028,1,GSW,GSW,,,15.9,1.0,8.25,
-2028-MIN-R1,2028,1,MIN,MIN,,,16.9,1.0,7.75,Or swap with CHA (via CHA swap for MIN)
-2028-SWAP-CHA-MIN-R1,2028,1,MIN,CHO,,MIN,16.9,0.449,1.47,Swap right held by CHA over MIN's pick: Or swap for MIN (via CHA swap for MIN)
-2028-SWAP-CHA-MIN-R1-OWED,2028,1,MIN,MIN,,CHO,16.9,0.449,-1.47,Swap right held by CHA over MIN's pick: Or swap for MIN (via CHA swap for MIN)
-2028-PHI-R1,2028,1,PHI,PHI,,,17.6,1.0,7.61,If 1-8 or LAC or BOS (via BOS swap for LAC or PHI 1-8) · If 9-30
-2028-LAL-R1,2028,1,LAL,LAL,,,18.7,1.0,6.53,Least favorable of LAL and more favorable or CLE and UTA then other to UTA (via UTA swap for CLE and LAL) [pool]
-2028-CLE-R1,2028,1,CLE,CLE,,,20.0,1.0,10.85,"Least favorable of CLE, ATL and UTA (via UTH swap for CLE; via ATL swap for CLE or UTH) [pool]"
-2028-HOU-R1,2028,1,HOU,HOU,,,20.2,1.0,6.88,
-2028-TOR-R1,2028,1,TOR,TOR,,,20.2,1.0,6.9,
-2028-NYK-R1,2028,1,NYK,NYK,,,20.5,1.0,6.81,Or swap with BKN (via BKN swap for NYK)
+2027-BKN-R1,2027,1,BRK,BRK,,,4.2,1.0,17.55,Or swap with HOU (via HOU swap for BKN)
+2027-SAC-R1,2027,1,SAC,SAC,,,4.2,1.0,17.5,
+2027-SWAP-HOU-BKN-R1,2027,1,BRK,HOU,,BRK,4.2,0.994,10.76,Swap right held by HOU over BKN's pick: Or swap with HOU (via HOU swap for BKN)
+2027-SWAP-HOU-BKN-R1-OWED,2027,1,BRK,BRK,,HOU,4.2,0.994,-10.76,Swap right held by HOU over BKN's pick: Or swap with HOU (via HOU swap for BKN)
+2027-UTA-R1,2027,1,UTA,MEM,,,5.1,1.0,16.64,"Most favorable of CLE, MIN and UTA then others to PHX and UTA (via UTA) [pool]"
+2027-WAS-R1,2027,1,WAS,WAS,,,5.1,1.0,16.21,
+2027-IND-R1,2027,1,IND,IND,,,8.1,1.0,12.85,
+2027-NOP-R1,2027,1,NOP,NOP,,,8.4,1.0,15.76,Most favorable of MIL and NOP then other to ATL [pool]
+2027-CHI-R1,2027,1,CHI,CHI,,,8.6,1.0,12.45,
+2027-MIL-R1,2027,1,MIL,ATL,,,8.7,1.0,9.1,Least favorable of MIL and NOP then other to NOP (via NOP) [pool]
+2027-DAL-R1,2027,1,DAL,DAL,slots 1-2,,9.2,0.108,2.77,If 1-2 · If 3-30
+2027-DAL-R1-CHA,2027,1,DAL,CHO,slots 3-30,,9.2,0.892,9.09,If 1-2 · If 3-30
+2027-LAC-R1,2027,1,LAC,OKC,,,9.6,1.0,9.11,"Two most favorable of DEN 6-30, LAC and OKC (via OKC swap for LAC) [pool; slot limits in pool ignored]"
+2027-ORL-R1,2027,1,ORL,ORL,,,12.8,1.0,9.46,
+2027-MIA-R1,2027,1,MIA,MIA,slots 1-14,,13.0,0.605,6.67,If 1-14 · If 15-30
+2027-MIA-R1-CHA,2027,1,MIA,CHO,slots 15-30,,13.0,0.395,2.71,If 1-14 · If 15-30
+2027-ATL-R1,2027,1,ATL,SAS,,,15.0,1.0,8.57,
+2027-CHA-R1,2027,1,CHO,CHO,,,15.1,1.0,8.44,
+2027-PHX-R1,2027,1,PHO,HOU,,,15.1,1.0,8.45,(via BKN)
+2027-MEM-R1,2027,1,MEM,MEM,,,15.1,1.0,8.43,
+2027-POR-R1,2027,1,POR,POR,,,15.3,1.0,8.39,
+2027-GSW-R1,2027,1,GSW,GSW,,,17.1,1.0,7.87,
+2027-MIN-R1,2027,1,MIN,UTA,,,17.7,1.0,7.53,"Second most favorable of CLE, MIN and UTA then others to MEM and PHX [pool]"
+2027-PHI-R1,2027,1,PHI,PHI,,,18.6,1.0,7.42,
+2027-LAL-R1,2027,1,LAL,LAL,slots 1-4,,20.3,0.016,0.35,If 1-4 · If 5-30 (via UTA)
+2027-LAL-R1-MEM,2027,1,LAL,MEM,slots 5-30,,20.3,0.984,6.78,If 1-4 · If 5-30 (via UTA)
+2027-CLE-R1,2027,1,CLE,PHO,,,22.3,1.0,6.64,"Least favorable of CLE, MIN and UTA then others to MEM and UTA (via UTA) [pool]"
+2027-HOU-R1,2027,1,HOU,HOU,,,22.5,1.0,6.84,Or swap with BKN (via HOU swap for BKN)
+2027-TOR-R1,2027,1,TOR,TOR,,,23.1,1.0,6.76,LAC right to swap
+2027-NYK-R1,2027,1,NYK,BRK,,,23.2,1.0,6.74,
+2027-DET-R1,2027,1,DET,DET,,,24.0,1.0,6.69,
+2027-BOS-R1,2027,1,BOS,BOS,,,24.6,1.0,6.67,
+2027-SAS-R1,2027,1,SAS,SAC,slots 1-16,,24.8,0.045,0.36,If 1-16 · If 17-30 (via SAC)
+2027-SAS-R1-OKC,2027,1,SAS,OKC,slots 17-30,,24.8,0.955,6.29,If 1-16 · If 17-30 (via SAC)
+2027-DEN-R1,2027,1,DEN,DEN,slots 1-5,,25.1,0.001,0.03,If 1-5 · If 6-30
+2027-DEN-R1-OKC,2027,1,DEN,OKC,slots 6-30,,25.1,0.999,6.6,If 1-5 · If 6-30
+2027-OKC-R1,2027,1,OKC,LAC,,,29.0,1.0,6.53,"Two most favorable of DEN 6-30, LAC and OKC (via OKC swap for LAC) [pool; slot limits in pool ignored]"
+2027-SAC-R2,2027,2,SAC,OKC,,,34.2,1.0,2.29,"OKC If SAS is 1-16, SAC If SAS is 17-30"
+2027-BKN-R2,2027,2,BRK,WAS,,,34.2,1.0,2.29,More favorable of BKN and DAL to WAS then other to DET
+2027-UTA-R2,2027,2,UTA,IND,,,35.1,1.0,1.14,(via CLE) or to NOP if IND does not convey 1st to NOP by 2027
+2027-WAS-R2,2027,2,WAS,NYK,,,35.1,1.0,2.29,(via HOU to OKC)
+2027-IND-R2,2027,2,IND,NYK,,,38.1,1.0,2.29,"Third most favorable of HOU, IND, MIA and OKC to NYK; then others to PHI and SAS (via HOU to DET to UTA to OKC)"
+2027-NOP-R2,2027,2,NOP,CHO,,,38.4,1.0,2.29,More favorable of NOP and POR to CHA then other to POR (via POR)
+2027-CHI-R2,2027,2,CHI,OKC,,,38.6,1.0,2.29,(via WAS to NOP to WAS to DAL)
+2027-MIL-R2,2027,2,MIL,MIL,,,38.7,1.0,2.29,(via PHI to DET)
+2027-DAL-R2,2027,2,DAL,MIL,,,39.2,1.0,2.29,Less favorable of BKN and DAL to MIL then other to WAS (via DET)
+2027-LAC-R2,2027,2,LAC,UTA,,,39.6,1.0,2.29,(via ATL to LAC)
+2027-ORL-R2,2027,2,ORL,UTA,,,42.8,1.0,2.29,More favorable of BOS and UTA then other to CHA (via BOS to ORL to BOS to ORL)
+2027-MIA-R2,2027,2,MIA,PHI,,,43.0,1.0,2.29,"Most favorable of HOU, IND, MIA and OKC to PHI; then others to NYK and SAS (via HOU to DET to UTA to OKC)"
+2027-ATL-R2,2027,2,ATL,ATL,,,45.0,1.0,2.29,(via BOS to MEM to POR)
+2027-MEM-R2,2027,2,MEM,CHO,,,45.1,1.0,2.29,(via LAC to HOU)
+2027-CHA-R2,2027,2,CHO,OKC,,,45.1,1.0,2.29,"OKC If SAS is 1-16, SAC If SAS is 17-30"
+2027-PHX-R2,2027,2,PHO,PHI,,,45.1,1.0,2.29,Most favorable of GSW and PHX to PHI then other to WAS (via WAS)
+2027-POR-R2,2027,2,POR,HOU,,,45.3,1.0,2.29,If POR 56-60 then less favorable of NOP and POR 56-60 (via POR to BOS)
+2027-GSW-R2,2027,2,GSW,WAS,,,47.1,1.0,2.29,Least favorable of GSW and PHX to WAS then other to PHI (via WAS to PHI)
+2027-MIN-R2,2027,2,MIN,POR,,,47.7,1.0,2.29,(via HOU to OKC to NYK)
+2027-PHI-R2,2027,2,PHI,CHO,,,48.6,1.0,2.29,"(via LAC) Second most favorable of (i) PHL, (ii) more favorable of GOS and PHX (via WAS) and (iii) most favorable of OKC, HOU, IND and MIA (via HOU to DET to OKC; via IND and MIA to OKC)"
+2027-LAL-R2,2027,2,LAL,UTA,,,50.3,1.0,1.14,If LAL does not convey 1st to UTA in 2027 or to BKN
+2027-CLE-R2,2027,2,CLE,CHI,,,52.3,1.0,2.29,(via ATL to MIN)
+2027-HOU-R2,2027,2,HOU,NOP,,,52.5,1.0,2.29,"Second most favorable of HOU, IND, MIA and OKC to NYK; then others to PHI and SAS (via HOU to DET to UTA to OKC)"
+2027-TOR-R2,2027,2,TOR,TOR,,,53.1,1.0,2.29,
+2027-NYK-R2,2027,2,NYK,NYK,,,53.2,1.0,2.29,
+2027-DET-R2,2027,2,DET,DET,,,54.0,1.0,2.29,
+2027-BOS-R2,2027,2,BOS,WAS,,,54.6,1.0,2.29,More favorable of BKN and DAL to WAS then other to DET
+2027-SAS-R2,2027,2,SAS,SAS,,,54.8,1.0,2.29,"More favorable SAS and least favorable of HOU, IND, MIA and OKC then others to NYK and PHI (via HOU to DET to OKC; via UTA to SAS)"
+2027-DEN-R2,2027,2,DEN,UTA,,,55.1,1.0,2.29,(via CLE to CHI to BOS)
+2027-OKC-R2,2027,2,OKC,MIA,,,59.0,1.0,2.29,"Least favorable of HOU, IND, MIA and OKC then others to NYK, PHI and SAS (via HOU to DET to OKC; via UTA to SAS)"
+2028-SAC-R1,2028,1,SAC,SAC,,,6.5,1.0,13.95,
+2028-BKN-R1,2028,1,BRK,BRK,,,6.7,1.0,11.96,"Two most favorable of BKN, PHI 9-30 and PHX (via BKN swap for PHX) Or swap with NYK [pool; slot limits in pool ignored]"
+2028-UTA-R1,2028,1,UTA,UTA,,,7.9,1.0,14.0,Most favorable of LAL and more favorable or CLE and UTA then other to LAL (via UTA swap for CLE and LAL) [pool]
+2028-WAS-R1,2028,1,WAS,WAS,,,7.9,1.0,18.09,"Most Favorable of WAS and BKN, PHI 9-30 and PHX (via BKN and WAS swap for PHX) or swap for MIL or POR [pool; slot limits in pool ignored]"
+2028-IND-R1,2028,1,IND,IND,,,11.0,1.0,10.74,
+2028-NOP-R1,2028,1,NOP,NOP,,,11.2,1.0,10.6,
+2028-CHI-R1,2028,1,CHI,CHI,,,11.4,1.0,10.51,
+2028-MIL-R1,2028,1,MIL,MIL,,,11.4,1.0,10.48,Or swap with POR (via POR swap for MIL)
+2028-SWAP-POR-MIL-R1,2028,1,MIL,POR,,MIL,11.4,0.655,3.54,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL)
+2028-SWAP-POR-MIL-R1-OWED,2028,1,MIL,MIL,,POR,11.4,0.655,-3.54,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL)
+2028-DAL-R1,2028,1,DAL,DAL,,,11.6,1.0,10.32,Or swap with OKC (via OKC swap for DAL)
+2028-SWAP-OKC-DAL-R1,2028,1,DAL,OKC,,DAL,11.6,0.926,4.17,Swap right held by OKC over DAL's pick: Or swap with OKC (via OKC swap for DAL)
+2028-SWAP-OKC-DAL-R1-OWED,2028,1,DAL,DAL,,OKC,11.6,0.926,-4.17,Swap right held by OKC over DAL's pick: Or swap with OKC (via OKC swap for DAL)
+2028-LAC-R1,2028,1,LAC,BOS,,,11.9,1.0,10.22,(via PHI)
+2028-SWAP-BOS-LAC-R1,2028,1,LAC,BOS,,LAC,11.9,0.433,0.38,Swap right held by BOS over LAC's pick: If 1-8 or LAC or BOS (via BOS swap for LAC or PHI 1-8) · If 9-30
+2028-SWAP-BOS-LAC-R1-OWED,2028,1,LAC,LAC,,BOS,11.9,0.433,-0.38,Swap right held by BOS over LAC's pick: If 1-8 or LAC or BOS (via BOS swap for LAC or PHI 1-8) · If 9-30
+2028-MIA-R1,2028,1,MIA,MIA,,,14.0,1.0,4.52,If MIA does not convey 1st to CHA in 2027
+2028-ORL-R1,2028,1,ORL,POR,,,14.0,1.0,9.13,(via MEM)
+2028-ATL-R1,2028,1,ATL,ATL,,,15.2,1.0,14.47,More favorable of (i) ATL and less favorable (ii) CLE and UTA then other to CLE (via ATL swap for CLE or UTA) [pool]
+2028-MEM-R1,2028,1,MEM,MEM,,,15.4,1.0,8.66,
+2028-CHA-R1,2028,1,CHO,CHO,,,15.5,1.0,8.47,Or swap for MIN (via CHA swap for MIN)
+2028-PHX-R1,2028,1,PHO,PHO,,,15.5,1.0,6.32,"Least Favorable of WAS and BKN, PHI 9-30 and PHX (via BKN and WAS swap for PHX) [pool; slot limits in pool ignored]"
+2028-POR-R1,2028,1,POR,POR,,,15.6,1.0,8.51,or swap with MIL
+2028-GSW-R1,2028,1,GSW,GSW,,,16.7,1.0,8.21,
+2028-MIN-R1,2028,1,MIN,MIN,,,17.0,1.0,8.0,Or swap with CHA (via CHA swap for MIN)
+2028-SWAP-CHA-MIN-R1,2028,1,MIN,CHO,,MIN,17.0,0.448,1.51,Swap right held by CHA over MIN's pick: Or swap for MIN (via CHA swap for MIN)
+2028-SWAP-CHA-MIN-R1-OWED,2028,1,MIN,MIN,,CHO,17.0,0.448,-1.51,Swap right held by CHA over MIN's pick: Or swap for MIN (via CHA swap for MIN)
+2028-PHI-R1,2028,1,PHI,PHI,,,17.6,1.0,7.87,If 1-8 or LAC or BOS (via BOS swap for LAC or PHI 1-8) · If 9-30
+2028-LAL-R1,2028,1,LAL,LAL,,,18.7,1.0,6.76,Least favorable of LAL and more favorable or CLE and UTA then other to UTA (via UTA swap for CLE and LAL) [pool]
+2028-CLE-R1,2028,1,CLE,CLE,,,20.0,1.0,11.18,"Least favorable of CLE, ATL and UTA (via UTH swap for CLE; via ATL swap for CLE or UTH) [pool]"
+2028-HOU-R1,2028,1,HOU,HOU,,,20.2,1.0,7.1,
+2028-TOR-R1,2028,1,TOR,TOR,,,20.2,1.0,7.12,
+2028-NYK-R1,2028,1,NYK,NYK,,,20.5,1.0,7.04,Or swap with BKN (via BKN swap for NYK)
 2028-SWAP-BKN-NYK-R1,2028,1,NYK,BRK,,NYK,20.5,0.077,0.36,Swap right held by BKN over NYK's pick: Or swap with BKN (via BKN swap for NYK)
 2028-SWAP-BKN-NYK-R1-OWED,2028,1,NYK,NYK,,BRK,20.5,0.077,-0.36,Swap right held by BKN over NYK's pick: Or swap with BKN (via BKN swap for NYK)
-2028-DET-R1,2028,1,DET,DET,,,21.0,1.0,6.73,
-2028-BOS-R1,2028,1,BOS,BOS,,,21.3,1.0,6.7,If 1 · Or swap 2-30 with SAS (via SAS swap for BOS)
-2028-SWAP-SAS-BOS-R1,2028,1,BOS,SAS,,BOS,21.3,0.496,0.58,Swap right held by SAS over BOS's pick: If 1 · Or swap 2-30 with SAS (via SAS swap for BOS)
-2028-SWAP-SAS-BOS-R1-OWED,2028,1,BOS,BOS,,SAS,21.3,0.496,-0.58,Swap right held by SAS over BOS's pick: If 1 · Or swap 2-30 with SAS (via SAS swap for BOS)
-2028-SAS-R1,2028,1,SAS,SAS,,,21.5,1.0,6.62,Or swap with BOS 2-30 (via SAS swap for BOS)
-2028-DEN-R1,2028,1,DEN,DEN,slots 1-5,,23.0,0.02,0.2,If 1-5 if not already settled with OKC · If 6-30 if not already settled
-2028-DEN-R1-OKC,2028,1,DEN,OKC,slots 6-30,,23.0,0.98,3.0,If 1-5 if not already settled with OKC · If 6-30 if not already settled
-2028-OKC-R1,2028,1,OKC,OKC,,,25.5,1.0,6.1,Or swap with DAL (via OKC swap for DAL)
-2028-SAC-R2,2028,2,SAC,POR,,,36.5,1.0,2.07,(via CHI to SAC to MEM)
-2028-BKN-R2,2028,2,BRK,BRK,,,36.7,1.0,2.07,
-2028-UTA-R2,2028,2,UTA,OKC,,,37.9,1.0,2.07,
-2028-WAS-R2,2028,2,WAS,ORL,,,37.9,1.0,2.07,More favorable of LAL and WAS to ORL then other to WAS
-2028-IND-R2,2028,2,IND,IND,,,41.0,1.0,2.07,"Middle Pick of CHI, IND and PHX then others to CHI and NYK"
-2028-NOP-R2,2028,2,NOP,SAS,,,41.2,1.0,2.07,
-2028-MIL-R2,2028,2,MIL,BOS,,,41.3,1.0,2.07,"Most favorable of GSW, MIL and OKC (via BKN to HOU to OKC to PHI)"
-2028-CHI-R2,2028,2,CHI,CHI,,,41.4,1.0,2.07,"Most favorable of CHI, IND and PHX then others to IND and NYK"
-2028-DAL-R2,2028,2,DAL,LAC,,,41.6,1.0,2.07,(via SAC to IND)
-2028-LAC-R2,2028,2,LAC,DET,,,41.9,1.0,2.07,Least favorable of CHA and LAC then other to CHA (via LAC to CHA to DAL)
-2028-ORL-R2,2028,2,ORL,CHO,,,44.0,1.0,2.07,
-2028-MIA-R2,2028,2,MIA,DET,,,44.0,1.0,1.04,If DAL conveys 1st to CHA in 2027(via SAS to DAL to DET) or to CHA if DAL does not convey 1st to CHA in 2027
-2028-ATL-R2,2028,2,ATL,BRK,,,45.1,1.0,2.07,(via GSW)
-2028-MEM-R2,2028,2,MEM,BRK,,,45.4,1.0,2.07,(via PHX)
-2028-CHA-R2,2028,2,CHO,CHO,,,45.5,1.0,2.07,More favorable of CHA and LAC then other to DET (via LAC to CHA to DAL)
-2028-PHX-R2,2028,2,PHO,NYK,,,45.5,1.0,2.07,"Less favorable of CHI, IND and PHX then others to CHI and IND (via IND)"
-2028-POR-R2,2028,2,POR,POR,,,45.6,1.0,2.07,(via CHI to SAC to MEM)
-2028-GSW-R2,2028,2,GSW,PHI,,,45.9,1.0,2.07,"Two least favorable of GSW, MIL and OKC to PHI then other to BOS (via POR to WAS)"
-2028-MIN-R2,2028,2,MIN,DEN,,,46.9,1.0,2.07,(via SAS)
-2028-PHI-R2,2028,2,PHI,PHI,,,47.6,1.0,1.04,PHI pick if PHI conveys second 1st to BKN by 2028; BKN pick if PHI does not convey second 1st to BKN by 2028
-2028-LAL-R2,2028,2,LAL,WAS,,,48.7,1.0,2.07,Less favorable of LAL and WAS then other to ORL (via LAL to WAS)
-2028-CLE-R2,2028,2,CLE,UTA,,,50.0,1.0,2.07,
-2028-HOU-R2,2028,2,HOU,CHO,,,50.2,1.0,2.07,(via HOU to ATL to HOU)
-2028-TOR-R2,2028,2,TOR,TOR,,,50.2,1.0,2.07,
-2028-NYK-R2,2028,2,NYK,UTA,,,50.5,1.0,2.07,
-2028-DET-R2,2028,2,DET,DET,,,51.0,1.0,2.07,"Least favorable of DET 31-55, CHA, LAC, MIA and NYK to UTA then others to DET · If 56-60"
-2028-BOS-R2,2028,2,BOS,SAS,slots 31-45,,51.3,0.206,0.43,If 31-45 if BOS is 1 in 2028 · If 46-60 (via ORL to PHX)
-2028-BOS-R2-NYK,2028,2,BOS,NYK,slots 46-60,,51.3,0.794,1.65,If 31-45 if BOS is 1 in 2028 · If 46-60 (via ORL to PHX)
-2028-SAS-R2,2028,2,SAS,SAS,,,51.5,1.0,2.07,
-2028-DEN-R2,2028,2,DEN,DEN,slots 31-33,,53.0,0.015,0.03,If 31-33 · If 34-60 (via SAS to SAC)
-2028-DEN-R2-WAS,2028,2,DEN,WAS,slots 34-60,,53.0,0.985,2.04,If 31-33 · If 34-60 (via SAS to SAC)
-2028-OKC-R2,2028,2,OKC,PHI,,,55.5,1.0,2.07,"Two least favorable of GSW, MIL and OKC to PHI then other to BOS"
-2029-BKN-R1,2029,1,BRK,BRK,,,9.9,1.0,10.57,
-2029-SAC-R1,2029,1,SAC,SAC,,,10.0,1.0,10.42,
-2029-UTA-R1,2029,1,UTA,UTA,,,11.1,1.0,9.61,"Two most favorable of CLE, MIN 6-30 and UTA then other to CHA [pool; slot limits in pool ignored]"
-2029-WAS-R1,2029,1,WAS,WAS,,,11.2,1.0,9.87,
+2028-DET-R1,2028,1,DET,DET,,,21.0,1.0,6.95,
+2028-BOS-R1,2028,1,BOS,BOS,,,21.3,1.0,6.9,If 1 · Or swap 2-30 with SAS (via SAS swap for BOS)
+2028-SWAP-SAS-BOS-R1,2028,1,BOS,SAS,,BOS,21.3,0.496,0.63,Swap right held by SAS over BOS's pick: If 1 · Or swap 2-30 with SAS (via SAS swap for BOS)
+2028-SWAP-SAS-BOS-R1-OWED,2028,1,BOS,BOS,,SAS,21.3,0.496,-0.63,Swap right held by SAS over BOS's pick: If 1 · Or swap 2-30 with SAS (via SAS swap for BOS)
+2028-SAS-R1,2028,1,SAS,SAS,,,21.5,1.0,6.84,Or swap with BOS 2-30 (via SAS swap for BOS)
+2028-DEN-R1,2028,1,DEN,DEN,slots 1-5,,22.1,0.028,0.27,If 1-5 if not already settled with OKC · If 6-30 if not already settled
+2028-DEN-R1-OKC,2028,1,DEN,OKC,slots 6-30,,22.1,0.972,3.08,If 1-5 if not already settled with OKC · If 6-30 if not already settled
+2028-OKC-R1,2028,1,OKC,OKC,,,25.5,1.0,6.26,Or swap with DAL (via OKC swap for DAL)
+2028-SAC-R2,2028,2,SAC,POR,,,36.5,1.0,2.12,(via CHI to SAC to MEM)
+2028-BKN-R2,2028,2,BRK,BRK,,,36.7,1.0,2.12,
+2028-UTA-R2,2028,2,UTA,OKC,,,37.9,1.0,2.12,
+2028-WAS-R2,2028,2,WAS,ORL,,,37.9,1.0,2.12,More favorable of LAL and WAS to ORL then other to WAS
+2028-IND-R2,2028,2,IND,IND,,,41.0,1.0,2.12,"Middle Pick of CHI, IND and PHX then others to CHI and NYK"
+2028-NOP-R2,2028,2,NOP,SAS,,,41.2,1.0,2.12,
+2028-MIL-R2,2028,2,MIL,BOS,,,41.4,1.0,2.12,"Most favorable of GSW, MIL and OKC (via BKN to HOU to OKC to PHI)"
+2028-CHI-R2,2028,2,CHI,CHI,,,41.4,1.0,2.12,"Most favorable of CHI, IND and PHX then others to IND and NYK"
+2028-DAL-R2,2028,2,DAL,LAC,,,41.6,1.0,2.12,(via SAC to IND)
+2028-LAC-R2,2028,2,LAC,DET,,,41.9,1.0,2.12,Least favorable of CHA and LAC then other to CHA (via LAC to CHA to DAL)
+2028-ORL-R2,2028,2,ORL,CHO,,,44.0,1.0,2.12,
+2028-MIA-R2,2028,2,MIA,DET,,,44.0,1.0,1.06,If DAL conveys 1st to CHA in 2027(via SAS to DAL to DET) or to CHA if DAL does not convey 1st to CHA in 2027
+2028-ATL-R2,2028,2,ATL,BRK,,,45.2,1.0,2.12,(via GSW)
+2028-MEM-R2,2028,2,MEM,BRK,,,45.4,1.0,2.12,(via PHX)
+2028-CHA-R2,2028,2,CHO,CHO,,,45.5,1.0,2.12,More favorable of CHA and LAC then other to DET (via LAC to CHA to DAL)
+2028-PHX-R2,2028,2,PHO,NYK,,,45.5,1.0,2.12,"Less favorable of CHI, IND and PHX then others to CHI and IND (via IND)"
+2028-POR-R2,2028,2,POR,POR,,,45.6,1.0,2.12,(via CHI to SAC to MEM)
+2028-GSW-R2,2028,2,GSW,PHI,,,46.7,1.0,2.12,"Two least favorable of GSW, MIL and OKC to PHI then other to BOS (via POR to WAS)"
+2028-MIN-R2,2028,2,MIN,DEN,,,47.0,1.0,2.12,(via SAS)
+2028-PHI-R2,2028,2,PHI,PHI,,,47.6,1.0,1.06,PHI pick if PHI conveys second 1st to BKN by 2028; BKN pick if PHI does not convey second 1st to BKN by 2028
+2028-LAL-R2,2028,2,LAL,WAS,,,48.7,1.0,2.12,Less favorable of LAL and WAS then other to ORL (via LAL to WAS)
+2028-CLE-R2,2028,2,CLE,UTA,,,50.0,1.0,2.12,
+2028-HOU-R2,2028,2,HOU,CHO,,,50.2,1.0,2.12,(via HOU to ATL to HOU)
+2028-TOR-R2,2028,2,TOR,TOR,,,50.2,1.0,2.12,
+2028-NYK-R2,2028,2,NYK,UTA,,,50.5,1.0,2.12,
+2028-DET-R2,2028,2,DET,DET,,,51.0,1.0,2.12,"Least favorable of DET 31-55, CHA, LAC, MIA and NYK to UTA then others to DET · If 56-60"
+2028-BOS-R2,2028,2,BOS,SAS,slots 31-45,,51.3,0.207,0.44,If 31-45 if BOS is 1 in 2028 · If 46-60 (via ORL to PHX)
+2028-BOS-R2-NYK,2028,2,BOS,NYK,slots 46-60,,51.3,0.793,1.68,If 31-45 if BOS is 1 in 2028 · If 46-60 (via ORL to PHX)
+2028-SAS-R2,2028,2,SAS,SAS,,,51.5,1.0,2.12,
+2028-DEN-R2,2028,2,DEN,DEN,slots 31-33,,52.1,0.02,0.04,If 31-33 · If 34-60 (via SAS to SAC)
+2028-DEN-R2-WAS,2028,2,DEN,WAS,slots 34-60,,52.1,0.98,2.08,If 31-33 · If 34-60 (via SAS to SAC)
+2028-OKC-R2,2028,2,OKC,PHI,,,55.5,1.0,2.12,"Two least favorable of GSW, MIL and OKC to PHI then other to BOS"
+2029-BKN-R1,2029,1,BRK,BRK,,,9.9,1.0,10.88,
+2029-SAC-R1,2029,1,SAC,SAC,,,10.0,1.0,10.72,
+2029-UTA-R1,2029,1,UTA,UTA,,,11.2,1.0,9.91,"Two most favorable of CLE, MIN 6-30 and UTA then other to CHA [pool; slot limits in pool ignored]"
+2029-WAS-R1,2029,1,WAS,WAS,,,11.2,1.0,10.19,
 2029-IND-R1,2029,1,IND,LAC,,,12.9,0.0,0.0,Forfeited pick (no value)
-2029-NOP-R1,2029,1,NOP,NOP,,,13.2,1.0,8.88,
-2029-CHI-R1,2029,1,CHI,CHI,,,13.3,1.0,8.9,
-2029-DAL-R1,2029,1,DAL,HOU,,,13.3,1.0,10.74,"Two most favorable of BKN, DAL and PHX to HOU then other to BKN [pool]"
-2029-MIL-R1,2029,1,MIL,POR,,,13.3,1.0,8.62,"Most and least favorable of BOS, MIL and POR to POR then other to WAS (via BOS to POR; via MIL to POR; via POR to WAS) [pool]"
-2029-LAC-R1,2029,1,LAC,LAC,,,13.7,1.0,8.66,If 1-3 · Or swap 4-30 with PHI (via PHI swap for LAC)
-2029-SWAP-PHI-LAC-R1,2029,1,LAC,PHI,,LAC,13.7,0.48,1.03,Swap right held by PHI over LAC's pick: If 1-3 · Or swap 4-30 with PHI (via PHI swap for LAC)
-2029-SWAP-PHI-LAC-R1-OWED,2029,1,LAC,LAC,,PHI,13.7,0.48,-1.03,Swap right held by PHI over LAC's pick: If 1-3 · Or swap 4-30 with PHI (via PHI swap for LAC)
-2029-MIA-R1,2029,1,MIA,MIA,,,14.8,1.0,8.32,
-2029-ORL-R1,2029,1,ORL,ORL,,,14.9,1.0,8.21,If 1-2 or swap 3-30 with MEM (via MEM swap for ORL
-2029-SWAP-MEM-ORL-R1,2029,1,ORL,MEM,,ORL,14.9,0.455,1.15,Swap right held by MEM over ORL's pick: If 1-2 or swap 3-30 with MEM (via MEM swap for ORL
-2029-SWAP-MEM-ORL-R1-OWED,2029,1,ORL,ORL,,MEM,14.9,0.455,-1.15,Swap right held by MEM over ORL's pick: If 1-2 or swap 3-30 with MEM (via MEM swap for ORL
-2029-POR-R1,2029,1,POR,WAS,,,15.4,1.0,6.59,"Second most favorable of BOS, POR and MIL then others to POR (via BOS to POR; via MIL to POR; via POR to WAS) [pool]"
-2029-ATL-R1,2029,1,ATL,ATL,,,15.5,1.0,8.01,
-2029-GSW-R1,2029,1,GSW,GSW,,,15.5,1.0,7.97,
-2029-PHX-R1,2029,1,PHO,HOU,,,15.5,1.0,10.74,"Two most favorable of BKN, DAL and PHX to HOU then other to BKN [pool]"
-2029-MEM-R1,2029,1,MEM,MEM,,,15.5,1.0,7.93,Or swap for ORL 3-30 (via MEM swap for ORL)
-2029-CHA-R1,2029,1,CHO,PHO,,,15.5,1.0,5.55,"Least favorable of CHA or CLE, MIN 6-30 and UTA (via CHA swap to PHX) [pool; slot limits in pool ignored]"
-2029-MIN-R1,2029,1,MIN,MIN,slots 1-5,,16.3,0.136,2.42,"If 1-5 · If 6-30 then two most favorable of CLE, MIN 6-30 and UTA then other to PHX"
-2029-MIN-R1-UTA,2029,1,MIN,UTA,slots 6-30,,16.3,0.864,5.35,"If 1-5 · If 6-30 then two most favorable of CLE, MIN 6-30 and UTA then other to PHX"
-2029-PHI-R1,2029,1,PHI,PHI,,,16.8,1.0,7.52,Or swap with LAC 4-30 (via PHI swap for LAC)
-2029-LAL-R1,2029,1,LAL,DAL,,,17.2,1.0,7.42,
-2029-HOU-R1,2029,1,HOU,BRK,,,17.9,1.0,5.64,Least favorable of DAL HOU and PHX then others to HOU [pool]
-2029-CLE-R1,2029,1,CLE,CHO,,,18.0,1.0,9.61,"Least favorable of CLE, MIN 6-30 and UTA to PHX then others to UTA (via UTA to PHX) [pool; slot limits in pool ignored]"
-2029-TOR-R1,2029,1,TOR,TOR,,,18.1,1.0,7.12,
-2029-NYK-R1,2029,1,NYK,BRK,,,18.3,1.0,7.05,
-2029-DET-R1,2029,1,DET,DET,,,18.6,1.0,7.0,
-2029-BOS-R1,2029,1,BOS,POR,,,19.0,1.0,8.62,"Most and least favorable of BOS, MIL and POR to POR then other to WAS (via BOS to POR; via MIL to POR; via POR to WAS) [pool]"
-2029-SAS-R1,2029,1,SAS,SAS,,,19.1,1.0,6.86,
-2029-DEN-R1,2029,1,DEN,DEN,slots 1-5,,19.7,0.069,0.61,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2027 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2027
-2029-DEN-R1-OKC,2029,1,DEN,OKC,slots 6-30,,19.7,0.931,2.74,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2027 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2027
-2029-OKC-R1,2029,1,OKC,OKC,,,21.4,1.0,6.31,
-2029-BKN-R2,2029,2,BRK,BRK,,,39.9,1.0,1.92,
-2029-SAC-R2,2029,2,SAC,NYK,,,40.0,1.0,1.92,(via WAS to HOU)
-2029-UTA-R2,2029,2,UTA,UTA,,,41.1,1.0,1.92,
-2029-WAS-R2,2029,2,WAS,IND,,,41.2,1.0,1.92,More favorable of IND and WAS to IND then other to POR (via NYK)
-2029-IND-R2,2029,2,IND,POR,,,42.9,1.0,1.92,Less favorable of IND and WAS to POR then other to IND (via NYK)
-2029-NOP-R2,2029,2,NOP,SAS,,,43.2,1.0,1.92,
-2029-DAL-R2,2029,2,DAL,BRK,,,43.3,1.0,1.92,
-2029-CHI-R2,2029,2,CHI,CHI,,,43.3,1.0,1.92,
-2029-MIL-R2,2029,2,MIL,DET,,,43.3,1.0,1.92,"Two most favorable of DET, MIL and NYK then other to SAC (via MIL to BRK to DET; via NYK to DET)"
-2029-LAC-R2,2029,2,LAC,SAS,,,43.7,1.0,1.92,(via PHI)
-2029-MIA-R2,2029,2,MIA,OKC,,,44.8,1.0,1.92,Less favorable of ATL and MIA the other to CHA (via OKC)
+2029-NOP-R1,2029,1,NOP,NOP,,,13.2,1.0,9.14,
+2029-CHI-R1,2029,1,CHI,CHI,,,13.3,1.0,9.17,
+2029-DAL-R1,2029,1,DAL,HOU,,,13.3,1.0,11.06,"Two most favorable of BKN, DAL and PHX to HOU then other to BKN [pool]"
+2029-MIL-R1,2029,1,MIL,POR,,,13.3,1.0,8.84,"Most and least favorable of BOS, MIL and POR to POR then other to WAS (via BOS to POR; via MIL to POR; via POR to WAS) [pool]"
+2029-LAC-R1,2029,1,LAC,LAC,,,13.7,1.0,8.94,If 1-3 · Or swap 4-30 with PHI (via PHI swap for LAC)
+2029-SWAP-PHI-LAC-R1,2029,1,LAC,PHI,,LAC,13.7,0.481,1.14,Swap right held by PHI over LAC's pick: If 1-3 · Or swap 4-30 with PHI (via PHI swap for LAC)
+2029-SWAP-PHI-LAC-R1-OWED,2029,1,LAC,LAC,,PHI,13.7,0.481,-1.14,Swap right held by PHI over LAC's pick: If 1-3 · Or swap 4-30 with PHI (via PHI swap for LAC)
+2029-MIA-R1,2029,1,MIA,MIA,,,14.8,1.0,8.57,
+2029-ORL-R1,2029,1,ORL,ORL,,,14.9,1.0,8.47,If 1-2 or swap 3-30 with MEM (via MEM swap for ORL
+2029-SWAP-MEM-ORL-R1,2029,1,ORL,MEM,,ORL,14.9,0.454,1.23,Swap right held by MEM over ORL's pick: If 1-2 or swap 3-30 with MEM (via MEM swap for ORL
+2029-SWAP-MEM-ORL-R1-OWED,2029,1,ORL,ORL,,MEM,14.9,0.454,-1.23,Swap right held by MEM over ORL's pick: If 1-2 or swap 3-30 with MEM (via MEM swap for ORL
+2029-POR-R1,2029,1,POR,WAS,,,15.4,1.0,6.87,"Second most favorable of BOS, POR and MIL then others to POR (via BOS to POR; via MIL to POR; via POR to WAS) [pool]"
+2029-ATL-R1,2029,1,ATL,ATL,,,15.5,1.0,8.25,
+2029-PHX-R1,2029,1,PHO,HOU,,,15.5,1.0,11.06,"Two most favorable of BKN, DAL and PHX to HOU then other to BKN [pool]"
+2029-MEM-R1,2029,1,MEM,MEM,,,15.5,1.0,8.21,Or swap for ORL 3-30 (via MEM swap for ORL)
+2029-CHA-R1,2029,1,CHO,PHO,,,15.5,1.0,5.7,"Least favorable of CHA or CLE, MIN 6-30 and UTA (via CHA swap to PHX) [pool; slot limits in pool ignored]"
+2029-GSW-R1,2029,1,GSW,GSW,,,15.9,1.0,8.09,
+2029-MIN-R1,2029,1,MIN,MIN,slots 1-5,,16.3,0.137,2.46,"If 1-5 · If 6-30 then two most favorable of CLE, MIN 6-30 and UTA then other to PHX"
+2029-MIN-R1-UTA,2029,1,MIN,UTA,slots 6-30,,16.3,0.863,5.56,"If 1-5 · If 6-30 then two most favorable of CLE, MIN 6-30 and UTA then other to PHX"
+2029-PHI-R1,2029,1,PHI,PHI,,,16.8,1.0,7.77,Or swap with LAC 4-30 (via PHI swap for LAC)
+2029-LAL-R1,2029,1,LAL,DAL,,,17.2,1.0,7.65,
+2029-HOU-R1,2029,1,HOU,BRK,,,17.9,1.0,5.8,Least favorable of DAL HOU and PHX then others to HOU [pool]
+2029-CLE-R1,2029,1,CLE,CHO,,,18.0,1.0,9.91,"Least favorable of CLE, MIN 6-30 and UTA to PHX then others to UTA (via UTA to PHX) [pool; slot limits in pool ignored]"
+2029-TOR-R1,2029,1,TOR,TOR,,,18.1,1.0,7.35,
+2029-NYK-R1,2029,1,NYK,BRK,,,18.3,1.0,7.26,
+2029-DET-R1,2029,1,DET,DET,,,18.6,1.0,7.22,
+2029-BOS-R1,2029,1,BOS,POR,,,19.0,1.0,8.84,"Most and least favorable of BOS, MIL and POR to POR then other to WAS (via BOS to POR; via MIL to POR; via POR to WAS) [pool]"
+2029-SAS-R1,2029,1,SAS,SAS,,,19.1,1.0,7.08,
+2029-DEN-R1,2029,1,DEN,DEN,slots 1-5,,19.2,0.08,0.73,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2027 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2027
+2029-DEN-R1-OKC,2029,1,DEN,OKC,slots 6-30,,19.2,0.92,2.82,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2027 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2027
+2029-OKC-R1,2029,1,OKC,OKC,,,21.4,1.0,6.51,
+2029-BKN-R2,2029,2,BRK,BRK,,,39.9,1.0,1.96,
+2029-SAC-R2,2029,2,SAC,NYK,,,40.0,1.0,1.96,(via WAS to HOU)
+2029-WAS-R2,2029,2,WAS,IND,,,41.2,1.0,1.96,More favorable of IND and WAS to IND then other to POR (via NYK)
+2029-UTA-R2,2029,2,UTA,UTA,,,41.2,1.0,1.96,
+2029-IND-R2,2029,2,IND,POR,,,42.9,1.0,1.96,Less favorable of IND and WAS to POR then other to IND (via NYK)
+2029-NOP-R2,2029,2,NOP,SAS,,,43.2,1.0,1.96,
+2029-DAL-R2,2029,2,DAL,BRK,,,43.3,1.0,1.96,
+2029-CHI-R2,2029,2,CHI,CHI,,,43.3,1.0,1.96,
+2029-MIL-R2,2029,2,MIL,DET,,,43.3,1.0,1.96,"Two most favorable of DET, MIL and NYK then other to SAC (via MIL to BRK to DET; via NYK to DET)"
+2029-LAC-R2,2029,2,LAC,SAS,,,43.7,1.0,1.96,(via PHI)
+2029-MIA-R2,2029,2,MIA,OKC,,,44.8,1.0,1.96,Less favorable of ATL and MIA the other to CHA (via OKC)
 2029-ORL-R2,2029,2,ORL,MEM,slots 1-2,,44.9,0.0,0.0,If ORL 1-2 in 2029 · If ORL 3-30 in 2029
 2029-ORL-R2-ORL,2029,2,ORL,ORL,slots 3-30,,44.9,0.0,0.0,If ORL 1-2 in 2029 · If ORL 3-30 in 2029
-2029-POR-R2,2029,2,POR,MEM,,,45.4,1.0,1.92,(via PHI to IND)
-2029-GSW-R2,2029,2,GSW,BRK,,,45.5,1.0,1.92,
-2029-MEM-R2,2029,2,MEM,BRK,,,45.5,1.0,1.92,(via PHX)
-2029-ATL-R2,2029,2,ATL,CHO,,,45.5,1.0,1.92,More favorable of ATL and MIA the other to OKC (via OKC)
-2029-CHA-R2,2029,2,CHO,CHO,,,45.5,1.0,1.92,
-2029-PHX-R2,2029,2,PHO,NYK,,,45.5,1.0,1.92,
-2029-MIN-R2,2029,2,MIN,CHO,,,46.3,1.0,0.96,If MIN conveys 1st to UTA in 2029 · MIN pick if MIN conveys 1st to UTA in 2029; UTA pick if MIN does not convey 1st to UTA in 2029 or CHA if does not convery
-2029-PHI-R2,2029,2,PHI,PHI,,,46.8,1.0,1.92,
-2029-LAL-R2,2029,2,LAL,WAS,,,47.2,1.0,1.92,
-2029-HOU-R2,2029,2,HOU,DAL,,,47.9,1.0,1.92,(via OKC to WAS)
-2029-CLE-R2,2029,2,CLE,ATL,,,48.0,1.0,1.92,
-2029-TOR-R2,2029,2,TOR,TOR,,,48.1,1.0,1.92,
-2029-NYK-R2,2029,2,NYK,CHI,,,48.3,1.0,1.92,(via NYK to DET to SAC)
-2029-DET-R2,2029,2,DET,DET,,,48.6,1.0,1.92,"Two most favorable of DET, MIL and NYK then other to SAC (via MIL to BRK to DET; via NYK to DET)"
-2029-BOS-R2,2029,2,BOS,OKC,,,49.0,1.0,1.92,
-2029-SAS-R2,2029,2,SAS,SAS,,,49.1,1.0,1.92,
-2029-DEN-R2,2029,2,DEN,CHO,,,49.7,1.0,1.92,If DEN conveys 1st to OKC by 2029
-2029-OKC-R2,2029,2,OKC,OKC,,,51.4,1.0,1.92,
-2030-BKN-R1,2030,1,BRK,BRK,,,12.5,1.0,8.63,
-2030-SAC-R1,2030,1,SAC,SAC,,,12.6,1.0,8.61,
-2030-UTA-R1,2030,1,UTA,UTA,,,13.2,1.0,8.32,Or swap for LAL (via UTA swap for LAL)
-2030-WAS-R1,2030,1,WAS,WAS,,,13.2,1.0,11.5,"Most favorable of WAS, MEM and PHX [pool]"
-2030-IND-R1,2030,1,IND,IND,,,13.8,1.0,8.16,
-2030-NOP-R1,2030,1,NOP,NOP,,,14.1,1.0,7.97,
-2030-MIL-R1,2030,1,MIL,MIL,,,14.2,1.0,7.98,Or swap with POR (via POR swap for MIL) or swap for most favorable of MIL and POR (via MIL swap for MIA)
-2030-SWAP-POR-MIL-R1,2030,1,MIL,POR,,MIL,14.2,0.541,2.3,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL) or swap for most favorable of MIL and POR (via MIL swap for MIA)
-2030-SWAP-POR-MIL-R1-OWED,2030,1,MIL,MIL,,POR,14.2,0.541,-2.3,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL) or swap for most favorable of MIL and POR (via MIL swap for MIA)
-2030-LAC-R1,2030,1,LAC,LAC,,,14.3,0.0,0.0,Forfeited pick (no value)
-2030-CHI-R1,2030,1,CHI,CHI,,,14.4,1.0,7.88,
-2030-DAL-R1,2030,1,DAL,DAL,,,14.5,1.0,9.22,Least favorable of DAL and SAS (via SAN swap for DAL) [pool]
-2030-ORL-R1,2030,1,ORL,MEM,,,15.2,1.0,7.53,
-2030-MIA-R1,2030,1,MIA,MIA,,,15.3,1.0,9.8,Or swap for least favorable of MIL and POR (via MIL swap for MIA) [pool]
-2030-ATL-R1,2030,1,ATL,ATL,,,15.5,1.0,7.47,
-2030-CHA-R1,2030,1,CHO,CHO,,,15.5,1.0,5.22,"Or swap for least favorable of DAL, MIN 2-30 and SAS (via CHA swap for MIN) [pool; slot limits in pool ignored]"
-2030-MEM-R1,2030,1,MEM,MEM,,,15.5,1.0,11.5,More favorable of MEM and less favorable of PHX and WAS [pool]
-2030-GSW-R1,2030,1,GSW,GSW,slots 1-20,,15.6,0.665,5.66,If 1-20 · If 21-30 (via WAS to DAL)
-2030-GSW-R1-MEM,2030,1,GSW,MEM,slots 21-30,,15.6,0.335,1.71,If 1-20 · If 21-30 (via WAS to DAL)
-2030-POR-R1,2030,1,POR,POR,,,15.6,1.0,7.5,Or swap with MIL
-2030-PHX-R1,2030,1,PHO,PHO,,,15.6,1.0,5.3,"Least favorable of PHX, MEM and WAS [pool]"
-2030-MIN-R1,2030,1,MIN,MIN,,,16.0,1.0,7.33,"If 1 · Least favorable of MIN 2-30, CHA, DAL and SAS (via SAN swap for DAL; via SAN swap of SAN or DAL for MIN; via CHA swap for MIN)"
-2030-PHI-R1,2030,1,PHI,PHI,,,16.2,1.0,7.24,
-2030-LAL-R1,2030,1,LAL,LAL,,,16.6,1.0,7.09,Or swap with UTA (via UTA swap for LAL)
-2030-SWAP-UTA-LAL-R1,2030,1,LAL,UTA,,LAL,16.6,0.389,1.44,Swap right held by UTA over LAL's pick: Or swap with UTA (via UTA swap for LAL)
-2030-SWAP-UTA-LAL-R1-OWED,2030,1,LAL,LAL,,UTA,16.6,0.389,-1.44,Swap right held by UTA over LAL's pick: Or swap with UTA (via UTA swap for LAL)
-2030-HOU-R1,2030,1,HOU,HOU,,,16.8,1.0,7.08,
-2030-TOR-R1,2030,1,TOR,TOR,,,16.9,1.0,7.03,
-2030-CLE-R1,2030,1,CLE,CLE,,,17.0,1.0,7.01,
-2030-NYK-R1,2030,1,NYK,NYK,,,17.0,1.0,6.97,
-2030-BOS-R1,2030,1,BOS,BOS,,,17.2,1.0,6.91,
-2030-DET-R1,2030,1,DET,DET,,,17.2,1.0,6.95,
-2030-SAS-R1,2030,1,SAS,SAS,,,17.3,1.0,10.69,"Most favorable of SAS, DAL and MIN 2-30 (via SAN swap for DAL; via SAN swap of SAN or DAL for MIN) [pool; slot limits in pool ignored]"
-2030-DEN-R1,2030,1,DEN,DEN,slots 1-5,,17.5,0.121,0.97,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2028 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2028
-2030-DEN-R1-OKC,2030,1,DEN,OKC,slots 6-30,,17.5,0.879,2.47,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2028 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2028
-2030-OKC-R1,2030,1,OKC,OKC,,,18.9,1.0,6.45,
+2029-POR-R2,2029,2,POR,MEM,,,45.4,1.0,1.96,(via PHI to IND)
+2029-MEM-R2,2029,2,MEM,BRK,,,45.5,1.0,1.96,(via PHX)
+2029-ATL-R2,2029,2,ATL,CHO,,,45.5,1.0,1.96,More favorable of ATL and MIA the other to OKC (via OKC)
+2029-CHA-R2,2029,2,CHO,CHO,,,45.5,1.0,1.96,
+2029-PHX-R2,2029,2,PHO,NYK,,,45.5,1.0,1.96,
+2029-GSW-R2,2029,2,GSW,BRK,,,45.9,1.0,1.96,
+2029-MIN-R2,2029,2,MIN,CHO,,,46.3,1.0,0.98,If MIN conveys 1st to UTA in 2029 · MIN pick if MIN conveys 1st to UTA in 2029; UTA pick if MIN does not convey 1st to UTA in 2029 or CHA if does not convery
+2029-PHI-R2,2029,2,PHI,PHI,,,46.8,1.0,1.96,
+2029-LAL-R2,2029,2,LAL,WAS,,,47.2,1.0,1.96,
+2029-HOU-R2,2029,2,HOU,DAL,,,47.9,1.0,1.96,(via OKC to WAS)
+2029-CLE-R2,2029,2,CLE,ATL,,,48.0,1.0,1.96,
+2029-TOR-R2,2029,2,TOR,TOR,,,48.1,1.0,1.96,
+2029-NYK-R2,2029,2,NYK,CHI,,,48.3,1.0,1.96,(via NYK to DET to SAC)
+2029-DET-R2,2029,2,DET,DET,,,48.6,1.0,1.96,"Two most favorable of DET, MIL and NYK then other to SAC (via MIL to BRK to DET; via NYK to DET)"
+2029-BOS-R2,2029,2,BOS,OKC,,,49.0,1.0,1.96,
+2029-SAS-R2,2029,2,SAS,SAS,,,49.1,1.0,1.96,
+2029-DEN-R2,2029,2,DEN,CHO,,,49.2,1.0,1.96,If DEN conveys 1st to OKC by 2029
+2029-OKC-R2,2029,2,OKC,OKC,,,51.4,1.0,1.96,
+2030-BKN-R1,2030,1,BRK,BRK,,,12.5,1.0,8.91,
+2030-SAC-R1,2030,1,SAC,SAC,,,12.6,1.0,8.88,
+2030-WAS-R1,2030,1,WAS,WAS,,,13.1,1.0,11.78,"Most favorable of WAS, MEM and PHX [pool]"
+2030-UTA-R1,2030,1,UTA,UTA,,,13.2,1.0,8.57,Or swap for LAL (via UTA swap for LAL)
+2030-IND-R1,2030,1,IND,IND,,,13.8,1.0,8.41,
+2030-NOP-R1,2030,1,NOP,NOP,,,14.1,1.0,8.21,
+2030-MIL-R1,2030,1,MIL,MIL,,,14.2,1.0,8.23,Or swap with POR (via POR swap for MIL) or swap for most favorable of MIL and POR (via MIL swap for MIA)
+2030-SWAP-POR-MIL-R1,2030,1,MIL,POR,,MIL,14.2,0.541,2.35,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL) or swap for most favorable of MIL and POR (via MIL swap for MIA)
+2030-SWAP-POR-MIL-R1-OWED,2030,1,MIL,MIL,,POR,14.2,0.541,-2.35,Swap right held by POR over MIL's pick: Or swap with POR (via POR swap for MIL) or swap for most favorable of MIL and POR (via MIL swap for MIA)
+2030-CHI-R1,2030,1,CHI,CHI,,,14.4,1.0,8.13,
+2030-LAC-R1,2030,1,LAC,LAC,,,14.4,0.0,0.0,Forfeited pick (no value)
+2030-DAL-R1,2030,1,DAL,DAL,,,14.5,1.0,9.49,Least favorable of DAL and SAS (via SAN swap for DAL) [pool]
+2030-ORL-R1,2030,1,ORL,MEM,,,15.2,1.0,7.78,
+2030-MIA-R1,2030,1,MIA,MIA,,,15.3,1.0,10.09,Or swap for least favorable of MIL and POR (via MIL swap for MIA) [pool]
+2030-CHA-R1,2030,1,CHO,CHO,,,15.5,1.0,5.37,"Or swap for least favorable of DAL, MIN 2-30 and SAS (via CHA swap for MIN) [pool; slot limits in pool ignored]"
+2030-MEM-R1,2030,1,MEM,MEM,,,15.5,1.0,11.78,More favorable of MEM and less favorable of PHX and WAS [pool]
+2030-POR-R1,2030,1,POR,POR,,,15.5,1.0,7.75,Or swap with MIL
+2030-ATL-R1,2030,1,ATL,ATL,,,15.6,1.0,7.7,
+2030-PHX-R1,2030,1,PHO,PHO,,,15.6,1.0,5.46,"Least favorable of PHX, MEM and WAS [pool]"
+2030-GSW-R1,2030,1,GSW,GSW,slots 1-20,,15.9,0.656,5.73,If 1-20 · If 21-30 (via WAS to DAL)
+2030-GSW-R1-MEM,2030,1,GSW,MEM,slots 21-30,,15.9,0.344,1.79,If 1-20 · If 21-30 (via WAS to DAL)
+2030-MIN-R1,2030,1,MIN,MIN,,,16.0,1.0,7.55,"If 1 · Least favorable of MIN 2-30, CHA, DAL and SAS (via SAN swap for DAL; via SAN swap of SAN or DAL for MIN; via CHA swap for MIN)"
+2030-PHI-R1,2030,1,PHI,PHI,,,16.2,1.0,7.47,
+2030-LAL-R1,2030,1,LAL,LAL,,,16.6,1.0,7.31,Or swap with UTA (via UTA swap for LAL)
+2030-SWAP-UTA-LAL-R1,2030,1,LAL,UTA,,LAL,16.6,0.39,1.46,Swap right held by UTA over LAL's pick: Or swap with UTA (via UTA swap for LAL)
+2030-SWAP-UTA-LAL-R1-OWED,2030,1,LAL,LAL,,UTA,16.6,0.39,-1.46,Swap right held by UTA over LAL's pick: Or swap with UTA (via UTA swap for LAL)
+2030-HOU-R1,2030,1,HOU,HOU,,,16.8,1.0,7.29,
+2030-CLE-R1,2030,1,CLE,CLE,,,17.0,1.0,7.23,
+2030-NYK-R1,2030,1,NYK,NYK,,,17.0,1.0,7.19,
+2030-TOR-R1,2030,1,TOR,TOR,,,17.0,1.0,7.23,
+2030-BOS-R1,2030,1,BOS,BOS,,,17.2,1.0,7.13,
+2030-DEN-R1,2030,1,DEN,DEN,slots 1-5,,17.2,0.126,1.04,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2028 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2028
+2030-DEN-R1-OKC,2030,1,DEN,OKC,slots 6-30,,17.2,0.874,2.56,If 1-5 if not already settled with OKC or 1-5 if DEN conveys 1st to OKC by 2028 · If 6-30 if not already settled or 6-30 if DEN conveys 1st to OKC by 2028
+2030-DET-R1,2030,1,DET,DET,,,17.2,1.0,7.18,
+2030-SAS-R1,2030,1,SAS,SAS,,,17.3,1.0,10.96,"Most favorable of SAS, DAL and MIN 2-30 (via SAN swap for DAL; via SAN swap of SAN or DAL for MIN) [pool; slot limits in pool ignored]"
+2030-OKC-R1,2030,1,OKC,OKC,,,18.9,1.0,6.66,
 2030-SWAP-ORL-NOP-R2,2030,2,NOP,ORL,,NOP,14.1,0.0,0.0,Swap right held by ORL over NOP's pick: Or swap with ORL (via ORL swap for NOP)
 2030-SWAP-ORL-NOP-R2-OWED,2030,2,NOP,NOP,,ORL,14.1,0.0,-0.0,Swap right held by ORL over NOP's pick: Or swap with ORL (via ORL swap for NOP)
-2030-BKN-R2,2030,2,BRK,BRK,,,42.5,1.0,1.78,
-2030-SAC-R2,2030,2,SAC,SAS,,,42.6,1.0,1.78,(via IND)
-2030-WAS-R2,2030,2,WAS,BOS,,,43.2,1.0,1.78,"Most favorable of PHX, POR and WAS then others to PHI and WAS (via PHI)"
-2030-UTA-R2,2030,2,UTA,CHO,,,43.2,1.0,1.78,More favorable of LAC and UTA (via UTA)
-2030-IND-R2,2030,2,IND,CHI,,,43.8,1.0,1.78,Less favorable of CHI and IND then other to CHI
-2030-NOP-R2,2030,2,NOP,NOP,,,44.1,1.0,1.78,Or swap with ORL (via ORL swap for NOP)
-2030-MIL-R2,2030,2,MIL,ORL,,,44.2,1.0,1.78,
-2030-LAC-R2,2030,2,LAC,UTA,,,44.3,1.0,1.78,Less favorable of LAC and UTA then other to CHA (via LAC to UTA)
-2030-CHI-R2,2030,2,CHI,CHI,,,44.4,1.0,1.78,More favorable of CHI and IND then other to IND
-2030-DAL-R2,2030,2,DAL,BRK,,,44.5,1.0,1.78,(via BOS to MEM)
-2030-ORL-R2,2030,2,ORL,ORL,,,45.2,1.0,1.78,Or swap with NOP
-2030-MIA-R2,2030,2,MIA,OKC,,,45.3,1.0,1.78,"Two least favorable picks of DEN, HOU and MIA then other to MEM"
-2030-CHA-R2,2030,2,CHO,CHO,slots 30-55,,45.5,0.844,1.5,If 30-55 · If 56-60
+2030-BKN-R2,2030,2,BRK,BRK,,,42.5,1.0,1.82,
+2030-SAC-R2,2030,2,SAC,SAS,,,42.6,1.0,1.82,(via IND)
+2030-WAS-R2,2030,2,WAS,BOS,,,43.1,1.0,1.82,"Most favorable of PHX, POR and WAS then others to PHI and WAS (via PHI)"
+2030-UTA-R2,2030,2,UTA,CHO,,,43.2,1.0,1.82,More favorable of LAC and UTA (via UTA)
+2030-IND-R2,2030,2,IND,CHI,,,43.8,1.0,1.82,Less favorable of CHI and IND then other to CHI
+2030-NOP-R2,2030,2,NOP,NOP,,,44.1,1.0,1.82,Or swap with ORL (via ORL swap for NOP)
+2030-MIL-R2,2030,2,MIL,ORL,,,44.2,1.0,1.82,
+2030-CHI-R2,2030,2,CHI,CHI,,,44.4,1.0,1.82,More favorable of CHI and IND then other to IND
+2030-LAC-R2,2030,2,LAC,UTA,,,44.4,1.0,1.82,Less favorable of LAC and UTA then other to CHA (via LAC to UTA)
+2030-DAL-R2,2030,2,DAL,BRK,,,44.5,1.0,1.82,(via BOS to MEM)
+2030-ORL-R2,2030,2,ORL,ORL,,,45.2,1.0,1.82,Or swap with NOP
+2030-MIA-R2,2030,2,MIA,OKC,,,45.3,1.0,1.82,"Two least favorable picks of DEN, HOU and MIA then other to MEM"
+2030-CHA-R2,2030,2,CHO,CHO,slots 30-55,,45.5,0.844,1.53,If 30-55 · If 56-60
 2030-CHA-R2-BOS,2030,2,CHO,BOS,slots 56-60,,45.5,0.156,0.28,If 30-55 · If 56-60
-2030-MEM-R2,2030,2,MEM,MEM,,,45.5,1.0,1.78,31-50 · 51-60
-2030-ATL-R2,2030,2,ATL,OKC,,,45.5,1.0,1.78,
-2030-GSW-R2,2030,2,GSW,GSW,,,45.6,1.0,0.89,GSW pick if GSW conveys 1st to WAS in 2030; WAS pick if GSW does not convey 1st to WAS in 2030
-2030-POR-R2,2030,2,POR,PHI,,,45.6,1.0,1.78,"Second most favorable of PHX, POR and WAS then others to BOS and WAS (via WAS to PHI)"
-2030-PHX-R2,2030,2,PHO,WAS,,,45.6,1.0,1.78,"Least favor of PHX, POR and WAS then others to BOS and PHI (via PHI)"
-2030-MIN-R2,2030,2,MIN,OKC,,,46.0,1.0,1.78,(via DET)
-2030-PHI-R2,2030,2,PHI,NYK,,,46.2,1.0,1.78,(via DAL)
-2030-LAL-R2,2030,2,LAL,BRK,,,46.6,1.0,1.78,
-2030-HOU-R2,2030,2,HOU,MEM,,,46.8,1.0,1.78,"Most favorable pick of DEN, HOU and MIA then others to OKC (via OKC)"
-2030-TOR-R2,2030,2,TOR,LAC,,,46.9,1.0,1.78,
-2030-NYK-R2,2030,2,NYK,ATL,,,47.0,1.0,1.78,(via POR)
-2030-CLE-R2,2030,2,CLE,SAS,,,47.0,1.0,1.78,
-2030-BOS-R2,2030,2,BOS,BRK,,,47.2,1.0,1.78,(via HOU)
-2030-DET-R2,2030,2,DET,DET,,,47.2,1.0,1.78,
-2030-SAS-R2,2030,2,SAS,SAS,,,47.3,1.0,1.78,
-2030-DEN-R2,2030,2,DEN,OKC,,,47.5,1.0,1.78,"Two least favorable picks of DEN, HOU and MIA then other to MEM (via CHA)"
-2030-OKC-R2,2030,2,OKC,OKC,,,48.9,1.0,1.78,
-2031-BKN-R1,2031,1,BRK,BRK,,,13.6,1.0,7.62,
-2031-SAC-R1,2031,1,SAC,SAC,,,13.8,1.0,7.5,Or swap with SAS (via SAS swap for SAC)
-2031-SWAP-SAS-SAC-R1,2031,1,SAC,SAS,,SAC,13.8,0.596,2.32,Swap right held by SAS over SAC's pick: Or swap with SAS (via SAS swap for SAC)
-2031-SWAP-SAS-SAC-R1-OWED,2031,1,SAC,SAC,,SAS,13.8,0.596,-2.32,Swap right held by SAS over SAC's pick: Or swap with SAS (via SAS swap for SAC)
-2031-UTA-R1,2031,1,UTA,UTA,,,14.1,1.0,7.38,
-2031-WAS-R1,2031,1,WAS,WAS,,,14.3,1.0,7.38,
-2031-NOP-R1,2031,1,NOP,NOP,,,14.5,1.0,7.26,
-2031-MIL-R1,2031,1,MIL,MIL,,,14.6,1.0,7.22,
+2030-MEM-R2,2030,2,MEM,MEM,,,45.5,1.0,1.82,31-50 · 51-60
+2030-POR-R2,2030,2,POR,PHI,,,45.5,1.0,1.82,"Second most favorable of PHX, POR and WAS then others to BOS and WAS (via WAS to PHI)"
+2030-ATL-R2,2030,2,ATL,OKC,,,45.6,1.0,1.82,
+2030-PHX-R2,2030,2,PHO,WAS,,,45.6,1.0,1.82,"Least favor of PHX, POR and WAS then others to BOS and PHI (via PHI)"
+2030-GSW-R2,2030,2,GSW,GSW,,,45.9,1.0,0.91,GSW pick if GSW conveys 1st to WAS in 2030; WAS pick if GSW does not convey 1st to WAS in 2030
+2030-MIN-R2,2030,2,MIN,OKC,,,46.0,1.0,1.82,(via DET)
+2030-PHI-R2,2030,2,PHI,NYK,,,46.2,1.0,1.82,(via DAL)
+2030-LAL-R2,2030,2,LAL,BRK,,,46.6,1.0,1.82,
+2030-HOU-R2,2030,2,HOU,MEM,,,46.8,1.0,1.82,"Most favorable pick of DEN, HOU and MIA then others to OKC (via OKC)"
+2030-NYK-R2,2030,2,NYK,ATL,,,47.0,1.0,1.82,(via POR)
+2030-TOR-R2,2030,2,TOR,LAC,,,47.0,1.0,1.82,
+2030-CLE-R2,2030,2,CLE,SAS,,,47.0,1.0,1.82,
+2030-BOS-R2,2030,2,BOS,BRK,,,47.2,1.0,1.82,(via HOU)
+2030-DET-R2,2030,2,DET,DET,,,47.2,1.0,1.82,
+2030-DEN-R2,2030,2,DEN,OKC,,,47.2,1.0,1.82,"Two least favorable picks of DEN, HOU and MIA then other to MEM (via CHA)"
+2030-SAS-R2,2030,2,SAS,SAS,,,47.3,1.0,1.82,
+2030-OKC-R2,2030,2,OKC,OKC,,,48.9,1.0,1.82,
+2031-BKN-R1,2031,1,BRK,BRK,,,13.6,1.0,7.85,
+2031-SAC-R1,2031,1,SAC,SAC,,,13.8,1.0,7.74,Or swap with SAS (via SAS swap for SAC)
+2031-SWAP-SAS-SAC-R1,2031,1,SAC,SAS,,SAC,13.8,0.596,2.37,Swap right held by SAS over SAC's pick: Or swap with SAS (via SAS swap for SAC)
+2031-SWAP-SAS-SAC-R1-OWED,2031,1,SAC,SAC,,SAS,13.8,0.596,-2.37,Swap right held by SAS over SAC's pick: Or swap with SAS (via SAS swap for SAC)
+2031-UTA-R1,2031,1,UTA,UTA,,,14.1,1.0,7.62,
+2031-WAS-R1,2031,1,WAS,WAS,,,14.3,1.0,7.6,
+2031-NOP-R1,2031,1,NOP,NOP,,,14.5,1.0,7.5,
+2031-MIL-R1,2031,1,MIL,MIL,,,14.6,1.0,7.44,
 2031-LAC-R1,2031,1,LAC,LAC,,,14.7,0.0,0.0,Forfeited pick (no value)
-2031-IND-R1,2031,1,IND,IND,,,14.8,1.0,7.17,
-2031-DAL-R1,2031,1,DAL,DAL,,,14.9,1.0,7.09,
-2031-CHI-R1,2031,1,CHI,CHI,,,15.0,1.0,7.04,
-2031-MIA-R1,2031,1,MIA,MIL,,,15.1,1.0,7.07,
-2031-ORL-R1,2031,1,ORL,ORL,,,15.3,1.0,7.04,
-2031-CHA-R1,2031,1,CHO,CHO,,,15.4,1.0,7.01,
-2031-MEM-R1,2031,1,MEM,MEM,,,15.4,1.0,6.94,
-2031-PHX-R1,2031,1,PHO,MEM,,,15.5,1.0,6.95,(via UTA)
-2031-ATL-R1,2031,1,ATL,ATL,,,15.6,1.0,6.96,
-2031-POR-R1,2031,1,POR,POR,,,15.7,1.0,6.9,
-2031-MIN-R1,2031,1,MIN,SAC,,,15.7,1.0,6.84,(via SAS)
-2031-GSW-R1,2031,1,GSW,GSW,,,15.8,1.0,6.81,
-2031-PHI-R1,2031,1,PHI,BOS,,,15.9,1.0,6.75,
-2031-LAL-R1,2031,1,LAL,UTA,,,16.0,1.0,6.87,
-2031-HOU-R1,2031,1,HOU,HOU,,,16.1,1.0,6.73,
-2031-CLE-R1,2031,1,CLE,DEN,,,16.3,1.0,6.75,
-2031-TOR-R1,2031,1,TOR,LAC,,,16.3,1.0,6.76,
-2031-NYK-R1,2031,1,NYK,BRK,,,16.5,1.0,6.65,
-2031-BOS-R1,2031,1,BOS,BOS,,,16.6,1.0,6.62,
-2031-DET-R1,2031,1,DET,DET,,,16.6,1.0,6.61,
-2031-SAS-R1,2031,1,SAS,SAS,,,16.7,1.0,6.58,Or swap for SAC
-2031-DEN-R1,2031,1,DEN,DEN,,,16.9,1.0,6.51,
-2031-OKC-R1,2031,1,OKC,OKC,,,17.5,1.0,6.36,
-2031-BKN-R2,2031,2,BRK,BRK,,,43.6,1.0,1.65,
-2031-SAC-R2,2031,2,SAC,DEN,,,43.8,1.0,1.65,(via SAS)
-2031-UTA-R2,2031,2,UTA,UTA,,,44.1,1.0,1.65,
-2031-WAS-R2,2031,2,WAS,LAL,,,44.3,1.0,1.65,
-2031-NOP-R2,2031,2,NOP,ORL,,,44.5,1.0,1.65,Least favorable of ORL and NOP (via ORL swap for NOP (via NOP))
-2031-MIL-R2,2031,2,MIL,CHO,,,44.6,1.0,1.65,
-2031-LAC-R2,2031,2,LAC,LAC,,,44.7,1.0,1.65,
-2031-IND-R2,2031,2,IND,IND,,,44.8,1.0,1.65,"Least favorable of IND, MEM and MIA then others to MEM and WAS (via MIA swap for IND; via UTH to WAS; via MEM swap for IND or MIA)"
-2031-DAL-R2,2031,2,DAL,DET,,,44.9,1.0,1.65,(via PHI)
-2031-CHI-R2,2031,2,CHI,CHI,,,45.0,1.0,1.65,
-2031-MIA-R2,2031,2,MIA,WAS,,,45.1,1.0,1.65,More favorable of MIA and IND (via MIA swap for IND; via UTH)
-2031-ORL-R2,2031,2,ORL,OKC,,,45.3,1.0,1.65,Least favorable of ORL and NOP (via ORL swap for NOP (via NOP))
-2031-CHA-R2,2031,2,CHO,CHO,,,45.4,1.0,1.65,
-2031-MEM-R2,2031,2,MEM,MEM,,,45.4,1.0,1.65,"Most favorable of MEM, IND and MIA then others to IND and UTA (via MIA swap for IND; via MEM swap for IND or MIA)"
-2031-PHX-R2,2031,2,PHO,CHO,,,45.5,1.0,1.65,
-2031-ATL-R2,2031,2,ATL,OKC,,,45.6,1.0,1.65,Most favorable of ATL and HOU 31-55 (or just ATL if HOU 56-60) (via ATL)
-2031-MIN-R2,2031,2,MIN,CHI,,,45.7,1.0,1.65,Most favorable of GSW and MIN then other to DET (via MIN swap for GSW (via MIN))
-2031-POR-R2,2031,2,POR,POR,,,45.7,1.0,1.65,
-2031-GSW-R2,2031,2,GSW,DET,,,45.8,1.0,1.65,Least favorable of GSW and MIN then other to MIN (via MIN swap for GSW (via GSW))
-2031-PHI-R2,2031,2,PHI,PHI,,,45.9,1.0,1.65,
-2031-LAL-R2,2031,2,LAL,BRK,,,46.0,1.0,1.65,
-2031-HOU-R2,2031,2,HOU,HOU,,,46.1,1.0,1.65,Least favorable of HOU 31-55 and ATL (via ATL swap for HOU) · If 56-60
-2031-TOR-R2,2031,2,TOR,MEM,,,46.3,1.0,1.65,(via NOP)
-2031-CLE-R2,2031,2,CLE,UTA,,,46.3,1.0,1.65,More favorable of BOS and CLE then other to BOS (via CLE to ATL to BOS)
-2031-NYK-R2,2031,2,NYK,CHI,,,46.5,1.0,1.65,(via DET to CHA)
-2031-BOS-R2,2031,2,BOS,BOS,,,46.6,1.0,1.65,Less favorable of BOS and CLE then other to UTA (via CLE to ATL to BOS)
-2031-DET-R2,2031,2,DET,DET,,,46.6,1.0,1.65,
-2031-SAS-R2,2031,2,SAS,SAS,,,46.7,1.0,1.65,
-2031-DEN-R2,2031,2,DEN,CHI,,,46.9,1.0,1.65,(via PHX to CHA)
-2031-OKC-R2,2031,2,OKC,OKC,,,47.5,1.0,1.65,
-2032-BKN-R1,2032,1,BRK,BRK,,,14.3,1.0,6.76,
-2032-SAC-R1,2032,1,SAC,SAC,,,14.5,1.0,6.79,
-2032-UTA-R1,2032,1,UTA,UTA,,,14.6,1.0,6.69,
-2032-WAS-R1,2032,1,WAS,WAS,,,14.7,1.0,6.62,
-2032-CHI-R1,2032,1,CHI,CHI,,,14.9,1.0,6.64,
-2032-DAL-R1,2032,1,DAL,DAL,,,15.2,1.0,6.52,
-2032-MIL-R1,2032,1,MIL,MIL,,,15.2,1.0,6.53,
-2032-NOP-R1,2032,1,NOP,NOP,,,15.2,1.0,6.47,
-2032-IND-R1,2032,1,IND,IND,,,15.3,1.0,6.47,
+2031-IND-R1,2031,1,IND,IND,,,14.8,1.0,7.4,
+2031-DAL-R1,2031,1,DAL,DAL,,,14.9,1.0,7.32,
+2031-CHI-R1,2031,1,CHI,CHI,,,15.0,1.0,7.27,
+2031-MIA-R1,2031,1,MIA,MIL,,,15.1,1.0,7.29,
+2031-ORL-R1,2031,1,ORL,ORL,,,15.3,1.0,7.27,
+2031-CHA-R1,2031,1,CHO,CHO,,,15.4,1.0,7.22,
+2031-MEM-R1,2031,1,MEM,MEM,,,15.4,1.0,7.16,
+2031-PHX-R1,2031,1,PHO,MEM,,,15.5,1.0,7.17,(via UTA)
+2031-ATL-R1,2031,1,ATL,ATL,,,15.6,1.0,7.17,
+2031-POR-R1,2031,1,POR,POR,,,15.7,1.0,7.11,
+2031-MIN-R1,2031,1,MIN,SAC,,,15.7,1.0,7.06,(via SAS)
+2031-PHI-R1,2031,1,PHI,BOS,,,15.9,1.0,6.97,
+2031-GSW-R1,2031,1,GSW,GSW,,,15.9,1.0,6.99,
+2031-LAL-R1,2031,1,LAL,UTA,,,16.0,1.0,7.08,
+2031-HOU-R1,2031,1,HOU,HOU,,,16.1,1.0,6.94,
+2031-CLE-R1,2031,1,CLE,DEN,,,16.3,1.0,6.95,
+2031-TOR-R1,2031,1,TOR,LAC,,,16.3,1.0,6.97,
+2031-NYK-R1,2031,1,NYK,BRK,,,16.5,1.0,6.86,
+2031-BOS-R1,2031,1,BOS,BOS,,,16.6,1.0,6.82,
+2031-DET-R1,2031,1,DET,DET,,,16.6,1.0,6.83,
+2031-DEN-R1,2031,1,DEN,DEN,,,16.7,1.0,6.74,
+2031-SAS-R1,2031,1,SAS,SAS,,,16.7,1.0,6.79,Or swap for SAC
+2031-OKC-R1,2031,1,OKC,OKC,,,17.5,1.0,6.56,
+2031-BKN-R2,2031,2,BRK,BRK,,,43.6,1.0,1.68,
+2031-SAC-R2,2031,2,SAC,DEN,,,43.8,1.0,1.68,(via SAS)
+2031-UTA-R2,2031,2,UTA,UTA,,,44.1,1.0,1.68,
+2031-WAS-R2,2031,2,WAS,LAL,,,44.3,1.0,1.68,
+2031-NOP-R2,2031,2,NOP,ORL,,,44.5,1.0,1.68,Least favorable of ORL and NOP (via ORL swap for NOP (via NOP))
+2031-MIL-R2,2031,2,MIL,CHO,,,44.6,1.0,1.68,
+2031-LAC-R2,2031,2,LAC,LAC,,,44.7,1.0,1.68,
+2031-IND-R2,2031,2,IND,IND,,,44.8,1.0,1.68,"Least favorable of IND, MEM and MIA then others to MEM and WAS (via MIA swap for IND; via UTH to WAS; via MEM swap for IND or MIA)"
+2031-DAL-R2,2031,2,DAL,DET,,,44.9,1.0,1.68,(via PHI)
+2031-CHI-R2,2031,2,CHI,CHI,,,45.0,1.0,1.68,
+2031-MIA-R2,2031,2,MIA,WAS,,,45.1,1.0,1.68,More favorable of MIA and IND (via MIA swap for IND; via UTH)
+2031-ORL-R2,2031,2,ORL,OKC,,,45.3,1.0,1.68,Least favorable of ORL and NOP (via ORL swap for NOP (via NOP))
+2031-CHA-R2,2031,2,CHO,CHO,,,45.4,1.0,1.68,
+2031-MEM-R2,2031,2,MEM,MEM,,,45.4,1.0,1.68,"Most favorable of MEM, IND and MIA then others to IND and UTA (via MIA swap for IND; via MEM swap for IND or MIA)"
+2031-PHX-R2,2031,2,PHO,CHO,,,45.5,1.0,1.68,
+2031-ATL-R2,2031,2,ATL,OKC,,,45.6,1.0,1.68,Most favorable of ATL and HOU 31-55 (or just ATL if HOU 56-60) (via ATL)
+2031-MIN-R2,2031,2,MIN,CHI,,,45.7,1.0,1.68,Most favorable of GSW and MIN then other to DET (via MIN swap for GSW (via MIN))
+2031-POR-R2,2031,2,POR,POR,,,45.7,1.0,1.68,
+2031-GSW-R2,2031,2,GSW,DET,,,45.9,1.0,1.68,Least favorable of GSW and MIN then other to MIN (via MIN swap for GSW (via GSW))
+2031-PHI-R2,2031,2,PHI,PHI,,,45.9,1.0,1.68,
+2031-LAL-R2,2031,2,LAL,BRK,,,46.0,1.0,1.68,
+2031-HOU-R2,2031,2,HOU,HOU,,,46.1,1.0,1.68,Least favorable of HOU 31-55 and ATL (via ATL swap for HOU) · If 56-60
+2031-TOR-R2,2031,2,TOR,MEM,,,46.3,1.0,1.68,(via NOP)
+2031-CLE-R2,2031,2,CLE,UTA,,,46.3,1.0,1.68,More favorable of BOS and CLE then other to BOS (via CLE to ATL to BOS)
+2031-NYK-R2,2031,2,NYK,CHI,,,46.5,1.0,1.68,(via DET to CHA)
+2031-BOS-R2,2031,2,BOS,BOS,,,46.6,1.0,1.68,Less favorable of BOS and CLE then other to UTA (via CLE to ATL to BOS)
+2031-DET-R2,2031,2,DET,DET,,,46.6,1.0,1.68,
+2031-DEN-R2,2031,2,DEN,CHI,,,46.7,1.0,1.68,(via PHX to CHA)
+2031-SAS-R2,2031,2,SAS,SAS,,,46.7,1.0,1.68,
+2031-OKC-R2,2031,2,OKC,OKC,,,47.5,1.0,1.68,
+2032-BKN-R1,2032,1,BRK,BRK,,,14.3,1.0,6.97,
+2032-SAC-R1,2032,1,SAC,SAC,,,14.5,1.0,7.0,
+2032-UTA-R1,2032,1,UTA,UTA,,,14.6,1.0,6.89,
+2032-WAS-R1,2032,1,WAS,WAS,,,14.7,1.0,6.84,
+2032-CHI-R1,2032,1,CHI,CHI,,,15.0,1.0,6.84,
+2032-MIL-R1,2032,1,MIL,MIL,,,15.2,1.0,6.73,
+2032-NOP-R1,2032,1,NOP,NOP,,,15.2,1.0,6.67,
+2032-DAL-R1,2032,1,DAL,DAL,,,15.3,1.0,6.72,
+2032-IND-R1,2032,1,IND,IND,,,15.3,1.0,6.68,
 2032-LAC-R1,2032,1,LAC,LAC,,,15.3,0.0,0.0,Forfeited pick (no value)
-2032-MIA-R1,2032,1,MIA,MIA,,,15.3,1.0,6.51,
-2032-POR-R1,2032,1,POR,POR,,,15.3,1.0,6.5,
-2032-ATL-R1,2032,1,ATL,ATL,,,15.4,1.0,6.49,
-2032-ORL-R1,2032,1,ORL,ORL,,,15.4,1.0,6.4,
-2032-MEM-R1,2032,1,MEM,MEM,,,15.5,1.0,6.47,
-2032-GSW-R1,2032,1,GSW,GSW,,,15.6,1.0,6.41,
-2032-PHX-R1,2032,1,PHO,PHO,,,15.6,1.0,6.44,FROZEN PICK
-2032-CHA-R1,2032,1,CHO,CHO,,,15.7,1.0,6.42,
-2032-MIN-R1,2032,1,MIN,MIN,,,15.7,1.0,6.42,FROZEN PICK
-2032-LAL-R1,2032,1,LAL,LAL,,,15.8,1.0,6.36,
-2032-BOS-R1,2032,1,BOS,BOS,,,15.9,1.0,6.3,FROZEN PICK
-2032-TOR-R1,2032,1,TOR,TOR,,,15.9,1.0,6.38,
-2032-DEN-R1,2032,1,DEN,BRK,,,16.0,1.0,6.27,
-2032-CLE-R1,2032,1,CLE,CLE,,,16.0,1.0,6.25,
-2032-HOU-R1,2032,1,HOU,HOU,,,16.0,1.0,6.25,
-2032-PHI-R1,2032,1,PHI,PHI,,,16.0,1.0,6.29,
-2032-NYK-R1,2032,1,NYK,NYK,,,16.1,1.0,6.33,
-2032-SAS-R1,2032,1,SAS,SAS,,,16.1,1.0,6.24,
-2032-DET-R1,2032,1,DET,DET,,,16.2,1.0,6.19,
-2032-OKC-R1,2032,1,OKC,OKC,,,16.4,1.0,6.21,
+2032-POR-R1,2032,1,POR,POR,,,15.3,1.0,6.71,
+2032-ATL-R1,2032,1,ATL,ATL,,,15.4,1.0,6.68,
+2032-MIA-R1,2032,1,MIA,MIA,,,15.4,1.0,6.7,
+2032-ORL-R1,2032,1,ORL,ORL,,,15.4,1.0,6.61,
+2032-MEM-R1,2032,1,MEM,MEM,,,15.5,1.0,6.68,
+2032-GSW-R1,2032,1,GSW,GSW,,,15.6,1.0,6.58,
+2032-PHX-R1,2032,1,PHO,PHO,,,15.6,1.0,6.64,FROZEN PICK
+2032-CHA-R1,2032,1,CHO,CHO,,,15.7,1.0,6.62,
+2032-MIN-R1,2032,1,MIN,MIN,,,15.7,1.0,6.61,FROZEN PICK
+2032-LAL-R1,2032,1,LAL,LAL,,,15.8,1.0,6.56,
+2032-BOS-R1,2032,1,BOS,BOS,,,15.9,1.0,6.5,FROZEN PICK
+2032-DEN-R1,2032,1,DEN,BRK,,,15.9,1.0,6.51,
+2032-TOR-R1,2032,1,TOR,TOR,,,15.9,1.0,6.57,
+2032-CLE-R1,2032,1,CLE,CLE,,,16.0,1.0,6.45,
+2032-HOU-R1,2032,1,HOU,HOU,,,16.0,1.0,6.45,
+2032-PHI-R1,2032,1,PHI,PHI,,,16.0,1.0,6.5,
+2032-NYK-R1,2032,1,NYK,NYK,,,16.1,1.0,6.53,
+2032-SAS-R1,2032,1,SAS,SAS,,,16.1,1.0,6.44,
+2032-DET-R1,2032,1,DET,DET,,,16.2,1.0,6.39,
+2032-OKC-R1,2032,1,OKC,OKC,,,16.4,1.0,6.4,
 2032-SWAP-MEM-PHI-R2,2032,2,PHI,MEM,,PHI,16.0,0.0,0.0,Swap right held by MEM over PHI's pick: Or MEM via MEM swap for PHI
 2032-SWAP-MEM-PHI-R2-OWED,2032,2,PHI,PHI,,MEM,16.0,0.0,-0.0,Swap right held by MEM over PHI's pick: Or MEM via MEM swap for PHI
-2032-BKN-R2,2032,2,BRK,BRK,,,44.3,1.0,1.53,
-2032-SAC-R2,2032,2,SAC,DEN,,,44.5,1.0,1.53,(via CLE)
-2032-UTA-R2,2032,2,UTA,WAS,,,44.6,1.0,1.53,
-2032-WAS-R2,2032,2,WAS,LAL,,,44.7,1.0,1.53,
-2032-CHI-R2,2032,2,CHI,CHI,,,44.9,1.0,1.53,
-2032-MIL-R2,2032,2,MIL,CHO,,,45.2,1.0,1.53,
-2032-NOP-R2,2032,2,NOP,NOP,,,45.2,1.0,1.53,MEM right to swap
-2032-DAL-R2,2032,2,DAL,NYK,,,45.2,1.0,1.53,
-2032-MIA-R2,2032,2,MIA,BRK,,,45.3,1.0,1.53,
-2032-IND-R2,2032,2,IND,IND,,,45.3,1.0,1.53,
-2032-LAC-R2,2032,2,LAC,LAC,,,45.3,1.0,1.53,
-2032-POR-R2,2032,2,POR,POR,,,45.3,1.0,1.53,
-2032-ATL-R2,2032,2,ATL,ATL,,,45.4,1.0,1.53,Least favorable of ATL and LAL then other to OKC (via ATL)
-2032-ORL-R2,2032,2,ORL,ORL,,,45.4,1.0,1.53,
-2032-MEM-R2,2032,2,MEM,MEM,,,45.5,1.0,1.53,"Most favorable of MEM, PHI and UTA (via MEM swap for PHI or UTA)"
-2032-GSW-R2,2032,2,GSW,GSW,slots 31-50,,45.6,0.661,1.01,If 31-50 · If 51-60
-2032-GSW-R2-MEM,2032,2,GSW,MEM,slots 51-60,,45.6,0.339,0.52,If 31-50 · If 51-60
-2032-PHX-R2,2032,2,PHO,PHO,,,45.6,1.0,1.53,Least favorable of HOU and PHX then other to CHI (via PHX)
-2032-CHA-R2,2032,2,CHO,CHO,,,45.7,1.0,1.53,
-2032-MIN-R2,2032,2,MIN,CHO,,,45.7,1.0,1.53,
-2032-LAL-R2,2032,2,LAL,OKC,,,45.8,1.0,1.53,More favorable of ATL and LAL then other to ATL (via ATL)
-2032-BOS-R2,2032,2,BOS,BOS,,,45.9,1.0,1.53,
-2032-TOR-R2,2032,2,TOR,BRK,,,45.9,1.0,1.53,
-2032-DEN-R2,2032,2,DEN,BRK,,,46.0,1.0,1.53,
-2032-HOU-R2,2032,2,HOU,CHI,,,46.0,1.0,1.53,More favorable of HOU and PHX then other to PHX (via PHX to MIN)
-2032-PHI-R2,2032,2,PHI,MEM,,,46.0,1.0,1.53,Or MEM via MEM swap for PHI
-2032-CLE-R2,2032,2,CLE,UTA,,,46.0,1.0,1.53,
-2032-NYK-R2,2032,2,NYK,NYK,,,46.1,1.0,1.53,
-2032-SAS-R2,2032,2,SAS,SAS,,,46.1,1.0,1.53,
-2032-DET-R2,2032,2,DET,DET,,,46.2,1.0,1.53,(via MEM)
-2032-OKC-R2,2032,2,OKC,OKC,,,46.4,1.0,1.53,
-2033-IND-R1,2033,1,IND,IND,,,14.9,1.0,6.12,
-2033-SAC-R1,2033,1,SAC,SAC,,,14.9,1.0,6.12,
-2033-BKN-R1,2033,1,BRK,BRK,,,15.0,1.0,6.08,
-2033-DAL-R1,2033,1,DAL,DAL,,,15.1,1.0,6.09,
-2033-UTA-R1,2033,1,UTA,UTA,,,15.1,1.0,6.07,
-2033-ORL-R1,2033,1,ORL,ORL,,,15.2,1.0,6.02,
-2033-POR-R1,2033,1,POR,POR,,,15.2,1.0,6.06,
-2033-MIN-R1,2033,1,MIN,CHO,,,15.3,1.0,6.01,
-2033-CHI-R1,2033,1,CHI,CHI,,,15.3,1.0,6.03,
+2032-BKN-R2,2032,2,BRK,BRK,,,44.3,1.0,1.56,
+2032-SAC-R2,2032,2,SAC,DEN,,,44.5,1.0,1.56,(via CLE)
+2032-UTA-R2,2032,2,UTA,WAS,,,44.6,1.0,1.56,
+2032-WAS-R2,2032,2,WAS,LAL,,,44.7,1.0,1.56,
+2032-CHI-R2,2032,2,CHI,CHI,,,45.0,1.0,1.56,
+2032-MIL-R2,2032,2,MIL,CHO,,,45.2,1.0,1.56,
+2032-NOP-R2,2032,2,NOP,NOP,,,45.2,1.0,1.56,MEM right to swap
+2032-IND-R2,2032,2,IND,IND,,,45.3,1.0,1.56,
+2032-LAC-R2,2032,2,LAC,LAC,,,45.3,1.0,1.56,
+2032-DAL-R2,2032,2,DAL,NYK,,,45.3,1.0,1.56,
+2032-POR-R2,2032,2,POR,POR,,,45.3,1.0,1.56,
+2032-ATL-R2,2032,2,ATL,ATL,,,45.4,1.0,1.56,Least favorable of ATL and LAL then other to OKC (via ATL)
+2032-MIA-R2,2032,2,MIA,BRK,,,45.4,1.0,1.56,
+2032-ORL-R2,2032,2,ORL,ORL,,,45.4,1.0,1.56,
+2032-MEM-R2,2032,2,MEM,MEM,,,45.5,1.0,1.56,"Most favorable of MEM, PHI and UTA (via MEM swap for PHI or UTA)"
+2032-GSW-R2,2032,2,GSW,GSW,slots 31-50,,45.6,0.656,1.02,If 31-50 · If 51-60
+2032-GSW-R2-MEM,2032,2,GSW,MEM,slots 51-60,,45.6,0.344,0.53,If 31-50 · If 51-60
+2032-PHX-R2,2032,2,PHO,PHO,,,45.6,1.0,1.56,Least favorable of HOU and PHX then other to CHI (via PHX)
+2032-CHA-R2,2032,2,CHO,CHO,,,45.7,1.0,1.56,
+2032-MIN-R2,2032,2,MIN,CHO,,,45.7,1.0,1.56,
+2032-LAL-R2,2032,2,LAL,OKC,,,45.8,1.0,1.56,More favorable of ATL and LAL then other to ATL (via ATL)
+2032-BOS-R2,2032,2,BOS,BOS,,,45.9,1.0,1.56,
+2032-DEN-R2,2032,2,DEN,BRK,,,45.9,1.0,1.56,
+2032-TOR-R2,2032,2,TOR,BRK,,,45.9,1.0,1.56,
+2032-HOU-R2,2032,2,HOU,CHI,,,46.0,1.0,1.56,More favorable of HOU and PHX then other to PHX (via PHX to MIN)
+2032-PHI-R2,2032,2,PHI,MEM,,,46.0,1.0,1.56,Or MEM via MEM swap for PHI
+2032-CLE-R2,2032,2,CLE,UTA,,,46.0,1.0,1.56,
+2032-NYK-R2,2032,2,NYK,NYK,,,46.1,1.0,1.56,
+2032-SAS-R2,2032,2,SAS,SAS,,,46.1,1.0,1.56,
+2032-DET-R2,2032,2,DET,DET,,,46.2,1.0,1.56,(via MEM)
+2032-OKC-R2,2032,2,OKC,OKC,,,46.4,1.0,1.56,
+2033-IND-R1,2033,1,IND,IND,,,14.9,1.0,6.32,
+2033-SAC-R1,2033,1,SAC,SAC,,,14.9,1.0,6.3,
+2033-BKN-R1,2033,1,BRK,BRK,,,15.0,1.0,6.27,
+2033-DAL-R1,2033,1,DAL,DAL,,,15.1,1.0,6.27,
+2033-UTA-R1,2033,1,UTA,UTA,,,15.1,1.0,6.26,
+2033-ORL-R1,2033,1,ORL,ORL,,,15.2,1.0,6.2,
+2033-POR-R1,2033,1,POR,POR,,,15.2,1.0,6.25,
+2033-MIN-R1,2033,1,MIN,CHO,,,15.3,1.0,6.2,
+2033-CHI-R1,2033,1,CHI,CHI,,,15.3,1.0,6.22,
 2033-LAC-R1,2033,1,LAC,LAC,,,15.3,0.0,0.0,Forfeited pick (no value)
-2033-NOP-R1,2033,1,NOP,NOP,,,15.3,1.0,6.0,
-2033-WAS-R1,2033,1,WAS,WAS,,,15.3,1.0,6.01,
-2033-ATL-R1,2033,1,ATL,ATL,,,15.4,1.0,6.06,
-2033-CHA-R1,2033,1,CHO,CHO,,,15.4,1.0,5.92,
-2033-MIL-R1,2033,1,MIL,MIL,,,15.4,1.0,5.96,
-2033-PHX-R1,2033,1,PHO,CHO,,,15.5,1.0,5.94,
-2033-MIA-R1,2033,1,MIA,MIL,,,15.5,1.0,5.91,
-2033-DET-R1,2033,1,DET,DET,,,15.6,1.0,5.92,
-2033-GSW-R1,2033,1,GSW,GSW,,,15.6,1.0,5.97,
-2033-MEM-R1,2033,1,MEM,MEM,,,15.6,1.0,5.87,
-2033-BOS-R1,2033,1,BOS,BOS,,,15.8,1.0,5.88,
-2033-CLE-R1,2033,1,CLE,CLE,,,15.8,1.0,5.89,FROZEN PICK
-2033-DEN-R1,2033,1,DEN,DEN,,,15.8,1.0,5.86,
-2033-HOU-R1,2033,1,HOU,HOU,,,15.8,1.0,5.92,
-2033-NYK-R1,2033,1,NYK,NYK,,,15.8,1.0,5.87,
-2033-SAS-R1,2033,1,SAS,SAS,,,15.8,1.0,5.86,
-2033-PHI-R1,2033,1,PHI,PHI,,,15.9,1.0,5.89,
-2033-TOR-R1,2033,1,TOR,LAC,,,16.0,1.0,5.78,
-2033-LAL-R1,2033,1,LAL,UTA,,,16.0,1.0,5.83,
-2033-OKC-R1,2033,1,OKC,OKC,,,16.3,1.0,5.79,
-2033-SAC-R2,2033,2,SAC,ATL,,,44.9,1.0,1.41,
-2033-IND-R2,2033,2,IND,IND,,,44.9,1.0,1.41,
-2033-BKN-R2,2033,2,BRK,BRK,,,45.0,1.0,1.41,
-2033-UTA-R2,2033,2,UTA,UTA,,,45.1,1.0,1.41,
-2033-DAL-R2,2033,2,DAL,WAS,,,45.1,1.0,1.41,
-2033-ORL-R2,2033,2,ORL,ORL,,,45.2,1.0,1.41,
-2033-POR-R2,2033,2,POR,POR,,,45.2,1.0,1.41,
-2033-MIN-R2,2033,2,MIN,CHO,,,45.3,1.0,1.41,
-2033-CHI-R2,2033,2,CHI,CHI,,,45.3,1.0,1.41,
-2033-LAC-R2,2033,2,LAC,LAC,,,45.3,1.0,1.41,
-2033-NOP-R2,2033,2,NOP,NOP,,,45.3,1.0,1.41,
-2033-WAS-R2,2033,2,WAS,WAS,,,45.3,1.0,1.41,
-2033-ATL-R2,2033,2,ATL,ATL,,,45.4,1.0,1.41,
-2033-CHA-R2,2033,2,CHO,CHO,,,45.4,1.0,1.41,
-2033-MIL-R2,2033,2,MIL,MIL,,,45.4,1.0,1.41,
-2033-MIA-R2,2033,2,MIA,MIL,,,45.5,1.0,1.41,
-2033-PHX-R2,2033,2,PHO,NYK,,,45.5,1.0,1.41,
-2033-DET-R2,2033,2,DET,DET,,,45.6,1.0,1.41,
-2033-GSW-R2,2033,2,GSW,MEM,,,45.6,1.0,1.41,
-2033-MEM-R2,2033,2,MEM,MEM,,,45.6,1.0,1.41,
-2033-BOS-R2,2033,2,BOS,BOS,,,45.8,1.0,1.41,
-2033-HOU-R2,2033,2,HOU,CHO,,,45.8,1.0,1.41,
-2033-CLE-R2,2033,2,CLE,CLE,,,45.8,1.0,1.41,
-2033-DEN-R2,2033,2,DEN,DEN,,,45.8,1.0,1.41,
-2033-NYK-R2,2033,2,NYK,NYK,,,45.8,1.0,1.41,
-2033-SAS-R2,2033,2,SAS,SAS,,,45.8,1.0,1.41,
-2033-PHI-R2,2033,2,PHI,PHI,,,45.9,1.0,1.41,
-2033-TOR-R2,2033,2,TOR,LAC,,,46.0,1.0,1.41,
-2033-LAL-R2,2033,2,LAL,LAL,,,46.0,1.0,1.41,
-2033-OKC-R2,2033,2,OKC,MEM,,,46.3,1.0,1.41,
+2033-NOP-R1,2033,1,NOP,NOP,,,15.3,1.0,6.19,
+2033-WAS-R1,2033,1,WAS,WAS,,,15.3,1.0,6.2,
+2033-ATL-R1,2033,1,ATL,ATL,,,15.4,1.0,6.24,
+2033-CHA-R1,2033,1,CHO,CHO,,,15.4,1.0,6.12,
+2033-MIL-R1,2033,1,MIL,MIL,,,15.4,1.0,6.15,
+2033-PHX-R1,2033,1,PHO,CHO,,,15.5,1.0,6.12,
+2033-MIA-R1,2033,1,MIA,MIL,,,15.5,1.0,6.1,
+2033-DET-R1,2033,1,DET,DET,,,15.6,1.0,6.11,
+2033-GSW-R1,2033,1,GSW,GSW,,,15.6,1.0,6.15,
+2033-MEM-R1,2033,1,MEM,MEM,,,15.6,1.0,6.05,
+2033-BOS-R1,2033,1,BOS,BOS,,,15.8,1.0,6.06,
+2033-CLE-R1,2033,1,CLE,CLE,,,15.8,1.0,6.07,FROZEN PICK
+2033-DEN-R1,2033,1,DEN,DEN,,,15.8,1.0,6.07,
+2033-HOU-R1,2033,1,HOU,HOU,,,15.8,1.0,6.1,
+2033-NYK-R1,2033,1,NYK,NYK,,,15.8,1.0,6.06,
+2033-SAS-R1,2033,1,SAS,SAS,,,15.8,1.0,6.05,
+2033-PHI-R1,2033,1,PHI,PHI,,,15.9,1.0,6.07,
+2033-TOR-R1,2033,1,TOR,LAC,,,16.0,1.0,5.96,
+2033-LAL-R1,2033,1,LAL,UTA,,,16.0,1.0,6.01,
+2033-OKC-R1,2033,1,OKC,OKC,,,16.3,1.0,5.97,
+2033-SAC-R2,2033,2,SAC,ATL,,,44.9,1.0,1.44,
+2033-IND-R2,2033,2,IND,IND,,,44.9,1.0,1.44,
+2033-BKN-R2,2033,2,BRK,BRK,,,45.0,1.0,1.44,
+2033-UTA-R2,2033,2,UTA,UTA,,,45.1,1.0,1.44,
+2033-DAL-R2,2033,2,DAL,WAS,,,45.1,1.0,1.44,
+2033-ORL-R2,2033,2,ORL,ORL,,,45.2,1.0,1.44,
+2033-POR-R2,2033,2,POR,POR,,,45.2,1.0,1.44,
+2033-MIN-R2,2033,2,MIN,CHO,,,45.3,1.0,1.44,
+2033-CHI-R2,2033,2,CHI,CHI,,,45.3,1.0,1.44,
+2033-LAC-R2,2033,2,LAC,LAC,,,45.3,1.0,1.44,
+2033-NOP-R2,2033,2,NOP,NOP,,,45.3,1.0,1.44,
+2033-WAS-R2,2033,2,WAS,WAS,,,45.3,1.0,1.44,
+2033-ATL-R2,2033,2,ATL,ATL,,,45.4,1.0,1.44,
+2033-CHA-R2,2033,2,CHO,CHO,,,45.4,1.0,1.44,
+2033-MIL-R2,2033,2,MIL,MIL,,,45.4,1.0,1.44,
+2033-MIA-R2,2033,2,MIA,MIL,,,45.5,1.0,1.44,
+2033-PHX-R2,2033,2,PHO,NYK,,,45.5,1.0,1.44,
+2033-DET-R2,2033,2,DET,DET,,,45.6,1.0,1.44,
+2033-GSW-R2,2033,2,GSW,MEM,,,45.6,1.0,1.44,
+2033-MEM-R2,2033,2,MEM,MEM,,,45.6,1.0,1.44,
+2033-BOS-R2,2033,2,BOS,BOS,,,45.8,1.0,1.44,
+2033-HOU-R2,2033,2,HOU,CHO,,,45.8,1.0,1.44,
+2033-CLE-R2,2033,2,CLE,CLE,,,45.8,1.0,1.44,
+2033-DEN-R2,2033,2,DEN,DEN,,,45.8,1.0,1.44,
+2033-NYK-R2,2033,2,NYK,NYK,,,45.8,1.0,1.44,
+2033-SAS-R2,2033,2,SAS,SAS,,,45.8,1.0,1.44,
+2033-PHI-R2,2033,2,PHI,PHI,,,45.9,1.0,1.44,
+2033-TOR-R2,2033,2,TOR,LAC,,,46.0,1.0,1.44,
+2033-LAL-R2,2033,2,LAL,LAL,,,46.0,1.0,1.44,
+2033-OKC-R2,2033,2,OKC,MEM,,,46.3,1.0,1.44,
