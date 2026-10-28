@@ -13,8 +13,8 @@ to play out the rest of the 2026-27 season:
 Ratings are predict.py's: WS/48 x projected minutes filled to 240 with
 replacement players, centred on the league and pulled 20% toward average.
 Injuries count for the rest of the season only when they are long: season-ending
-news takes a player out, a plain "out" costs him 15% of his games, day-to-day
-nothing.
+news takes a player out, a reported timeline ("out two months") costs him those
+games (injury.py), a plain "out" costs him 15% of his games, day-to-day nothing.
 
 The predictor only keeps about a week of schedule; the first run downloads the
 whole season from Basketball Reference (7 pages, ~30 s) into the predictor's
@@ -26,6 +26,7 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import predict as P
+from injury import games_out
 
 EAST = {"ATL", "BOS", "BRK", "CHO", "CHI", "CLE", "DET", "IND", "MIA", "MIL", "NYK", "ORL", "PHI", "TOR", "WAS"}
 SEASON_START, SEASON_END = "2026-07-01", "2027-04-01"   # news before July is last season's
@@ -69,12 +70,6 @@ def main():
                       g.get("live", "")] for g in games])
 
     players = P.load_players()
-    avail = {}
-    for r in P.read_csv(P.INJURY_FILE) if P.INJURY_FILE.exists() else []:
-        a = season_availability(r["note"], r.get("updated", ""))
-        if a < 1:
-            k = P.key(r["player"])
-            avail[k] = min(avail.get(k, 1.0), a)
 
     rosters = {t: [p for p in players if p["team"] == t] for t in P.TEAMS.values()}
     healthy_raw = {t: P.team_rating(rosters[t]) for t in rosters}
@@ -97,6 +92,22 @@ def main():
             continue
         prev = (date.fromisoformat(g["date"]) - timedelta(days=1)).isoformat()
         left.append([g["date"], g["away"], g["home"], int(prev in played[g["away"]]), int(prev in played[g["home"]])])
+
+    # a reported timeline ("out two months") becomes the share of his team's games left that he misses
+    games_left = {}
+    for g in left:
+        for t in (g[1], g[2]):
+            games_left[t] = games_left.get(t, 0) + 1
+    team_of = {p["player"]: p["team"] for p in players}
+    avail = {}
+    for r in P.read_csv(P.INJURY_FILE) if P.INJURY_FILE.exists() else []:
+        k = P.key(r["player"])
+        n_left = games_left.get(team_of.get(k), 0)
+        out = games_out(r["note"], r.get("updated", ""), date.today(), n_left) if n_left else None
+        a = season_availability(r["note"], r.get("updated", "")) if out is None or r.get("updated", "") < SEASON_START \
+            else 1 - out / n_left
+        if a < 1:
+            avail[k] = min(avail.get(k, 1.0), round(a, 3))
 
     teams = {}
     for t in sorted(P.TEAMS.values()):

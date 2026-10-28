@@ -32,6 +32,10 @@ h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.0
 @media (max-width:420px){.pc b{font-size:12.5px}.pc .v{font-size:12.5px}}
 .sub{color:var(--muted);font-size:13.5px}
 footer{margin-top:28px;color:var(--muted);font-size:12.5px}
+.how{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.how li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--muted)}
+.how li::before{display:block;margin-bottom:4px;content:"Step " counter(s);font:500 11px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.how b{color:var(--ink)}
 </style></head><body>
 <script src="nav.js" data-page="landing"></script>
 <main>
@@ -48,6 +52,16 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 
 <h2>Top value players this week</h2>
 <div class="top3" id="top3"><p class="sub">Loading…</p></div>
+
+<h2>How the Contract Ledger works</h2>
+<p class="lede" style="font-size:15px">Read an NBA team like a balance sheet: contracts are what a front office spends, production is what it gets back. The Ledger prices every 2026-27 contract against what the player produces.</p>
+<ol class="how">
+<li><b>Price a win.</b> A replacement-level player costs the league minimum ($1.36M). Every Win Share above replacement is worth <b>$6.20M</b>, the rate at which total value matches total league salary.</li>
+<li><b>Value each player.</b> The minimum plus $6.20M per Win Share above replacement is what his production is worth. Subtract his salary and you get <b>surplus</b>: positive is a bargain, negative is overpaid.</li>
+<li><b>Credit the stars.</b> Win Shares undersell high-usage stars, so players who made All-NBA in the last two seasons or rank top 10 in VORP get 75% of any overpay forgiven, and the rest of the top 25 get 40%.</li>
+<li><b>Count injury time.</b> When a report gives a timeline ("out two months"), the games he'll miss come off his 2026-27 value, his trade value and the season sim. "If healthy" ignores it.</li>
+<li><b>Add up each team.</b> Sum the surplus on a roster and subtract dead money (salary owed to players who are gone) to rank all 30 front offices.</li>
+</ol>
 
 <h2>Challenge</h2>
 <div class="wiz"><h3>Fix the Wizards</h3><p>Washington needs help. Use the Trade machine and Be the GM to turn the Wizards around, then check the Season sim to see if your moves moved the odds.</p>

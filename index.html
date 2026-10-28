@@ -131,17 +131,6 @@ td .badge{margin-right:8px}
 </style>
 
 <div class="wrap">
-  <header>
-    <p class="eyebrow">NBA Asset Tracker · 2026-27 contracts · as of Oct 25, 2026</p>
-    <h1>Contract Ledger</h1>
-    <p class="lede">What if you read an NBA team like a balance sheet? Contracts are what a front office spends; production is what it gets back. This ledger prices every 2026-27 contract against what the player actually produces, to see which teams spend their money best.</p>
-    <ol class="how">
-      <li><b>Price a win.</b> A replacement-level player costs the league minimum ($1.36M). Every Win Share above replacement is worth <b>$6.20M</b>, the rate at which total value matches total league salary.</li>
-      <li><b>Value each player.</b> The minimum plus $6.20M for each Win Share above replacement is what his production is worth. Small samples are pulled toward average, and bench bigs get a rebounding discount. Subtract his salary and you get <b>surplus</b>: positive is a bargain, negative is overpaid.</li>
-      <li><b>Add up each team.</b> Sum the surplus on a roster and subtract dead money (salary still owed to players who are gone) to rank all 30 front offices.</li>
-    </ol>
-    <p class="lede" style="font-size:13px">Click any dot, row or team to dig in. Built by Sreekar as a weekend project; data from NBA.com, Basketball Reference and Spotrac.</p>
-  </header>
 
   <div class="controls">
     <div class="seg tabs" role="group" aria-label="View" hidden>
@@ -203,7 +192,7 @@ function parseCSV(t){
 }
 const N=v=>v===""||v==null?null:+v;
 let players=[],teams=[];
-const mapPlayer=(r,i)=>({id:i,name:r.Player,team:r.Team,prev:r["2025-26 team"],g:N(r.G),mp:N(r.MP),projmp:N(r.proj_MP),ws:N(r.WS),ws48:N(r["WS/48"]),vorp:N(r.VORP),sal:N(r.salary_m),actual:N(r.surplus_m),healthy:N(r.healthy_surplus_m),blended:N(r.blended_surplus_m),g27:N(r["G_26-27"]),ws48b:N(r["WS/48_26-27"]),rookie:r.rookie_scale==="True",small:(r.flag||"").includes("small"),split:(r.flag||"").includes("split")});
+const mapPlayer=(r,i)=>({id:i,star:N(r.star_tier)||0,starm:N(r.star_m)||0,out:N(r.games_out)||0,injm:N(r.injury_m)||0,injnote:r.injury_note||"",name:r.Player,team:r.Team,prev:r["2025-26 team"],g:N(r.G),mp:N(r.MP),projmp:N(r.proj_MP),ws:N(r.WS),ws48:N(r["WS/48"]),vorp:N(r.VORP),sal:N(r.salary_m),actual:N(r.surplus_m),healthy:N(r.healthy_surplus_m),blended:N(r.blended_surplus_m),g27:N(r["G_26-27"]),ws48b:N(r["WS/48_26-27"]),rookie:r.rookie_scale==="True",small:(r.flag||"").includes("small"),split:(r.flag||"").includes("split")});
 const mapTeam=r=>({team:r.Team,picks:N(r.pick_value_m),active:N(r.active_m),dead:N(r.dead_m),retained:N(r.retained_m),cash:N(r.total_cash_m)});
 const TEAM={ATL:["Atlanta Hawks","#C8102E","#FDB927"],BOS:["Boston Celtics","#007A33","#BA9653"],BRK:["Brooklyn Nets","#000000","#A1A1A4"],CHO:["Charlotte Hornets","#1D1160","#00788C"],CHI:["Chicago Bulls","#CE1141","#000000"],CLE:["Cleveland Cavaliers","#860038","#FDBB30"],DAL:["Dallas Mavericks","#00538C","#B8C4CA"],DEN:["Denver Nuggets","#0E2240","#FEC524"],DET:["Detroit Pistons","#C8102E","#1D42BA"],GSW:["Golden State Warriors","#1D428A","#FFC72C"],HOU:["Houston Rockets","#CE1141","#C4CED4"],IND:["Indiana Pacers","#002D62","#FDBB30"],LAC:["LA Clippers","#C8102E","#1D428A"],LAL:["Los Angeles Lakers","#552583","#FDB927"],MEM:["Memphis Grizzlies","#5D76A9","#12173F"],MIA:["Miami Heat","#98002E","#F9A01B"],MIL:["Milwaukee Bucks","#00471B","#EEE1C6"],MIN:["Minnesota Timberwolves","#0C2340","#78BE20"],NOP:["New Orleans Pelicans","#0C2340","#C8102E"],NYK:["New York Knicks","#006BB6","#F58426"],OKC:["Oklahoma City Thunder","#007AC1","#EF3B24"],ORL:["Orlando Magic","#0077C0","#C4CED4"],PHI:["Philadelphia 76ers","#006BB6","#ED174C"],PHO:["Phoenix Suns","#1D1160","#E56020"],POR:["Portland Trail Blazers","#E03A3E","#000000"],SAC:["Sacramento Kings","#5A2D81","#63727A"],SAS:["San Antonio Spurs","#000000","#C4CED4"],TOR:["Toronto Raptors","#CE1141","#000000"],UTA:["Utah Jazz","#002B5C","#F9A01B"],WAS:["Washington Wizards","#002B5C","#E31837"]};
 const tinfo=a=>TEAM[a]||[a,"#5B6878","#C3CCD6"];
@@ -273,7 +262,7 @@ function drawDetail(){
   let p=players.find(q=>q.id===st.sel);
   if(!p){p=pts.slice().sort((a,b)=>b[st.lens]-a[st.lens])[0];}
   const d=$("#detail");if(!p){d.innerHTML="<p class='sub'>No players match.</p>";return}
-  const chips=[p.small?"<span class='chip warn'>small sample</span>":"",p.rookie?"<span class='chip'>rookie deal</span>":"",p.split?"<span class='chip warn'>split contract</span>":"",p.prev&&p.prev!==p.team?`<span class='chip'>was ${p.prev} in 2025-26</span>`:""].join(" ");
+  const chips=[p.small?"<span class='chip warn'>small sample</span>":"",p.rookie?"<span class='chip'>rookie deal</span>":"",p.split?"<span class='chip warn'>split contract</span>":"",p.prev&&p.prev!==p.team?`<span class='chip'>was ${p.prev} in 2025-26</span>`:"",p.star?`<span class='chip' title="${p.star>1?"All-NBA in the last two seasons or top 10 in VORP":"Top 25 in VORP last season"}: ${p.star>1?75:40}% of any overpay is forgiven${p.starm?" (+"+money(p.starm)+" if healthy)":""}">${p.star>1?"★★ star credit":"★ star credit"}</span>`:"",p.out?`<span class='chip warn' title="${esc(p.injnote)}">out ~${p.out} games: −${money(p.injm)} this season</span>`:""].join(" ");
   const max=Math.max(45,...["actual","healthy","blended"].map(k=>Math.abs(p[k]||0)));
   const row=k=>{const v=p[k];const w=v==null?0:Math.abs(v)/max*50;return `<div class="lensrow${k===st.lens?" on":""}"><span>${LENS[k].label}</span><span class="bar"><i style="left:${v!=null&&v<0?50-w:50}%;width:${w}%;background:${v>=0?"var(--good)":"var(--bad)"}"></i><i style="left:50%;width:1px;background:var(--muted)"></i></span><span class="v ${cls(v)}">${sgn(v)}</span></div>`};
   d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h2>${esc(p.name)}</h2><button class="btn" data-player="${esc(p.name)}" data-pt="${p.team}">Player page</button></div><p class="sub">${badge(p.team,20)} ${tinfo(p.team)[0]} · ${money(p.sal)} this season</p>

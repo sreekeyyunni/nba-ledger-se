@@ -36,10 +36,11 @@ Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_a
 
 | File | Columns (key ones) | Writer |
 |---|---|---|
-| `contract_value.csv` | Player, Team, G, MP, WS, VORP, salary_m, market_value_m, surplus_m, healthy_surplus_m, ... | Mac |
+| `contract_value.csv` | Player, Team, G, MP, WS, VORP, salary_m, market_value_m, surplus_m, healthy_surplus_m, ..., star_tier, star_m, games_out, injury_m, injury_note | Mac, then Actions (`pipeline/adjust.py`) |
 | `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Mac (contract pull, on request) |
-| `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag | Mac |
-| `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ... | Mac |
+| `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Mac, then Actions (`adjust.py`) |
+| `accolades.csv` | Player, season, honor (All-NBA) for star credit | By hand / Claude |
+| `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ..., adj_net_m | Mac, then Actions (`adjust.py`) |
 | `team_cap.csv`, `cap_sheet.csv`, `cap_sheet_lines.csv` | payroll, cap, tax, aprons by team (and season; lines are Team, season, kind, item, amt_m) | Mac |
 | `dead_money.csv`, `dead_2027_28.csv` | Team, dead_m | Mac |
 | `draft_picks.csv` | pick_id, year, round, original_team, owner, protection, value_m, ... | Mac |
@@ -52,6 +53,12 @@ Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_a
 | `sim_data.json` | teams and players for the season sim | Actions |
 | `transactions.csv` | id, date, type, team, player, description, source, years, total_m | Actions |
 | `movers.csv`, `snapshots/` | kind, key, team, value, prev_value, rank, prev_rank, since | `scripts/movers.py` |
+
+## Value adjustments
+
+`pipeline/adjust.py` adds star credit and injury time (timelines parsed by `pipeline/injury.py`) on top of
+the Mac's values. It keeps the Mac's unadjusted files in `pipeline/data/raw/` and always adjusts from those,
+so it is safe to rerun. Change the rules there, not in the pages.
 
 ## Testing a change
 

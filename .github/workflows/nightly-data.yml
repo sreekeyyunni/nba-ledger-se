@@ -38,6 +38,8 @@ jobs:
           exit 1
       - name: Season sim data
         run: python sim_data.py
+      - name: Star credit and injury time on contract values
+        run: python adjust.py ../data
       - name: Transactions (NBA.com feed plus ESPN)
         continue-on-error: true   # keep yesterday's list if NBA.com is down
         run: python transactions.py
@@ -49,6 +51,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/predictions.csv data/team_power.csv data/sim_data.json data/transactions.csv \
+                  data/contract_value.csv data/trade_values.csv data/team_summary.csv \
                   pipeline/data pipeline/outputs/predictions_log.csv
           if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
           git commit -m "Data: $(date '+%b %-d %-I:%M%p ET') nightly run"
