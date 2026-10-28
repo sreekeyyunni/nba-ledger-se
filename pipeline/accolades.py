@@ -47,7 +47,7 @@ def main():
             continue
         for c in cells[team + 1:]:
             name = re.sub(r"\s+[CFG](-[CFG])?$", "", c).strip()
-            if name and not re.fullmatch(r"[\d.\s-]*", name):
+            if name and not name.startswith("(") and not re.fullmatch(r"[\d.\s-]*", name):
                 rows.append([name, cur, f"All-NBA {cells[team]}"])
     if not any(r[1] == season(last) for r in rows):
         i = html.find(">" + season(last) + "<")
