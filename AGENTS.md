@@ -26,13 +26,14 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 | `sim.js`, `simui.js`, `fit.js` | Season simulator, its UI helpers, play-style fit |
 | `data/` | Everything the pages read at load time |
 | `logos/` | Team logos, `<TEAM>.png` |
-| `pipeline/` | Python run by GitHub Actions (`.github/workflows/nightly-data.yml`) |
-| `scripts/` | `to_ledger.sh` (repo to Claude app), `sync.sh` (old reverse direction), `pwa.py`, `movers.py` |
+| `pipeline/` | Python run by GitHub Actions (`.github/workflows/nightly-data.yml` twice daily, `weekly-data.yml` Mondays) |
+| `scripts/` | `to_ledger.sh` (repo to Claude app), `sync.sh` (old reverse direction), `pwa.py`, `movers.py`, `build_cap_sheet.py` |
 
 ## Data files and who writes them
 
 Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_api and contracts),
-**Actions** = `pipeline/` twice daily (about 4:30pm and 2am ET), **Claude** = the integrator.
+**Actions** = `pipeline/` twice daily (about 4:30pm and 2am ET), **Weekly** = `weekly-data.yml` on GitHub,
+Mondays 9am ET (`pipeline/stats.py`, cap sheet, movers), **Claude** = the integrator. The Mac is a backup only.
 
 | File | Columns (key ones) | Writer |
 |---|---|---|
@@ -41,7 +42,9 @@ Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_a
 | `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Mac, then Actions (`adjust.py`) |
 | `accolades.csv` | Player, season, honor (All-NBA) for star credit | By hand / Claude |
 | `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ..., adj_net_m | Mac, then Actions (`adjust.py`) |
-| `team_cap.csv`, `cap_sheet.csv`, `cap_sheet_lines.csv` | payroll, cap, tax, aprons by team (and season; lines are Team, season, kind, item, amt_m) | Mac |
+| `team_cap.csv` | payroll, cap, tax, aprons by team | Mac (contract pull) |
+| `cap_sheet.csv`, `cap_sheet_lines.csv` | by team and season; lines are Team, season, kind, item, amt_m | Weekly (`scripts/build_cap_sheet.py`) |
+| `pipeline/data/advanced_2026_27.csv` | Player, Age, Team, Pos, G, MP, WS, WS/48, BPM, VORP, ... | Weekly (`pipeline/stats.py`, Basketball Reference) |
 | `dead_money.csv`, `dead_2027_28.csv` | Team, dead_m | Mac |
 | `draft_picks.csv` | pick_id, year, round, original_team, owner, protection, value_m, ... | Mac |
 | `prospects.csv` | Rank, Name, Pos, School, Class, Age, Height | Mac |
@@ -52,7 +55,7 @@ Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_a
 | `team_power.csv` | rank, team, rating, form, wins, losses, out | Actions |
 | `sim_data.json` | teams and players for the season sim | Actions |
 | `transactions.csv` | id, date, type, team, player, description, source, years, total_m | Actions |
-| `movers.csv`, `snapshots/` | kind, key, team, value, prev_value, rank, prev_rank, since | `scripts/movers.py` |
+| `movers.csv`, `snapshots/` | kind, key, team, value, prev_value, rank, prev_rank, since | Weekly (`scripts/movers.py`) |
 
 ## Value adjustments
 
