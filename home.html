@@ -21,6 +21,16 @@ h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.0
 .card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--ink)}
 .card:hover{border-color:var(--accent)}.card b{display:block}.card span{color:var(--muted);font-size:13px}
 .note{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:12px 14px;color:var(--muted);font-size:13.5px}
+.top3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 8px;text-decoration:none;color:var(--ink);position:relative}
+.pc:hover{border-color:var(--accent)}.pc:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pc .ph{width:100%;max-width:150px;aspect-ratio:26/19;display:flex;align-items:flex-end;justify-content:center;border-radius:8px;background:var(--bg);overflow:hidden}
+.pc .ph img{width:100%;height:100%;object-fit:cover;object-position:top}.pc .ph img.logo{object-fit:contain;padding:14%}
+.pc .rk{position:absolute;top:8px;left:10px;font:700 20px 'Barlow Condensed','Arial Narrow',sans-serif;color:var(--accent)}
+.pc b{font-size:14px;line-height:1.2}.pc .v{color:var(--good);font-weight:600;font-size:14px}.pc .t{color:var(--muted);font-size:12px}
+.pc .t img{width:14px;height:14px;vertical-align:-2px;margin-right:3px}
+@media (max-width:420px){.pc b{font-size:12.5px}.pc .v{font-size:12.5px}}
+.sub{color:var(--muted);font-size:13.5px}
 footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 </style></head><body>
 <script src="nav.js" data-page="landing"></script>
@@ -35,6 +45,9 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <a class="stat card" href="sim.html"><span>Title odds leader</span><b id="ttl">…</b><span id="ttls">Monte Carlo season sim</span></a>
 <a class="stat card" href="grader.html"><span>Latest move</span><b id="trx" style="font-size:17px">…</b><span>Transactions feed</span></a>
 </div>
+
+<h2>Top value players this week</h2>
+<div class="top3" id="top3"><p class="sub">Loading…</p></div>
 
 <h2>Challenge</h2>
 <div class="wiz"><h3>Fix the Wizards</h3><p>Washington needs help. Use the Trade machine and Be the GM to turn the Wizards around, then check the Season sim to see if your moves moved the odds.</p>
@@ -67,6 +80,13 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <script>
 function csv(t){var r=[],row=[],f="",q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){row.push(f);f=""}else if(c=='\n'){row.push(f);r.push(row);row=[];f=""}else if(c!='\r')f+=c}if(f||row.length){row.push(f);r.push(row)}var h=r.shift();return r.filter(function(x){return x.length>1}).map(function(x){var o={};h.forEach(function(k,j){o[k]=x[j]});return o})}
 function get(u,j){return fetch(u).then(function(r){if(!r.ok)throw 0;return j?r.json():r.text()})}
+// Top 3 by contract surplus (healthy projection, the Ledger's default view), with NBA.com headshots when we know the player's id
+Promise.all([get("data/contract_value.csv"),get("data/player_ids.csv").catch(function(){return""})]).then(function(a){
+ var ids={};if(a[1])csv(a[1]).forEach(function(r){if(r.nba_id)ids[r.Player]=r.nba_id});
+ var r=csv(a[0]).filter(function(x){return x.healthy_surplus_m!==""&&!/small/.test(x.flag||"")}).sort(function(x,y){return y.healthy_surplus_m-x.healthy_surplus_m}).slice(0,3);
+ var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+ document.getElementById("top3").innerHTML=r.map(function(x,i){var id=ids[x.Player],logo='logos/'+x.Team+'.png';
+  return '<a class="pc" href="index.html#player/'+encodeURIComponent(x.Player)+'"><span class="rk">'+(i+1)+'</span><span class="ph">'+(id?'<img src="https://cdn.nba.com/headshots/nba/latest/260x190/'+id+'.png" alt="" loading="lazy" onerror="this.onerror=null;this.className=\'logo\';this.src=\''+logo+'\'">':'<img class="logo" src="'+logo+'" alt="">')+'</span><b>'+esc(x.Player)+'</b><span class="t"><img src="'+logo+'" alt="">'+x.Team+'</span><span class="v">+$'+(+x.healthy_surplus_m).toFixed(1)+'M surplus</span></a>'}).join("")}).catch(function(){document.getElementById("top3").innerHTML='<p class="sub">Couldn\'t load player values.</p>'});
 get("data/predictions.csv").then(function(t){var r=csv(t).filter(function(x){return x.mode==="live"&&x.status==="final"});
  var w=r.filter(function(x){return x.correct==="1"}).length;document.getElementById("rec").textContent=r.length?w+"-"+(r.length-w):"Soon";
  if(r.length)document.getElementById("recs").textContent=Math.round(100*w/r.length)+"% since Oct 25"}).catch(function(){document.getElementById("rec").textContent="–"});
