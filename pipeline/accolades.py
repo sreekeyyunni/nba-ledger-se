@@ -34,18 +34,27 @@ def main():
     except Exception as e:                                             # shows as a warning on the Actions run
         raise SystemExit(f"::warning::accolades: Basketball Reference request failed: {e}")
     html = html.replace("<!--", "").replace("-->", "")                 # tables can sit inside comments
-    rows = []
+    rows, cur = [], None
     for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.S):
-        s = re.search(r">(\d{4}-\d{2})<", tr)
-        team = re.search(r">(1st|2nd|3rd)<", tr)
-        if not (s and team and s.group(1) in want) or ">NBA<" not in tr:
+        cells = [re.sub(r"<[^>]+>", "", c).replace("&nbsp;", " ").strip()
+                 for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, re.S)]
+        if not cells:
             continue
-        for name in re.findall(r'href="/players/[^"]+">([^<]+)</a>', tr):
-            rows.append([name.strip(), s.group(1), f"All-NBA {team.group(1)}"])
+        if re.fullmatch(r"\d{4}-\d{2}", cells[0]):
+            cur = cells[0]
+        team = next((i for i, c in enumerate(cells) if c in ("1st", "2nd", "3rd")), None)
+        if cur not in want or team is None or "NBA" not in cells[:team]:
+            continue
+        for c in cells[team + 1:]:
+            name = re.sub(r"\s+[CFG](-[CFG])?$", "", c).strip()
+            if name and not re.fullmatch(r"[\d.\s-]*", name):
+                rows.append([name, cur, f"All-NBA {cells[team]}"])
     if not any(r[1] == season(last) for r in rows):
+        i = html.find(">" + season(last) + "<")
+        sample = html[max(0, i - 200):i + 600] if i >= 0 else ""
         seasons = sorted(set(re.findall(r">(\d{4}-\d{2})<", html)))[-3:]
         raise SystemExit(f"::warning::accolades: no {season(last)} All-NBA rows found in {len(html)} bytes "
-                         f"(latest seasons on page: {seasons}); keeping {OUT}")
+                         f"(latest seasons on page: {seasons}; sample row: {re.sub(r"\\s+", " ", sample)[:400]}); keeping {OUT}")
     with open(OUT, "w", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["Player", "season", "honor"])
