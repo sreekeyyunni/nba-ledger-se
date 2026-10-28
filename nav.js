@@ -13,15 +13,26 @@
     ".appnav .links a:focus-visible,.appnav .mt:focus-visible,.appnav .brand:focus-visible{outline:2px solid #F08A4B;outline-offset:2px}"+
     ".appnav .mt{display:flex;align-items:center;gap:6px;color:#fff;white-space:nowrap;font-size:12.5px}"+
     ".appnav .mt img{width:22px;height:22px;object-fit:contain;background:#fff;border-radius:50%;padding:1px}"+
+    ".appnav .mt select{font:600 12.5px 'IBM Plex Sans',system-ui,sans-serif;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:5px;padding:4px 6px;max-width:190px;cursor:pointer}"+
+    ".appnav .mt select option{color:#16212D;background:#fff}"+
+    ".appnav .mt select:focus-visible{outline:2px solid #F08A4B;outline-offset:2px}"+
     "@media (max-width:640px){.appnav .links{order:3;flex-basis:100%}.appnav .mt{margin-left:auto}}";
   var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
   var nav=document.createElement("nav");nav.className="appnav";nav.setAttribute("aria-label","App pages");
   function current(){if(page!=="ledger")return page;var h=(location.hash||"#home").slice(1).split("/")[0];return h==="player"?"players":h||"home"}
   function team(){try{return localStorage.getItem("myTeam")}catch(e){return null}}
+  var TEAMS={ATL:"Atlanta Hawks",BOS:"Boston Celtics",BRK:"Brooklyn Nets",CHO:"Charlotte Hornets",CHI:"Chicago Bulls",CLE:"Cleveland Cavaliers",DAL:"Dallas Mavericks",DEN:"Denver Nuggets",DET:"Detroit Pistons",GSW:"Golden State Warriors",HOU:"Houston Rockets",IND:"Indiana Pacers",LAC:"LA Clippers",LAL:"Los Angeles Lakers",MEM:"Memphis Grizzlies",MIA:"Miami Heat",MIL:"Milwaukee Bucks",MIN:"Minnesota Timberwolves",NOP:"New Orleans Pelicans",NYK:"New York Knicks",OKC:"Oklahoma City Thunder",ORL:"Orlando Magic",PHI:"Philadelphia 76ers",PHO:"Phoenix Suns",POR:"Portland Trail Blazers",SAC:"Sacramento Kings",SAS:"San Antonio Spurs",TOR:"Toronto Raptors",UTA:"Utah Jazz",WAS:"Washington Wizards"};
+  // Your-team switcher: every page reads the saved team on load, so a change reloads the page
+  function teamPicker(t){
+    var ok=t&&TEAMS[t];
+    return '<label class="mt" title="Your team">'+(ok?'<img src="logos/'+t+'.png" alt="">':"")+'<select aria-label="Your team">'+(ok?"":'<option value="">Pick your team</option>')+
+      Object.keys(TEAMS).sort(function(a,b){return TEAMS[a].localeCompare(TEAMS[b])}).map(function(k){return '<option value="'+k+'"'+(k===t?" selected":"")+">"+TEAMS[k]+"</option>"}).join("")+"</select></label>";
+  }
+  nav.addEventListener("change",function(e){if(e.target.matches(".mt select")&&e.target.value){try{localStorage.setItem("myTeam",e.target.value)}catch(_){}location.reload()}});
   function draw(){
     var cur=current(),t=team();
     nav.innerHTML='<a class="brand" href="index.html#home">NBA Asset Tracker</a><div class="links">'+PAGES.map(function(p){return '<a href="'+p[0]+'"'+(p[2]===cur?' aria-current="page"':"")+">"+p[1]+"</a>"}).join("")+"</div>"+
-      (t&&/^[A-Z]{3}$/.test(t)?'<a class="mt" href="index.html#home" title="Your team"><img src="logos/'+t+'.png" alt="">'+t+"</a>":'<a class="mt" href="index.html#home">Pick your team</a>');
+      teamPicker(t);
     var on=nav.querySelector("[aria-current]"),ls=nav.querySelector(".links");if(on&&ls&&ls.scrollWidth>ls.clientWidth)ls.scrollLeft=Math.max(0,on.offsetLeft-ls.offsetLeft-24);
   }
   document.body.insertBefore(nav,document.body.firstChild);draw();
