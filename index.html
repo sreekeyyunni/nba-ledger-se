@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="ledger"></script>
 <script src="fit.js"></script>
 <script src="sim.js"></script>
@@ -125,6 +125,8 @@ td .badge{margin-right:8px}
 .tverdict{border-radius:8px;padding:12px 16px;border:1px solid var(--line);background:var(--surface);border-left:5px solid var(--good)}
 .tverdict.bad{border-left-color:var(--bad)}
 .verdict{font-weight:600;margin:4px 0 0}
+.mv{font:600 11px var(--mono,ui-monospace,monospace);white-space:nowrap}
+.movers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.movers ul{list-style:none;margin:4px 0 0;padding:0;font-size:13px;display:flex;flex-direction:column;gap:3px}.movers img{vertical-align:-3px}
 .fitwhy{list-style:none;margin:6px 0 0;padding:0;font-size:13px;display:flex;flex-direction:column;gap:2px}
 </style>
 
@@ -280,6 +282,11 @@ function drawDetail(){
   <dl class="kv"><dt>2025-26 games / minutes</dt><dd>${p.g==null?"–":p.g.toFixed(0)} / ${p.mp==null?"–":p.mp.toFixed(0)}</dd><dt>Healthy projection</dt><dd>${p.projmp==null?"–":p.projmp.toFixed(0)+" min"}</dd><dt>VORP (2nd opinion)</dt><dd>${p.vorp==null?"–":p.vorp.toFixed(1)}</dd><dt>2025-26 Win Shares</dt><dd>${p.ws==null?"–":p.ws.toFixed(1)}</dd><dt>WS per 48 min</dt><dd>${p.ws48==null?"–":p.ws48.toFixed(3)}</dd><dt>2026-27 games</dt><dd>${p.g27==null?"–":p.g27.toFixed(0)}</dd><dt>2026-27 WS per 48</dt><dd>${p.ws48b==null?"–":p.ws48b.toFixed(3)}</dd></dl>`;
 }
 
+// Change since the last data snapshot (data/movers.csv, written by scripts/movers.py at each refresh)
+let MOVE={};
+const fmtDay=d=>d?new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"";
+function moveTag(kind,key){const m=MOVE[kind+"|"+key];if(!m||m.pr==null)return"";const dr=m.pr-m.r;if(!dr&&Math.abs(m.d)<0.5)return"";
+  return ` <span class="mv ${dr>0||(!dr&&m.d>0)?"pos":"neg"}" title="${kind==="player"?"Trade value":"Net value"} ${m.d>=0?"+":"−"}$${Math.abs(m.d).toFixed(1)}M, rank ${m.pr} → ${m.r} since ${fmtDay(m.since)}">${dr>0?"▲"+dr:dr<0?"▼"+(-dr):m.d>0?"▲":"▼"}</span>`}
 const PCOLS=[{k:"name",l:"Player"},{k:"team",l:"Team"},{k:"g",l:"Games",n:1},{k:"sal",l:"Salary",n:1},{k:"ws48",l:"WS/48",n:1},{k:"val",l:"Value",n:1},{k:"sur",l:"Surplus",n:1}];
 const pval=(p,k)=>k==="val"?(p[st.lens]==null?null:p.sal+p[st.lens]):k==="sur"?p[st.lens]:p[k];
 function sortBy(arr,get,s){return arr.sort((a,b)=>{const A=get(a,s.k),B=get(b,s.k);if(A==null)return 1;if(B==null)return -1;return(typeof A==="string"?A.localeCompare(B):A-B)*s.d})}
@@ -287,7 +294,7 @@ function head(cols,s,id){return "<thead><tr>"+cols.map(c=>`<th class="${c.n?"num
 function drawPTable(){
   const rows=sortBy(visible().filter(match),pval,st.sort);
   $("#pcount").textContent=`${rows.length} players · ${LENS[st.lens].label.toLowerCase()} view`;
-  $("#ptable").innerHTML=head(PCOLS,st.sort,"p")+"<tbody>"+rows.map(p=>`<tr data-id="${p.id}" class="${p.id===st.sel?"sel":""}"><td>${esc(p.name)} ${p.small?"<span class='chip warn'>small</span>":""}${p.split?" <span class='chip warn'>split</span>":""}${p.rookie?" <span class='chip'>rookie</span>":""}</td><td>${p.team}</td><td class="num">${p.g==null?"–":p.g.toFixed(0)}</td><td class="num">${money(p.sal)}</td><td class="num">${p.ws48==null?"–":p.ws48.toFixed(3)}</td><td class="num">${money(pval(p,"val"))}</td><td class="num ${cls(p[st.lens])}">${sgn(p[st.lens])}</td></tr>`).join("")+"</tbody>";
+  $("#ptable").innerHTML=head(PCOLS,st.sort,"p")+"<tbody>"+rows.map(p=>`<tr data-id="${p.id}" class="${p.id===st.sel?"sel":""}"><td>${esc(p.name)}${moveTag("player",p.name)} ${p.small?"<span class='chip warn'>small</span>":""}${p.split?" <span class='chip warn'>split</span>":""}${p.rookie?" <span class='chip'>rookie</span>":""}</td><td>${p.team}</td><td class="num">${p.g==null?"–":p.g.toFixed(0)}</td><td class="num">${money(p.sal)}</td><td class="num">${p.ws48==null?"–":p.ws48.toFixed(3)}</td><td class="num">${money(pval(p,"val"))}</td><td class="num ${cls(p[st.lens])}">${sgn(p[st.lens])}</td></tr>`).join("")+"</tbody>";
 }
 
 // Season-sim odds for a trade: computed once per trade, a beat after the card draws so ticking stays snappy.
@@ -326,7 +333,7 @@ function drawTeams(){
     g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
   });
   const rows=sortBy(teams.slice(),tval,st.tsort);
-  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b></td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num" title="${(()=>{const b=SF()&&SF().balance(t.team);return b?esc((b.needs.length?"Needs: "+b.needs.join(", "):"No clear holes")+(b.strengths.length?". Deep in: "+b.strengths.join(", "):"")):""})()}">${tval(t,"fit")<0?"–":tval(t,"fit")}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
+  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b>${moveTag("team",t.team)}</td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num" title="${(()=>{const b=SF()&&SF().balance(t.team);return b?esc((b.needs.length?"Needs: "+b.needs.join(", "):"No clear holes")+(b.strengths.length?". Deep in: "+b.strengths.join(", "):"")):""})()}">${tval(t,"fit")<0?"–":tval(t,"fit")}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
 }
 
 function drawBanner(){
@@ -454,6 +461,10 @@ function drawHome(){
    <dl class="stats"><div><dt>Payroll</dt><dd>${money(c.payroll)}</dd></div><div><dt>Dead money</dt><dd>${t.dead?money(t.dead):"–"}</dd></div><div><dt>Contract surplus</dt><dd class="${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</dd></div><div><dt>Roster trade value</dt><dd class="${cls(ros.reduce((s,p)=>s+p.tv,0))}">${sgn(ros.reduce((s,p)=>s+p.tv,0))}</dd></div><div><dt>Committed, all years</dt><dd>${money(owed)}</dd></div></dl>
    <button class="btn" id="changeTeam">Change team</button></div>
   <div class="hcard"><h4>Cap sheet, 2026-27</h4>${capBar(c)}<p class="sub">${c.payroll>c.apron2?"Over the second apron: can't combine salaries in trades and can only take back what one player earns.":c.payroll>c.apron1?"Over the first apron: no expanded trade exception and no $250K cushion when matching salary.":c.payroll>c.tax?"Paying the luxury tax, with room below the first apron.":c.payroll>c.cap?"Over the cap but under the tax.":"Under the cap, with room to absorb salary."}</p></div>
+  ${(()=>{const ps=Object.values(MOVE).filter(m=>m.r!=null&&MOVE["player|"+m.name]===m&&m.pr!=null);if(!ps.length)return"";
+    const up=ps.slice().sort((a,b)=>b.d-a.d).slice(0,3),dn=ps.slice().sort((a,b)=>a.d-b.d).slice(0,3),mine=ps.filter(m=>m.team===T).sort((a,b)=>Math.abs(b.d)-Math.abs(a.d))[0];
+    const li=m=>`<li>${badge(m.team,16)} ${esc(m.name)} <span class="${m.d>=0?"pos":"neg"}">${m.d>=0?"+":"−"}${money(Math.abs(m.d))}</span></li>`;
+    return `<div class="hcard"><h4>Biggest movers since ${fmtDay(ps[0].since)}</h4><p class="sub" style="margin:4px 0 6px">Change in trade value at the last data refresh.</p><div class="movers"><div><b class="pos">Up</b><ul>${up.map(li).join("")}</ul></div><div><b class="neg">Down</b><ul>${dn.map(li).join("")}</ul></div></div>${mine?`<p class="sub" style="margin:6px 0 0">${ti[0]}: ${esc(mine.name)} moved the most (${mine.d>=0?"+":"−"}${money(Math.abs(mine.d))}).</p>`:""}</div>`})()}
   ${(()=>{const o=window.SimUI&&SimUI.ready()&&SimUI.base()[T];return o?`<div class="hcard"><h4>Season sim: ${SimUI.pct(o.playoffs)} to make the playoffs</h4><p class="sub" style="margin:4px 0 0">Projected ${o.projW.toFixed(0)}-${o.projL.toFixed(0)}, ${SimUI.pct(o.playin)} to land in the play-in, ${SimUI.pct(o.title)} to win the title. <a href="sim.html">See the full odds</a>.</p></div>`:""})()}
   ${(()=>{const b=SF()&&SF().balance(T);return b?`<div class="hcard"><h4>Play-style fit: ${b.score} / 100</h4><p class="sub" style="margin:4px 0 0">${b.needs.length?`Short on <b>${b.needs.join(", ")}</b>. `:"No clear holes in the role mix. "}${b.strengths.length?`Deep in ${b.strengths.join(", ")}.`:""} Trade ideas and suggestions favor deals that fill these. <a href="styles.html">See how ${ti[0]} play</a>.</p></div>`:""})()}
   <div class="hgrid"><div class="hcard"><h4>Best contracts</h4><ul class="hlist">${byTV.slice(0,4).map(li).join("")}</ul></div><div class="hcard"><h4>Worst contracts</h4><ul class="hlist">${byTV.slice(-4).reverse().map(li).join("")}</ul></div></div>
@@ -629,6 +640,8 @@ async function boot(){
     if(pk)picks=parseCSV(pk).map(r=>{const swap=/SWAP/.test(r.pick_id),rd=r.round==="1"?"1st":"2nd",prot=(r.protection||"").replace("slots ","");
       return{id:r.pick_id+"@"+r.owner,pick:true,year:+r.year,round:+r.round,orig:r.original_team,team:r.owner,swap,swapWith:r.swap_with,prot,slot:N(r.exp_slot),p:N(r.p_conveys),tv:N(r.value_m)||0,sal:0,y1:0,notes:r.notes||"",
         name:swap?`${r.year} ${rd} swap with ${r.swap_with}`:`${r.original_team} ${r.year} ${rd}${prot?" (if "+prot+")":""}`}});
+    const mv=await fetch("data/movers.csv").then(r=>r.ok?r.text():"").catch(()=>"");
+    if(mv)parseCSV(mv).forEach(r=>{if(r.prev_value==="")return;MOVE[r.kind+"|"+r.key]={d:N(r.value)-N(r.prev_value),r:N(r.rank),pr:N(r.prev_rank),since:r.since,team:r.team,name:r.key}});
     const yc=await fetch("data/contracts_clean.csv").then(r=>r.ok?r.text():"").catch(()=>"");
     if(yc){const rows=parseCSV(yc),ycols=Object.keys(rows[0]||{}).filter(k=>/^20\d\d-\d\d$/.test(k)).sort();
       rows.forEach(r=>{const sal=ycols.map(k=>{let v=N(String(r[k]||"").replace(/[$,]/g,""));return v!=null&&v>1000?v/1e6:v}),opt=r.option_years||r.options||"";

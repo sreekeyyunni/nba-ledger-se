@@ -1,0 +1,395 @@
+kind,key,team,value
+player,Shai Gilgeous-Alexander,OKC,150.07
+player,Neemias Queta,BOS,148.23
+player,Jalen Duren,DET,135.06
+player,Victor Wembanyama,SAS,123.79
+player,Amen Thompson,HOU,104.21
+player,Payton Pritchard,BOS,85.58
+player,Kon Knueppel,CHO,84.15
+player,Ty Jerome,MEM,81.97
+player,Ryan Kalkbrenner,CHO,75.55
+player,Cam Spencer,MEM,73.33
+player,Mark Williams,PHO,71.43
+player,Oso Ighodaro,PHO,71.33
+player,Jordan Walsh,BOS,69.83
+player,Donovan Clingan,POR,69.52
+player,Yaxel Lendeborg,GSW,67.27
+player,Luke Kornet,SAS,65.34
+player,Cameron Boozer,MEM,63.86
+player,Collin Murray-Boyles,TOR,62.67
+player,Ajay Mitchell,OKC,57.8
+player,Keaton Wagler,LAC,56.37
+player,Nikola Jokić,DEN,56.19
+player,Deni Avdija,POR,55.37
+player,Jabari Smith Jr.,HOU,52.75
+player,Sandro Mamukelashvili,LAL,50.37
+player,Collin Gillespie,PHO,48.67
+player,Tre Jones,CHI,47.78
+player,LeBron James,PHI,46.82
+player,Chet Holmgren,OKC,46.72
+player,Mitchell Robinson,BOS,46.1
+player,Dyson Daniels,ATL,45.63
+player,Jordan Miller,LAC,44.99
+player,Jalen Johnson,ATL,44.83
+player,Kel'el Ware,MIL,44.21
+player,Pelle Larsson,MIA,41.54
+player,Sam Merrill,CLE,40.26
+player,Stephon Castle,SAS,39.35
+player,Kasparas Jakučionis,MIL,39.05
+player,Julian Champagnie,SAS,38.77
+player,Nickeil Alexander-Walker,ATL,38.75
+player,Jaxson Hayes,UTA,38.52
+player,Isaiah Joe,DET,36.22
+player,Landry Shamet,NYK,35.14
+player,Brandin Podziemski,GSW,35.14
+player,Jordan Goodwin,PHO,34.97
+player,Saddiq Bey,NOP,34.79
+player,John Konchar,MIN,34.05
+player,Moussa Diabaté,CHO,34.04
+player,Dylan Harper,SAS,33.3
+player,Jaylon Tyson,CLE,32.58
+player,Ja'Kobe Walter,TOR,32.5
+player,Isaiah Hartenstein,OKC,32.28
+player,Jaylin Williams,OKC,31.47
+player,Cason Wallace,OKC,30.88
+player,Alperen Şengün,HOU,30.38
+player,Will Richard,GSW,29.99
+player,Reed Sheppard,HOU,29.5
+player,Robert Williams,POR,29.35
+player,Sam Hauser,BOS,29.35
+player,Baylor Scheierman,BOS,29.13
+player,Ausar Thompson,DET,29.02
+player,Luke Kennard,PHO,28.81
+player,Justin Champagnie,WAS,28.31
+player,Olivier-Maxence Prosper,DAL,27.89
+player,Jarrett Allen,CLE,27.22
+player,Josh Minott,BRK,26.89
+player,Wendell Carter Jr.,ORL,26.77
+player,VJ Edgecombe,PHI,26.38
+player,Sion James,CHO,26.34
+player,Dru Smith,MIA,26.28
+player,Hugo González,BOS,26.28
+player,Gui Santos,GSW,25.79
+player,Cedric Coward,MEM,25.63
+player,Tobias Harris,SAS,25.5
+player,Duncan Robinson,DET,25.18
+player,Bryce McGowens,NOP,24.89
+player,Dean Wade,PHI,24.71
+player,Vít Krejčí,POR,24.44
+player,Onyeka Okongwu,ATL,23.64
+player,Luka Garza,BOS,23.14
+player,Maxime Raynaud,SAC,23.06
+player,Darryn Peterson,UTA,22.24
+player,Deandre Ayton,WAS,21.7
+player,DeMar DeRozan,DEN,21.54
+player,Miles McBride,NYK,21.02
+player,Collin Sexton,LAL,20.73
+player,Asa Newell,ATL,20.7
+player,Marvin Bagley III,DEN,20.51
+player,Anfernee Simons,PHI,20.23
+player,Scotty Pippen Jr.,MEM,19.99
+player,Josh Hart,NYK,19.86
+player,Jaylen Clark,MIN,19.71
+player,Kevin Porter Jr.,MIL,19.44
+player,Ryan Dunn,PHO,19.03
+player,Javonte Green,DET,18.95
+player,Ayo Dosunmu,MIN,18.39
+player,Adem Bona,PHI,18.3
+player,Nikola Vučević,ORL,17.76
+player,Mohamed Diawara,NYK,17.56
+player,Tristan Da Silva,ORL,17.08
+player,Paul Reed,DET,17.04
+player,Noah Penda,ORL,16.94
+player,Caleb Wilson,CHI,16.92
+player,Grayson Allen,CHO,16.82
+player,John Collins,DET,16.81
+player,Matisse Thybulle,LAL,16.73
+player,Cooper Flagg,DAL,16.38
+player,Spencer Jones,DEN,16.31
+player,Yves Missi,NOP,15.84
+player,Dominick Barlow,PHI,15.76
+player,Justin Edwards,PHI,15.45
+player,Ryan Rollins,MIL,15.35
+player,Isaiah Stewart,MEM,15.14
+player,Jay Huff,IND,15.02
+player,Gary Payton II,GSW,14.89
+player,Goga Bitadze,ORL,14.58
+player,Luka Dončić,LAL,14.36
+player,Kyle Filipowski,UTA,14.13
+player,Karlo Matković,NOP,14.08
+player,Kobe Sanders,LAC,14.07
+player,Marcus Sasser,DAL,14.03
+player,Moussa Cissé,DAL,13.87
+player,Terrence Shannon Jr.,MIN,13.78
+player,Andre Drummond,NYK,13.75
+player,Isaiah Jackson,LAC,13.63
+player,Harrison Barnes,SAS,13.56
+player,Jamal Shead,TOR,13.53
+player,Jonathan Kuminga,MIN,13.47
+player,Jase Richardson,ORL,13.41
+player,Kyle Anderson,TOR,13.22
+player,Bones Hyland,MIN,13.19
+player,Craig Porter Jr.,CLE,13.03
+player,Jose Alvarado,NYK,12.62
+player,Josh Okogie,UTA,12.52
+player,Jaime Jaquez Jr.,MIL,12.43
+player,Jaylen Wells,MEM,12.31
+player,Kelly Oubre Jr.,IND,12.22
+player,Daniel Gafford,DAL,12.15
+player,Micah Potter,POR,12.06
+player,Keldon Johnson,SAS,11.99
+player,Derik Queen,NOP,11.89
+player,Tyler Kolek,NYK,11.74
+player,Day'Ron Sharpe,BRK,11.69
+player,Tyrese Proctor,CLE,11.51
+player,Royce O'Neale,CHO,11.49
+player,Moses Moody,GSW,11.46
+player,Kingston Flemings,ATL,11.32
+player,Obi Toppin,IND,11.24
+player,Daniss Jenkins,DET,11.07
+player,Tidjane Salaün,CHO,11.04
+player,Kris Dunn,LAC,10.7
+player,Simone Fontecchio,MIA,10.49
+player,Mouhamed Gueye,ATL,10.34
+player,Jericho Sims,MIL,10.33
+player,Kenrich Williams,OKC,10.3
+player,Tim Hardaway Jr.,MIA,10.3
+player,Rasheer Fleming,PHO,10.05
+player,Nae'Qwan Tomlin,CLE,10.0
+player,Daeqwon Plowden,SAC,9.99
+player,Brandon Williams,GSW,9.84
+player,Derrick Jones Jr.,LAC,9.72
+player,Mike Conley,BOS,9.71
+player,Kevin Durant,HOU,9.62
+player,Leonard Miller,CHI,9.31
+player,Aaron Wiggins,ATL,9.28
+player,Tyrese Maxey,PHI,9.24
+player,Johnny Furphy,IND,9.07
+player,Jake LaRavia,LAL,9.07
+player,Ivica Zubac,IND,8.64
+player,Thomas Bryant,CLE,8.48
+player,Trey Murphy III,NOP,8.39
+player,Anthony Gill,WAS,8.39
+player,Isaiah Collier,UTA,8.36
+player,Donte DiVincenzo,MIN,8.17
+player,Davion Mitchell,MIA,7.98
+player,Ziaire Williams,LAL,7.67
+player,Jabari Walker,PHI,7.65
+player,Clint Capela,HOU,7.53
+player,Kris Murray,MEM,7.39
+player,Precious Achiuwa,SAC,7.35
+player,Rudy Gobert,MIN,6.92
+player,Steven Adams,HOU,6.9
+player,Trendon Watford,NOP,6.89
+player,Jordan Clarkson,NYK,6.84
+player,T.J. McConnell,IND,6.79
+player,Jamaree Bouyea,PHO,6.78
+player,Ron Holland,DET,6.76
+player,Tari Eason,HOU,6.6
+player,Jared McCain,OKC,6.5
+player,Miles Bridges,PHO,6.26
+player,Immanuel Quickley,TOR,6.13
+player,Carter Bryant,SAS,6.08
+player,Pete Nance,MIL,5.9
+player,Bennedict Mathurin,NOP,5.56
+player,Jamison Battle,TOR,4.6
+player,Grant Williams,CHO,4.38
+player,James Harden,CLE,4.29
+player,Julian Strawther,DEN,4.1
+player,Kevin Huerter,DET,3.94
+player,Christian Braun,DEN,3.74
+player,Jalen Smith,CHI,3.69
+player,Matas Buzelis,CHI,3.69
+player,Quinten Post,MEM,3.56
+player,Sidy Cissoko,POR,3.5
+player,Taurean Prince,DET,3.5
+player,GG Jackson II,MEM,3.45
+player,Fred VanVleet,HOU,3.35
+player,Al Horford,GSW,3.15
+player,Jevon Carter,ORL,3.04
+player,Santi Aldama,DAL,2.86
+player,Svi Mykhailiuk,UTA,2.73
+player,Danny Wolf,BRK,2.54
+player,Gary Harris,DET,2.53
+player,Georges Niang,GSW,2.5
+player,Tyus Jones,DEN,2.29
+player,Anthony Black,ORL,2.07
+player,Quentin Grimes,LAL,2.07
+player,Jock Landale,ATL,2.01
+player,Nicolas Batum,LAC,1.99
+player,Naji Marshall,DAL,1.9
+player,Keon Ellis,BRK,1.67
+player,Ryan Nembhard,CHO,1.54
+player,Ben Sheppard,IND,1.5
+player,Cameron Johnson,DEN,1.25
+player,Marcus Smart,HOU,1.0
+player,Walker Kessler,LAL,0.9
+player,Micah Peavy,MEM,0.5
+player,Max Christie,DAL,0.12
+player,Jimmy Butler,GSW,0.08
+player,Gradey Dick,LAC,0.03
+player,Dalton Knecht,LAL,-0.42
+player,Jalen Brunson,NYK,-0.45
+player,Zeke Nnaji,DEN,-1.05
+player,Nick Richards,MIA,-1.09
+player,Devin Vassell,SAS,-1.19
+player,Norman Powell,CHI,-1.29
+player,Nic Claxton,CHI,-1.41
+player,Brook Lopez,LAC,-1.42
+player,Isaac Okoro,CHI,-1.89
+player,Kristaps Porziņģis,GSW,-1.93
+player,Josh Green,UTA,-2.1
+player,Toumani Camara,POR,-2.2
+player,Taylor Hendricks,MEM,-2.33
+player,Jakob Poeltl,TOR,-2.34
+player,Walter Clayton,MEM,-2.83
+player,Brice Sensabaugh,UTA,-3.14
+player,Scoot Henderson,POR,-3.37
+player,Noah Clowney,BRK,-3.43
+player,Devin Carter,ATL,-3.51
+player,Jonathan Isaac,ORL,-3.58
+player,RJ Barrett,TOR,-3.91
+player,Luguentz Dort,ATL,-4.22
+player,Julius Randle,BRK,-4.39
+player,De'Anthony Melton,GSW,-4.41
+player,Cole Anthony,MEM,-4.42
+player,Bilal Coulibaly,WAS,-4.43
+player,Rui Hachimura,LAC,-4.6
+player,Caris LeVert,MIL,-5.26
+player,Kyshawn George,WAS,-5.44
+player,Darius Acuff Jr.,SAC,-5.46
+player,Rob Dillingham,CHO,-5.53
+player,Jordan Hawkins,MEM,-5.66
+player,Bobby Portis,MIA,-5.98
+player,Zaccharie Risacher,DAL,-6.24
+player,Will Riley,WAS,-6.66
+player,Corey Kispert,ATL,-6.67
+player,Tyler Herro,MIL,-6.69
+player,Egor Dëmin,BRK,-6.8
+player,Ben Saraf,BRK,-6.84
+player,Jarred Vanderbilt,LAL,-7.05
+player,Jarace Walker,IND,-7.12
+player,Nique Clifford,SAC,-7.52
+player,Buddy Hield,CHI,-7.69
+player,Keyonte George,UTA,-7.81
+player,Drake Powell,BRK,-8.17
+player,Austin Reaves,LAL,-8.47
+player,Jaden Hardy,LAL,-8.85
+player,Bub Carrington,WAS,-8.92
+player,Caleb Martin,DAL,-9.29
+player,Nolan Traoré,BRK,-9.38
+player,Andrew Wiggins,MIA,-9.96
+player,Andrew Nembhard,IND,-10.04
+player,CJ McCollum,ATL,-10.26
+player,Cody Williams,MIN,-10.41
+player,Alex Caruso,OKC,-10.7
+player,Kawhi Leonard,TOR,-11.77
+player,Ousmane Dieng,MIL,-11.97
+player,Khris Middleton,WAS,-12.26
+player,Zion Williamson,NOP,-12.48
+player,Tre Mann,WAS,-12.7
+player,Alex Sarr,WAS,-13.66
+player,Jusuf Nurkić,UTA,-13.81
+player,Derrick White,BOS,-13.88
+player,Jaden McDaniels,MIN,-14.1
+player,Kyle Kuzma,MIL,-14.47
+player,Kentavious Caldwell-Pope,PHI,-14.61
+player,Terance Mann,BRK,-15.93
+player,Jamal Murray,DEN,-16.72
+player,Cade Cunningham,DET,-17.3
+player,Aaron Gordon,DEN,-19.27
+player,Josh Giddey,CHI,-19.48
+player,De'Andre Hunter,SAC,-19.67
+player,Damian Lillard,POR,-20.34
+player,Jeremiah Fears,NOP,-20.53
+player,Dejounte Murray,NOP,-20.88
+player,Giannis Antetokounmpo,MIA,-20.97
+player,LaMelo Ball,MIN,-21.71
+player,Tre Johnson,WAS,-22.86
+player,Karl-Anthony Towns,NYK,-23.22
+player,A.J. Green,MIL,-23.33
+player,Dennis Schröder,CHO,-23.39
+player,Michael Porter Jr.,BRK,-23.62
+player,Anthony Edwards,MIN,-24.08
+player,Draymond Green,GSW,-24.27
+player,Peyton Watson,CLE,-24.56
+player,Jerami Grant,MEM,-25.16
+player,Ace Bailey,UTA,-25.56
+player,Klay Thompson,MIA,-25.8
+player,Jrue Holiday,POR,-26.27
+player,Mikal Bridges,NYK,-27.62
+player,Coby White,CHO,-28.37
+player,Dorian Finney-Smith,ATL,-28.84
+player,Jordan Poole,NOP,-32.69
+player,Scottie Barnes,TOR,-33.37
+player,OG Anunoby,NYK,-33.67
+player,Desmond Bane,ORL,-33.88
+player,Malik Monk,SAC,-35.91
+player,Zach LaVine,SAC,-38.2
+player,Naz Reid,CHO,-41.5
+player,Aaron Nesmith,IND,-42.49
+player,Tyrese Haliburton,IND,-44.48
+player,Brandon Ingram,LAC,-45.19
+player,Patrick Williams,CHI,-46.06
+player,Shaedon Sharpe,POR,-47.43
+player,Jalen Williams,OKC,-48.94
+player,Nikola Jović,MIA,-50.45
+player,Darius Garland,LAC,-51.52
+player,Gary Trent Jr.,MIL,-51.79
+player,Evan Mobley,CLE,-52.48
+player,Jalen Suggs,ORL,-54.81
+player,Trae Young,WAS,-58.61
+player,Myles Turner,MIL,-61.34
+player,Franz Wagner,ORL,-61.45
+player,Domantas Sabonis,SAC,-61.55
+player,Brandon Miller,CHO,-62.26
+player,Lauri Markkanen,UTA,-62.77
+player,Paul George,BOS,-63.76
+player,P.J. Washington,DAL,-63.91
+player,Dillon Brooks,PHO,-66.08
+player,Jalen Green,PHO,-66.88
+player,Ja Morant,POR,-67.25
+player,Herbert Jones,NOP,-67.38
+player,Bam Adebayo,MIA,-70.01
+player,Pascal Siakam,IND,-79.55
+player,Stephen Curry,GSW,-79.9
+player,Jaylen Brown,PHI,-83.46
+player,Anthony Davis,WAS,-85.21
+player,De'Aaron Fox,SAS,-86.67
+player,Joel Embiid,PHI,-93.71
+player,Paolo Banchero,ORL,-94.16
+player,Devin Booker,PHO,-98.51
+player,Donovan Mitchell,CLE,-108.56
+player,Keegan Murray,SAC,-112.8
+player,Jayson Tatum,BOS,-120.8
+player,Jaren Jackson Jr.,UTA,-177.45
+team,OKC,OKC,139.0
+team,SAS,SAS,130.5
+team,DET,DET,129.2
+team,BOS,BOS,120.3
+team,HOU,HOU,91.0
+team,CHO,CHO,89.2
+team,DEN,DEN,86.0
+team,NYK,NYK,68.4
+team,TOR,TOR,65.1
+team,CLE,CLE,60.7
+team,MEM,MEM,57.4
+team,LAL,LAL,56.7
+team,MIN,MIN,48.0
+team,POR,POR,36.9
+team,GSW,GSW,35.8
+team,PHI,PHI,34.2
+team,ATL,ATL,31.9
+team,PHO,PHO,25.1
+team,DAL,DAL,18.1
+team,CHI,CHI,9.1
+team,LAC,LAC,6.1
+team,NOP,NOP,0.3
+team,MIL,MIL,-2.9
+team,ORL,ORL,-6.8
+team,MIA,MIA,-15.6
+team,BRK,BRK,-23.9
+team,UTA,UTA,-31.7
+team,IND,IND,-33.1
+team,WAS,WAS,-44.9
+team,SAC,SAC,-117.9

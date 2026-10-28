@@ -16,4 +16,6 @@ cp "$src"/logos/*.png "$repo/logos/"
 sed -i.bak 's#const PLAY_URL="https://claude.ai/artifact/[A-Za-z0-9]*"#const PLAY_URL="https://sreekeyyunni.github.io/nba-ledger-se/gm.html"#' "$repo/gm.html"
 rm -f "$repo/gm.html.bak"
 
+python3 "$repo/scripts/pwa.py"
+python3 "$repo/scripts/movers.py" "$repo/data" || true
 echo "Synced from $src. Review with: git -C \"$repo\" status"
