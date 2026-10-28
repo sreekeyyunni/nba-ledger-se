@@ -30,3 +30,15 @@ A few features need the Claude app and are hidden or show a note here:
 1. Download the Ledger artifact's files into a folder (same layout: `*.html`, `nav.js`, `data/`, `logos/`).
 2. Run `scripts/sync.sh <that folder>` from this repo.
 3. Commit and push to `main`. Pages redeploys in about a minute.
+
+## Nightly data (no Mac needed)
+
+`.github/workflows/nightly-data.yml` runs twice a day (about 4:30pm and 2am ET) on GitHub's servers.
+It runs `pipeline/predict.py` (ESPN scores and injuries), `pipeline/sim_data.py` and
+`pipeline/transactions.py` (NBA.com and ESPN), copies the results into `data/` and pushes to `main`.
+
+- `pipeline/outputs/predictions_log.csv` is the locked-picks record. Never edit or rewrite it.
+- Player stats (`pipeline/data/advanced_2026_27.csv`) come from nba_api, which blocks GitHub's servers,
+  so they still update from the Mac's weekly refresh.
+- The balldontlie key (score backup if ESPN fails) is the repo secret `BALLDONTLIE_API_KEY`.
+- Run it now: Actions tab, "Nightly data", "Run workflow".
