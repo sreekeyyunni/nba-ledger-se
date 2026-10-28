@@ -40,6 +40,7 @@ Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_a
 | `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Mac (contract pull, on request) |
 | `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Mac, then Actions (`adjust.py`) |
 | `accolades.csv` | Player, season, honor (All-NBA) for star credit | By hand / Claude |
+| `positions.csv` | Player, Pos (for Guess the player) | Actions (`adjust.py`) |
 | `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ..., adj_net_m | Mac, then Actions (`adjust.py`) |
 | `team_cap.csv`, `cap_sheet.csv`, `cap_sheet_lines.csv` | payroll, cap, tax, aprons by team (and season; lines are Team, season, kind, item, amt_m) | Mac |
 | `dead_money.csv`, `dead_2027_28.csv` | Team, dead_m | Mac |

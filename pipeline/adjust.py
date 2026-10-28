@@ -165,6 +165,19 @@ def main(today=None):
         r["adj_net_m"] = f"{net:.1f}"
     write("team_summary.csv", teams, ["adj_net_m"])
 
+    # positions for Guess the Player (this season's listing, else last season's)
+    pos = {}
+    for f in ("advanced_2026_27.csv", "advanced_2025_26.csv"):
+        path = Path(__file__).parent / "data" / f
+        for r in csv.DictReader(open(path)) if path.exists() else []:
+            if r.get("Pos") and r["Player"] not in pos:
+                pos[r["Player"]] = r["Pos"]
+    if pos:
+        with open(DATA / "positions.csv", "w", newline="") as f:
+            w = csv.writer(f, lineterminator="\n")
+            w.writerow(["Player", "Pos"])
+            w.writerows(sorted(pos.items()))
+
     stars = sum(1 for v in by_player.values() if v[0])
     hurt = sum(1 for v in by_player.values() if v[1])
     print(f"  adjusted {DATA}: star credit for {stars} players, injury time for {hurt}")
