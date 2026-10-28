@@ -14,7 +14,8 @@ Plain static files served by GitHub Pages from `main`, no build step:
 - `data/*.csv` read by the pages at load time
 - `logos/*.png` team logos
 
-The source of truth is the Contract Ledger app in Claude. This repo is a copy of its published files.
+This repo is the source of truth. The Contract Ledger app in Claude is republished from it.
+Contributing (people or AI tools): read [AGENTS.md](AGENTS.md) first.
 
 ## Claude-only features
 
@@ -25,11 +26,11 @@ A few features need the Claude app and are hidden or show a note here:
 - **Trade machine**: the shared trade board and image downloads.
 - **Be the GM**: the shared leaderboard (runs are still saved in your browser).
 
-## Updating the data
+## Updating the app
 
-1. Download the Ledger artifact's files into a folder (same layout: `*.html`, `nav.js`, `data/`, `logos/`).
-2. Run `scripts/sync.sh <that folder>` from this repo.
-3. Commit and push to `main`. Pages redeploys in about a minute.
+1. Change pages or data on a branch here and open a pull request (see [AGENTS.md](AGENTS.md)).
+2. After it merges, Pages redeploys in about a minute.
+3. Claude republishes the Ledger from `main`: `scripts/to_ledger.sh <folder>` builds its files.
 
 ## Nightly data (no Mac needed)
 
