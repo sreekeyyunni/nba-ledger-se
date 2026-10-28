@@ -113,7 +113,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
         <button id="mPractice" aria-pressed="false">Practice</button>
       </div>
     </div>
-    <p class="lede">One mystery player, seven clues from the Ledger's numbers. Each wrong guess or skip unlocks the next clue. Get it on clue 1 for 7 points, on clue 7 for 1.</p>
+    <p class="lede">One mystery player, six clues from the Ledger's numbers. Each wrong guess or skip unlocks the next clue. Get it on clue 1 for 6 points, on clue 6 for 1.</p>
   </header>
   <section class="meters" aria-label="Your stats">
     <div class="meter"><b id="sStreak">0</b><span>Streak</span></div>
@@ -126,7 +126,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 
 <script>
 const TEAM={ATL:["Atlanta Hawks","#C8102E","E"],BOS:["Boston Celtics","#007A33","E"],BRK:["Brooklyn Nets","#555555","E"],CHO:["Charlotte Hornets","#00788C","E"],CHI:["Chicago Bulls","#CE1141","E"],CLE:["Cleveland Cavaliers","#860038","E"],DAL:["Dallas Mavericks","#00538C","W"],DEN:["Denver Nuggets","#0E2240","W"],DET:["Detroit Pistons","#C8102E","E"],GSW:["Golden State Warriors","#1D428A","W"],HOU:["Houston Rockets","#CE1141","W"],IND:["Indiana Pacers","#002D62","E"],LAC:["LA Clippers","#C8102E","W"],LAL:["Los Angeles Lakers","#552583","W"],MEM:["Memphis Grizzlies","#5D76A9","W"],MIA:["Miami Heat","#98002E","E"],MIL:["Milwaukee Bucks","#00471B","E"],MIN:["Minnesota Timberwolves","#236192","W"],NOP:["New Orleans Pelicans","#0C2340","W"],NYK:["New York Knicks","#006BB6","E"],OKC:["Oklahoma City Thunder","#007AC1","W"],ORL:["Orlando Magic","#0077C0","E"],PHI:["Philadelphia 76ers","#006BB6","E"],PHO:["Phoenix Suns","#E56020","W"],POR:["Portland Trail Blazers","#E03A3E","W"],SAC:["Sacramento Kings","#5A2D81","W"],SAS:["San Antonio Spurs","#8A8D8F","W"],TOR:["Toronto Raptors","#CE1141","E"],UTA:["Utah Jazz","#002B5C","W"],WAS:["Washington Wizards","#E31837","E"]};
-const MAXG=7, LAUNCH="2026-10-25", KEY="gtp:v1";
+const MAXG=6, LAUNCH="2026-10-25", KEY="gtp:v1";
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const N=v=>v===""||v==null||isNaN(+v)?null:+v;
@@ -187,16 +187,15 @@ function setMode(m){
   render(true);
 }
 
-const POSN={PG:"point guard",SG:"shooting guard",SF:"small forward",PF:"power forward",C:"center"};
+const POSN={PG:"Point guard",SG:"Shooting guard",SF:"Small forward",PF:"Power forward",C:"Center"};
 function clues(p){
   const t=TEAM[p.team],moved=p.prev&&p.prev!==p.team;
   const init=p.name.replace(/\b(Jr|Sr|II|III|IV)\.?$/,"").trim().split(/\s+/).map(w=>w[0]+".").join(" ");
   return[
-    {k:"Last season",v:`<span class="mono">${fmt(p.g)}</span> games, <span class="mono">${fmt(p.mp)}</span> minutes, <span class="mono">${fmt(p.ws,1)}</span> Win Shares, <span class="mono">${fmt(p.vorp,1)}</span> VORP`},
-    {k:"Position and conference",v:`${esc(POSN[p.pos]||"player")} · ${t[2]==="E"?"Eastern":"Western"} Conference`},
-    {k:"Bio and contract",v:`Age <span class="mono">${fmt(p.age)}</span> · ${p.rookie?"still on his rookie-scale deal":"veteran contract"} · <span class="mono">${fmt(p.yrs)}</span> ${p.yrs===1?"season":"seasons"} left`},
-    {k:"The paycheck",v:`<span class="mono">${money(p.sal)}</span> in 2026-27, <span class="mono">${money(p.total)}</span> left in total`},
+    {k:"Position and last season",v:`<b>${esc(POSN[p.pos]||"Player")}</b> · <span class="mono">${fmt(p.g)}</span> games, <span class="mono">${fmt(p.mp)}</span> minutes, <span class="mono">${fmt(p.ws,1)}</span> Win Shares, <span class="mono">${fmt(p.vorp,1)}</span> VORP`},
+    {k:"Conference, age and contract",v:`${t[2]==="E"?"Eastern":"Western"} Conference · Age <span class="mono">${fmt(p.age)}</span> · ${p.rookie?"still on his rookie-scale deal":"veteran contract"} · <span class="mono">${fmt(p.yrs)}</span> ${p.yrs===1?"season":"seasons"} left`},
     {k:"Team",v:`<img class="logo" src="logos/${p.team}.png" alt="" onerror="this.remove()">${esc(t[0])} · ${moved?"changed teams since last season":"same team as last season"}`},
+    {k:"The paycheck",v:`<span class="mono">${money(p.sal)}</span> in 2026-27, <span class="mono">${money(p.total)}</span> left in total`},
     {k:"Ledger verdict",v:`This season's surplus value <span class="mono">${sgn(p.sur)}</span> · trade value ranks <span class="mono">${p.rank?ord(p.rank):"–"}</span> of ${ALL.length}`},
     {k:"Initials",v:`<span class="mono">${esc(init)}</span>`}
   ];
@@ -319,7 +318,7 @@ function resultCard(a){
 }
 
 function statsBlock(){
-  const f=finished(),dist=[7,6,5,4,3,2,1,0].map(p=>({p,n:f.filter(g=>points(g)===p).length})),max=Math.max(1,...dist.map(d=>d.n)),me=points(game);
+  const f=finished(),dist=[6,5,4,3,2,1,0].map(p=>({p,n:f.filter(g=>points(g)===p).length})),max=Math.max(1,...dist.map(d=>d.n)),me=points(game);
   return`<section aria-label="Points distribution"><h2 style="font-size:20px;margin-bottom:8px">Your daily scores</h2><div class="dist">${dist.map(d=>`<div><span>${d.p?d.p+" pts":"Miss"}</span><i class="${d.p===me?"me":""}" style="width:${Math.max(6,d.n/max*100)}%">${d.n}</i></div>`).join("")}</div></section>`;
 }
 
