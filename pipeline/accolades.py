@@ -29,7 +29,10 @@ def main():
     if season(last) in {r["season"] for r in have}:
         print(f"  accolades: {season(last)} already in {OUT}")
         return
-    html = bref.fetch(URL)
+    try:
+        html = bref.fetch(URL)
+    except Exception as e:                                             # shows as a warning on the Actions run
+        raise SystemExit(f"::warning::accolades: Basketball Reference request failed: {e}")
     html = html.replace("<!--", "").replace("-->", "")                 # tables can sit inside comments
     rows = []
     for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.S):
@@ -40,12 +43,14 @@ def main():
         for name in re.findall(r'href="/players/[^"]+">([^<]+)</a>', tr):
             rows.append([name.strip(), s.group(1), f"All-NBA {team.group(1)}"])
     if not any(r[1] == season(last) for r in rows):
-        raise SystemExit(f"  accolades: no {season(last)} All-NBA rows found; keeping {OUT}")
+        seasons = sorted(set(re.findall(r">(\d{4}-\d{2})<", html)))[-3:]
+        raise SystemExit(f"::warning::accolades: no {season(last)} All-NBA rows found in {len(html)} bytes "
+                         f"(latest seasons on page: {seasons}); keeping {OUT}")
     with open(OUT, "w", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(["Player", "season", "honor"])
         w.writerows(sorted(rows, key=lambda r: (r[1], r[2])))
-    print(f"  accolades: wrote {len(rows)} All-NBA players to {OUT}")
+    print(f"::notice::accolades: wrote {len(rows)} All-NBA players to {OUT}")
 
 
 if __name__ == "__main__":
