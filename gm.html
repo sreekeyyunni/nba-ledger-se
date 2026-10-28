@@ -212,7 +212,7 @@ function buildPlayers(tv,cv){
   return tv.map((r,i)=>{const c=m.get(r.Player+"|"+r.Team)||{};const small=(r.flag||"").includes("small"),rookie=r.rookie_scale==="True";
     let ws=N(c["WS/48"]);const w27=N(c["WS/48_26-27"]);
     if(ws==null||small){const prior=rookie?0.06:0.10;ws=prior*0.6+(w27==null?prior:clamp(w27,-0.1,0.3))*0.4}
-    return{id:i,name:r.Player,team:r.Team,age:N(r.Age)||26,yrs:N(r.years_left)||1,sal:N(r.salary_2026_27_m)||0,tot:N(r.total_salary_m)||0,tv:N(r.trade_value_m)||0,y1:N(r.sv_y1)||0,rookie,small,r:clamp(ws,-0.05,0.26),mp:clamp(N(c.proj_MP)||1500,300,2900)}});
+    return{id:i,name:r.Player,team:r.Team,age:N(r.Age)||26,yrs:N(r.years_left)||1,sal:N(r.salary_2026_27_m)||0,tot:N(r.total_salary_m)||0,tv:N(r.trade_value_m)||0,y1:N(r.sv_y1)||0,rookie,small,r:clamp(ws,-0.05,0.26),mp:clamp(N(c.proj_MP)||1500,300,2900),out:N(c.games_out)||0,injnote:c.injury_note||""}});
 }
 
 // ---- Game state ----
@@ -221,7 +221,7 @@ function newState(team){
   const pay={};ABBRS.forEach(a=>pay[a]=BASE[a]);
   const picks=[];ABBRS.forEach(a=>{picks.push({id:a+"27",orig:a,yr:2027,owner:a});picks.push({id:a+"28",orig:a,yr:2028,owner:a})});
   return{v:1,phase:"mandate",me:team,mandate:null,step:0,rng:(Date.now()^Math.floor(Math.random()*1e9))|0,
-    trades:[],extras:[],mods:{},inj:[],pay,picks,log:[],ev:null,res:null,start:null,deadlineDeals:0,draft:null,final:null,saved:false};
+    trades:[],extras:[],mods:{},inj:P.filter(p=>p.out>0).map(p=>({id:p.id,from:0,to:Math.min(1,p.out/82),real:true})),pay,picks,log:[],ev:null,res:null,start:null,deadlineDeals:0,draft:null,final:null,saved:false};
 }
 const EXTRA0=10000;
 const pl=id=>id>=EXTRA0?S.extras[id-EXTRA0]:P[id];
@@ -354,9 +354,21 @@ function buildEvent(){
             {id:"vet",label:`Ride ${esc(V.name)}`,desc:"Keep the rotation as it is and bank the wins."}]};
   }
   if(k==="injury"){
+    // December brings one of three situations, so not every run is an injury
+    const roll=rnd();
+    const young=ros.filter(id=>pl(id).age<=25&&pl(id).yrs<=2&&pl(id).r>=0.09&&!hurtAt(id,t)).sort((a,b)=>tvEff(b)-tvEff(a))[0];
+    const vet=ros.filter(id=>pl(id).age>=29&&!hurtAt(id,t)).sort((a,b)=>mpEff(b,t)-mpEff(a,t))[0];
+    if(roll<0.35&&young!=null){const p=pl(young);
+      return{kind:"extend",title:`Extend ${p.name}?`,who:young,story:`<b>${esc(p.name)}</b> (${p.age}) is ${p.yrs<=1?"in the last year of his deal":"a year from free agency"} and playing well. His agent says he'd sign an extension now at a fair number. Wait, and a big season could make him a lot more expensive.`,
+        opts:[{id:"extend",label:"Extend him now",desc:"Lock in a fair price. His trade value goes up because teams know his cost."},
+              {id:"wait",label:"Wait until summer",desc:"Keep flexibility. If he breaks out you win more now but pay more later; if not, you saved a bad deal."}]}}
+    if(roll<0.7&&vet!=null){const p=pl(vet);
+      return{kind:"role",title:`${p.name} wants a bigger role`,who:vet,story:`<b>${esc(p.name)}</b> (${p.age}) told reporters he expected more touches. The coaches like the current rotation. It's December, and the locker room is watching how you handle it.`,
+        opts:[{id:"role",label:"Give him more shots",desc:"Keeps him happy. A bit more of his minutes, a bit less efficiency."},
+              {id:"hold",label:"Back the coaches",desc:"The rotation stays. Most vets get over it; some sulk for a while."}]}}
     const top=ros.filter(id=>!hurtAt(id,t)).sort((a,b)=>rEff(b,t)*mpEff(b,t)-rEff(a,t)*mpEff(a,t)).slice(0,3);
-    const who=top[Math.floor(rnd()*top.length)],weeks=4+Math.floor(rnd()*9),p=pl(who);
-    return{title:`${p.name} is hurt`,who,weeks,story:`Bad news from the training room. <b>${esc(p.name)}</b> has a sprained ankle and the doctors say <b>${weeks} weeks</b>. He's one of your three most productive players. How do you handle it?`,
+    const who=top[Math.floor(rnd()*top.length)],weeks=2+Math.floor(rnd()*7),p=pl(who);
+    return{kind:"injury",title:`${p.name} is hurt`,who,weeks,story:`Bad news from the training room. <b>${esc(p.name)}</b> has ${pickOne(["a sprained ankle","a strained hamstring","a bone bruise in his knee","a sprained wrist","a calf strain"])} and the doctors say <b>${weeks} weeks</b>. He's one of your three most productive players. How do you handle it?`,
       opts:[{id:"safe",label:"Let him heal fully",desc:`He misses all ${weeks} weeks. No added risk.`},
             {id:"rush",label:"Fast-track his return",desc:`Back in about ${Math.ceil(weeks/2)} weeks, but there's a 30% chance of a setback that costs him most of the season and some trade value.`},
             {id:"sign",label:"Heal fully and sign a vet stopgap",desc:`Add a veteran on a minimum deal (${money(MINSAL)}, prorated) to soak up his minutes. Adds payroll${S.pay[me]>TAX?" and tax":""}.`}]};
@@ -402,9 +414,21 @@ function resolve(choice){
     else text=`${V.name} keeps starting and the team stays steady. ${K.name} waits his turn.`;
     S.log.push({m:"Nov",t:choice==="kid"?`Started ${K.name}.`:`Rode ${V.name}.`});
   }
-  if(k==="injury"){
+  if(k==="injury"&&ev.kind==="extend"){const p=pl(ev.who);
+    if(choice==="extend"){S.mods[ev.who]=Object.assign({},S.mods[ev.who],{tvAdj:((S.mods[ev.who]||{}).tvAdj||0)+6});text=`${p.name} signs. Rival executives call it a fair deal, and his trade value goes up.`}
+    else if(rnd()<0.5){S.mods[ev.who]=Object.assign({},S.mods[ev.who],{rAdj:0.02,rFrom:t,tvAdj:((S.mods[ev.who]||{}).tvAdj||0)-4});text=`${p.name} takes off and the team wins more. His price this summer just went up.`}
+    else text=`${p.name} plays about the same. Waiting saved you from overpaying.`;
+    S.log.push({m:"Dec",t:`${p.name}: ${choice==="extend"?"extended":"waited on an extension"}.`});
+  }
+  if(k==="injury"&&ev.kind==="role"){const p=pl(ev.who);
+    if(choice==="role"){S.mods[ev.who]=Object.assign({},S.mods[ev.who],{mpMul:1.12,mpFrom:t,rAdj:-0.006,rFrom:t});text=`${p.name} gets his shots. He's happy; the offense is a little clunkier.`}
+    else if(rnd()<0.3){S.mods[ev.who]=Object.assign({},S.mods[ev.who],{rAdj:-0.02,rFrom:t,tvAdj:((S.mods[ev.who]||{}).tvAdj||0)-4});text=`${p.name} sulks for a month and his play slips. Teams notice.`}
+    else text=`${p.name} grumbles for a day, then gets back to work.`;
+    S.log.push({m:"Dec",t:`${p.name} wanted a bigger role: ${choice==="role"?"gave it to him":"backed the coaches"}.`});
+  }
+  if(k==="injury"&&ev.kind==="injury"){
     const p=pl(ev.who),dur=ev.weeks/26;
-    if(choice==="rush"){if(rnd()<0.3){S.inj.push({id:ev.who,from:t,to:Math.min(1,t+dur*1.8)});S.mods[ev.who]=Object.assign({},S.mods[ev.who],{tvAdj:((S.mods[ev.who]||{}).tvAdj||0)-10});text=`It backfires. ${p.name} re-injures the ankle in his second game back and misses most of the season.`}
+    if(choice==="rush"){if(rnd()<0.3){S.inj.push({id:ev.who,from:t,to:Math.min(1,t+dur*1.8)});S.mods[ev.who]=Object.assign({},S.mods[ev.who],{tvAdj:((S.mods[ev.who]||{}).tvAdj||0)-10});text=`It backfires. ${p.name} re-injures it in his second game back and misses most of the season.`}
       else{S.inj.push({id:ev.who,from:t,to:t+dur*0.5});text=`It works. ${p.name} is back in ${Math.ceil(ev.weeks/2)} weeks and looks fine.`}}
     else{S.inj.push({id:ev.who,from:t,to:t+dur});text=`${p.name} sits for ${ev.weeks} weeks.`;
       if(choice==="sign"){S.extras.push({name:"Veteran stopgap",team:me,from:t,to:1,age:33,sal:MINSAL*(1-t),tv:0,r:0.075,mp:900,stop:true});S.pay[me]+=MINSAL*(1-t);text+=" The stopgap vet holds the fort."}}
@@ -460,15 +484,16 @@ function finish(){
   const series=sim.path.filter(p=>p.r!=="Play-in"&&p.won).length,inPO=sim.path.some(p=>p.r==="First round");
   const lastRound=sim.path.length?sim.path[sim.path.length-1]:null;
   let po=0,res="Missed the playoffs";
-  if(sim.path.some(p=>p.r==="Play-in")&&!inPO){po=5;res="Lost in the play-in"}
-  if(inPO){po=[15,22,27,30,30][series];res=series===0?"Lost in the first round":series===1?"Lost in the conference semis":series===2?"Lost in the conference finals":"Lost in the NBA Finals"}
-  if(sim.champ===me){po=38;res="Won the NBA title"}
-  const R=clamp(clamp((w-20)/40*100,0,100)*0.65+po,0,100);
-  const dA=endAssets-S.start.a,A=clamp(50+dA*0.6,0,100);
-  const dM=S.start.spend-endSpend,M=clamp(50+dM*1.2,0,100);
+  if(sim.path.some(p=>p.r==="Play-in")&&!inPO){po=3;res="Lost in the play-in"}
+  if(inPO){po=[8,16,24,30,30][series];res=series===0?"Lost in the first round":series===1?"Lost in the conference semis":series===2?"Lost in the conference finals":"Lost in the NBA Finals"}
+  if(sim.champ===me){po=40;res="Won the NBA title"}
+  // Results are judged against what this roster was projected to do, so a sensible season grades in the B/C range for any team
+  const R=clamp(58+(w-S.start.w)*3+po,0,100);
+  const dA=endAssets-S.start.a,A=clamp(58+dA*0.5,0,100);
+  const dM=S.start.spend-endSpend,M=clamp(58+dM,0,100);
   const md=MANDATES[S.mandate];let score=md.w.R*R+md.w.A*A+md.w.M*M;
   const hit=S.mandate==="contend"?series>=1:S.mandate==="retool"?inPO:S.mandate==="rebuild"?dA>=40:S.pay[me]<=TAX;
-  score=clamp(score+(hit?10:-8),0,100);
+  score=clamp(score+(hit?10:-4),0,100);
   const grade=score>=93?"A+":score>=85?"A":score>=80?"A−":score>=76?"B+":score>=70?"B":score>=65?"B−":score>=60?"C+":score>=54?"C":score>=48?"C−":score>=40?"D":"F";
   S.final={wins:w,loss:82-w,proj:S.start.w,res,po,R,A,M,dA,dM,score:Math.round(score),grade,hit,tax:taxBill(S.pay[me]),pay:S.pay[me],slot:sim.slot[me],ownPick:S.picks.find(p=>p.id===me+"27").owner===me,path:sim.path,champ:sim.champ,stand:sim.seeds,wtab:sim.wins};
   S.phase="end";
@@ -492,7 +517,7 @@ function pickHTML(){
   const W=P.filter(p=>p.team==="WAS");const ad=W.find(p=>p.name==="Anthony Davis"),trae=W.find(p=>p.name==="Trae Young");
   return `<header class="hero"><p class="eyebrow">NBA Asset Tracker · 2026-27 season</p><h1>Be the <span>GM</span></h1>
   <p class="lede">Take over any NBA front office with its real 2026-27 contracts. The owner gives you a mandate, the season throws problems at you, and every trade has to pass the CBA's salary rules. Then the season plays out and you get graded.</p>
-  <ol class="how"><li><b>Pick a team</b> and accept the owner's mandate: contend, retool, rebuild, or cut costs.</li><li><b>Handle five scenarios</b> from November to March: a rookie push, an injury, a trade call, the deadline, the stretch run.</li><li><b>Watch the season play out</b>: record, playoffs, tax bill, and the assets you leave behind.</li><li><b>Get your grade</b> and post it to the leaderboard or send it to friends.</li></ol></header>
+  <ol class="how"><li><b>Pick a team</b> and accept the owner's mandate: contend, retool, rebuild, or cut costs.</li><li><b>Handle five scenarios</b> from November to March: a rookie push, a December surprise, a trade call, the deadline, the stretch run. Real injuries from the latest report are already in.</li><li><b>Watch the season play out</b>: record, playoffs, tax bill, and the assets you leave behind.</li><li><b>Get your grade</b> and post it to the leaderboard or send it to friends.</li></ol></header>
   ${(()=>{let m=null;try{m=localStorage.getItem("myTeam")}catch(e){}return m&&TEAM[m]&&m!=="WAS"?`<section class="feature" style="--tc:${TEAM[m][1]}">${badge(m,64)}<div style="display:flex;flex-direction:column;gap:4px;min-width:0"><p class="eyebrow">Your team</p><h3>Run the ${esc(nick(m))}</h3><p>Projected for ${Math.round(exp[m])} wins with a ${money(BASE[m])} payroll (${status(BASE[m]).toLowerCase()}). Take over and see how you'd do.</p></div><button class="btn primary" data-pick="${m}">Take the job</button></section>`:""})()}
   <section class="feature" style="--tc:${TEAM.WAS[1]}">${badge("WAS",64)}<div style="display:flex;flex-direction:column;gap:4px;min-width:0"><p class="eyebrow">Featured challenge</p><h3>Fix the Wizards</h3><p>Projected for ${Math.round(exp.WAS)} wins. ${ad?`Anthony Davis is owed ${money(ad.tot)} over ${ad.yrs} years`:"A big contract to move"}${trae?`, Trae Young is on the books for ${money(trae.tot)}`:""}, and the kids (Sarr, George, Johnson, Riley) need minutes. Can you turn this into a real rebuild?</p></div><button class="btn primary" data-pick="WAS">Take the job</button></section>
   <div class="filters"><h3>Or pick any team</h3><div class="row"><select id="pf" aria-label="Filter teams"><option value="all">All 30 teams</option><option value="E">East</option><option value="W">West</option><option value="tax">Taxpayers</option><option value="bad">Rebuilding (under 35 wins)</option></select></div></div>
@@ -511,7 +536,7 @@ function mandateHTML(){
   const rec=w>=50?"contend":w<=33?"rebuild":pay>TAX&&w<45?"cut":"retool";
   const ros=rosterNow(S.me);
   return `<div class="desk"><div class="scene"><p class="eyebrow">October · Owner's meeting</p><h2>Welcome to ${nick(S.me)} basketball</h2>
-  <p class="story">You've been hired as general manager of the <b>${tname(S.me)}</b>. The roster projects to <b>${Math.round(w)} wins</b>, the payroll is <b>${money(pay)}</b> (${status(pay).toLowerCase()}), and the owner wants to know your plan for the season. Your grade depends on it.</p>
+  <p class="story">You've been hired as general manager of the <b>${tname(S.me)}</b>. The roster projects to <b>${Math.round(w)} wins</b>, the payroll is <b>${money(pay)}</b> (${status(pay).toLowerCase()}), and the owner wants to know your plan for the season. Your grade depends on it.${(()=>{const h=P.filter(p=>p.team===S.me&&p.out>0);return h.length?` Already out: ${h.map(p=>`<b>${esc(p.name)}</b> (about ${p.out} games)`).join(", ")}, per the latest injury report.`:""})()}</p>
   <div class="opts">${Object.entries(MANDATES).map(([k,m])=>`<button class="opt${k===rec?" rec":""}" data-mandate="${k}"><b>${m.label}${k===rec?" · owner's pick":""}</b><span>${m.blurb} Goal: ${m.goal}</span></button>`).join("")}</div>
   <div class="row"><button class="btn" id="back">Pick a different team</button></div></div>${rosterHTML()}</div>`;
 }
@@ -567,7 +592,7 @@ function recapHTML(){
   const F=S.final,me=S.me,md=MANDATES[S.mandate];const conf=TEAM[me][2];const st=F.stand[conf];
   const bar=(l,v,sub)=>`<div class="metric"><span class="eyebrow" style="color:var(--muted)">${l} · weight ${Math.round(md.w[l[0]==="R"?"R":l[0]==="A"?"A":"M"]*100)}%</span><span class="big">${Math.round(v)}<span class="muted" style="font-size:13px"> / 100</span></span><div class="bar"><i style="width:${v}%"></i></div><span class="muted" style="font-size:13px">${sub}</span></div>`;
   return `<div class="recap"><div class="final"><div style="display:flex;flex-direction:column;gap:10px;min-width:0"><div class="row">${badge(me,48)}<p class="eyebrow">Final report · ${tname(me)} · ${md.label}</p></div><h1 style="font-size:clamp(48px,9vw,88px)">${F.wins}-${F.loss}</h1><p class="lede" style="color:var(--ink)">${F.res}. ${F.champ===me?"Banner season.":`${tname(F.champ)} won the title.`} Preseason projection was ${Math.round(F.proj)} wins.</p><p class="muted">Owner's goal: ${md.goal} <b class="${F.hit?"pos":"neg"}">${F.hit?"Met.":"Missed."}</b></p></div><div style="text-align:center"><div class="grade">${F.grade}</div><p class="mono muted">${F.score} / 100</p></div></div>
-  <div class="cards3">${bar("Results",F.R,`${F.wins} wins · ${F.res.toLowerCase()}`)}${bar("Assets",F.A,`${sgn(F.dA)} of trade value and picks${F.ownPick?` · own pick lands #${F.slot}`:""}`)}${bar("Money",F.M,`Payroll ${money(F.pay)} · tax ${F.tax?money(F.tax):"none"}`)}</div>
+  <div class="cards3">${bar("Results",F.R,`${F.wins} wins vs ${Math.round(F.proj)} projected · ${F.res.toLowerCase()}`)}${bar("Assets",F.A,`${sgn(F.dA)} of trade value and picks${F.ownPick?` · own pick lands #${F.slot}`:""}`)}${bar("Money",F.M,`Payroll ${money(F.pay)} · tax ${F.tax?money(F.tax):"none"}`)}</div>
   <div class="two"><div class="panel"><h3>${conf==="E"?"East":"West"} standings</h3><table class="stand"><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th></tr></thead><tbody>${st.map((a,i)=>`<tr class="${a===me?"me":""} ${i===5||i===9?"cut":""}"><td>${i+1}</td><td>${badge(a,18)} ${tname(a)}</td><td>${F.wtab[a]}</td><td>${82-F.wtab[a]}</td></tr>`).join("")}</tbody></table><p class="muted" style="font-size:12px">Lines mark the top 6 and the play-in (7-10).</p></div>
   <div style="display:flex;flex-direction:column;gap:16px;min-width:0"><div class="panel"><h3>Playoff path</h3><div class="path">${F.path.length?F.path.map(p=>`<div><span>${p.r} vs ${nick(p.o)}</span><span class="mono ${p.won?"pos":"neg"}">${p.won?"Won":"Lost"} ${p.s}</span></div>`).join(""):"<p class='muted'>No postseason this year.</p>"}</div></div>
   <div class="panel"><h3>Your season</h3><div class="log">${S.log.map(l=>`<div><span class="m">${l.m}</span><span>${esc(l.t)}</span></div>`).join("")||"<p class='muted'>No moves.</p>"}</div></div></div></div>
