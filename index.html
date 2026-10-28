@@ -670,6 +670,8 @@ document.addEventListener("click",e=>{
 const mq=window.matchMedia("(prefers-color-scheme: dark)");mq.addEventListener&&mq.addEventListener("change",render);
 new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(h.startsWith("player/")){const n=decodeURIComponent(h.slice(7));if(st.tab!=="player"||st.pname!==n)openPlayer(n)}else if(["home","players","teams","trade"].includes(h)&&h!==st.tab){setTab(h);scrollTo(0,0)}});
+// A trade handed over from another page (the AI GM's trade finder): {a,b,outA,outB}
+try{const L=JSON.parse(localStorage.getItem("tmLoad")||"null");localStorage.removeItem("tmLoad");if(L&&caps[L.a]&&caps[L.b]&&location.hash==="#trade"){tr.a=L.a;tr.b=L.b;tr.out={[L.a]:new Set(L.outA||[]),[L.b]:new Set(L.outB||[])};sugg=null}}catch(e){}
 if(location.hash.startsWith("#player/")){st.pfrom="players";openPlayer(decodeURIComponent(location.hash.slice(8)))}else setTab(["#home","#players","#teams","#trade"].includes(location.hash)?location.hash.slice(1):"home");
 }
 document.addEventListener("seasonsim",()=>{if(!players.length)return;if(st.tab==="trade")drawTrade();else if(st.tab==="home")render()});
