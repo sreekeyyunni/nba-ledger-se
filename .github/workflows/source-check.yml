@@ -1,0 +1,49 @@
+# Checks which data sources answer from GitHub's servers. Run it by hand from the Actions tab.
+name: Source check
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/project-thread-kue2hf]
+    paths: [.github/workflows/source-check.yml]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q nba_api==1.12.0 pandas requests
+      - name: Try each source
+        env:
+          BALLDONTLIE_API_KEY: ${{ secrets.BALLDONTLIE_API_KEY }}
+        run: |
+          try() { code=$(curl -s -o /tmp/out -w '%{http_code}' -m 30 "${@:2}"); echo "$1: HTTP $code, $(wc -c </tmp/out) bytes"; }
+          try "ESPN scoreboard" "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20261027"
+          try "ESPN injuries" "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries"
+          try "ESPN transactions" "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions"
+          try "BBRef schedule" -A "nba-asset-tracker (personal project; one request per page)" "https://www.basketball-reference.com/leagues/NBA_2027_games-october.html"
+          try "BBRef injuries" -A "nba-asset-tracker (personal project; one request per page)" "https://www.basketball-reference.com/friv/injuries.fcgi"
+          if [ -n "$BALLDONTLIE_API_KEY" ]; then
+            try "balldontlie games" -H "Authorization: $BALLDONTLIE_API_KEY" "https://api.balldontlie.io/v1/games?dates[]=2026-10-27"
+            try "balldontlie injuries" -H "Authorization: $BALLDONTLIE_API_KEY" "https://api.balldontlie.io/v1/player_injuries?per_page=5"
+          else
+            try "balldontlie (no key yet)" "https://api.balldontlie.io/v1/games?dates[]=2026-10-27"
+          fi
+          python - <<'PY'
+          import time
+          import requests
+          from nba_api.stats.library.http import STATS_HEADERS
+          try:
+              r = requests.get("https://stats.nba.com/js/data/playermovement/NBA_Player_Movement.json", headers=STATS_HEADERS, timeout=30)
+              print("NBA.com player movement:", r.status_code, len(r.content), "bytes")
+          except Exception as e:
+              print("NBA.com player movement: FAILED", type(e).__name__, e)
+          t = time.time()
+          try:
+              from nba_api.stats.endpoints import leaguedashplayerstats
+              df = leaguedashplayerstats.LeagueDashPlayerStats(season="2026-27", per_mode_detailed="Totals", timeout=30).get_data_frames()[0]
+              print("nba_api player stats:", len(df), "players", f"({time.time()-t:.0f}s)")
+          except Exception as e:
+              print("nba_api player stats: FAILED", type(e).__name__, f"after {time.time()-t:.0f}s")
+          PY
