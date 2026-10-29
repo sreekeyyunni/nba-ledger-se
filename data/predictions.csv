@@ -55,15 +55,15 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-10-27,7:30p,BRK,BOS,124,125,OT,0.870,12.9,BOS,final,1,live,-7.4,4.8,BOS on a back-to-back,,,
 2026-10-27,8:00p,DET,NYK,97,111,,0.464,-1.0,DET,final,0,live,6.4,0.6,,,,
 2026-10-27,8:00p,SAC,SAS,103,130,,0.907,15.2,SAS,final,1,live,-8.6,3.1,,,,
-2026-10-28,10:30p,LAL,LAC,,,,0.491,-0.3,LAL,upcoming,,live,3.2,-0.8,LAL on a back-to-back,,"Jordan Miller (out, 0.3 pts)",
-2026-10-28,7:00p,MIA,ATL,,,,0.794,9.4,ATL,upcoming,,live,-5.0,2.1,,,"Aaron Wiggins (questionable, 0.5 pts)",
-2026-10-28,7:00p,WAS,CLE,,,,0.724,6.8,CLE,upcoming,,live,-3.5,1.0,,,,
-2026-10-28,7:00p,PHI,IND,,,,0.409,-2.6,PHI,upcoming,,live,1.7,-3.2,,"Dominick Barlow (out, 0.5 pts)","Tyrese Haliburton (questionable, 0.7 pts); Ivica Zubac (out, 0.7 pts)",
-2026-10-28,7:00p,CHO,DET,,,,0.706,6.2,DET,upcoming,,live,-2.3,3.1,DET on a back-to-back,,"Jalen Duren (out, 1.5 pts); Isaiah Joe (questionable, 0.3 pts)",
-2026-10-28,7:30p,ORL,TOR,,,,0.686,5.6,TOR,upcoming,,live,-2.1,1.5,,,"Kawhi Leonard (out, 1.5 pts)",
-2026-10-28,8:00p,HOU,MIL,,,,0.294,-6.2,HOU,upcoming,,live,4.4,-4.1,,"Alperen Sengun (out, 0.8 pts)",,
-2026-10-28,8:00p,GSW,MIN,,,,0.837,11.3,MIN,upcoming,,live,-2.5,6.5,,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.3 pts)","Anthony Edwards (out, 0.7 pts)",
-2026-10-28,8:00p,DEN,NOP,,,,0.487,-0.4,DEN,upcoming,,live,-0.2,-2.9,,,,
-2026-10-28,8:00p,NYK,CHI,,,,0.374,-3.7,NYK,upcoming,,live,2.0,-5.5,NYK on a back-to-back,,"Nic Claxton (out, 0.5 pts)",
-2026-10-28,9:00p,SAS,UTA,,,,0.270,-7.0,SAS,upcoming,,live,4.7,-6.2,SAS on a back-to-back,,"Lauri Markkanen (questionable, 0.4 pts)",
-2026-10-28,9:30p,OKC,DAL,,,,0.408,-2.7,OKC,upcoming,,live,2.4,-2.5,,"Chet Holmgren (out, 1.5 pts); Ajay Mitchell (questionable, 0.7 pts); Alex Caruso (out, 0.4 pts); Jalen Williams (out, 0.4 pts)",,
+2026-10-28,10:30p,LAL,LAC,,,,0.491,-0.3,LAL,upcoming,,live,1.1,-0.8,LAL on a back-to-back,"Luka Dončić (out, 2.0 pts)","Jordan Miller (out, 0.3 pts)",
+2026-10-28,7:00p,MIA,ATL,,,,0.794,9.4,ATL,live,,live,-5.1,2.3,,,,118-110 4:06 - 4th
+2026-10-28,7:00p,WAS,CLE,,,,0.724,6.8,CLE,live,,live,-3.1,1.0,,,,103-104 6:53 - 4th
+2026-10-28,7:00p,PHI,IND,,,,0.409,-2.6,PHI,live,,live,1.7,-3.3,,"Dominick Barlow (out, 0.5 pts)","Tyrese Haliburton (out, 0.7 pts); Ivica Zubac (out, 0.7 pts)",75-88 14.8 - 3rd
+2026-10-28,7:00p,CHO,DET,,,,0.706,6.2,DET,live,,live,-2.3,3.1,DET on a back-to-back,,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.3 pts)",70-80 9:51 - 4th
+2026-10-28,7:30p,ORL,TOR,,,,0.686,5.6,TOR,live,,live,-1.8,1.5,,,"Kawhi Leonard (out, 1.5 pts)",56-80 8:44 - 3rd
+2026-10-28,8:00p,HOU,MIL,,,,0.294,-6.2,HOU,live,,live,4.4,-4.1,,"Alperen Sengun (out, 0.8 pts)",,57-35 Halftime
+2026-10-28,8:00p,GSW,MIN,,,,0.837,11.3,MIN,live,,live,-2.4,6.5,,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.3 pts)","Anthony Edwards (out, 0.7 pts)",60-46 1:40 - 2nd
+2026-10-28,8:00p,DEN,NOP,,,,0.487,-0.4,DEN,live,,live,-0.2,-3.2,,,,57-45 Halftime
+2026-10-28,8:00p,NYK,CHI,,,,0.374,-3.7,NYK,live,,live,1.6,-5.5,NYK on a back-to-back,,"Nic Claxton (out, 0.5 pts)",55-56 1:31 - 2nd
+2026-10-28,9:00p,SAS,UTA,,,,0.270,-7.0,SAS,upcoming,,live,4.7,-5.5,SAS on a back-to-back,,"Lauri Markkanen (out, 0.4 pts)",
+2026-10-28,9:30p,OKC,DAL,,,,0.408,-2.7,OKC,upcoming,,live,3.2,-2.9,,"Chet Holmgren (out, 1.5 pts); Alex Caruso (out, 0.4 pts); Jalen Williams (out, 0.4 pts)",,

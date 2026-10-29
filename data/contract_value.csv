@@ -63,7 +63,7 @@ Maxime Raynaud,SAC,SAC,74.0,1964.0,2176.324,3.6,0.088,-0.2,2.151,13.522,11.372,1
 Tim Hardaway Jr.,MIA,DEN,80.0,2127.0,2180.175,4.4,0.099,0.7,6.5,17.638,11.138,12.155,18.473,11.973,12.348,10.315,4.0,-0.126,10.109,11.749,False,,0,0,0,0,
 Karlo Matković,NOP,NOP,62.0,912.0,1206.194,2.7,0.142,0.6,2.296,13.378,11.082,13.755,14.945,12.648,14.171,13.398,2.0,0.282,14.076,14.281,False,,0,0,0,0,
 Jordan Miller,LAC,LAC,60.0,1325.0,1810.833,3.5,0.127,0.8,5.3,16.202,10.902,16.013,16.726,11.426,13.761,12.55,,,0.938,0.279,False,,0,0,58,15.08,"Miller underwent surgery Wednesday to repair a torn left rotator cuff and will be re-evaluated in six months, per Law Murray of The Athletic."
-Justin Champagnie,WAS,WAS,69.0,1377.0,1636.435,3.1,0.108,0.6,2.668,13.455,10.787,13.479,15.868,13.2,14.568,13.026,4.0,0.263,14.816,14.991,False,,0,0,0,0,
+Justin Champagnie,WAS,WAS,69.0,1377.0,1636.435,3.1,0.108,0.6,2.668,13.455,10.787,13.479,15.868,13.2,14.568,13.026,4.0,0.263,5.221,5.3,False,,0,0,45,9.59,"Champagnie (foot) is expected to miss several months, per Josh Robbins of The Athletic."
 Adem Bona,PHI,PHI,71.0,1234.0,1425.183,2.9,0.113,-0.3,2.296,12.955,10.658,8.719,15.415,13.119,12.759,-2.296,4.0,0.083,8.657,12.735,False,,0,0,0,0,
 Onyeka Okongwu,ATL,ATL,74.0,2297.0,2545.324,6.0,0.125,1.6,16.12,26.673,10.553,11.296,21.134,5.014,5.506,8.22,4.0,0.136,12.004,5.675,False,,0,0,0,0,
 Jaime Jaquez Jr.,MIL,MIA,75.0,2121.0,2318.96,4.2,0.095,1.1,5.939,16.429,10.49,12.446,18.103,12.164,13.036,14.644,4.0,0.081,12.123,12.944,True,,0,0,0,0,
@@ -348,7 +348,7 @@ Trae Young,WAS,,,,3000.0,,,,49.488,0,0,0,0,0,0,0,4.0,0.163,-16.386,-26.04,False,
 Caleb Wilson,CHI,,,,2788.0,,,,10.684,0,0,0,0,0,0,0,4.0,-0.035,-2.324,5.945,True,small sample,0,0,0,0,
 Yaxel Lendeborg,GSW,,,,2726.5,,,,6.096,0,0,0,0,0,0,0,4.0,0.18,26.017,16.827,True,small sample,0,0,0,0,
 Cameron Boozer,MEM,,,,2706.0,,,,11.85,0,0,0,0,0,0,0,4.0,0.073,8.123,8.11,True,small sample,0,0,0,0,
-Tyrese Haliburton,IND,,,,2706.0,,,,48.925,0,0,0,0,0,0,0,4.0,0.218,-3.404,-6.332,False,small sample,2,0,0,0,
+Tyrese Haliburton,IND,,,,2706.0,,,,48.925,0,0,0,0,0,0,0,4.0,0.218,-7.29,-9.968,False,small sample,2,0,7,3.89,"Haliburton (hamstring) will miss at least the next two weeks of action, Shams Charania of ESPN reports."
 Ty Jerome,MEM,,,,2562.5,,,,9.22,0,0,0,0,0,0,0,4.0,0.384,41.085,17.2,False,small sample,0,0,0,0,
 Darryn Peterson,UTA,,,,2398.5,,,,13.195,0,0,0,0,0,0,0,4.0,0.0,-0.629,4.154,True,small sample,0,0,0,0,
 Darius Acuff Jr.,SAC,,,,2952.0,,,,8.022,0,0,0,0,0,0,0,3.0,-0.133,-6.664,6.205,True,small sample,0,0,0,0,
