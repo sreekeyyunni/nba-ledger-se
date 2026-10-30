@@ -68,5 +68,5 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-10-28,9:00p,SAS,UTA,117,111,OT,0.270,-7.0,SAS,final,1,live,4.3,-6.3,SAS on a back-to-back,,,
 2026-10-28,9:30p,OKC,DAL,96,120,,0.408,-2.7,OKC,final,0,live,7.4,-2.4,,,,
 2026-10-29,10:00p,MEM,POR,,,,0.633,3.9,POR,upcoming,,live,2.5,4.1,,,,
-2026-10-29,7:00p,CLE,ATL,,,,0.573,2.1,ATL,upcoming,,live,1.2,1.0,CLE on a back-to-back | ATL on a back-to-back,,,
-2026-10-29,8:00p,SAC,NOP,,,,0.738,7.3,NOP,upcoming,,live,-10.2,-3.7,NOP on a back-to-back,"Maxime Raynaud (out, 0.6 pts)",,
+2026-10-29,7:00p,CLE,ATL,,,,0.573,2.1,ATL,live,,live,1.4,1.0,CLE on a back-to-back | ATL on a back-to-back,,,44-46 Halftime
+2026-10-29,8:00p,SAC,NOP,,,,0.738,7.3,NOP,live,,live,-10.2,-3.4,NOP on a back-to-back,"Maxime Raynaud (out, 0.6 pts)",,61-63 Halftime
