@@ -46,7 +46,7 @@ Luke Kennard,PHO,2TM,78.0,1681.0,1767.205,4.5,0.128,0.9,6.064,20.56,14.496,15.50
 Julian Champagnie,SAS,SAS,82.0,2266.0,2266.0,6.2,0.131,1.9,13.889,28.073,14.184,13.335,21.437,7.548,7.341,12.396,3.0,0.11,13.086,7.28,False,,0,0,0,0,
 Keldon Johnson,SAS,SAS,82.0,1911.0,1911.0,6.4,0.161,1.4,17.5,31.145,13.645,12.073,21.734,4.234,3.856,5.428,3.0,0.148,11.99,3.836,False,,0,0,0,0,
 Andre Drummond,NYK,PHI,63.0,1231.0,1602.254,3.4,0.133,0.4,2.449,16.068,13.619,13.046,16.517,14.068,14.517,10.641,3.0,0.246,13.754,14.748,False,,0,0,0,0,
-Dominick Barlow,PHI,PHI,71.0,1689.0,1950.676,3.9,0.111,0.4,3.415,16.801,13.386,15.757,17.53,14.115,15.24,9.675,,,15.289,14.785,False,,0,0,2,0.47,"Barlow will miss at least the next two weeks of action due to a lumbar spine bone stress response, Adam Aaronson of PhillyVoice.com reports."
+Dominick Barlow,PHI,PHI,71.0,1689.0,1950.676,3.9,0.111,0.4,3.415,16.801,13.386,15.757,17.53,14.115,15.24,9.675,,,15.523,15.012,False,,0,0,1,0.23,"Barlow will miss at least the next two weeks of action due to a lumbar spine bone stress response, Adam Aaronson of PhillyVoice.com reports."
 Jaylon Tyson,CLE,CLE,66.0,1777.0,2207.788,4.0,0.108,0.9,3.659,16.966,13.308,17.883,17.724,14.065,16.032,15.157,3.0,0.074,17.502,15.928,True,,0,0,0,0,
 Collin Murray-Boyles,TOR,TOR,57.0,1246.0,1792.491,4.0,0.154,1.0,6.65,19.708,13.059,19.204,17.724,11.074,13.616,13.074,3.0,0.171,19.41,13.67,True,,0,0,0,0,
 Ja'Kobe Walter,TOR,TOR,72.0,1474.0,1678.722,3.7,0.12,0.6,3.812,16.672,12.86,15.413,17.134,13.323,14.445,11.882,3.0,0.246,16.512,14.769,True,,0,0,0,0,
@@ -59,10 +59,10 @@ Jericho Sims,MIL,MIL,67.0,1318.0,1613.075,3.2,0.117,-0.4,2.801,14.38,11.578,10.3
 Jordan Goodwin,PHO,PHO,70.0,1572.0,1841.486,3.9,0.119,1.5,5.864,17.405,11.541,13.845,17.53,11.666,12.783,17.783,3.0,0.081,13.577,12.705,False,,0,0,0,0,
 Sam Hauser,BOS,BOS,78.0,1934.0,2033.179,5.0,0.124,1.3,10.848,22.352,11.503,12.02,19.526,8.678,8.957,11.332,3.0,0.236,12.793,9.163,False,,0,0,0,0,
 Dru Smith,MIA,MIA,70.0,1141.0,1336.6,3.0,0.126,1.2,2.585,14.054,11.47,13.888,15.644,13.059,14.252,18.816,2.0,0.24,14.156,14.34,False,,0,0,0,0,
-Maxime Raynaud,SAC,SAC,74.0,1964.0,2176.324,3.6,0.088,-0.2,2.151,13.522,11.372,10.851,16.932,14.781,14.969,-2.151,,,10.058,13.925,False,,0,0,5,0.79,"Raynaud (knee) is progressing in his rehabilitation and will be re-evaluated in approximately two weeks, Brenden Nunes of KHTK Sactown Sports 1140 reports."
+Maxime Raynaud,SAC,SAC,74.0,1964.0,2176.324,3.6,0.088,-0.2,2.151,13.522,11.372,10.851,16.932,14.781,14.969,-2.151,,,10.217,14.134,False,,0,0,4,0.63,"Raynaud (knee) is progressing in his rehabilitation and will be re-evaluated in approximately two weeks, Brenden Nunes of KHTK Sactown Sports 1140 reports."
 Tim Hardaway Jr.,MIA,DEN,80.0,2127.0,2180.175,4.4,0.099,0.7,6.5,17.638,11.138,12.155,18.473,11.973,12.348,10.315,4.0,-0.126,10.109,11.749,False,,0,0,0,0,
 Karlo Matković,NOP,NOP,62.0,912.0,1206.194,2.7,0.142,0.6,2.296,13.378,11.082,13.755,14.945,12.648,14.171,13.398,2.0,0.282,14.076,14.281,False,,0,0,0,0,
-Jordan Miller,LAC,LAC,60.0,1325.0,1810.833,3.5,0.127,0.8,5.3,16.202,10.902,16.013,16.726,11.426,13.761,12.55,,,0.938,0.279,False,,0,0,58,15.08,"Miller underwent surgery Wednesday to repair a torn left rotator cuff and will be re-evaluated in six months, per Law Murray of The Athletic."
+Jordan Miller,LAC,LAC,60.0,1325.0,1810.833,3.5,0.127,0.8,5.3,16.202,10.902,16.013,16.726,11.426,13.761,12.55,,,1.198,0.511,False,,0,0,57,14.82,"Miller underwent surgery Wednesday to repair a torn left rotator cuff and will be re-evaluated in six months, per Law Murray of The Athletic."
 Justin Champagnie,WAS,WAS,69.0,1377.0,1636.435,3.1,0.108,0.6,2.668,13.455,10.787,13.479,15.868,13.2,14.568,13.026,4.0,0.263,5.434,5.515,False,,0,0,44,9.38,"Champagnie (foot) is expected to miss several months, per Josh Robbins of The Athletic."
 Adem Bona,PHI,PHI,71.0,1234.0,1425.183,2.9,0.113,-0.3,2.296,12.955,10.658,8.719,15.415,13.119,12.759,-2.296,4.0,0.083,8.657,12.735,False,,0,0,0,0,
 Onyeka Okongwu,ATL,ATL,74.0,2297.0,2545.324,6.0,0.125,1.6,16.12,26.673,10.553,11.296,21.134,5.014,5.506,8.22,4.0,0.136,12.004,5.675,False,,0,0,0,0,
@@ -115,7 +115,7 @@ Kenrich Williams,OKC,OKC,56.0,855.0,1251.964,2.3,0.129,0.5,5.0,11.194,6.194,9.98
 Ryan Rollins,MIL,MIL,74.0,2376.0,2632.865,3.4,0.069,1.3,4.0,10.156,6.156,8.357,16.517,12.517,13.665,18.181,4.0,0.042,7.887,13.518,False,,0,0,0,0,
 Landry Shamet,NYK,NYK,51.0,1171.0,1882.784,2.6,0.107,0.5,5.357,11.421,6.064,13.493,14.702,9.345,13.101,9.108,3.0,-0.0,12.296,12.744,False,,0,0,0,0,
 Keyonte George,UTA,UTA,54.0,1786.0,2712.074,3.3,0.089,1.3,6.564,12.583,6.019,12.732,16.304,9.741,13.223,15.617,4.0,0.151,13.9,13.534,True,,0,0,0,0,
-Chet Holmgren,OKC,OKC,69.0,1997.0,2373.246,9.1,0.219,3.1,41.5,47.43,5.93,10.161,37.455,-4.045,-3.753,-2.195,3.0,0.213,10.225,-3.75,False,,2,0,0,0,
+Chet Holmgren,OKC,OKC,69.0,1997.0,2373.246,9.1,0.219,3.1,41.5,47.43,5.93,10.161,37.455,-4.045,-3.753,-2.195,3.0,0.213,-11.853,-19.863,False,,2,0,35,22.08,"Holmgren underwent a biological treatment Friday to address a small patellar tendon tear and will miss at least 8-10 weeks, Nick Crain of Slam reports."
 James Harden,CLE,2TM,70.0,2438.0,2855.943,7.7,0.152,3.6,30.648,36.478,5.831,9.798,28.874,-1.774,-1.457,4.338,3.0,0.045,8.384,-1.529,False,,2,0,0,0,
 Isaiah Jackson,LAC,2TM,55.0,908.0,1353.745,2.6,0.137,0.2,7.0,12.779,5.779,6.105,14.702,7.702,8.698,2.6,3.0,0.143,6.337,8.782,False,,0,0,0,0,
 Mike Conley,BOS,MIN,54.0,991.0,1504.852,1.9,0.092,0.2,2.449,8.013,5.564,9.714,12.831,10.381,13.19,7.151,1.0,0.0,9.615,13.154,False,,0,0,0,0,
@@ -220,12 +220,12 @@ Drake Powell,BRK,BRK,63.0,1320.0,1718.095,-0.1,-0.004,-1.3,3.541,1.358,-2.183,-2
 Will Riley,WAS,WAS,74.0,1633.0,1809.541,0.4,0.012,-1.0,3.688,1.358,-2.331,-2.331,6.525,2.837,6.276,-3.688,3.0,-0.0,-2.331,6.252,True,,0,0,0,0,
 Cole Anthony,MEM,MIL,35.0,527.0,1234.686,-0.5,-0.046,-0.4,3.7,1.358,-2.342,-2.342,0,-3.7,1.485,-3.7,,,-2.342,1.485,False,,0,0,0,0,
 Immanuel Quickley,TOR,TOR,70.0,2231.0,2613.457,6.5,0.14,2.5,32.5,30.112,-2.388,1.069,21.881,-10.619,-9.384,-2.781,3.0,0.223,2.008,-9.179,False,,0,0,0,0,
-Steven Adams,HOU,HOU,32.0,730.0,1870.625,2.1,0.138,0.3,13.0,10.6,-2.4,4.068,13.4,0.4,4.904,-1.49,1.0,0.6,4.517,4.731,False,,0,0,2,0.44,"Head coach Ime Udoka said Monday that Adams could be out ""a week or two"" due to his right soleus strain, Lachard Binkley of SI.com reports."
+Steven Adams,HOU,HOU,32.0,730.0,1870.625,2.1,0.138,0.3,13.0,10.6,-2.4,4.068,13.4,0.4,4.904,-1.49,1.0,0.6,4.736,4.952,False,,0,0,1,0.22,"Head coach Ime Udoka said Monday that Adams could be out ""a week or two"" due to his right soleus strain, Lachard Binkley of SI.com reports."
 Taurean Prince,DET,MIL,26.0,611.0,1927.0,0.5,0.039,-0.2,3.816,1.358,-2.458,3.496,7.189,3.373,10.804,-3.816,,,3.496,10.804,False,,0,0,0,0,
 Anthony Black,ORL,ORL,64.0,1910.0,2447.188,2.6,0.065,0.7,10.106,7.605,-2.501,0.986,14.702,4.596,6.847,6.708,1.0,0.369,2.074,7.2,True,,0,0,0,0,
 Gradey Dick,LAC,TOR,76.0,1067.0,1151.237,1.4,0.063,-0.4,7.132,4.523,-2.609,-0.093,11.238,4.107,5.63,-7.132,3.0,0.1,0.027,5.686,True,,0,0,0,0,
 Nolan Traoré,BRK,BRK,56.0,1243.0,1820.107,-1.6,-0.062,-1.5,4.002,1.358,-2.644,-2.644,0,-4.002,-4.002,-4.002,3.0,0.0,-2.644,-4.002,True,,0,0,0,0,
-Kawhi Leonard,TOR,LAC,65.0,2085.0,2630.308,9.2,0.212,5.3,50.3,49.624,-0.676,5.066,44.085,-6.215,-5.727,-2.176,2.0,0.185,-4.511,-13.342,False,,2,0,14,9.43,"Leonard (knee) is expected to be sidelined for at least three to four weeks, Chris Haynes of NBA TV reports."
+Kawhi Leonard,TOR,LAC,65.0,2085.0,2630.308,9.2,0.212,5.3,50.3,49.624,-0.676,5.066,44.085,-6.215,-5.727,-2.176,2.0,0.185,-3.838,-12.799,False,,2,0,13,8.75,"Leonard (knee) is expected to be sidelined for at least three to four weeks, Chris Haynes of NBA TV reports."
 Tari Eason,HOU,HOU,60.0,1549.0,2116.967,2.9,0.09,0.2,14.052,11.328,-2.724,1.871,15.415,1.364,3.891,-4.452,4.0,0.155,2.656,4.129,False,,0,0,0,0,
 Rui Hachimura,LAC,LAL,68.0,1927.0,2323.735,3.2,0.08,-0.1,14.0,11.235,-2.765,0.423,16.088,2.088,3.81,-14,3.0,-0.102,-1.872,3.083,False,,0,0,0,0,
 Jonathan Kuminga,MIN,2TM,36.0,830.0,1890.556,1.0,0.058,0.0,6.064,3.268,-2.796,3.05,9.711,3.647,9.182,-6.064,4.0,0.242,7.046,10.604,False,,0,0,0,0,
@@ -318,8 +318,8 @@ Bam Adebayo,MIA,MIA,73.0,2365.0,2656.575,6.4,0.13,2.4,49.8,28.801,-20.999,-19.48
 Klay Thompson,MIA,DAL,69.0,1497.0,1779.043,0.5,0.016,0.2,23.06,1.358,-21.703,-21.703,7.189,-15.872,-12.445,-13.46,4.0,-0.058,-21.703,-13.038,False,split contract,0,0,0,0,
 Paolo Banchero,ORL,ORL,72.0,2502.0,2849.5,5.0,0.096,2.1,41.5,19.419,-22.081,-19.412,19.526,-21.974,-20.799,-14.011,2.0,0.212,-23.475,-25.146,False,,0,0,18,5.07,"Banchero is expected to be sidelined for the next four-to-six weeks due to a right high-ankle sprain, Shams Charania of ESPN reports."
 Tyler Herro,MIL,MIA,33.0,1033.0,2566.848,2.4,0.112,1.1,33.0,10.894,-22.106,-6.405,14.2,-18.8,-11.545,-12.417,4.0,0.151,-5.339,-11.289,False,,0,0,0,0,
-Jalen Suggs,ORL,ORL,57.0,1574.0,2264.351,2.7,0.082,1.8,32.4,9.96,-22.44,-17.498,14.945,-17.455,-14.536,-6.743,3.0,-0.048,-20.29,-16.218,False,,0,0,5,0.79,"Suggs has been diagnosed with a mild bone bruise in his right knee and will be re-evaluated in two weeks, Shams Charania of ESPN reports."
-Keegan Murray,SAC,SAC,23.0,793.0,2827.217,0.2,0.012,-0.2,24.138,1.358,-22.78,-22.78,4.83,-19.308,-10.203,-24.138,2.0,-0.089,-22.863,-11.957,False,,0,0,5,0.08,"Murray (ankle) will be re-evaluated in 10-to-14 days, NBA reporter Marc Stein reports."
+Jalen Suggs,ORL,ORL,57.0,1574.0,2264.351,2.7,0.082,1.8,32.4,9.96,-22.44,-17.498,14.945,-17.455,-14.536,-6.743,3.0,-0.048,-20.133,-16.008,False,,0,0,4,0.63,"Suggs has been diagnosed with a mild bone bruise in his right knee and will be re-evaluated in two weeks, Shams Charania of ESPN reports."
+Keegan Murray,SAC,SAC,23.0,793.0,2827.217,0.2,0.012,-0.2,24.138,1.358,-22.78,-22.78,4.83,-19.308,-10.203,-24.138,2.0,-0.089,-22.846,-11.799,False,,0,0,4,0.07,"Murray (ankle) will be re-evaluated in 10-to-14 days, NBA reporter Marc Stein reports."
 De'Andre Hunter,SAC,2TM,45.0,1176.0,2142.933,1.1,0.045,-0.6,24.911,2.101,-22.809,-18.026,10.121,-14.789,-10.02,-24.911,3.0,-0.065,-19.672,-10.68,False,,0,0,0,0,
 Brandon Ingram,LAC,TOR,77.0,2604.0,2773.091,4.6,0.085,1.7,40.0,16.414,-23.586,-22.046,18.832,-21.168,-20.492,-14.991,,,-22.046,-20.492,False,,0,0,0,0,
 Draymond Green,GSW,GSW,68.0,1869.0,2253.794,1.7,0.044,0.3,27.679,2.241,-25.438,-22.634,12.226,-15.452,-13.292,-16.169,3.0,-0.122,-24.445,-14.056,False,,0,0,0,0,

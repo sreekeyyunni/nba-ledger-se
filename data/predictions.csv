@@ -70,13 +70,20 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-10-29,10:00p,MEM,POR,124,103,,0.633,3.9,POR,final,0,live,2.5,3.7,,,,
 2026-10-29,7:00p,CLE,ATL,111,114,,0.573,2.1,ATL,final,1,live,1.2,1.0,CLE on a back-to-back | ATL on a back-to-back,,,
 2026-10-29,8:00p,SAC,NOP,120,132,,0.738,7.3,NOP,final,1,live,-9.4,-3.9,NOP on a back-to-back,,,
-2026-10-30,10:00p,LAL,GSW,,,,0.370,-3.8,LAL,upcoming,,live,4.3,-1.8,,,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.3 pts)",
-2026-10-30,10:00p,DEN,PHO,,,,0.451,-1.4,DEN,upcoming,,live,0.8,-2.9,,,"Mark Williams (out, 1.2 pts); Oso Ighodaro (questionable, 0.4 pts)",
-2026-10-30,7:00p,CHO,WAS,,,,0.546,1.3,WAS,live,,live,-2.4,-3.7,,,,59-79 End of 3rd
-2026-10-30,7:30p,CHI,BOS,,,,0.860,12.4,BOS,live,,live,-6.0,3.8,,"Nic Claxton (out, 0.5 pts)",,49-78 Halftime
-2026-10-30,7:30p,DET,BRK,,,,0.266,-7.2,DET,live,,live,3.2,-6.3,,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.3 pts)",,56-49 Halftime
-2026-10-30,7:30p,NYK,PHI,,,,0.536,1.0,PHI,live,,live,2.3,0.9,,,"Jaylen Brown (out, 1.1 pts); Dominick Barlow (out, 0.5 pts)",44-53 11:05 - 3rd
-2026-10-30,7:30p,ORL,TOR,,,,0.773,8.6,TOR,live,,live,-3.2,3.1,,,"Kawhi Leonard (out, 1.5 pts)",64-55 Halftime
-2026-10-30,8:00p,HOU,DAL,,,,0.369,-3.8,HOU,live,,live,5.1,-0.1,,"Alperen Sengun (out, 0.8 pts)",,36-36 4:44 - 2nd
-2026-10-30,8:00p,IND,MIA,,,,0.587,2.5,MIA,live,,live,-4.1,-3.6,,"Tyrese Haliburton (out, 0.7 pts); Ivica Zubac (out, 0.7 pts)",,54-51 6:24 - 2nd
-2026-10-30,8:00p,LAC,MIN,,,,0.801,9.7,MIN,live,,live,-2.0,5.4,,"Jordan Miller (out, 0.3 pts)","Anthony Edwards (out, 0.7 pts)",52-60 3:12 - 2nd
+2026-10-30,10:00p,LAL,GSW,95,112,,0.370,-3.8,LAL,final,0,live,4.2,0.8,,,,
+2026-10-30,10:00p,DEN,PHO,127,120,,0.451,-1.4,DEN,final,1,live,1.0,-1.2,,,,
+2026-10-30,7:00p,CHO,WAS,79,95,,0.546,1.3,WAS,final,1,live,-1.7,-3.6,,,,
+2026-10-30,7:30p,CHI,BOS,111,125,,0.860,12.4,BOS,final,1,live,-5.5,3.8,,,,
+2026-10-30,7:30p,DET,BRK,110,94,,0.266,-7.2,DET,final,1,live,5.2,-6.3,,,,
+2026-10-30,7:30p,NYK,PHI,93,98,,0.536,1.0,PHI,final,1,live,2.1,2.4,,,,
+2026-10-30,7:30p,ORL,TOR,121,114,,0.773,8.6,TOR,final,0,live,-3.5,4.6,,,,
+2026-10-30,8:00p,HOU,DAL,111,116,,0.369,-3.8,HOU,final,0,live,6.9,-0.1,,,,
+2026-10-30,8:00p,IND,MIA,125,145,,0.587,2.5,MIA,final,1,live,-2.7,-3.6,,,,
+2026-10-30,8:00p,LAC,MIN,101,127,,0.801,9.7,MIN,final,1,live,-1.6,6.3,,,,
+2026-10-31,3:00p,POR,UTA,,,,0.315,-5.5,POR,upcoming,,live,2.7,-5.2,,,"Lauri Markkanen (questionable, 0.4 pts)",
+2026-10-31,6:00p,PHI,CHO,,,,0.412,-2.6,PHI,upcoming,,live,1.3,-3.6,PHI on a back-to-back | CHO on a back-to-back,"Jaylen Brown (questionable, 1.1 pts); Dominick Barlow (out, 0.5 pts)",,
+2026-10-31,7:00p,ATL,NOP,,,,0.435,-1.9,ATL,upcoming,,live,1.1,-3.1,,,,
+2026-10-31,8:00p,SAC,MEM,,,,0.908,15.3,MEM,upcoming,,live,-10.4,2.6,,"Maxime Raynaud (out, 0.6 pts)","Ty Jerome (questionable, 1.5 pts)",
+2026-10-31,8:00p,CLE,MIL,,,,0.344,-4.6,CLE,upcoming,,live,1.3,-5.7,,,,
+2026-10-31,8:00p,MIN,SAS,,,,0.570,2.0,SAS,upcoming,,live,6.4,4.6,MIN on a back-to-back,"Anthony Edwards (out, 0.7 pts)",,
+2026-10-31,8:30p,OKC,HOU,,,,0.670,5.1,HOU,upcoming,,live,0.7,5.0,HOU on a back-to-back,"Chet Holmgren (out, 1.5 pts); Alex Caruso (out, 0.4 pts); Jalen Williams (out, 0.4 pts)","Alperen Sengun (questionable, 0.8 pts)",
