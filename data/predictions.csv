@@ -70,13 +70,13 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-10-29,10:00p,MEM,POR,124,103,,0.633,3.9,POR,final,0,live,2.5,3.7,,,,
 2026-10-29,7:00p,CLE,ATL,111,114,,0.573,2.1,ATL,final,1,live,1.2,1.0,CLE on a back-to-back | ATL on a back-to-back,,,
 2026-10-29,8:00p,SAC,NOP,120,132,,0.738,7.3,NOP,final,1,live,-9.4,-3.9,NOP on a back-to-back,,,
-2026-10-30,10:00p,LAL,GSW,,,,0.371,-3.8,LAL,upcoming,,live,4.3,-1.8,,,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.3 pts)",
+2026-10-30,10:00p,LAL,GSW,,,,0.370,-3.8,LAL,upcoming,,live,4.3,-1.8,,,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.3 pts)",
 2026-10-30,10:00p,DEN,PHO,,,,0.451,-1.4,DEN,upcoming,,live,0.8,-2.9,,,"Mark Williams (out, 1.2 pts); Oso Ighodaro (questionable, 0.4 pts)",
-2026-10-30,7:00p,CHO,WAS,,,,0.546,1.3,WAS,upcoming,,live,-2.3,-3.3,,,,
-2026-10-30,7:30p,CHI,BOS,,,,0.860,12.4,BOS,upcoming,,live,-6.3,3.8,,"Nic Claxton (out, 0.5 pts); Jalen Smith (questionable, 0.3 pts)",,
-2026-10-30,7:30p,DET,BRK,,,,0.266,-7.2,DET,upcoming,,live,3.2,-6.3,,"Jalen Duren (out, 1.5 pts); Isaiah Joe (questionable, 0.3 pts)",,
-2026-10-30,7:30p,NYK,PHI,,,,0.536,1.0,PHI,upcoming,,live,2.3,1.0,,,"Jaylen Brown (questionable, 1.1 pts); Dominick Barlow (out, 0.5 pts)",
-2026-10-30,7:30p,ORL,TOR,,,,0.774,8.6,TOR,upcoming,,live,-3.2,3.1,,,"Kawhi Leonard (out, 1.5 pts)",
-2026-10-30,8:00p,HOU,DAL,,,,0.369,-3.8,HOU,upcoming,,live,5.8,-0.4,,"Alperen Sengun (questionable, 0.8 pts)",,
-2026-10-30,8:00p,IND,MIA,,,,0.587,2.5,MIA,upcoming,,live,-3.8,-3.6,,"Tyrese Haliburton (out, 0.7 pts); Ivica Zubac (out, 0.7 pts)",,
-2026-10-30,8:00p,LAC,MIN,,,,0.801,9.7,MIN,upcoming,,live,-2.0,5.4,,"Jordan Miller (out, 0.3 pts)","Anthony Edwards (out, 0.7 pts)",
+2026-10-30,7:00p,CHO,WAS,,,,0.546,1.3,WAS,live,,live,-2.4,-3.7,,,,59-79 End of 3rd
+2026-10-30,7:30p,CHI,BOS,,,,0.860,12.4,BOS,live,,live,-6.0,3.8,,"Nic Claxton (out, 0.5 pts)",,49-78 Halftime
+2026-10-30,7:30p,DET,BRK,,,,0.266,-7.2,DET,live,,live,3.2,-6.3,,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.3 pts)",,56-49 Halftime
+2026-10-30,7:30p,NYK,PHI,,,,0.536,1.0,PHI,live,,live,2.3,0.9,,,"Jaylen Brown (out, 1.1 pts); Dominick Barlow (out, 0.5 pts)",44-53 11:05 - 3rd
+2026-10-30,7:30p,ORL,TOR,,,,0.773,8.6,TOR,live,,live,-3.2,3.1,,,"Kawhi Leonard (out, 1.5 pts)",64-55 Halftime
+2026-10-30,8:00p,HOU,DAL,,,,0.369,-3.8,HOU,live,,live,5.1,-0.1,,"Alperen Sengun (out, 0.8 pts)",,36-36 4:44 - 2nd
+2026-10-30,8:00p,IND,MIA,,,,0.587,2.5,MIA,live,,live,-4.1,-3.6,,"Tyrese Haliburton (out, 0.7 pts); Ivica Zubac (out, 0.7 pts)",,54-51 6:24 - 2nd
+2026-10-30,8:00p,LAC,MIN,,,,0.801,9.7,MIN,live,,live,-2.0,5.4,,"Jordan Miller (out, 0.3 pts)","Anthony Edwards (out, 0.7 pts)",52-60 3:12 - 2nd
