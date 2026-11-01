@@ -10,7 +10,7 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 2. Never edit, reorder or rewrite `pipeline/outputs/predictions_log.csv`. It is the locked record of picks.
 3. `nav.js` is the only menu. Add a page by adding it to `PAGES` in `nav.js`; do not build a second menu.
 4. No secrets in the repo. Keys live in GitHub secrets (`BALLDONTLIE_API_KEY`) or on the Mac in `.env`.
-5. Data: polite API requests only, no scraping or crawling. Contracts are pulled only when Sreekar asks.
+5. Data: polite API requests only, no scraping or crawling. Contracts are pulled weekly (one Basketball Reference page, Mondays).
 6. Keep it static: plain HTML/JS/CSV, no build step, no frameworks, no new runtime dependencies.
 7. Keep CSV columns stable. Pages read columns by name; if you add one, add it at the end.
 8. Don't hand-edit the `<!--pwa-->` blocks; `scripts/pwa.py` writes them.
@@ -31,15 +31,15 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 
 ## Data files and who writes them
 
-Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_api and contracts),
+Writers: **Mac** = Sreekar's Mac (`refresh.py`, Mondays; now only needed for play styles),
 **Actions** = `pipeline/` twice daily (about 4:30pm and 2am ET), **Weekly** = `weekly-data.yml` on GitHub,
-Mondays 9am ET (`pipeline/stats.py`, `contract_value.py`, `trade_value.py`, `draft_picks.py`, `adjust.py`,
+Mondays 9am ET (`pipeline/stats.py`, `contracts.py`, `contract_value.py`, `trade_value.py`, `draft_picks.py`, `adjust.py`,
 `alerts.py`, cap sheet, movers), **Claude** = the integrator. The Mac is a backup, and the only source of play styles.
 
 | File | Columns (key ones) | Writer |
 |---|---|---|
 | `contract_value.csv` | Player, Team, G, MP, WS, VORP, salary_m, market_value_m, surplus_m, healthy_surplus_m, ..., star_tier, star_m, games_out, injury_m, injury_note | Weekly (`pipeline/contract_value.py`), then Actions (`pipeline/adjust.py`) |
-| `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Weekly, from `pipeline/data/contracts.csv` (re-pulled only when Sreekar asks) |
+| `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Weekly, from `pipeline/data/contracts.csv` (`pipeline/contracts.py`, Basketball Reference, Mondays) |
 | `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Weekly (`trade_value.py`), then Actions (`adjust.py`) |
 | `accolades.csv` | Player, season, honor (All-NBA) for star credit | By hand / Claude |
 | `positions.csv` | Player, Pos (for Guess the player) | Actions (`adjust.py`) |
