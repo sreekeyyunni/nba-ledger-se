@@ -17,7 +17,7 @@ for f, key in KEYS.items():
         if c == key or c + "_cloud" not in m:
             continue
         x, y = m[c + "_mac"], m[c + "_cloud"]
-        if pd.api.types.is_numeric_dtype(x) and pd.api.types.is_numeric_dtype(y):
+        if all(pd.api.types.is_numeric_dtype(s) and not pd.api.types.is_bool_dtype(s) for s in (x, y)):
             d = (x - y).abs().max()
             if d > 0.05:
                 bad += 1
