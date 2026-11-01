@@ -168,8 +168,9 @@ td .badge{margin-right:8px}
   </section>
 
   <section id="teams-view" hidden style="flex-direction:column;gap:18px">
-    <div class="sectionhead"><h3>Front office ranking</h3><p>Sum of player surplus minus dead money. Click a team to see its roster.</p></div>
-    <figure><svg id="bars" viewBox="0 0 720 700" role="img" aria-label="Team net surplus"></svg></figure>
+    <div class="sectionhead"><h3>Front office ranking</h3><p>Sum of player surplus minus dead money, with each team's record this season. Click a team to see its roster.</p></div>
+    <div class="seg" role="group" aria-label="Chart" id="tview"><button data-v="bars" aria-pressed="true">Ranking</button><button data-v="scatter" aria-pressed="false">Ranking vs. record</button></div>
+    <figure><svg id="bars" viewBox="0 0 720 700" role="img" aria-label="Team net surplus"></svg><svg id="scat" viewBox="0 0 720 440" role="img" aria-label="Front office value against win percentage" hidden></svg></figure>
     <div class="tablewrap"><table id="ttable"></table></div>
   </section>
 
@@ -302,9 +303,32 @@ const SF=()=>window.StyleFit&&StyleFit.has&&StyleFit.teams().length?StyleFit:nul
 const fitOf=(team,outs,ins)=>{const F=SF();return F?F.trade(team,outs.filter(p=>!p.pick).map(p=>p.name),ins.filter(p=>!p.pick).map(p=>p.name)):null};
 const fitCls=s=>s>=1.5?"pos":s<=-1.5?"neg":"";
 const fitTxt=f=>f?`${f.label} (${f.score>0?"+":""}${f.score.toFixed(1)})`:"–";
-const TCOLS=[{k:"team",l:"Team"},{k:"net",l:"Net",n:1},{k:"sur",l:"Contract surplus",n:1},{k:"dead",l:"Dead money",n:1},{k:"picks",l:"Draft picks",n:1},{k:"all",l:"Net + picks",n:1},{k:"fit",l:"Style fit",n:1},{k:"active",l:"Payroll",n:1},{k:"cash",l:"Total cash",n:1},{k:"n",l:"Valued",n:1},{k:"best",l:"Best contract"},{k:"worst",l:"Worst contract"}];
-const tval=(t,k)=>{if(k==="net")return teamStats(t).sur-t.dead;if(k==="all")return teamStats(t).sur-t.dead+(t.picks||0);if(k==="fit"){const b=SF()&&SF().balance(t.team);return b?b.score:-1}if(["sur","n","best","worst"].includes(k))return teamStats(t)[k];return t[k]};
+const TCOLS=[{k:"team",l:"Team"},{k:"rec",l:"Record",n:1},{k:"net",l:"Net",n:1},{k:"sur",l:"Contract surplus",n:1},{k:"dead",l:"Dead money",n:1},{k:"picks",l:"Draft picks",n:1},{k:"all",l:"Net + picks",n:1},{k:"fit",l:"Style fit",n:1},{k:"active",l:"Payroll",n:1},{k:"cash",l:"Total cash",n:1},{k:"n",l:"Valued",n:1},{k:"best",l:"Best contract"},{k:"worst",l:"Worst contract"}];
+const tval=(t,k)=>{if(k==="rec"){const r=REC[t.team];return r&&r.w+r.l?r.w/(r.w+r.l)+r.w/1e3:-1}if(k==="net")return teamStats(t).sur-t.dead;if(k==="all")return teamStats(t).sur-t.dead+(t.picks||0);if(k==="fit"){const b=SF()&&SF().balance(t.team);return b?b.score:-1}if(["sur","n","best","worst"].includes(k))return teamStats(t)[k];return t[k]};
+// Records this season, from the predictor's team_power.csv (GitHub Actions refreshes it twice a day)
+let REC={};
+const recTxt=a=>REC[a]?`${REC[a].w}-${REC[a].l}`:"–";
+function drawScatter(){
+  const svg=$("#scat");svg.innerHTML="";const W=720,H=440,m={l:52,r:24,t:20,b:40};
+  const ts=teams.filter(t=>REC[t.team]&&REC[t.team].w+REC[t.team].l);
+  if(!ts.length){const tx=el("text",{x:W/2,y:H/2,"text-anchor":"middle",fill:css("--muted")},svg);tx.textContent="Records aren't available yet.";return}
+  const xs=ts.map(t=>tval(t,"net")),pad=10,lo=Math.min(0,...xs)-pad,hi=Math.max(0,...xs)+pad;
+  const x=v=>m.l+(v-lo)/(hi-lo)*(W-m.l-m.r),y=p=>m.t+(1.06-p)/1.12*(H-m.t-m.b);
+  const mute=css("--muted"),line=css("--line");
+  el("line",{x1:x(0),x2:x(0),y1:m.t,y2:H-m.b,stroke:line},svg);el("line",{x1:m.l,x2:W-m.r,y1:y(.5),y2:y(.5),stroke:line,"stroke-dasharray":"4 3"},svg);
+  [[W-m.r-6,m.t+12,"end","Good books, winning"],[m.l+6,m.t+12,"start","Winning anyway"],[W-m.r-6,H-m.b-8,"end","Good books, losing"],[m.l+6,H-m.b-8,"start","Rough all around"]].forEach(([a,b,an,s])=>{const q=el("text",{x:a,y:b,"text-anchor":an,fill:mute,"font-size":"11"},svg);q.textContent=s});
+  const xl=el("text",{x:(m.l+W-m.r)/2,y:H-8,"text-anchor":"middle",fill:mute,"font-size":"12"},svg);xl.textContent="Front office value (net surplus) →";
+  const yl=el("text",{x:14,y:(m.t+H-m.b)/2,"text-anchor":"middle",fill:mute,"font-size":"12",transform:`rotate(-90 14 ${(m.t+H-m.b)/2})`},svg);yl.textContent="Win % this season →";
+  ts.forEach(t=>{const r=REC[t.team],cx=x(tval(t,"net")),cy=y(r.w/(r.w+r.l));
+    const g=el("g",{style:"cursor:pointer",tabindex:0},svg);const ti=el("title",{},g);ti.textContent=`${tinfo(t.team)[0]}: ${r.w}-${r.l}, net ${sgn(tval(t,"net"))}`;
+    el("circle",{cx,cy,r:13,fill:"transparent"},g);badgeEl(t.team,cx,cy,11,g,t.team===st.team||!st.team?1:.85);
+    const go=()=>{st.team=t.team;$("#teamSel").value=t.team;st.sel=null;setTab("players")};
+    g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
+  });
+}
 function drawTeams(){
+  const tv=st.tview||"bars";document.querySelectorAll("#tview button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===tv));
+  $("#bars").toggleAttribute("hidden",tv!=="bars");$("#scat").toggleAttribute("hidden",tv!=="scatter");if(tv==="scatter")drawScatter();
   const ts=teams.slice().sort((a,b)=>tval(b,"net")-tval(a,"net"));
   const svg=$("#bars");svg.innerHTML="";
   const rh=22,W=720,m={l:46,r:64,t:10,b:10},H=m.t+m.b+rh*ts.length;svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
@@ -317,12 +341,12 @@ function drawTeams(){
     el("rect",{x:Math.min(x(0),x(v)),y:yy+4,width:Math.max(1,Math.abs(x(v)-x(0))),height:rh-8,rx:2,fill:v>=0?css("--good"):css("--bad"),"fill-opacity":t.team===st.team?1:.75},g);
     if(t.dead>0){const w=Math.abs(x(t.dead)-x(0));el("rect",{x:v>=0?x(v):x(v)-w,y:yy+4,width:w,height:rh-8,fill:"none",stroke:css("--bad"),"stroke-dasharray":"3 2"},g)}
     badgeEl(t.team,m.l-16,yy+rh/2,10.5,g);
-    const vt=el("text",{x:v>=0?x(v)+(t.dead>0?Math.abs(x(t.dead)-x(0)):0)+6:x(v)-6,y:yy+rh/2+4,"text-anchor":v>=0?"start":"end"},g);vt.textContent=sgn(v);
+    const vt=el("text",{x:v>=0?x(v)+(t.dead>0?Math.abs(x(t.dead)-x(0)):0)+6:x(v)-6,y:yy+rh/2+4,"text-anchor":v>=0?"start":"end"},g);vt.textContent=sgn(v);if(REC[t.team]){const rt=el("tspan",{fill:css("--muted"),"font-size":"11"},vt);rt.textContent="  "+recTxt(t.team)}
     const go=()=>{st.team=t.team;$("#teamSel").value=t.team;st.sel=null;setTab("players")};
     g.addEventListener("click",go);g.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
   });
   const rows=sortBy(teams.slice(),tval,st.tsort);
-  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b>${moveTag("team",t.team)}</td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num" title="${(()=>{const b=SF()&&SF().balance(t.team);return b?esc((b.needs.length?"Needs: "+b.needs.join(", "):"No clear holes")+(b.strengths.length?". Deep in: "+b.strengths.join(", "):"")):""})()}">${tval(t,"fit")<0?"–":tval(t,"fit")}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
+  $("#ttable").innerHTML=head(TCOLS,st.tsort,"t")+"<tbody>"+rows.map(t=>`<tr data-team="${t.team}" class="${t.team===st.team?"sel":""}"><td>${badge(t.team,22)}<b>${tinfo(t.team)[0]}</b>${moveTag("team",t.team)}</td><td class="num">${recTxt(t.team)}</td><td class="num ${cls(tval(t,"net"))}">${sgn(tval(t,"net"))}</td><td class="num ${cls(tval(t,"sur"))}">${sgn(tval(t,"sur"))}</td><td class="num">${t.dead?money(t.dead):"–"}</td><td class="num">${t.picks==null?"–":money(t.picks)}</td><td class="num ${cls(tval(t,"all"))}">${sgn(tval(t,"all"))}</td><td class="num" title="${(()=>{const b=SF()&&SF().balance(t.team);return b?esc((b.needs.length?"Needs: "+b.needs.join(", "):"No clear holes")+(b.strengths.length?". Deep in: "+b.strengths.join(", "):"")):""})()}">${tval(t,"fit")<0?"–":tval(t,"fit")}</td><td class="num">${money(t.active)}</td><td class="num">${money(t.cash)}</td><td class="num">${tval(t,"n")}</td><td>${esc(tval(t,"best"))}</td><td>${esc(tval(t,"worst"))}</td></tr>`).join("")+"</tbody>";
 }
 
 function drawBanner(){
@@ -629,6 +653,8 @@ async function boot(){
     if(pk)picks=parseCSV(pk).map(r=>{const swap=/SWAP/.test(r.pick_id),rd=r.round==="1"?"1st":"2nd",prot=(r.protection||"").replace("slots ","");
       return{id:r.pick_id+"@"+r.owner,pick:true,year:+r.year,round:+r.round,orig:r.original_team,team:r.owner,swap,swapWith:r.swap_with,prot,slot:N(r.exp_slot),p:N(r.p_conveys),tv:N(r.value_m)||0,sal:0,y1:0,notes:r.notes||"",
         name:swap?`${r.year} ${rd} swap with ${r.swap_with}`:`${r.original_team} ${r.year} ${rd}${prot?" (if "+prot+")":""}`}});
+    const tp=await fetch("data/team_power.csv").then(r=>r.ok?r.text():"").catch(()=>"");
+    if(tp)parseCSV(tp).forEach(r=>{if(r.team)REC[r.team]={w:+r.wins||0,l:+r.losses||0}});
     const mv=await fetch("data/movers.csv").then(r=>r.ok?r.text():"").catch(()=>"");
     if(mv)parseCSV(mv).forEach(r=>{if(r.prev_value==="")return;MOVE[r.kind+"|"+r.key]={d:N(r.value)-N(r.prev_value),r:N(r.rank),pr:N(r.prev_rank),since:r.since,team:r.team,name:r.key}});
     const yc=await fetch("data/contracts_clean.csv").then(r=>r.ok?r.text():"").catch(()=>"");
@@ -645,6 +671,7 @@ $("#hideSmall").checked=st.hideSmall;$("#hideSmall").addEventListener("change",e
 document.querySelectorAll("#lens button").forEach(b=>b.addEventListener("click",()=>{st.lens=b.dataset.l;save();render()}));
 ["home","players","teams","trade"].forEach(k=>$("#tab-"+k).addEventListener("click",()=>setTab(k)));
 document.addEventListener("click",e=>{
+  const tvb=e.target.closest("#tview button");if(tvb){st.tview=tvb.dataset.v;drawTeams();return}
   if(e.target.closest("#suggest")){suggest();return}
   if(e.target.closest("#saveTrade")){saveTrade();return}
   if(e.target.closest("#tradeImg")){downloadImage();return}

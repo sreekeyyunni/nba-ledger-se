@@ -77,7 +77,7 @@ table.o tbody tr:hover td{background:var(--soft)}
 <main class="wrap">
   <header><p class="eyebrow">Season simulator</p><h1>Season sim</h1>
   <p class="lede">Plays out every remaining game of the 2026-27 season thousands of times, then the play-in and playoffs, and counts how often each team gets there. Trades in the Trade machine and the Transactions page show how a deal moves these odds.</p></header>
-  <div class="pick"><label>Simulations <select id="sims"><option value="2000">2,000 (fast)</option><option value="5000" selected>5,000</option><option value="20000">20,000 (slow)</option></select></label><label>Team <select id="team"></select></label><span class="sub" id="stamp"></span></div>
+  <div class="pick"><label>Simulations <select id="sims"><option value="2000">2,000 (fast)</option><option value="5000" selected>5,000</option><option value="20000">20,000 (slow)</option></select></label><label>Order <select id="order"><option value="proj">Projected finish</option><option value="now">Current standings</option></select></label><label>Team <select id="team"></select></label><span class="sub" id="stamp"></span></div>
   <section class="card mine" id="mine" aria-live="polite"><p class="sub">Running the season…</p></section>
   <section class="card"><div class="head"><h2>East</h2><p class="sub">Solid line: top 6 seeds above, play-in 7–10 below the dashed line. Click a team for its seed spread.</p></div><div class="tw"><table class="o" id="E"></table></div></section>
   <section class="card"><div class="head"><h2>West</h2></div><div class="tw"><table class="o" id="W"></table></div></section>
@@ -114,10 +114,12 @@ function mine(){
   <div class="legend"><span><i style="background:var(--team)"></i>Top 6</span><span><i style="background:var(--z2)"></i>Play-in</span><span><i style="background:var(--track)"></i>Lottery</span></div>`;
 }
 function table(c){
-  const rows=Object.entries(R.teams).filter(([t,o])=>o.conf===c).sort((a,b)=>b[1].projW-a[1].projW||b[1].playoffs-a[1].playoffs);
+  const pctW=o=>o.w+o.l?o.w/(o.w+o.l):0.5,byNow=$("#order").value==="now";
+  const rows=Object.entries(R.teams).filter(([t,o])=>o.conf===c).sort((a,b)=>byNow?pctW(b[1])-pctW(a[1])||b[1].w-a[1].w||b[1].projW-a[1].projW:b[1].projW-a[1].projW||b[1].playoffs-a[1].playoffs);
+  const lead=rows[0][1],gb=o=>((lead.w-o.w)+(o.l-lead.l))/2;
   $("#"+c).innerHTML=`<thead><tr><th>#</th><th>Team</th><th>Now</th><th>Proj</th><th>Seed spread</th><th>Play-in</th><th>Playoffs</th><th>2nd rd</th><th>Conf finals</th><th>Finals</th><th>Title</th></tr></thead><tbody>${rows.map(([t,o],i)=>{
     const mx=Math.max(...o.seeds,0.01);
-    return`<tr data-t="${t}" tabindex="0" class="${t===team?"me ":""}${i===5?"cut6":i===9?"cut":""}" aria-expanded="${open.has(t)}"><td class="num">${i+1}</td><td class="tm">${badge(t,22)}<span>${esc(TEAM_NAMES[t])}</span></td><td class="num">${o.w}-${o.l}</td><td class="num">${o.projW.toFixed(1)}-${o.projL.toFixed(1)}</td>
+    return`<tr data-t="${t}" tabindex="0" class="${t===team?"me ":""}${i===5?"cut6":i===9?"cut":""}" aria-expanded="${open.has(t)}"><td class="num">${i+1}</td><td class="tm">${badge(t,22)}<span>${esc(TEAM_NAMES[t])}</span></td><td class="num">${o.w}-${o.l}${byNow?`<small class="sub"> ${gb(o)?gb(o).toFixed(1)+" GB":"–"}</small>`:""}</td><td class="num">${o.projW.toFixed(1)}-${o.projL.toFixed(1)}</td>
     <td><span class="strip" title="Likely seed ${seedRange(o.seeds)}">${o.seeds.map(p=>`<i style="opacity:${p<0.005?0.08:0.15+0.85*p/mx}"></i>`).join("")}</span></td>
     ${["playin","playoffs","semis","confFinals","finals","title"].map(k=>`<td><span class="pc" ${shade(o[k])}>${pct(o[k])}</span></td>`).join("")}</tr>${open.has(t)?`<tr class="det"><td colspan="11">Seed odds: ${o.seeds.map((p,k)=>p>=0.005?`<b>${ord(k+1)}</b> ${pct(p)}`:"").filter(Boolean).join(" · ")}. Rating ${o.rating>0?"+":""}${o.rating.toFixed(1)} points vs an average team.</td></tr>`:""}`}).join("")}</tbody>`;
 }
@@ -136,6 +138,7 @@ fetch("data/sim_data.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);
   $("#team").innerHTML=opts.map(a=>`<option value="${a}">${esc(TEAM_NAMES[a])}</option>`).join("");
   const mt=myTeam();team=d.teams[mt]?mt:"WAS";$("#team").value=team;
   $("#team").onchange=e=>{team=e.target.value;draw()};
+  $("#order").onchange=draw;
   $("#sims").onchange=run;run();
 }).catch(e=>{$("#mine").innerHTML=`<p class="sub">Couldn't load the simulator data (${esc(e.message)}).</p>`});
 })();
