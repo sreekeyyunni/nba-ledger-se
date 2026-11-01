@@ -1,7 +1,7 @@
 # The Monday refresh, on GitHub instead of the Mac: this season's stats from
-# Basketball Reference, the contract, trade and draft pick models, star credit and
+# Basketball Reference, this week's contracts (Basketball Reference), the contract, trade and draft pick models, star credit and
 # injury time, the cap sheet, movers and alerts for the followed teams, then a commit
-# to main. Contracts are not re-pulled here (only when Sreekar asks). Play styles
+# to main. Play styles
 # need NBA.com, which times out from GitHub, so they come from the Mac when it runs.
 # On a pull request that changes this job it runs as a test: no push, no issue.
 name: Weekly data
@@ -10,7 +10,7 @@ on:
     - cron: "0 13 * * 1"   # Mondays 9am EDT / 8am EST
   workflow_dispatch:
   pull_request:
-    paths: [".github/workflows/weekly-data.yml", "pipeline/stats.py", "pipeline/contract_value.py",
+    paths: [".github/workflows/weekly-data.yml", "pipeline/stats.py", "pipeline/contracts.py", "pipeline/contract_value.py",
             "pipeline/trade_value.py", "pipeline/draft_picks.py", "pipeline/alerts.py",
             "pipeline/spotrac_inputs.py", "scripts/build_cap_sheet.py", "scripts/movers.py"]
 permissions:
@@ -36,6 +36,9 @@ jobs:
       - run: pip install pandas==3.1.0 numpy==2.5.4
       - name: This season's stats and draft pages (Basketball Reference)
         run: python stats.py   # if Basketball Reference is down, stop: last week's data stays up
+      - name: This week's contracts (Basketball Reference)
+        continue-on-error: true   # keep last week's contracts if the page is down
+        run: python contracts.py
       - name: Team cash and future picks (from the site's data; raw Spotrac captures stay on the Mac)
         run: python spotrac_inputs.py
       - name: Last week's values, for the alerts
@@ -63,7 +66,7 @@ jobs:
         run: python scripts/build_cap_sheet.py data && python scripts/movers.py data
       - name: What changed
         working-directory: .
-        run: git diff --stat && cat pipeline/outputs/alerts.md
+        run: git diff --stat && head -3 pipeline/data/contracts.csv && cat pipeline/outputs/alerts.md
       - name: Test run only, keep the files
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
@@ -79,7 +82,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data pipeline/data/advanced_2026_27.csv pipeline/data/raw
+          git add data pipeline/data/advanced_2026_27.csv pipeline/data/contracts.csv pipeline/data/raw
           if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
           git commit -m "Data: $(date '+%b %-d') weekly refresh"
           for i in 1 2 3 4; do
