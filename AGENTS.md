@@ -33,23 +33,25 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 
 Writers: **Mac** = weekly refresh on Sreekar's Mac (`refresh.py`, Mondays, nba_api and contracts),
 **Actions** = `pipeline/` twice daily (about 4:30pm and 2am ET), **Weekly** = `weekly-data.yml` on GitHub,
-Mondays 9am ET (`pipeline/stats.py`, cap sheet, movers), **Claude** = the integrator. The Mac is a backup only.
+Mondays 9am ET (`pipeline/stats.py`, `contract_value.py`, `trade_value.py`, `draft_picks.py`, `adjust.py`,
+`alerts.py`, cap sheet, movers), **Claude** = the integrator. The Mac is a backup, and the only source of play styles.
 
 | File | Columns (key ones) | Writer |
 |---|---|---|
-| `contract_value.csv` | Player, Team, G, MP, WS, VORP, salary_m, market_value_m, surplus_m, healthy_surplus_m, ..., star_tier, star_m, games_out, injury_m, injury_note | Mac, then Actions (`pipeline/adjust.py`) |
-| `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Mac (contract pull, on request) |
-| `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Mac, then Actions (`adjust.py`) |
+| `contract_value.csv` | Player, Team, G, MP, WS, VORP, salary_m, market_value_m, surplus_m, healthy_surplus_m, ..., star_tier, star_m, games_out, injury_m, injury_note | Weekly (`pipeline/contract_value.py`), then Actions (`pipeline/adjust.py`) |
+| `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Weekly, from `pipeline/data/contracts.csv` (re-pulled only when Sreekar asks) |
+| `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Weekly (`trade_value.py`), then Actions (`adjust.py`) |
 | `accolades.csv` | Player, season, honor (All-NBA) for star credit | By hand / Claude |
 | `positions.csv` | Player, Pos (for Guess the player) | Actions (`adjust.py`) |
-| `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ..., adj_net_m | Mac, then Actions (`adjust.py`) |
-| `team_cap.csv` | payroll, cap, tax, aprons by team | Mac (contract pull) |
+| `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ..., adj_net_m | Weekly, then Actions (`adjust.py`) |
+| `team_cap.csv` | payroll, cap, tax, aprons by team | Weekly (`trade_value.py`; payroll from the Mac's Spotrac capture, carried forward) |
 | `cap_sheet.csv`, `cap_sheet_lines.csv` | by team and season; lines are Team, season, kind, item, amt_m | Weekly (`scripts/build_cap_sheet.py`) |
 | `pipeline/data/advanced_2026_27.csv` | Player, Age, Team, Pos, G, MP, WS, WS/48, BPM, VORP, ... | Weekly (`pipeline/stats.py`, Basketball Reference) |
-| `dead_money.csv`, `dead_2027_28.csv` | Team, dead_m | Mac |
-| `draft_picks.csv` | pick_id, year, round, original_team, owner, protection, value_m, ... | Mac |
+| `dead_money.csv` | Team, dead_m | Weekly (`contract_value.py`) |
+| `dead_2027_28.csv` | Team, dead_m | Mac |
+| `draft_picks.csv` | pick_id, year, round, original_team, owner, protection, value_m, ... | Weekly (`draft_picks.py`; ownership carried forward, see `spotrac_inputs.py`) |
 | `prospects.csv` | Rank, Name, Pos, School, Class, Age, Height | Mac |
-| `player_styles.csv`, `team_styles.csv`, `team_styles_league.csv` | play-type frequencies and efficiency | Mac |
+| `player_styles.csv`, `team_styles.csv`, `team_styles_league.csv` | play-type frequencies and efficiency | Mac (NBA.com, which times out from GitHub) |
 | `player_ids.csv` | Player, nba_id (for headshots) | Mac |
 | `sentiment_teams.csv`, `sentiment_players.csv`, `sentiment_sources.csv` | week, Team/Player, score, label, ... | Claude (Mondays) |
 | `predictions.csv` | date, away, home, home_prob, pick, status, correct, mode, ... | Actions |
@@ -57,6 +59,8 @@ Mondays 9am ET (`pipeline/stats.py`, cap sheet, movers), **Claude** = the integr
 | `sim_data.json` | teams and players for the season sim | Actions |
 | `transactions.csv` | id, date, type, team, player, description, source, years, total_m | Actions |
 | `movers.csv`, `snapshots/` | kind, key, team, value, prev_value, rank, prev_rank, since | Weekly (`scripts/movers.py`) |
+
+Weekly alerts for the followed teams (`pipeline/follow.json`) are posted as a GitHub issue each Monday.
 
 ## Value adjustments
 
