@@ -35,6 +35,21 @@ jobs:
         run: python scripts/build_cap_sheet.py data
       - name: Weekly movers
         run: python scripts/movers.py data
+      - name: Probe NBA.com stats from GitHub (test runs only)
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: |
+          pip install nba_api==1.12.0
+          python - <<'PY'
+          from nba_api.stats.endpoints import synergyplaytypes, leaguedashplayerstats
+          for name, call in [("player stats", lambda: leaguedashplayerstats.LeagueDashPlayerStats(season="2026-27", timeout=40)),
+                             ("synergy", lambda: synergyplaytypes.SynergyPlayTypes(season="2026-27", play_type_nullable="Isolation",
+                                  player_or_team_abbreviation="P", type_grouping_nullable="offensive", timeout=40))]:
+              try:
+                  print(name, "OK", len(call().get_data_frames()[0]), "rows")
+              except Exception as e:
+                  print(name, "FAILED", type(e).__name__, e)
+          PY
       - name: What changed
         run: git diff --stat && head -4 pipeline/data/advanced_2026_27.csv && wc -l pipeline/data/advanced_2026_27.csv
       - name: Test run only, keep the files
