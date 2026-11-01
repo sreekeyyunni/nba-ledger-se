@@ -12,7 +12,7 @@ on:
   pull_request:
     paths: [".github/workflows/weekly-data.yml", "pipeline/stats.py", "pipeline/contract_value.py",
             "pipeline/trade_value.py", "pipeline/draft_picks.py", "pipeline/alerts.py",
-            "pipeline/spotrac_inputs.py", "scripts/build_cap_sheet.py", "scripts/movers.py"]
+            "pipeline/spotrac_inputs.py", "scripts/build_cap_sheet.py", "scripts/movers.py", "mac_import/**"]
 permissions:
   contents: write
   issues: write
@@ -93,3 +93,30 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh issue create --title "Weekly alerts $(date '+%b %-d')" --body-file pipeline/outputs/alerts.md
+  # Test only: rerun on the Mac's Oct 27 stats and compare with the Mac's own results.
+  match-mac:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install pandas==3.1.0 numpy==2.5.4
+      - run: |
+          python -c "import stats; stats.drafts()"
+          git show 25b0f4e:pipeline/data/advanced_2026_27.csv > data/advanced_2026_27.csv
+          git show 839eeb5:data/team_summary.csv > ../data/team_summary.csv
+          git show 839eeb5:data/team_cap.csv > ../data/team_cap.csv
+          git show 839eeb5:data/draft_picks.csv > ../data/draft_picks.csv
+          rm -f data/raw/team_summary.csv
+          python spotrac_inputs.py
+          mkdir -p outputs
+          python contract_value.py > /dev/null && python trade_value.py > /dev/null && python draft_picks.py > /dev/null
+          python ../mac_import/compare.py
