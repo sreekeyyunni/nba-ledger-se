@@ -41,6 +41,7 @@ Mondays 9am ET (`pipeline/stats.py`, cap sheet, movers), **Claude** = the integr
 | `contracts_clean.csv` | Player, Team, 2026-27 ... 2031-32, option_years, flag | Mac (contract pull, on request) |
 | `trade_values.csv` | Player, Team, Age, years_left, trade_value_m, sv_y1..sv_y6, rookie_scale, flag, star_m, injury_m | Mac, then Actions (`adjust.py`) |
 | `accolades.csv` | Player, season, honor (All-NBA) for star credit | By hand / Claude |
+| `positions.csv` | Player, Pos (for Guess the player) | Actions (`adjust.py`) |
 | `team_summary.csv` | Team, active_m, dead_m, team_surplus_m, net_m, best/worst_contract, ..., adj_net_m | Mac, then Actions (`adjust.py`) |
 | `team_cap.csv` | payroll, cap, tax, aprons by team | Mac (contract pull) |
 | `cap_sheet.csv`, `cap_sheet_lines.csv` | by team and season; lines are Team, season, kind, item, amt_m | Weekly (`scripts/build_cap_sheet.py`) |

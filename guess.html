@@ -153,8 +153,9 @@ let ALL=[],BY={},POOL=[],mode="daily",game=null;
 async function init(){
   try{
     const [cv,tv]=await Promise.all(["contract_value","trade_values"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})));
+    const POS={};await fetch("data/positions.csv").then(r=>r.ok?r.text():"").then(x=>{if(x)parseCSV(x).forEach(r=>POS[r.Player]=r.Pos)}).catch(()=>{});
     const T={};parseCSV(tv).forEach(r=>T[r.Player+"|"+r.Team]=r);
-    ALL=parseCSV(cv).map(r=>{const t=T[r.Player+"|"+r.Team]||{};return{name:r.Player,team:r.Team,prev:r["2025-26 team"],g:N(r.G),mp:N(r.MP),ws:N(r.WS),ws48:N(r["WS/48"]),vorp:N(r.VORP),sal:N(r.salary_m),sur:N(t.sv_y1)??N(r.blended_surplus_m),age:N(t.Age),yrs:N(t.years_left),total:N(t.total_salary_m),tvm:N(t.trade_value_m),rookie:(t.rookie_scale||r.rookie_scale)==="True",key:norm(r.Player)}}).filter(p=>TEAM[p.team]);
+    ALL=parseCSV(cv).map(r=>{const t=T[r.Player+"|"+r.Team]||{};return{pos:POS[r.Player]||"",name:r.Player,team:r.Team,prev:r["2025-26 team"],g:N(r.G),mp:N(r.MP),ws:N(r.WS),ws48:N(r["WS/48"]),vorp:N(r.VORP),sal:N(r.salary_m),sur:N(t.sv_y1)??N(r.blended_surplus_m),age:N(t.Age),yrs:N(t.years_left),total:N(t.total_salary_m),tvm:N(t.trade_value_m),rookie:(t.rookie_scale||r.rookie_scale)==="True",key:norm(r.Player)}}).filter(p=>TEAM[p.team]);
     const ranked=ALL.filter(p=>p.tvm!=null).sort((a,b)=>b.tvm-a.tvm);ranked.forEach((p,i)=>p.rank=i+1);
     ALL.forEach(p=>BY[p.name]=p);
     // Answer pool: rotation players people will recognise (real minutes, and paid or productive).
@@ -186,16 +187,17 @@ function setMode(m){
   render(true);
 }
 
+const POSN={PG:"Point guard",SG:"Shooting guard",SF:"Small forward",PF:"Power forward",C:"Center"};
 function clues(p){
   const t=TEAM[p.team],moved=p.prev&&p.prev!==p.team;
   const init=p.name.replace(/\b(Jr|Sr|II|III|IV)\.?$/,"").trim().split(/\s+/).map(w=>w[0]+".").join(" ");
   return[
-    {k:"Last season",v:`<span class="mono">${fmt(p.g)}</span> games, <span class="mono">${fmt(p.mp)}</span> minutes, <span class="mono">${fmt(p.ws,1)}</span> Win Shares, <span class="mono">${fmt(p.vorp,1)}</span> VORP`},
-    {k:"Bio and contract",v:`Age <span class="mono">${fmt(p.age)}</span> · ${p.rookie?"still on his rookie-scale deal":"veteran contract"} · <span class="mono">${fmt(p.yrs)}</span> ${p.yrs===1?"season":"seasons"} left`},
+    {k:"Position and last season",v:`<b>${esc(POSN[p.pos]||"Player")}</b> · <span class="mono">${fmt(p.g)}</span> games, <span class="mono">${fmt(p.mp)}</span> minutes, <span class="mono">${fmt(p.ws,1)}</span> Win Shares, <span class="mono">${fmt(p.vorp,1)}</span> VORP`},
+    {k:"Conference, age and contract",v:`${t[2]==="E"?"Eastern":"Western"} Conference · Age <span class="mono">${fmt(p.age)}</span> · ${p.rookie?"still on his rookie-scale deal":"veteran contract"} · <span class="mono">${fmt(p.yrs)}</span> ${p.yrs===1?"season":"seasons"} left`},
+    {k:"Team",v:`<img class="logo" src="logos/${p.team}.png" alt="" onerror="this.remove()">${esc(t[0])} · ${moved?"changed teams since last season":"same team as last season"}`},
     {k:"The paycheck",v:`<span class="mono">${money(p.sal)}</span> in 2026-27, <span class="mono">${money(p.total)}</span> left in total`},
     {k:"Ledger verdict",v:`This season's surplus value <span class="mono">${sgn(p.sur)}</span> · trade value ranks <span class="mono">${p.rank?ord(p.rank):"–"}</span> of ${ALL.length}`},
-    {k:"Where he plays",v:`${t[2]==="E"?"Eastern":"Western"} Conference · ${moved?"changed teams since last season":"same team as last season"}`},
-    {k:"Team and initials",v:`<img class="logo" src="logos/${p.team}.png" alt="" onerror="this.remove()">${esc(t[0])} · <span class="mono">${esc(init)}</span>`}
+    {k:"Initials",v:`<span class="mono">${esc(init)}</span>`}
   ];
 }
 
@@ -291,7 +293,7 @@ function meters(){
 function shareText(){
   const pts=points(game),row=game.guesses.map(g=>g===game.answer?"🟩":g===null?"⬛":"🟥").join("")+"⬜".repeat(MAXG-game.guesses.length);
   const head=game.practice?"Guess the Player (practice)":`Guess the Player #${dayNum(game.key)+1}`;
-  return`${head} 🏀\n${row}  ${game.status==="won"?pts+"/6 pts":"X/6"}${game.practice?"":"\n🔥 Streak: "+streak()}`;
+  return`${head} 🏀\n${row}  ${game.status==="won"?pts+"/"+MAXG+" pts":"X/"+MAXG}${game.practice?"":"\n🔥 Streak: "+streak()}`;
 }
 
 function resultCard(a){
