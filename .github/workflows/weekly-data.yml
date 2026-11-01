@@ -1,0 +1,95 @@
+# The Monday refresh, on GitHub instead of the Mac: this season's stats from
+# Basketball Reference, the contract, trade and draft pick models, star credit and
+# injury time, the cap sheet, movers and alerts for the followed teams, then a commit
+# to main. Contracts are not re-pulled here (only when Sreekar asks). Play styles
+# need NBA.com, which times out from GitHub, so they come from the Mac when it runs.
+# On a pull request that changes this job it runs as a test: no push, no issue.
+name: Weekly data
+on:
+  schedule:
+    - cron: "0 13 * * 1"   # Mondays 9am EDT / 8am EST
+  workflow_dispatch:
+  pull_request:
+    paths: [".github/workflows/weekly-data.yml", "pipeline/stats.py", "pipeline/contract_value.py",
+            "pipeline/trade_value.py", "pipeline/draft_picks.py", "pipeline/alerts.py",
+            "pipeline/spotrac_inputs.py", "scripts/build_cap_sheet.py", "scripts/movers.py"]
+permissions:
+  contents: write
+  issues: write
+concurrency: nightly-data   # never at the same time as the nightly job
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/New_York
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+      - run: pip install pandas==3.1.0 numpy==2.5.4
+      - name: This season's stats and draft pages (Basketball Reference)
+        run: python stats.py   # if Basketball Reference is down, stop: last week's data stays up
+      - name: Team cash and future picks (from the site's data; raw Spotrac captures stay on the Mac)
+        run: python spotrac_inputs.py
+      - name: Last week's values, for the alerts
+        run: |
+          mkdir -p outputs/prev
+          cp data/raw/contract_value.csv data/raw/trade_values.csv data/raw/team_summary.csv outputs/prev/
+          cp ../data/draft_picks.csv outputs/prev/
+      - name: Contract values
+        run: python contract_value.py
+      - name: Trade values and cap status
+        run: python trade_value.py
+      - name: Draft pick values
+        run: python draft_picks.py
+      - name: Copy to the site
+        run: |
+          cd outputs
+          cp contract_value.csv contracts_clean.csv trade_values.csv team_summary.csv team_cap.csv \
+             dead_money.csv draft_picks.csv ../../data/
+      - name: Star credit and injury time
+        run: python adjust.py ../data
+      - name: Alerts for the followed teams
+        run: python alerts.py
+      - name: Cap sheet and weekly movers
+        working-directory: .
+        run: python scripts/build_cap_sheet.py data && python scripts/movers.py data
+      - name: What changed
+        working-directory: .
+        run: git diff --stat && cat pipeline/outputs/alerts.md
+      - name: Test run only, keep the files
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-data
+          path: |
+            data/
+            pipeline/data/advanced_2026_27.csv
+            pipeline/outputs/
+      - name: Push
+        if: github.event_name != 'pull_request'
+        working-directory: .
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data pipeline/data/advanced_2026_27.csv pipeline/data/raw
+          if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
+          git commit -m "Data: $(date '+%b %-d') weekly refresh"
+          for i in 1 2 3 4; do
+            git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
+      - name: Post the alerts as an issue (GitHub notifies Sreekar)
+        if: github.event_name != 'pull_request'
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "Weekly alerts $(date '+%b %-d')" --body-file pipeline/outputs/alerts.md
