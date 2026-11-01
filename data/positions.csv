@@ -1,7 +1,7 @@
 Player,Pos
 A.J. Green,SG
 A.J. Lawson,SG
-AJ Green,SG
+AJ Dybantsa,SF
 AJ Johnson,SG
 Aaron Gordon,PF
 Aaron Holiday,PG
@@ -22,8 +22,8 @@ Alex Sarr,C
 Alijah Martin,SG
 Allen Graves,PF
 Alondes Williams,SG
-Alperen Sengun,C
 Alperen Şengün,C
+Alpha Diallo,SF
 Amari Williams,PF
 Amen Thompson,SF
 Amir Coffey,SG
@@ -56,10 +56,11 @@ Bismack Biyombo,C
 Blake Hinson,SF
 Blake Wesley,SG
 Bobby Portis,PF
-Bobby Portis Jr.,PF
 Bobi Klintman,SF
 Bogdan Bogdanović,SG
+Bogoljub Markovic,PF
 Bones Hyland,PG
+Braden Smith,PG
 Bradley Beal,SG
 Branden Carlson,C
 Brandin Podziemski,SG
@@ -94,6 +95,7 @@ Cameron Boozer,PF
 Cameron Johnson,PF
 Cameron Payne,PG
 Caris LeVert,SG
+Carson Cooper,PF
 Carter Bryant,PF
 Cason Wallace,SG
 Cedric Coward,SG
@@ -102,11 +104,12 @@ Charles Bassey,C
 Chaz Lanier,SG
 Chet Holmgren,C
 Chris Boucher,PF
+Chris Cenac Jr.,PF
 Chris Livingston,SF
 Chris Mañon,SG
 Chris Paul,PG
 Chris Youngblood,SG
-Christian Anderson,PG
+Christian Anderson Jr.,PG
 Christian Braun,SG
 Christian Koloko,C
 Chucky Hepburn,PG
@@ -128,8 +131,8 @@ Curtis Jones,SG
 D'Angelo Russell,PG
 DaQuan Jeffries,SG
 DaRon Holmes,PF
-DaRon Holmes II,PF
 Daeqwon Plowden,SG
+Dailyn Swain,SG
 Dalano Banton,PG
 Dalen Terry,SG
 Dalton Knecht,SF
@@ -143,7 +146,6 @@ Darius Acuff Jr.,PG
 Darius Brown II,SG
 Darius Garland,PG
 Darryn Peterson,SG
-David Jones Garcia,SF
 David Jones García,SF
 David Roddy,PF
 Davion Mitchell,PG
@@ -201,7 +203,6 @@ Evan Mobley,PF
 Felix Okpara,C
 Franz Wagner,SF
 Fred VanVleet,PG
-GG Jackson,PF
 GG Jackson II,PF
 Gabe Vincent,PG
 Garrett Temple,SG
@@ -213,6 +214,7 @@ Georges Niang,PF
 Giannis Antetokounmpo,PF
 Goga Bitadze,C
 Gradey Dick,SG
+Graham Ike,C
 Grant Nelson,PF
 Grant Williams,PF
 Grayson Allen,SG
@@ -329,6 +331,7 @@ Jordan Miller,SF
 Jordan Poole,SG
 Jordan Walsh,PF
 Jose Alvarado,PG
+Josh Dix,SG
 Josh Giddey,PG
 Josh Green,SG
 Josh Hart,SG
@@ -339,7 +342,7 @@ Joshua Jefferson,PF
 Jrue Holiday,PG
 Julian Champagnie,SF
 Julian Phillips,SF
-Julian Reese,PF
+Julian Reese,SF
 Julian Strawther,SG
 Julius Randle,PF
 Justin Champagnie,SF
@@ -348,6 +351,7 @@ Jusuf Nurkić,C
 KJ Simpson,PG
 Kadary Richmond,SG
 Kam Jones,SG
+Karim López,SF
 Karl-Anthony Towns,C
 Karlo Matković,PF
 Kasparas Jakučionis,SG
@@ -435,6 +439,7 @@ Max Shulga,SG
 Max Strus,SF
 Maxi Kleber,PF
 Maxime Raynaud,C
+Meleek Thomas,SG
 Micah Peavy,SG
 Micah Potter,C
 Michael Porter Jr.,SF
@@ -465,6 +470,7 @@ Nate Williams,SG
 Naz Reid,C
 Neemias Queta,C
 Nic Claxton,C
+Nick Martinelli,SF
 Nick Richards,C
 Nick Smith Jr.,SG
 Nickeil Alexander-Walker,SG
@@ -478,7 +484,6 @@ Nique Clifford,SG
 Noa Essengue,PF
 Noah Clowney,PF
 Noah Penda,SF
-Nolan Traore,PG
 Nolan Traoré,PG
 Norchad Omier,PF
 Norman Powell,SG
@@ -522,7 +527,6 @@ Reed Sheppard,PG
 Riley Minix,SF
 Rob Dillingham,PG
 Robert Williams,C
-Robert Williams III,C
 Rocco Zikarsky,C
 Ron Harper Jr.,SF
 Ron Holland,SF
@@ -567,7 +571,6 @@ Tarris Reed Jr.,C
 Taurean Prince,SF
 Taylor Hendricks,PF
 Terance Mann,SG
-Terrence Shannon Jr,SG
 Terrence Shannon Jr.,SG
 Thanasis Antetokounmpo,SF
 Thomas Bryant,C
@@ -598,7 +601,6 @@ Trey Murphy III,SF
 Tristan Da Silva,SF
 Tristan Enaruna,SF
 Tristan Vukcevic,C
-Tristan da Silva,SF
 Tristen Newton,SG
 Ty Jerome,SG
 TyTy Washington Jr.,PG
@@ -619,7 +621,6 @@ Vladislav Goldin,C
 Vít Krejčí,PG
 Walker Kessler,C
 Walter Clayton,PG
-Walter Clayton Jr.,PG
 Wendell Carter Jr.,C
 Wendell Moore Jr.,SG
 Will Richard,SG
