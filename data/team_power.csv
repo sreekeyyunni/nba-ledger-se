@@ -1,31 +1,31 @@
 rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
-1,MIN,6.4,1.5,0.6,5.8,4,2,"Anthony Edwards (out, 0.7 pts)"
-2,HOU,5.0,3.0,1.9,3.0,5,1,"Alperen Sengun (questionable, 0.8 pts)"
+1,HOU,5.4,3.0,2.3,3.0,5,1,
+2,MIN,5.1,1.5,-0.7,5.8,4,2,"Rudy Gobert (out, 0.8 pts); Anthony Edwards (out, 0.7 pts)"
 3,SAS,4.6,3.8,4.3,0.4,3,2,
-4,BOS,4.2,3.8,3.8,0.4,4,1,
-5,DET,3.7,3.3,1.2,2.5,5,1,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.3 pts)"
-6,LAL,3.0,2.2,2.3,0.7,4,2,
-7,POR,2.7,0.2,1.4,1.3,3,1,
-8,MEM,2.6,0.1,-1.4,4.0,5,0,"Ty Jerome (questionable, 1.5 pts)"
+4,POR,4.1,0.2,1.4,2.7,4,1,
+5,BOS,3.8,3.8,3.4,0.4,4,1,"Mitchell Robinson (questionable, 0.4 pts)"
+6,DET,3.7,3.3,1.2,2.5,5,1,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.3 pts)"
+7,LAL,3.0,2.2,2.3,0.7,4,2,
+8,MEM,2.6,0.1,-1.4,4.0,5,0,"Ty Jerome (out, 1.5 pts)"
 9,DEN,2.1,3.0,3.4,-1.3,3,2,
 10,NYK,2.1,2.9,3.1,-1.1,2,4,
 11,TOR,2.0,3.1,1.6,0.4,3,2,"Kawhi Leonard (out, 1.5 pts)"
-12,CLE,1.3,2.2,2.4,-1.1,3,2,
-13,PHI,1.3,1.6,0.3,1.0,5,1,"Jaylen Brown (questionable, 1.1 pts); Dominick Barlow (out, 0.5 pts)"
-14,ATL,1.1,0.4,0.3,0.8,3,3,
-15,OKC,0.7,5.8,1.5,-0.8,4,1,"Chet Holmgren (out, 1.5 pts); Alex Caruso (out, 0.4 pts); Jalen Williams (out, 0.4 pts)"
+12,CLE,0.9,2.2,2.0,-1.1,3,2,
+13,OKC,0.7,5.8,1.5,-0.8,4,1,"Chet Holmgren (out, 1.5 pts); Alex Caruso (out, 0.4 pts); Jalen Williams (out, 0.4 pts)"
+14,ATL,0.6,0.4,-0.1,0.8,3,3,"Jock Landale (out, 0.8 pts)"
+15,PHI,0.4,1.6,-0.5,1.0,5,1,"Joel Embiid (out, 1.3 pts); LeBron James (out, 1.0 pts); Dominick Barlow (out, 0.5 pts)"
 16,DAL,0.3,-2.8,-2.8,3.1,4,2,
-17,GSW,-0.6,0.6,-1.9,1.3,3,3,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.3 pts)"
+17,GSW,-0.9,0.6,-2.3,1.3,3,3,"Jimmy Butler (out, 1.5 pts); Stephen Curry (out, 0.8 pts); Kristaps Porziņģis (out, 0.3 pts)"
 18,ORL,-2.0,-0.6,-0.3,-1.7,2,3,
 19,MIA,-2.3,-0.9,-0.9,-1.3,2,4,
 20,WAS,-2.4,-4.8,-4.9,2.4,3,3,
-21,PHO,-2.9,0.6,-0.6,-2.2,1,3,"Mark Williams (out, 1.2 pts)"
-22,NOP,-3.1,-2.8,-2.5,-0.5,1,4,
+21,NOP,-2.8,-2.8,-2.3,-0.5,1,4,
+22,PHO,-2.9,0.6,-0.6,-2.2,1,3,"Mark Williams (out, 1.2 pts)"
 23,LAC,-3.5,-2.2,-2.5,-0.9,1,4,"Jordan Miller (out, 0.3 pts)"
 24,CHO,-3.6,0.1,-0.5,-3.1,3,3,
-25,IND,-5.0,-3.2,-4.4,-0.7,2,4,"Tyrese Haliburton (out, 0.7 pts); Ivica Zubac (out, 0.7 pts)"
-26,UTA,-5.2,-4.8,-3.7,-1.4,1,4,"Lauri Markkanen (questionable, 0.4 pts)"
-27,MIL,-5.7,-2.2,-2.2,-3.4,1,4,
-28,CHI,-6.2,-2.9,-3.4,-2.7,1,5,"Nic Claxton (out, 0.5 pts)"
-29,BRK,-7.0,-5.3,-5.2,-1.8,0,5,
+25,IND,-4.9,-3.2,-4.2,-0.7,2,4,"Tyrese Haliburton (out, 0.7 pts); Ivica Zubac (out, 0.7 pts)"
+26,MIL,-5.7,-2.2,-2.2,-3.4,1,4,
+27,CHI,-6.2,-2.9,-3.4,-2.7,1,5,"Nic Claxton (out, 0.5 pts)"
+28,UTA,-6.3,-4.8,-3.6,-2.7,1,5,
+29,BRK,-7.4,-5.3,-5.7,-1.8,0,5,
 30,SAC,-10.4,-5.8,-6.5,-3.9,0,5,"Maxime Raynaud (out, 0.6 pts)"
