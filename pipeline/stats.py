@@ -13,6 +13,8 @@ import bref
 
 URL = "https://www.basketball-reference.com/leagues/NBA_2027_advanced.html"
 OUT = Path(__file__).parent / "data" / "advanced_2026_27.csv"
+DRAFTS = Path(__file__).parent / "data" / "drafts"
+DRAFT_URL = "https://www.basketball-reference.com/draft/NBA_{year}.html"
 MIN_ROWS = 100   # fewer than this means the page changed; keep last week's file
 
 # column -> Basketball Reference data-stat names (new site names first, then old ones)
@@ -46,5 +48,14 @@ def main():
     print(f"stats.py: {len(out)} rows -> {OUT.name}")
 
 
+def drafts():
+    DRAFTS.mkdir(exist_ok=True)
+    for year in range(2023, 2027):   # draft pages never change; fetch once per run's checkout
+        page = DRAFTS / f"NBA_{year}.html"
+        if not page.exists():
+            page.write_text(bref.fetch(DRAFT_URL.format(year=year)), encoding="utf-8")
+
+
 if __name__ == "__main__":
+    drafts()
     main()

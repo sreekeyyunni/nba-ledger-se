@@ -1,6 +1,7 @@
 """
 Compare this run's outputs with the previous run and write outputs/alerts.md,
-plus a macOS notification with a one-line summary. Run after refresh.py.
+plus a macOS notification with a one-line summary (on GitHub the weekly workflow
+posts alerts.md as an issue instead). Run after draft_picks.py.
 
 Followed teams and players come from follow.json ({"teams": [...], "players": [...]},
 BBRef team codes). Flagged for each followed team / player:
@@ -33,6 +34,8 @@ def load(folder: Path, name: str) -> pd.DataFrame:
 
 
 def notify(message: str) -> None:
+    if not shutil.which("osascript"):   # GitHub Actions: the workflow opens an issue from alerts.md
+        return
     script = f'display notification "{message.replace(chr(34), chr(39))}" with title "NBA Asset Tracker"'
     subprocess.run(["osascript", "-e", script], check=False)
 
