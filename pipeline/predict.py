@@ -204,8 +204,7 @@ def update_scores_bdl(today, api_key):
         dates.append(d.isoformat())
         d += timedelta(days=1)
     url = BDL_GAMES + "?per_page=100&" + "&".join(f"dates[]={x}" for x in dates)
-    out = subprocess.run(["curl", "-sSf", "-m", "30", "-H", f"Authorization: {api_key}", url],
-                         capture_output=True, check=True, text=True).stdout
+    out = bdl_get(url, api_key)
     for ev in json.loads(out).get("data", []):
         away, home = espn_team(ev["visitor_team"]["abbreviation"]), espn_team(ev["home_team"]["abbreviation"])
         g = index.get((ev["date"][:10], away, home))
@@ -242,6 +241,17 @@ def fetch_injuries_espn():
     write_csv(INJURY_FILE, ["player", "team", "updated", "note"], rows)
 
 
+def bdl_get(url, api_key):
+    """GET from balldontlie. The key goes to curl on stdin, so it never shows up in the
+    command line or in the error a failed call prints."""
+    import subprocess
+    out = subprocess.run(["curl", "-sSf", "-m", "30", "-H", "@-", url], input=f"Authorization: {api_key}\n",
+                         capture_output=True, text=True)
+    if out.returncode:
+        raise RuntimeError(f"balldontlie request failed (curl exit {out.returncode}): {out.stderr.strip()}")
+    return out.stdout
+
+
 # balldontlie team ids are the 30 teams in order of full name
 BDL_TEAMS = ["ATL", "BOS", "BRK", "CHO", "CHI", "CLE", "DAL", "DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM",
              "MIA", "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHO", "POR", "SAC", "SAS", "TOR", "UTA", "WAS"]
@@ -255,8 +265,7 @@ def fetch_injuries_bdl(today, api_key, out=INJURY_FILE):
     rows, cursor = [], None
     for page in range(5):   # about 2 pages in season; paced for the free tier's 5 requests a minute
         url = "https://api.balldontlie.io/v1/player_injuries?per_page=100" + (f"&cursor={cursor}" if cursor else "")
-        data = json.loads(subprocess.run(["curl", "-sSf", "-m", "30", "-H", f"Authorization: {api_key}", url],
-                                         capture_output=True, check=True, text=True).stdout)
+        data = json.loads(bdl_get(url, api_key))
         for inj in data.get("data", []):
             pl, status = inj.get("player", {}), inj.get("status", "")
             tid = pl.get("team_id")
