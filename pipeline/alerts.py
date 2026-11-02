@@ -40,9 +40,14 @@ def notify(message: str) -> None:
     subprocess.run(["osascript", "-e", script], check=False)
 
 
+def money_move(x) -> str:
+    # A player missing from last week's file (rookie, new signing) has no move: say n/a, not nan
+    return "n/a" if pd.isna(x) else f"{x:+.1f}M"
+
+
 def player_line(r) -> str:
-    return (f"- {r.Player} ({r.Team}): trade value {r.trade_value_m_move:+.1f}M, healthy "
-            f"{r.healthy_surplus_m_move:+.1f}M, blended {r.blended_surplus_m_move:+.1f}M")
+    return (f"- {r.Player} ({r.Team}): trade value {money_move(r.trade_value_m_move)}, healthy "
+            f"{money_move(r.healthy_surplus_m_move)}, blended {money_move(r.blended_surplus_m_move)}")
 
 
 def main() -> None:
