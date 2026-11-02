@@ -178,7 +178,7 @@ td .badge{margin-right:8px}
   <section id="player-view" hidden style="flex-direction:column;gap:18px"></section>
 
   <footer>
-    <p>Sources: Basketball Reference advanced stats (2025-26 full season, 2026-27 through about 3 games) and player contracts; Spotrac team cash for dead and retained money. Players under 500 minutes last season are left out unless they have 2026-27 minutes, in which case they are valued on this season alone and flagged as small samples.</p>
+    <p>Sources: Basketball Reference advanced stats (2025-26 full season, 2026-27 through about <span id="g27n">3</span> games) and player contracts; Spotrac team cash for dead and retained money. Players under 500 minutes last season are left out unless they have 2026-27 minutes, in which case they are valued on this season alone and flagged as small samples.</p>
     <p>"If healthy" projects each player to all 82 games at his own minutes per game. "With 2026-27" pools both seasons by minutes, so it barely moves until December. Rookie deals are first-round picks from the 2023-2026 drafts, whose pay is set by the league's rookie scale. VORP is shown as a second opinion; it ranks players much like Win Shares (rank correlation 0.83) but rates high-usage creators higher.</p>
   </footer>
 </div>
@@ -201,7 +201,7 @@ const badge=(a,s)=>`<img class="badge" src="logos/${a}.png" alt="" width="${s}" 
 function badgeEl(a,cx,cy,r,parent,op){return el("image",{href:`logos/${a}.png`,x:cx-r,y:cy-r,width:2*r,height:2*r,opacity:op==null?1:op,"pointer-events":"none",preserveAspectRatio:"xMidYMid meet"},parent)}
 const LENS={actual:{label:"Last season",note:"Last season: 2025-26 Win Shares as they happened. Injured players are charged for the games they missed."},
   healthy:{label:"If healthy",note:"If healthy: each player is projected to all 82 games at his own minutes per game, so injured starters get full credit and bench players stay bench-sized."},
-  blended:{label:"Healthy + 2026-27",note:"Healthy + 2026-27: the if-healthy projection, with this season's games pooled in by minutes so recent form counts more as the season goes on. About 3 games in, it barely moves most players; small-sample players (rookies, last season's injured) are valued on this season alone."}};
+  blended:{label:"Healthy + 2026-27",note:"Healthy + 2026-27: the if-healthy projection, with this season's games pooled in by minutes so recent form counts more as the season goes on. Early in the season it barely moves most players; small-sample players (rookies, last season's injured) are valued on this season alone."}};
 const st={tab:"players",lens:"healthy",hideSmall:true,hideRookie:false,team:"",q:"",sort:{k:"sur",d:-1},sel:null,tsort:{k:"net",d:-1}};
 try{const s=JSON.parse(localStorage.getItem("ledger")||"{}");if(s.lens in LENS)st.lens=s.lens;if(typeof s.hideSmall==="boolean")st.hideSmall=s.hideSmall}catch(e){}
 const save=()=>{try{localStorage.setItem("ledger",JSON.stringify({lens:st.lens,hideSmall:st.hideSmall}))}catch(e){}};
@@ -648,6 +648,7 @@ async function boot(){
   try{
     const [pc,tc,vc,cc]=await Promise.all(["contract_value","team_summary","trade_values","team_cap"].map(n=>fetch(`data/${n}.csv`).then(r=>{if(!r.ok)throw new Error(n);return r.text()})));
     players=parseCSV(pc).map(mapPlayer);teams=parseCSV(tc).map(mapTeam);
+    {const g=players.map(p=>p.g27).filter(x=>x>0).sort((a,b)=>a-b);const el=document.getElementById("g27n");if(el&&g.length)el.textContent=g[Math.floor(g.length*0.9)];}
     tvals=parseCSV(vc).map(r=>({name:r.Player,team:r.Team,age:N(r.Age),yrs:N(r.years_left),sal:N(r.salary_2026_27_m),tot:N(r.total_salary_m),tv:N(r.trade_value_m),y1:N(r.sv_y1),sv:[1,2,3,4,5,6].map(i=>N(r["sv_y"+i])),rookie:r.rookie_scale==="True",small:(r.flag||"").includes("small")}));
     const pk=await fetch("data/draft_picks.csv").then(r=>r.ok?r.text():"").catch(()=>"");
     if(pk)picks=parseCSV(pk).map(r=>{const swap=/SWAP/.test(r.pick_id),rd=r.round==="1"?"1st":"2nd",prot=(r.protection||"").replace("slots ","");
