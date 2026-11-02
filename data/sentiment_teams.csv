@@ -1,31 +1,31 @@
 week,Team,record,score,label,preseason_tone,week_tone,gap,mentions,storyline,sources,rank,change
-2026-11-02,HOU,6-1,100,Rolling,2.0,2.0,0,3,New No. 1: best offense in the league with VanVleet back,CBS NBC BR,1,25
-2026-11-02,MEM,6-0,80,Rolling,1.0,2.0,50,2,"Last unbeaten team; Jerome near 30 a night, Boozer strong",CBS BR,2,25
-2026-11-02,DET,5-1,75,Rolling,1.5,1.5,0,3,"5-1 and hitting more threes; Duren out, Reed and Collins step up",CBS NBC BR,3,0
-2026-11-02,PHI,6-1,75,Rolling,1.5,1.5,0,4,"Maxey the go-to scorer, best fourth quarters in the league; backup-center worry",CBS NBC CBSO BR,4,15
-2026-11-02,BOS,4-1,65,Rolling,1.0,1.5,25,2,"Three straight wins, capped by Tatum's buzzer-beater; George looks great",CBS BR,5,50
-2026-11-02,POR,4-1,50,Rolling,1.0,1.0,0,2,"Best offense rating and a rout of the Lakers, but Morant out 4+ weeks",CBS BR,6,-5
-2026-11-02,CLE,4-2,40,Warm,0.5,1.0,25,2,OT win over Minnesota with Mobley playing well,CBS BR,7,70
-2026-11-02,DAL,4-2,40,Warm,0.5,1.0,25,2,Wins over Indiana and Miami; Flagg an early All-NBA candidate,CBS BR,8,95
-2026-11-02,SAS,4-2,40,Warm,0.5,1.0,25,2,Back above .500 though Wembanyama still struggles on offense,CBS BR,9,45
-2026-11-02,LAL,4-2,35,Warm,1.0,0.5,-25,3,"Luka MVP-caliber and Reaves on an All-NBA pace, but gave up 136 to Portland",CBS CBSO BR,10,-55
-2026-11-02,WAS,3-3,15,Warm,0.0,0.5,25,3,Dybantsa debuted with 19 on 8-for-12 in a loss; Trae and AD inefficient,CBS SID BR,11,-25
-2026-11-02,NYK,2-4,5,Mixed,-0.5,0.5,50,3,Snapped the 0-3 start; Towns at an All-NBA level,CBS CBSO BR,12,75
-2026-11-02,GSW,3-3,-5,Mixed,-1.0,0.5,75,3,"Lendeborg, near 22 a night, carried them to their first wins",CBS CBSO BR,13,70
-2026-11-02,ATL,3-4,-15,Cooling,0.0,-0.5,-25,2,"Starters overworked; Daniels leads the league in steals, Johnson cold from three",CBS BR,14,-40
-2026-11-02,OKC,4-2,-20,Cooling,0.5,-1.0,-75,3,Jalen Williams out for the year and Wallace tore his labrum,CBS CBSO BR,15,-80
-2026-11-02,CHO,3-4,-25,Cooling,-0.5,-0.5,0,2,Second-worst offense without Knueppel and White; Miller scoring heavily,CBS BR,16,-25
-2026-11-02,TOR,3-2,-30,Cooling,0.0,-1.0,-50,2,Kawhi out at least a week with knee swelling; Barnes went 0-for-12,CBS BR,17,-40
-2026-11-02,LAC,1-4,-35,Cooling,-1.0,-0.5,25,2,Competitive but losing; Garland needs fewer turnovers,CBS BR,18,-40
-2026-11-02,DEN,3-2,-40,Cooling,-0.5,-1.0,-25,3,One of the league's worst defenses; Jokic's spat with fans,CBS CBSO BR,19,-70
-2026-11-02,IND,2-4,-40,Cooling,-0.5,-1.0,-25,2,Slow start with losses to Dallas and Milwaukee,CBS BR,20,-50
-2026-11-02,MIL,1-5,-45,Cooling,-1.5,-0.5,50,2,In every game; first win came over Indiana,CBS BR,21,40
-2026-11-02,MIN,4-3,-45,Cooling,0.0,-1.5,-75,3,Edwards needs a knee procedure and could miss two months,CBS CBSO BR,22,-145
-2026-11-02,CHI,1-5,-50,Gloomy,-1.0,-1.0,0,2,1-5; Caleb Wilson's 21 and 7 the bright spot,CBS BR,23,-30
-2026-11-02,NOP,2-4,-50,Gloomy,-1.0,-1.0,0,2,Keeps blowing leads; Murray missed a game-winner vs Utah,CBS BR,24,15
-2026-11-02,ORL,2-3,-50,Gloomy,-1.0,-1.0,0,2,Banchero out 4 to 6 weeks with a high ankle sprain,CBS BR,25,-10
-2026-11-02,PHO,1-3,-50,Gloomy,-1.0,-1.0,0,2,Regressing; only win came against a short-handed Golden State,CBS BR,26,-40
-2026-11-02,BRK,0-5,-60,Gloomy,-1.5,-1.0,25,2,Lost in OT at Boston on a buzzer-beater despite 51 from Randle and MPJ,CBS BR,27,0
-2026-11-02,MIA,2-4,-60,Gloomy,-1.5,-1.0,25,3,Clunky offense and 30% from three; Giannis-Bam fit questioned,CBS CBSO BR,28,20
-2026-11-02,UTA,1-5,-65,Gloomy,-1.0,-1.5,-25,3,Jaren Jackson Jr. out 6+ weeks with a torn MCL,CBS CBSO BR,29,-25
-2026-11-02,SAC,0-6,-85,Gloomy,-2.0,-1.5,25,2,Still winless; Acuff took a record 93 shots at 34%,CBS BR,30,-15
+2026-11-02,HOU,6-1,100,Rolling,2.0,2.0,0,4,New No. 1: best offense in the league with VanVleet back,CBS NBC CP BR,1,25
+2026-11-02,MEM,6-0,80,Rolling,1.0,2.0,50,3,"Last unbeaten team; Jerome near 30 a night, Boozer strong",CBS CP BR,2,25
+2026-11-02,DET,5-1,75,Rolling,1.5,1.5,0,4,"5-1 and hitting more threes; Duren out, Reed and Collins step up",CBS NBC CP BR,3,0
+2026-11-02,PHI,6-1,75,Rolling,1.5,1.5,0,5,"Maxey the go-to scorer, best fourth quarters in the league; backup-center worry",CBS NBC CBSO CP BR,4,15
+2026-11-02,SAS,4-2,75,Rolling,1.5,1.5,0,3,Four straight wins with Wembanyama putting up MVP numbers,CBS CP BR,5,80
+2026-11-02,BOS,5-1,65,Rolling,1.0,1.5,25,3,"Three straight wins, capped by Tatum's buzzer-beater; George looks great",CBS CP BR,6,50
+2026-11-02,POR,4-1,50,Rolling,1.0,1.0,0,3,"Best offense rating and a rout of the Lakers, but Morant out 4+ weeks",CBS CP BR,7,-5
+2026-11-02,CLE,4-2,40,Warm,0.5,1.0,25,3,OT win over Minnesota with Mobley playing well,CBS CP BR,8,70
+2026-11-02,DAL,4-2,40,Warm,0.5,1.0,25,3,Wins over Indiana and Miami; Flagg an early All-NBA candidate,CBS CP BR,9,95
+2026-11-02,LAL,5-2,35,Warm,1.0,0.5,-25,4,"Luka MVP-caliber and Reaves on an All-NBA pace, but gave up 136 to Portland",CBS CBSO CP BR,10,-55
+2026-11-02,WAS,3-3,25,Warm,0.5,0.5,0,4,"Dybantsa debuted with 19 on 8-for-12; length gives a defensive identity, shooting poor",CBS SID CP BR,11,-15
+2026-11-02,GSW,4-3,10,Mixed,-1.0,1.0,100,4,Four-game win streak with rookie Lendeborg as Curry's No. 2,CBS CBSO CP BR,12,85
+2026-11-02,NYK,2-4,5,Mixed,-0.5,0.5,50,4,Snapped the 0-3 start; Towns at an All-NBA level,CBS CBSO CP BR,13,75
+2026-11-02,ATL,3-4,-15,Cooling,0.0,-0.5,-25,3,"Starters overworked; Daniels leads the league in steals, Johnson cold from three",CBS CP BR,14,-40
+2026-11-02,CHO,3-4,-25,Cooling,-0.5,-0.5,0,3,Second-worst offense without Knueppel and White; Miller scoring heavily,CBS CP BR,15,-25
+2026-11-02,OKC,4-2,-30,Cooling,0.0,-1.0,-50,4,Jalen Williams out for the year; Wallace and Holmgren hurt too,CBS CBSO CP BR,16,-90
+2026-11-02,TOR,3-3,-30,Cooling,0.0,-1.0,-50,3,Kawhi out at least a week with knee swelling; Barnes went 0-for-12,CBS CP BR,17,-40
+2026-11-02,LAC,1-5,-35,Cooling,-1.0,-0.5,25,3,Competitive but losing; Garland needs fewer turnovers,CBS CP BR,18,-40
+2026-11-02,NOP,2-4,-35,Cooling,-1.0,-0.5,25,3,Jeremiah Fears terrific in recent wins; Murray missed a game-winner,CBS CP BR,19,30
+2026-11-02,DEN,3-2,-40,Cooling,-0.5,-1.0,-25,4,One of the league's worst defenses; Jokic's spat with fans,CBS CBSO CP BR,20,-70
+2026-11-02,BRK,1-5,-45,Cooling,-1.5,-0.5,50,3,"Losing close ones with real fight, including a one-point OT loss in Boston",CBS CP BR,21,15
+2026-11-02,MIL,1-5,-45,Cooling,-1.5,-0.5,50,3,In every game; first win came over Indiana,CBS CP BR,22,40
+2026-11-02,MIN,4-3,-45,Cooling,0.0,-1.5,-75,4,Edwards out about two months; struggling to close games,CBS CBSO CP BR,23,-145
+2026-11-02,CHI,1-5,-50,Gloomy,-1.0,-1.0,0,3,1-5; Caleb Wilson's 21 and 7 the bright spot,CBS CP BR,24,-30
+2026-11-02,ORL,2-4,-50,Gloomy,-1.0,-1.0,0,3,Banchero out 4 to 6 weeks with a high ankle sprain,CBS CP BR,25,-10
+2026-11-02,PHO,1-3,-50,Gloomy,-1.0,-1.0,0,3,Regressing; only win came against a short-handed Golden State,CBS CP BR,26,-40
+2026-11-02,IND,2-5,-55,Gloomy,-0.5,-1.5,-50,3,Four straight losses with Haliburton and Zubac hurt,CBS CP BR,27,-65
+2026-11-02,MIA,2-4,-60,Gloomy,-1.5,-1.0,25,4,Clunky offense and 30% from three; Giannis-Bam fit questioned,CBS CBSO CP BR,28,20
+2026-11-02,UTA,1-5,-65,Gloomy,-1.0,-1.5,-25,4,Jaren Jackson Jr. out 6+ weeks with a torn MCL,CBS CBSO CP BR,29,-25
+2026-11-02,SAC,0-6,-85,Gloomy,-2.0,-1.5,25,3,Still winless; Acuff took a record 93 shots at 34%,CBS CP BR,30,-15
