@@ -91,18 +91,18 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-01,5:00p,BRK,IND,98,90,,0.663,4.8,IND,final,0,live,-6.9,-3.9,,,,
 2026-11-01,8:30p,LAC,GSW,112,124,,0.663,4.8,GSW,final,1,live,-3.4,2.2,,,,
 2026-11-01,9:00p,TOR,LAL,125,131,,0.614,3.3,LAL,final,1,live,3.4,3.0,,,,
-2026-11-02,10:00p,PHO,GSW,,,,0.627,3.7,GSW,upcoming,,live,-3.1,0.2,GSW on a back-to-back,"Mark Williams (out, 1.3 pts)","Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.4 pts)",
-2026-11-02,10:00p,TOR,LAC,,,,0.386,-3.3,TOR,upcoming,,live,0.5,-5.1,TOR on a back-to-back | LAC on a back-to-back,"Kawhi Leonard (out, 1.4 pts); Jakob Poeltl (out, 0.5 pts)",,
-2026-11-02,10:00p,MIA,LAL,,,,0.686,5.6,LAL,upcoming,,live,-2.0,3.2,LAL on a back-to-back,,,
-2026-11-02,7:00p,OKC,CLE,117,112,,0.709,6.3,CLE,final,0,live,-1.0,3.4,,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Alex Caruso (out, 0.7 pts)",,
-2026-11-02,7:30p,DET,CHO,,,,0.352,-4.4,DET,live,,live,3.4,-3.3,,"Jalen Duren (out, 2.2 pts); Isaiah Joe (out, 0.8 pts)","Kon Knueppel (out, 0.5 pts)",122-91 1:07 - 4th
-2026-11-02,7:30p,ATL,IND,108,104,,0.384,-3.4,ATL,final,1,live,-2.0,-8.0,IND on a back-to-back,"Jalen Johnson (out, 1.2 pts); Jock Landale (out, 0.5 pts)","Ivica Zubac (out, 0.5 pts); Tyrese Haliburton (out, 0.5 pts)",
-2026-11-02,7:30p,BRK,NYK,,,,0.856,12.2,NYK,live,,live,-6.4,1.7,BRK on a back-to-back,"Egor Dëmin (out, 0.5 pts)",,86-100 2:23 - 4th
-2026-11-02,7:30p,WAS,ORL,103,94,,0.512,0.3,ORL,final,0,live,-2.5,-3.8,ORL on a back-to-back,"Alex Sarr (out, 0.6 pts)",,
-2026-11-02,7:30p,CHI,PHI,107,126,,0.819,10.5,PHI,final,1,live,-6.2,2.4,,"Nic Claxton (out, 0.6 pts)","Dominick Barlow (out, 0.4 pts)",
-2026-11-02,8:00p,SAC,DAL,,,,0.893,14.3,DAL,live,,live,-11.5,0.1,,"Maxime Raynaud (out, 0.6 pts)","Kyrie Irving (out, 1.0 pts); Santi Aldama (out, 0.4 pts)",83-74 10:58 - 4th
-2026-11-02,8:00p,NOP,MEM,,,,0.798,9.6,MEM,live,,live,-1.5,5.2,,,,106-103 7:58 - 4th
-2026-11-02,8:00p,MIL,MIN,,,,0.910,15.4,MIN,live,,live,-7.3,6.1,,,"Anthony Edwards (out, 0.8 pts)",79-89 8:02 - 4th
-2026-11-02,8:30p,BOS,HOU,,,,0.703,6.1,HOU,live,,live,5.4,7.5,BOS on a back-to-back,,,62-63 8:24 - 3rd
-2026-11-02,8:30p,UTA,SAS,,,,0.887,13.9,SAS,live,,live,-6.4,5.2,,,,49-63 10:37 - 3rd
-2026-11-02,9:00p,POR,DEN,,,,0.519,0.6,DEN,live,,live,3.9,1.6,,,,48-52 3:28 - 2nd
+2026-11-02,10:00p,PHO,GSW,113,116,,0.627,3.7,GSW,final,1,live,-1.8,2.5,GSW on a back-to-back,,,
+2026-11-02,10:00p,TOR,LAC,125,118,,0.386,-3.3,TOR,final,1,live,3.0,-3.8,TOR on a back-to-back | LAC on a back-to-back,,,
+2026-11-02,10:00p,MIA,LAL,117,138,,0.686,5.6,LAL,final,1,live,-2.0,3.2,LAL on a back-to-back,,,
+2026-11-02,7:00p,OKC,CLE,117,112,,0.709,6.3,CLE,final,0,live,3.2,2.9,,,,
+2026-11-02,7:30p,DET,CHO,124,91,,0.352,-4.4,DET,final,1,live,5.7,-3.2,,,,
+2026-11-02,7:30p,ATL,IND,108,104,,0.384,-3.4,ATL,final,1,live,-0.7,-4.7,IND on a back-to-back,,,
+2026-11-02,7:30p,BRK,NYK,90,103,,0.856,12.2,NYK,final,1,live,-5.9,1.7,BRK on a back-to-back,,,
+2026-11-02,7:30p,WAS,ORL,103,94,,0.512,0.3,ORL,final,0,live,-1.8,-3.1,ORL on a back-to-back,,,
+2026-11-02,7:30p,CHI,PHI,107,126,,0.819,10.5,PHI,final,1,live,-5.6,2.8,,,,
+2026-11-02,8:00p,SAC,DAL,115,100,,0.893,14.3,DAL,final,0,live,-10.7,0.9,,,,
+2026-11-02,8:00p,NOP,MEM,135,134,OT,0.798,9.6,MEM,final,0,live,-1.6,5.2,,,,
+2026-11-02,8:00p,MIL,MIN,100,112,,0.910,15.4,MIN,final,1,live,-7.3,6.5,,,,
+2026-11-02,8:30p,BOS,HOU,93,109,,0.703,6.1,HOU,final,1,live,4.9,7.5,BOS on a back-to-back,,,
+2026-11-02,8:30p,UTA,SAS,97,119,,0.887,13.9,SAS,final,1,live,-7.6,4.8,,,,
+2026-11-02,9:00p,POR,DEN,118,110,,0.519,0.6,DEN,final,0,live,2.6,1.8,,,,
