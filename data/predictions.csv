@@ -106,17 +106,17 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-02,8:30p,BOS,HOU,93,109,,0.703,6.1,HOU,final,1,live,4.9,7.5,BOS on a back-to-back,,,
 2026-11-02,8:30p,UTA,SAS,97,119,,0.887,13.9,SAS,final,1,live,-7.6,4.8,,,,
 2026-11-02,9:00p,POR,DEN,118,110,,0.519,0.6,DEN,final,0,live,2.6,1.8,,,,
-2026-11-04,10:00p,LAL,SAC,,,,0.145,-12.1,LAL,upcoming,,live,4.2,-10.3,,,"Maxime Raynaud (out, 0.6 pts); Precious Achiuwa (questionable, 0.4 pts)",
-2026-11-04,10:30p,MIA,LAC,,,,0.554,1.5,LAC,upcoming,,live,-3.7,-4.4,,"Giannis Antetokounmpo (questionable, 1.5 pts)",,
-2026-11-04,7:00p,PHI,DET,,,,0.638,4.1,DET,upcoming,,live,3.1,4.8,,"Dominick Barlow (out, 0.4 pts)","Jalen Duren (out, 2.2 pts); Isaiah Joe (out, 0.8 pts)",
-2026-11-04,7:00p,ATL,WAS,,,,0.565,1.9,WAS,upcoming,,live,-1.3,-1.7,,"Jalen Johnson (questionable, 1.2 pts); Jock Landale (out, 0.5 pts)","Alex Sarr (questionable, 0.6 pts)",
-2026-11-04,7:30p,MIL,BOS,,,,0.880,13.5,BOS,upcoming,,live,-7.4,3.8,,,,
-2026-11-04,7:30p,CHO,BRK,,,,0.530,0.9,BRK,upcoming,,live,-5.1,-6.5,,"Kon Knueppel (out, 0.5 pts)","Egor Dëmin (out, 0.5 pts)",
-2026-11-04,7:30p,CHI,NYK,,,,0.836,11.2,NYK,upcoming,,live,-7.3,1.6,,"Nic Claxton (out, 0.6 pts); Jalen Smith (questionable, 0.4 pts)","Josh Hart (questionable, 0.8 pts)",
-2026-11-04,8:00p,IND,MEM,,,,0.874,13.1,MEM,upcoming,,live,-6.4,4.4,,"Ivica Zubac (out, 0.5 pts); Tyrese Haliburton (out, 0.5 pts)",,
-2026-11-04,8:00p,UTA,NOP,,,,0.741,7.4,NOP,upcoming,,live,-6.9,-1.8,,,"Trey Murphy III (questionable, 1.1 pts)",
-2026-11-04,8:00p,CLE,OKC,,,,0.472,-0.8,CLE,upcoming,,live,3.0,-0.1,,,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Jaylin Williams (questionable, 0.6 pts)",
-2026-11-04,8:30p,MIN,HOU,,,,0.646,4.3,HOU,upcoming,,live,6.1,8.1,,"Anthony Edwards (out, 0.8 pts)",,
-2026-11-04,9:00p,TOR,DEN,,,,0.553,1.5,DEN,upcoming,,live,1.3,0.6,,"Kawhi Leonard (out, 1.4 pts); Jakob Poeltl (questionable, 0.5 pts)",,
-2026-11-04,9:00p,POR,PHO,,,,0.314,-5.6,POR,upcoming,,live,4.7,-3.2,,,"Mark Williams (out, 1.3 pts); Jordan Goodwin (questionable, 0.5 pts)",
+2026-11-04,10:00p,LAL,SAC,,,,0.145,-12.2,LAL,upcoming,,live,4.2,-10.1,,,"Maxime Raynaud (out, 0.6 pts)",
+2026-11-04,10:30p,MIA,LAC,,,,0.554,1.6,LAC,upcoming,,live,-3.7,-4.9,,"Giannis Antetokounmpo (questionable, 1.5 pts)",,
+2026-11-04,7:00p,PHI,DET,,,,0.638,4.1,DET,live,,live,3.1,4.8,,"Dominick Barlow (out, 0.4 pts)","Jalen Duren (out, 2.2 pts); Isaiah Joe (out, 0.8 pts)",56-42 12:00 - 3rd
+2026-11-04,7:00p,ATL,WAS,,,,0.565,1.9,WAS,live,,live,-1.9,-1.0,,"Jalen Johnson (out, 1.2 pts); Jock Landale (out, 0.5 pts)",,83-76 3:51 - 3rd
+2026-11-04,7:30p,MIL,BOS,,,,0.880,13.5,BOS,live,,live,-7.4,3.8,,,,41-62 Halftime
+2026-11-04,7:30p,CHO,BRK,,,,0.530,0.9,BRK,live,,live,-4.6,-6.5,,"Kon Knueppel (out, 0.5 pts)","Egor Dëmin (out, 0.5 pts)",49-44 3:05 - 2nd
+2026-11-04,7:30p,CHI,NYK,,,,0.836,11.2,NYK,live,,live,-7.3,1.2,,"Nic Claxton (out, 0.6 pts); Jalen Smith (questionable, 0.4 pts)","Josh Hart (out, 0.8 pts)",46-78 1:06 - 2nd
+2026-11-04,8:00p,IND,MEM,,,,0.874,13.2,MEM,live,,live,-4.9,4.4,,"Tyrese Haliburton (out, 0.5 pts)",,35-29 9:30 - 2nd
+2026-11-04,8:00p,UTA,NOP,,,,0.741,7.4,NOP,live,,live,-6.9,-2.3,,,"Trey Murphy III (out, 1.1 pts)",24-26 10:54 - 2nd
+2026-11-04,8:00p,CLE,OKC,,,,0.472,-0.8,CLE,live,,live,3.0,-0.5,,,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Jaylin Williams (out, 0.6 pts)",20-39 10:58 - 2nd
+2026-11-04,8:30p,MIN,HOU,,,,0.646,4.3,HOU,live,,live,6.1,8.1,,"Anthony Edwards (out, 0.8 pts)",,5-3 10:52 - 1st
+2026-11-04,9:00p,TOR,DEN,,,,0.553,1.5,DEN,upcoming,,live,1.9,0.7,,"Kawhi Leonard (out, 1.4 pts)",,
+2026-11-04,9:00p,POR,PHO,,,,0.314,-5.6,POR,upcoming,,live,4.7,-3.2,,,"Mark Williams (out, 1.3 pts); Jordan Goodwin (out, 0.5 pts)",
 2026-11-04,9:30p,DAL,SAS,,,,0.780,8.9,SAS,upcoming,,live,-0.7,5.8,,"Santi Aldama (out, 0.4 pts)",,
