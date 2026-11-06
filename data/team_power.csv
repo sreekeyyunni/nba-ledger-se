@@ -11,17 +11,17 @@ rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
 10,MEM,2.6,0.6,-0.3,3.0,6,2,"Isaiah Stewart (out, 0.9 pts)"
 11,CLE,2.0,2.5,2.2,-0.1,4,4,"Jarrett Allen (questionable, 1.2 pts)"
 12,DEN,1.8,3.3,2.9,-1.1,4,3,
-13,TOR,0.2,2.9,0.9,-0.7,4,4,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (questionable, 0.6 pts)"
-14,GSW,0.0,1.0,-1.4,1.4,5,3,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.4 pts)"
+13,GSW,0.9,1.0,-1.4,2.3,6,3,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.4 pts)"
+14,TOR,0.2,2.9,0.9,-0.7,4,4,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (questionable, 0.6 pts)"
 15,OKC,-0.2,5.1,1.0,-1.2,6,2,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Jaylin Williams (out, 0.6 pts)"
 16,ATL,-0.5,-0.3,-1.1,0.6,5,4,"Jalen Johnson (questionable, 1.2 pts); Jock Landale (out, 0.5 pts)"
 17,DAL,-0.6,-1.8,-2.1,1.5,4,4,"Santi Aldama (out, 0.4 pts)"
 18,NOP,-2.3,-2.6,-3.7,1.4,4,4,"Trey Murphy III (questionable, 1.1 pts)"
-19,MIA,-2.8,-0.4,-0.4,-2.3,3,5,
-20,WAS,-3.2,-3.7,-4.8,1.7,4,4,"Anthony Davis (questionable, 0.8 pts)"
-21,ORL,-4.0,-1.0,-1.1,-2.9,2,5,
-22,PHO,-4.2,0.4,-1.1,-3.1,1,5,"Mark Williams (out, 1.3 pts); Jordan Goodwin (out, 0.5 pts)"
-23,IND,-4.2,-3.5,-3.5,-0.7,3,6,"Tyrese Haliburton (out, 0.5 pts)"
+19,WAS,-3.2,-3.7,-4.8,1.7,4,4,"Anthony Davis (questionable, 0.8 pts)"
+20,PHO,-3.4,0.4,-1.1,-2.2,2,5,"Mark Williams (out, 1.3 pts); Jordan Goodwin (questionable, 0.5 pts)"
+21,MIA,-3.6,-0.4,-0.4,-3.1,3,6,
+22,IND,-4.2,-3.5,-3.5,-0.7,3,6,"Tyrese Haliburton (out, 0.5 pts)"
+23,ORL,-4.4,-1.0,-1.1,-3.3,2,6,
 24,LAC,-4.4,-2.7,-3.1,-1.3,1,7,
 25,BRK,-5.8,-5.0,-5.7,-0.2,2,6,"Noah Clowney (questionable, 0.5 pts); Egor Dëmin (out, 0.5 pts)"
 26,CHO,-6.0,-0.2,-1.2,-4.8,3,6,"Moussa Diabaté (questionable, 0.9 pts); Kon Knueppel (out, 0.5 pts)"
