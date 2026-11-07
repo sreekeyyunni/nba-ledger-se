@@ -122,12 +122,12 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-04,9:30p,DAL,SAS,111,112,,0.780,8.9,SAS,final,1,live,-0.7,5.5,,,,
 2026-11-05,10:00p,MIA,GSW,100,120,,0.717,6.6,GSW,final,1,live,-2.8,2.5,MIA on a back-to-back,,,
 2026-11-05,9:00p,ORL,PHO,104,117,,0.521,0.6,PHO,final,1,live,-3.9,-2.6,PHO on a back-to-back,,,
-2026-11-06,10:00p,POR,LAL,,,,0.503,0.1,LAL,upcoming,,live,5.8,3.6,,,"Sandro Mamukelashvili (questionable, 0.9 pts)",
-2026-11-06,10:00p,SAS,SAC,,,,0.129,-13.0,SAS,upcoming,,live,5.3,-10.0,,,"Maxime Raynaud (out, 0.6 pts)",
-2026-11-06,7:00p,WAS,ATL,,,,0.667,5.0,ATL,upcoming,,live,-3.2,-0.5,,"Anthony Davis (questionable, 0.8 pts)","Jalen Johnson (questionable, 1.2 pts); Jock Landale (out, 0.5 pts)",
-2026-11-06,7:00p,BOS,CHO,,,,0.260,-7.4,BOS,upcoming,,live,3.7,-6.0,,,"Moussa Diabaté (questionable, 0.9 pts); Kon Knueppel (out, 0.5 pts)",
-2026-11-06,7:30p,PHI,CLE,,,,0.529,0.8,CLE,upcoming,,live,3.5,2.0,,"Dominick Barlow (out, 0.4 pts)","Jarrett Allen (questionable, 1.2 pts)",
-2026-11-06,8:00p,UTA,DAL,,,,0.772,8.6,DAL,upcoming,,live,-6.9,-0.6,,,"Santi Aldama (out, 0.4 pts)",
+2026-11-06,10:00p,POR,LAL,,,,0.503,0.1,LAL,upcoming,,live,5.8,4.5,,,,
+2026-11-06,10:00p,SAS,SAC,,,,0.130,-13.0,SAS,upcoming,,live,5.3,-10.3,,,"Maxime Raynaud (out, 0.6 pts)",
+2026-11-06,7:00p,WAS,ATL,,,,0.667,5.0,ATL,live,,live,-3.2,-1.3,,"Anthony Davis (out, 0.8 pts)","Jalen Johnson (out, 1.2 pts); Jock Landale (out, 0.5 pts)",59-66 Halftime
+2026-11-06,7:00p,BOS,CHO,,,,0.260,-7.4,BOS,live,,live,3.7,-7.0,,,"Moussa Diabaté (out, 0.9 pts); Kon Knueppel (out, 0.5 pts)",62-33 2:16 - 2nd
+2026-11-06,7:30p,PHI,CLE,,,,0.529,0.8,CLE,live,,live,3.5,1.3,,"Dominick Barlow (out, 0.4 pts)","Jarrett Allen (out, 1.2 pts)",12-27 2:21 - 1st
+2026-11-06,8:00p,UTA,DAL,,,,0.772,8.6,DAL,upcoming,,live,-6.9,-0.3,,,,
 2026-11-06,8:00p,OKC,MEM,,,,0.672,5.1,MEM,upcoming,,live,-0.2,2.6,,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Jaylin Williams (out, 0.6 pts)","Isaiah Stewart (out, 0.9 pts)",
-2026-11-06,8:00p,TOR,MIL,,,,0.336,-4.9,TOR,upcoming,,live,0.2,-7.0,,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (questionable, 0.6 pts)",,
-2026-11-06,8:00p,MIN,NOP,,,,0.282,-6.6,MIN,upcoming,,live,6.6,-2.3,,"Anthony Edwards (out, 0.8 pts)","Trey Murphy III (questionable, 1.1 pts)",
+2026-11-06,8:00p,TOR,MIL,,,,0.336,-4.9,TOR,upcoming,,live,-2.3,-7.0,,"Kawhi Leonard (out, 1.4 pts); Immanuel Quickley (out, 0.7 pts); Scottie Barnes (out, 0.6 pts)",,
+2026-11-06,8:00p,MIN,NOP,,,,0.282,-6.6,MIN,upcoming,,live,6.6,-1.2,,"Anthony Edwards (out, 0.8 pts)",,
