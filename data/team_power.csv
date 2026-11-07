@@ -1,31 +1,31 @@
 rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
 1,HOU,7.0,3.4,3.4,3.6,7,2,
-2,MIN,6.6,1.3,0.9,5.8,6,3,"Anthony Edwards (out, 0.8 pts)"
-3,POR,5.8,-0.3,1.3,4.5,6,1,
-4,SAS,5.3,4.3,4.7,0.6,6,2,
-5,LAL,4.5,2.4,2.4,2.0,7,2,
-6,DET,4.0,3.0,0.7,3.2,6,2,"Jalen Duren (out, 2.2 pts); Isaiah Joe (out, 0.8 pts)"
-7,BOS,3.7,4.0,4.0,-0.2,6,2,
-8,PHI,3.5,1.6,1.2,2.3,8,1,"Dominick Barlow (out, 0.4 pts)"
-9,MEM,2.6,0.6,-0.3,3.0,6,2,"Isaiah Stewart (out, 0.9 pts)"
-10,NYK,2.3,2.7,1.9,0.4,4,4,"Josh Hart (out, 0.8 pts)"
-11,DEN,1.9,3.3,3.0,-1.1,4,3,
-12,CLE,1.3,2.5,1.4,-0.1,4,4,"Jarrett Allen (out, 1.2 pts)"
-13,GSW,1.1,1.0,-1.2,2.3,6,3,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.4 pts)"
-14,OKC,-0.2,5.1,1.0,-1.2,6,2,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Jaylin Williams (out, 0.6 pts)"
-15,DAL,-0.3,-1.8,-1.8,1.5,4,4,
-16,NOP,-1.2,-2.6,-2.6,1.4,4,4,
-17,ATL,-1.3,-0.3,-1.8,0.6,5,4,"Jalen Johnson (out, 1.2 pts); Jock Landale (out, 0.5 pts)"
-18,TOR,-2.3,2.9,-1.6,-0.7,4,4,"Kawhi Leonard (out, 1.4 pts); Immanuel Quickley (out, 0.7 pts); Scottie Barnes (out, 0.6 pts)"
-19,WAS,-3.2,-3.7,-4.8,1.7,4,4,"Anthony Davis (out, 0.8 pts)"
+2,MIN,6.0,1.3,0.3,5.7,7,3,"Anthony Edwards (out, 0.8 pts)"
+3,SAS,5.7,4.3,4.7,1.0,7,2,
+4,POR,5.4,-0.3,1.3,4.1,6,2,
+5,BOS,5.1,4.0,4.0,1.1,7,2,
+6,LAL,4.4,2.4,2.4,2.0,8,2,
+7,DET,4.0,3.0,0.7,3.2,6,2,"Jalen Duren (out, 2.2 pts); Isaiah Joe (out, 0.8 pts)"
+8,NYK,2.3,2.7,1.9,0.4,4,4,"Josh Hart (out, 0.8 pts)"
+9,PHI,2.2,1.6,1.2,1.0,8,2,"Dominick Barlow (out, 0.4 pts)"
+10,DEN,1.9,3.3,3.0,-1.1,4,3,
+11,CLE,1.9,2.5,0.8,1.1,5,4,"Jarrett Allen (out, 1.2 pts); Sam Merrill (out, 0.3 pts)"
+12,OKC,1.2,5.1,1.0,0.2,7,2,"Chet Holmgren (out, 1.9 pts); Jalen Williams (out, 0.8 pts); Cason Wallace (out, 0.7 pts); Jaylin Williams (out, 0.6 pts)"
+13,MEM,1.1,0.6,-0.3,1.5,6,3,"Isaiah Stewart (out, 0.9 pts)"
+14,GSW,1.1,1.0,-1.2,2.3,6,3,"Jimmy Butler (out, 1.5 pts); Kristaps Porziņģis (out, 0.4 pts)"
+15,DAL,-0.0,-1.8,-1.8,1.8,5,4,
+16,ATL,-1.2,-0.3,-1.8,0.6,6,4,"Jalen Johnson (out, 1.2 pts); Jock Landale (out, 0.5 pts)"
+17,NOP,-1.6,-2.6,-2.6,1.1,4,5,
+18,TOR,-1.6,2.9,-1.6,-0.0,5,4,"Kawhi Leonard (out, 1.4 pts); Immanuel Quickley (out, 0.7 pts); Scottie Barnes (out, 0.6 pts)"
+19,WAS,-3.3,-3.7,-4.8,1.5,4,5,"Anthony Davis (out, 0.8 pts)"
 20,PHO,-3.4,0.4,-1.1,-2.2,2,5,"Mark Williams (out, 1.3 pts); Jordan Goodwin (questionable, 0.5 pts)"
 21,MIA,-3.6,-0.4,-0.4,-3.1,3,6,
 22,IND,-4.2,-3.5,-3.5,-0.7,3,6,"Tyrese Haliburton (out, 0.5 pts)"
 23,ORL,-4.4,-1.0,-1.1,-3.3,2,6,
 24,LAC,-4.4,-2.7,-3.1,-1.3,1,7,
 25,BRK,-5.7,-5.0,-5.5,-0.2,2,6,"Egor Dëmin (out, 0.5 pts)"
-26,UTA,-6.9,-5.2,-4.0,-2.9,1,7,
-27,MIL,-7.0,-3.0,-3.0,-4.0,1,7,
-28,CHO,-7.0,-0.2,-2.3,-4.8,3,6,"Moussa Diabaté (out, 0.9 pts); Kon Knueppel (out, 0.5 pts)"
+26,UTA,-7.1,-5.2,-4.0,-3.1,1,8,
+27,MIL,-7.4,-3.0,-3.0,-4.4,1,8,
+28,CHO,-8.1,-0.2,-2.3,-5.8,3,7,"Moussa Diabaté (out, 0.9 pts); Kon Knueppel (out, 0.5 pts)"
 29,CHI,-8.2,-2.9,-4.0,-4.2,1,7,"Nic Claxton (out, 0.6 pts); Jalen Smith (questionable, 0.4 pts)"
-30,SAC,-10.3,-6.0,-7.1,-3.2,1,7,"Maxime Raynaud (out, 0.6 pts)"
+30,SAC,-10.5,-6.0,-7.1,-3.4,1,8,"Maxime Raynaud (out, 0.6 pts)"
