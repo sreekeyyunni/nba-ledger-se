@@ -1,61 +1,54 @@
 week,Player,Team,score,label,mentions,note,sources,change
-2026-10-26,Ty Jerome,MEM,100,Rolling,3,104 points in two games; 'untradable',NBA CP RG,0
-2026-10-26,Luka Doncic,LAL,100,Rolling,2,52 vs Utah; league's best offense,NBA CP,50
-2026-10-26,Walker Kessler,LAL,75,Rolling,3,Efficient and strong on defense; Utah regret takes,NBA CP RG,-25
-2026-10-26,Ja Morant,POR,75,Rolling,3,"League Pass favorite, starters dominant",NBA CP RG,25
-2026-10-26,Caleb Wilson,CHI,75,Rolling,3,30 and 14 breakout,NBA CP S5,75
-2026-10-26,Scottie Barnes,TOR,75,Rolling,2,"MVP-candidate overreaction, 'blooming superstar'",CP RG,50
-2026-10-26,Nikola Jokic,DEN,75,Rolling,2,35-point triple-double in an OT comeback,CP S5,100
-2026-10-26,Jamal Murray,DEN,75,Rolling,2,42 in the OT comeback,CP S5,100
-2026-10-26,Duncan Robinson,DET,75,Rolling,2,Hot three-point shooting,NBA CP,
-2026-10-26,Anthony Edwards,MIN,75,Rolling,2,45 in the opener,CP S5,0
-2026-10-26,Jaden McDaniels,MIN,75,Rolling,2,Emerging top two-way forward,NBA CP,
-2026-10-26,Damian Lillard,POR,75,Rolling,2,"Sharp backcourt, dominant starters",NBA CP,0
-2026-10-26,Marcus Smart,HOU,75,Rolling,1,Pitched as an X-factor and Sixth Man candidate,RG,
-2026-10-26,Dyson Daniels,ATL,75,Rolling,1,"13 steals, defensive force",NBA,
-2026-10-26,LaMelo Ball,MIN,50,Rolling,3,Clicking with Ant; good defense in limited minutes,NBA CP S5,-25
-2026-10-26,Jalen Johnson,ATL,50,Rolling,3,Averaging a triple-double; 26-9-16 in a loss,NBA CP S5,25
-2026-10-26,Trae Young,WAS,50,Rolling,3,25 and 9 in Chicago; shooting 37% but leads the league in free throws,NBA CP S5,-25
-2026-10-26,Shai Gilgeous-Alexander,OKC,50,Rolling,2,"Efficient, but OKC's offense sub-par; 'play off the ball' take",NBA RG,-50
-2026-10-26,Tyrese Maxey,PHI,50,Rolling,2,Part of an 81-point trio vs Milwaukee,CP S5,-25
-2026-10-26,Jaylen Brown,PHI,50,Rolling,2,Part of an 81-point trio vs Milwaukee,CP S5,25
-2026-10-26,Jayson Tatum,BOS,50,Rolling,2,36 and clutch vs the Knicks after a rough opener,NBA CP,100
-2026-10-26,Tyrese Haliburton,IND,50,Rolling,2,Healthy and attacking the paint,NBA CP,-25
-2026-10-26,Yaxel Lendeborg,GSW,50,Rolling,2,"26 points, the bright spot",NBA S5,50
-2026-10-26,Cameron Boozer,MEM,50,Rolling,2,Rookie of the Year contender,NBA CP,25
-2026-10-26,Brandon Miller,CHO,50,Rolling,2,34 vs Miami,CP S5,25
-2026-10-26,Naz Reid,CHO,50,Rolling,2,'About to average 20-10-5',CP RG,0
-2026-10-26,Alperen Sengun,HOU,50,Rolling,1,Key in clutch time,NBA,
-2026-10-26,Cade Cunningham,DET,50,Rolling,1,Leading a 3-0 start,CP,-25
-2026-10-26,Austin Reaves,LAL,50,Rolling,1,Extremely efficient,NBA,50
-2026-10-26,Keaton Wagler,LAC,50,Rolling,1,Standout rookie,CP,
-2026-10-26,Joel Embiid,PHI,25,Warm,3,"Defensive difference-maker, but missing time",NBA CP S5,0
-2026-10-26,Devin Booker,PHO,25,Warm,3,43 to beat Golden State; defense worst with him on,NBA CP S5,100
-2026-10-26,Fred VanVleet,HOU,25,Warm,2,"Lots of assists, no turnovers, cold shooting",NBA CP,-50
-2026-10-26,Kevin Durant,HOU,25,Warm,2,22 vs Atlanta,CP S5,0
-2026-10-26,Zach LaVine,SAC,25,Warm,2,Effective in the mid-range,NBA CP,
-2026-10-26,LeBron James,PHI,25,Warm,1,Part of a 'dangerous' core,CP,-50
-2026-10-26,Nickeil Alexander-Walker,ATL,25,Warm,1,Clutch threes,NBA,-50
-2026-10-26,Darius Garland,LAC,25,Warm,1,Keeping LA competitive,CP,-50
-2026-10-26,Julius Randle,BRK,25,Warm,1,22 a night in losses,CP,50
-2026-10-26,Giannis Antetokounmpo,MIA,0,Mixed,2,"Scoring big, but the defense collapses around him",NBA CP,-50
-2026-10-26,Anthony Davis,WAS,0,Mixed,2,"Team competitive behind him, but his lineups have been outscored",NBA CP,-100
-2026-10-26,AJ Dybantsa,WAS,0,Mixed,1,Still out with the ankle sprain,CP,0
-2026-10-26,Lauri Markkanen,UTA,0,Mixed,1,"Producing, but Utah's defense is awful",CP,-25
-2026-10-26,Jaren Jackson Jr.,UTA,0,Mixed,1,"Producing, but Utah's defense is awful",CP,50
-2026-10-26,Victor Wembanyama,SAS,-25,Cooling,3,Jumper still off; 23 and 4 blocks in the first win,NBA CP S5,25
-2026-10-26,Kawhi Leonard,TOR,-25,Cooling,2,Scratched with knee swelling,NBA CP,-75
-2026-10-26,Paolo Banchero,ORL,-25,Cooling,2,"35 vs Atlanta, now out with an ankle injury",NBA CP,0
-2026-10-26,Kyrie Irving,DAL,-25,Cooling,2,Struggled without Flagg; 24 in one game,NBA CP,-50
-2026-10-26,Stephen Curry,GSW,-25,Cooling,2,Cold from three with no help,NBA CP,-50
-2026-10-26,Ausar Thompson,DET,-25,Cooling,1,Ankle sprain,NBA,-125
-2026-10-26,Tyler Herro,MIL,-25,Cooling,1,Talent on a roster without identity,CP,-25
-2026-10-26,Cooper Flagg,DAL,-50,Gloomy,2,"Left shoulder injury, being re-evaluated",NBA CP,-100
-2026-10-26,Darius Acuff Jr.,SAC,-50,Gloomy,2,"Heavy usage, poor efficiency",NBA CP,-25
-2026-10-26,Zion Williamson,NOP,-50,Gloomy,2,"20+ a night, but late-game mistakes cost games",NBA CP,-25
-2026-10-26,Jalen Duren,DET,-50,Gloomy,1,Out at least two weeks,NBA,-75
-2026-10-26,Bam Adebayo,MIA,-50,Gloomy,1,Giannis-Bam minutes bleeding threes,NBA,0
-2026-10-26,Jalen Williams,OKC,-75,Gloomy,2,"Serious left leg injury, likely season-ending",NBA CP,
-2026-10-26,James Harden,CLE,-75,Gloomy,2,6-for-20 with 10 turnovers in two games,NBA CP,-75
-2026-10-26,Jalen Brunson,NYK,-75,Gloomy,1,Shooting under 40% for an 0-3 champ,CP,-25
-2026-10-26,Mikal Bridges,NYK,-100,Gloomy,2,"5-for-23, 0-for-10 from three, no free throws",NBA CP,
+2026-11-02,Luka Doncic,LAL,100,Rolling,2,MVP-caliber start; 'frontrunner' takes,CBS CBSO,0
+2026-11-02,Karl-Anthony Towns,NYK,75,Rolling,2,Playing at an All-NBA level,CBS CBSO,
+2026-11-02,Jeremiah Fears,NOP,75,Rolling,1,Terrific in recent wins,CP,
+2026-11-02,Tyrese Maxey,PHI,75,Rolling,1,The go-to scorer on a 6-1 team,CBS,25
+2026-11-02,Jayson Tatum,BOS,75,Rolling,1,"Late heroics, buzzer-beater vs Brooklyn",CBS,25
+2026-11-02,Austin Reaves,LAL,75,Rolling,1,On an All-NBA pace,CBS,25
+2026-11-02,Cooper Flagg,DAL,75,Rolling,1,Early All-NBA candidate,CBS,125
+2026-11-02,AJ Dybantsa,WAS,75,Rolling,1,19 on 8-for-12 in his debut; 'potential superstar',SID,75
+2026-11-02,Yaxel Lendeborg,GSW,75,Rolling,1,Near 22 a night as a rookie,CBS,25
+2026-11-02,Ty Jerome,MEM,75,Rolling,1,Near 30 a night for the 6-0 Grizzlies,CBS,-25
+2026-11-02,Victor Wembanyama,SAS,50,Rolling,2,MVP-caliber numbers in a four-game win streak,CP CBSO,75
+2026-11-02,Fred VanVleet,HOU,50,Rolling,2,Steadying the point for the No. 1 team,CBS NBC,25
+2026-11-02,Amen Thompson,HOU,50,Rolling,2,Thriving in an off-ball role,CBS NBC,
+2026-11-02,Shai Gilgeous-Alexander,OKC,50,Rolling,1,Keeps OKC a West contender despite the injuries,CBSO,0
+2026-11-02,Paul George,BOS,50,Rolling,1,Looks great,CBS,
+2026-11-02,Alperen Sengun,HOU,50,Rolling,1,Thriving,CBS,0
+2026-11-02,Kevin Durant,HOU,50,Rolling,1,Thriving,CBS,25
+2026-11-02,Evan Mobley,CLE,50,Rolling,1,Playing well,CBS,
+2026-11-02,Cade Cunningham,DET,50,Rolling,1,Leading a 5-1 team,NBC,0
+2026-11-02,LaMelo Ball,MIN,50,Rolling,1,Standing out,CBS,0
+2026-11-02,Jaden McDaniels,MIN,50,Rolling,1,Standing out,CBS,-25
+2026-11-02,Dyson Daniels,ATL,50,Rolling,1,Leads the league in steals,CBS,-25
+2026-11-02,Cameron Boozer,MEM,50,Rolling,1,Strong rookie numbers,CBS,0
+2026-11-02,Caleb Wilson,CHI,50,Rolling,1,21 and 7 a night,CBS,-25
+2026-11-02,Brandon Miller,CHO,50,Rolling,1,Scoring heavily,CBS,0
+2026-11-02,Keyonte George,UTA,50,Rolling,1,Promising start,CBS,
+2026-11-02,Ace Bailey,UTA,50,Rolling,1,Promising start,CBS,
+2026-11-02,Mikal Bridges,NYK,25,Warm,1,Finding his shot again,CBS,125
+2026-11-02,Julius Randle,BRK,25,Warm,1,51 with MPJ in an OT loss at Boston,CBS,0
+2026-11-02,Michael Porter Jr.,BRK,25,Warm,1,51 with Randle in an OT loss at Boston,CBS,
+2026-11-02,Darius Garland,LAC,0,Mixed,1,"Scoring, but too many turnovers",CBS,-25
+2026-11-02,Nikola Jokic,DEN,-25,Cooling,2,Called out the defense; spat with fans,CBS CBSO,-100
+2026-11-02,Anthony Davis,WAS,-25,Cooling,2,"Big lines, poor efficiency; 18 in Dybantsa's debut",CBS SID,-25
+2026-11-02,Trae Young,WAS,-25,Cooling,2,"Big lines, poor efficiency; still making plays",CBS SID,-75
+2026-11-02,Stephen Curry,GSW,-25,Cooling,2,"Missing games on an aging, banged-up team",CBS CBSO,0
+2026-11-02,Joel Embiid,PHI,-25,Cooling,1,Backup-center worry given his injury history,CBSO,-50
+2026-11-02,Scottie Barnes,TOR,-25,Cooling,1,Had an 0-for-12 game,CBS,-100
+2026-11-02,Jalen Johnson,ATL,-25,Cooling,1,Cold from three,CBS,-75
+2026-11-02,Ja Morant,POR,-25,Cooling,1,"Looked in control, now out 4+ weeks (hamstring)",CBS,-100
+2026-11-02,Dejounte Murray,NOP,-25,Cooling,1,Missed a potential game-winner vs Utah,CBS,
+2026-11-02,Giannis Antetokounmpo,MIA,-50,Gloomy,2,Driving into crowds; 'don't press the panic button',CBS CBSO,-50
+2026-11-02,Cason Wallace,OKC,-50,Gloomy,1,Torn labrum,CBS,
+2026-11-02,Chet Holmgren,OKC,-50,Gloomy,1,Now injured too,CP,
+2026-11-02,Rudy Gobert,MIN,-50,Gloomy,1,A major offensive liability,CP,
+2026-11-02,Kawhi Leonard,TOR,-50,Gloomy,1,Out at least a week with knee swelling,CBS,-25
+2026-11-02,Jalen Duren,DET,-50,Gloomy,1,Hamstring strain,NBC,0
+2026-11-02,Bam Adebayo,MIA,-50,Gloomy,1,Fit with Giannis questioned,CBSO,0
+2026-11-02,Paolo Banchero,ORL,-50,Gloomy,1,"Out 4 to 6 weeks, high ankle sprain",CBS,-25
+2026-11-02,Tyrese Haliburton,IND,-50,Gloomy,1,Injured; Indiana has lost four straight,CP,-100
+2026-11-02,Anthony Edwards,MIN,-75,Gloomy,2,"Knee procedure, out up to two months",CBS CBSO,-150
+2026-11-02,Jalen Williams,OKC,-75,Gloomy,1,Out for the season,CBS,0
+2026-11-02,Darius Acuff Jr.,SAC,-75,Gloomy,1,"Record 93 shots to start a career, at 34%",CBS,-25
+2026-11-02,Jaren Jackson Jr.,UTA,-75,Gloomy,1,"Torn MCL, out 6+ weeks",CBS,-75
