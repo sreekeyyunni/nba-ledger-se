@@ -1,6 +1,10 @@
 id,date,type,team,player,description,group_id,source,years,total_m
+espn-011fd2c0f11a,2026-11-08,trade,SAC,,Traded (G) Nique Clifford to the Oklahoma City Thunder.,,espn,,
+espn-a6d2b2230022,2026-11-08,waive,OKC,Dalen Terry,Waived (F) Dalen Terry.,,espn,,
+nba-2026018-1642363-1610612758,2026-11-08,trade,OKC,Nique Clifford,Oklahoma City Thunder received guard Nique Clifford from Sacramento Kings.,2026018,nba,,
 nba-1157609-1643563-0,2026-11-07,two_way,MEM,Richie Saunders,Memphis Grizzlies signed guard Richie Saunders to a Two-Way Contract.,,nba,,
 nba-1157611-1642434-0,2026-11-07,two_way,CLE,Riley Minix,Cleveland Cavaliers signed forward Riley Minix to a Two-Way Contract.,,nba,,
+nba-1157626-1643721-0,2026-11-07,waive,MEM,Carson Cooper,Memphis Grizzlies waived forward Carson Cooper.,,nba,,
 nba-1157461-1641755-0,2026-11-05,two_way,TOR,Kevin McCullar Jr.,Toronto Raptors signed guard Kevin McCullar Jr. to a Two-Way Contract.,,nba,,
 nba-1157524-1641807-0,2026-11-05,two_way,CLE,Norchad Omier,Cleveland Cavaliers signed forward Norchad Omier to a Two-Way Contract.,,nba,,
 nba-1157525-1642434-0,2026-11-05,waive,CLE,Riley Minix,Cleveland Cavaliers waived forward Riley Minix.,,nba,,
