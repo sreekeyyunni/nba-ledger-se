@@ -1,6 +1,6 @@
 rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
-1,HOU,6.6,3.2,3.2,3.4,7,3,
-2,SAS,6.3,4.6,4.1,2.2,8,2,
+1,SAS,7.8,4.6,4.5,3.3,9,2,
+2,HOU,6.8,3.2,3.2,3.7,8,3,
 3,MIN,6.3,2.3,1.2,5.1,8,3,"Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts)"
 4,BOS,5.8,4.4,4.4,1.4,8,2,
 5,LAL,4.9,2.5,2.3,2.7,10,2,"Austin Reaves (questionable, 0.9 pts)"
@@ -8,24 +8,24 @@ rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
 7,DET,4.0,3.1,1.6,2.3,7,3,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.4 pts)"
 8,NYK,3.7,3.3,2.9,0.8,5,4,"Josh Hart (questionable, 0.9 pts)"
 9,OKC,3.1,5.8,2.6,0.5,8,2,"Chet Holmgren (out, 1.2 pts)"
-10,DEN,2.8,3.4,3.4,-0.6,5,3,
-11,MEM,2.4,0.3,-0.5,2.9,7,3,"Isaiah Stewart (questionable, 0.8 pts)"
-12,PHI,2.2,1.5,1.1,1.0,9,2,"Dominick Barlow (out, 0.4 pts)"
-13,CLE,1.5,2.1,1.7,-0.1,5,6,"Sam Merrill (questionable, 0.4 pts)"
-14,GSW,1.5,1.2,-0.7,2.2,7,3,"Jimmy Butler (out, 1.6 pts); Kristaps Porziņģis (out, 0.5 pts)"
+10,GSW,2.6,1.2,-0.5,3.1,8,3,"Jimmy Butler (out, 1.6 pts); Kristaps Porziņģis (out, 0.5 pts)"
+11,DEN,2.4,3.4,3.4,-1.0,5,4,
+12,MEM,2.4,0.3,-0.5,2.9,7,3,"Isaiah Stewart (questionable, 0.8 pts)"
+13,PHI,2.2,1.5,1.1,1.0,9,2,"Dominick Barlow (out, 0.4 pts)"
+14,CLE,1.5,2.1,1.7,-0.1,5,6,"Sam Merrill (questionable, 0.4 pts)"
 15,DAL,1.0,-1.5,-1.6,2.5,7,4,
 16,ATL,-0.5,-0.1,-0.1,-0.4,7,5,
 17,TOR,-1.8,2.7,-0.6,-1.2,5,5,"Kawhi Leonard (out, 1.4 pts); Immanuel Quickley (questionable, 0.7 pts); Scottie Barnes (questionable, 0.5 pts); Collin Murray-Boyles (questionable, 0.5 pts)"
-18,PHO,-3.1,0.2,-1.3,-1.7,3,5,"Mark Williams (out, 1.1 pts); Jordan Goodwin (out, 0.3 pts)"
-19,LAC,-3.3,-2.3,-2.7,-0.5,2,7,"Jordan Miller (out, 0.6 pts)"
-20,WAS,-3.8,-4.6,-4.7,0.8,4,7,
-21,MIA,-4.0,-0.9,-1.5,-2.5,4,6,"Giannis Antetokounmpo (questionable, 1.4 pts)"
-22,NOP,-4.4,-2.6,-4.9,0.5,4,6,"Zion Williamson (out, 1.8 pts); Trey Murphy III (out, 1.3 pts)"
-23,ORL,-4.5,-1.1,-1.3,-3.2,2,7,"Paolo Banchero (out, 0.8 pts)"
-24,IND,-4.6,-3.5,-3.7,-1.0,3,8,"Tyrese Haliburton (out, 0.6 pts)"
+18,LAC,-3.3,-2.3,-2.7,-0.5,2,7,"Jordan Miller (out, 0.6 pts)"
+19,WAS,-3.8,-4.6,-4.7,0.8,4,7,
+20,MIA,-4.0,-0.9,-1.5,-2.5,4,6,"Giannis Antetokounmpo (questionable, 1.4 pts)"
+21,PHO,-4.3,0.2,-1.3,-3.0,3,6,"Mark Williams (out, 1.1 pts); Jordan Goodwin (out, 0.3 pts)"
+22,ORL,-4.5,-1.1,-1.3,-3.2,2,7,"Paolo Banchero (out, 0.8 pts)"
+23,IND,-4.6,-3.5,-3.7,-1.0,3,8,"Tyrese Haliburton (out, 0.6 pts)"
+24,NOP,-5.4,-2.6,-4.8,-0.5,4,7,"Zion Williamson (questionable, 1.8 pts); Trey Murphy III (questionable, 1.3 pts)"
 25,BRK,-6.2,-4.9,-5.1,-1.2,2,8,"Egor Dëmin (out, 0.3 pts)"
 26,CHO,-7.1,-1.2,-2.8,-4.3,4,7,"Moussa Diabaté (questionable, 0.6 pts)"
-27,MIL,-7.7,-4.0,-3.2,-4.5,1,9,
-28,CHI,-7.9,-3.8,-4.2,-3.7,1,8,"Norman Powell (questionable, 0.4 pts)"
-29,UTA,-8.1,-4.0,-4.2,-3.9,1,9,"Lauri Markkanen (questionable, 0.9 pts); Keyonte George (out, 0.5 pts); Jusuf Nurkić (out, 0.3 pts)"
+27,CHI,-7.9,-3.8,-4.2,-3.7,1,8,"Norman Powell (questionable, 0.4 pts)"
+28,UTA,-8.1,-4.0,-4.2,-3.9,1,9,"Lauri Markkanen (questionable, 0.9 pts); Keyonte George (out, 0.5 pts); Jusuf Nurkić (out, 0.3 pts)"
+29,MIL,-8.4,-4.0,-3.9,-4.5,1,9,
 30,SAC,-10.1,-5.6,-6.5,-3.6,1,9,"Domantas Sabonis (questionable, 0.6 pts); Maxime Raynaud (out, 0.4 pts)"
