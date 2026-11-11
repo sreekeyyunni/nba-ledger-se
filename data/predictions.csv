@@ -153,9 +153,9 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-09,8:00p,IND,DAL,122,125,,0.709,6.3,DAL,final,1,live,-4.6,1.2,DAL on a back-to-back,,,
 2026-11-09,8:30p,DEN,HOU,100,110,,0.804,9.8,HOU,final,1,live,2.8,6.6,,,,
 2026-11-09,9:00p,SAS,PHO,122,96,,0.267,-7.2,SAS,final,1,live,6.8,-1.5,,,,
-2026-11-10,10:00p,ORL,SAC,,,,0.386,-3.3,ORL,upcoming,,live,-4.5,-10.1,,"Paolo Banchero (out, 0.8 pts)","Domantas Sabonis (questionable, 0.6 pts); Maxime Raynaud (out, 0.4 pts)",
+2026-11-10,10:00p,ORL,SAC,,,,0.386,-3.3,ORL,upcoming,,live,-4.7,-9.6,,"Paolo Banchero (out, 0.8 pts); Tristan Da Silva (questionable, 0.4 pts)","Maxime Raynaud (out, 0.4 pts)",
 2026-11-10,11:00p,OKC,POR,,,,0.609,3.2,POR,upcoming,,live,3.1,4.0,,"Chet Holmgren (out, 1.2 pts)",,
-2026-11-10,7:30p,MIL,NYK,,,,0.894,14.3,NYK,upcoming,,live,-8.4,3.7,,,"Josh Hart (questionable, 0.9 pts)",
-2026-11-10,8:00p,BOS,PHI,,,,0.453,-1.4,BOS,upcoming,,live,5.8,2.2,,,"Dominick Barlow (out, 0.4 pts)",
-2026-11-10,9:00p,LAC,PHO,,,,0.491,-0.2,LAC,upcoming,,live,-3.3,-4.3,PHO on a back-to-back,"Jordan Miller (out, 0.6 pts)","Mark Williams (out, 1.1 pts); Jordan Goodwin (out, 0.3 pts)",
-2026-11-10,9:00p,MIA,UTA,,,,0.438,-1.8,MIA,upcoming,,live,-4.0,-8.1,,"Giannis Antetokounmpo (questionable, 1.4 pts)","Lauri Markkanen (questionable, 0.9 pts); Keyonte George (out, 0.5 pts); Jusuf Nurkić (out, 0.3 pts)",
+2026-11-10,7:30p,MIL,NYK,,,,0.894,14.3,NYK,live,,live,-8.4,3.1,,,"Josh Hart (out, 0.9 pts)",28-48 2:55 - 2nd
+2026-11-10,8:00p,BOS,PHI,,,,0.453,-1.4,BOS,live,,live,5.8,2.2,,,"Dominick Barlow (out, 0.4 pts)",17-12 7:12 - 1st
+2026-11-10,9:00p,LAC,PHO,,,,0.491,-0.2,LAC,upcoming,,live,-3.3,-3.9,PHO on a back-to-back,"Jordan Miller (out, 0.6 pts)","Mark Williams (out, 1.1 pts)",
+2026-11-10,9:00p,MIA,UTA,,,,0.438,-1.8,MIA,upcoming,,live,-3.4,-8.7,,,"Lauri Markkanen (out, 0.9 pts); Keyonte George (out, 0.5 pts); Jusuf Nurkić (out, 0.3 pts)",
