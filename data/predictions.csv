@@ -159,13 +159,17 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-10,8:00p,BOS,PHI,123,101,,0.453,-1.4,BOS,final,1,live,5.8,2.6,,,,
 2026-11-10,9:00p,LAC,PHO,110,133,,0.491,-0.2,LAC,final,0,live,-2.8,-2.8,PHO on a back-to-back,,,
 2026-11-10,9:00p,MIA,UTA,115,109,,0.438,-1.8,MIA,final,1,live,-3.4,-7.9,,,,
-2026-11-11,10:00p,OKC,POR,,,,0.689,5.7,POR,upcoming,,live,0.3,5.2,OKC on a back-to-back | POR on a back-to-back,"Chet Holmgren (out, 1.2 pts); Ajay Mitchell (out, 0.5 pts)",,
-2026-11-11,7:00p,WAS,IND,101,114,,0.550,1.4,IND,final,1,live,-3.8,-3.6,,,"Tyrese Haliburton (out, 0.6 pts)",
-2026-11-11,7:00p,CLE,NYK,,,,0.611,3.2,NYK,live,,live,1.6,4.9,NYK on a back-to-back,"Sam Merrill (out, 0.4 pts)",,101-101 5:09 - 4th
-2026-11-11,7:00p,BOS,TOR,,,,0.308,-5.8,BOS,live,,live,7.3,-1.5,BOS on a back-to-back,,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)",84-89 4:21 - 4th
-2026-11-11,8:00p,SAS,CHI,,,,0.121,-13.4,SAS,live,,live,7.4,-8.0,,,"Norman Powell (out, 0.4 pts)",63-72 9:54 - 3rd
-2026-11-11,8:00p,DEN,MEM,,,,0.578,2.3,MEM,live,,live,2.4,3.2,,,,68-59 9:17 - 3rd
-2026-11-11,8:00p,LAL,MIL,,,,0.118,-13.7,LAL,live,,live,5.5,-8.3,MIL on a back-to-back,,,66-56 9:01 - 3rd
-2026-11-11,8:00p,BRK,NOP,,,,0.626,3.7,NOP,live,,live,-5.8,-4.1,,,"Trey Murphy III (out, 1.3 pts)",83-66 Halftime
-2026-11-11,9:00p,ORL,UTA,,,,0.455,-1.3,ORL,live,,live,-4.8,-8.1,ORL on a back-to-back | UTA on a back-to-back,"Paolo Banchero (out, 0.8 pts); Tristan Da Silva (out, 0.4 pts)","Lauri Markkanen (out, 0.9 pts); Jusuf Nurkić (out, 0.3 pts)",13-13 6:07 - 1st
-2026-11-11,9:30p,GSW,HOU,,,,0.713,6.5,HOU,upcoming,,live,2.4,6.8,,"Jimmy Butler (out, 1.6 pts); Kristaps Porziņģis (out, 0.5 pts)",,
+2026-11-11,10:00p,OKC,POR,108,118,,0.689,5.7,POR,final,1,live,5.0,3.5,OKC on a back-to-back | POR on a back-to-back,,,
+2026-11-11,7:00p,WAS,IND,101,114,,0.550,1.4,IND,final,1,live,-3.8,-4.5,,,,
+2026-11-11,7:00p,CLE,NYK,115,107,,0.611,3.2,NYK,final,0,live,1.9,4.9,NYK on a back-to-back,,,
+2026-11-11,7:00p,BOS,TOR,98,93,,0.308,-5.8,BOS,final,1,live,6.9,1.6,BOS on a back-to-back,,,
+2026-11-11,8:00p,SAS,CHI,124,119,,0.121,-13.4,SAS,final,1,live,7.9,-7.5,,,,
+2026-11-11,8:00p,DEN,MEM,123,118,,0.578,2.3,MEM,final,0,live,2.4,3.2,,,,
+2026-11-11,8:00p,LAL,MIL,123,112,,0.118,-13.7,LAL,final,1,live,5.2,-9.1,MIL on a back-to-back,,,
+2026-11-11,8:00p,BRK,NOP,145,111,,0.626,3.7,NOP,final,0,live,-6.0,-3.2,,,,
+2026-11-11,9:00p,ORL,UTA,123,108,,0.455,-1.3,ORL,final,1,live,-3.8,-7.9,ORL on a back-to-back | UTA on a back-to-back,,,
+2026-11-11,9:30p,GSW,HOU,108,115,,0.713,6.5,HOU,final,1,live,4.3,6.8,,,,
+2026-11-12,7:00p,TOR,PHI,,,,0.671,5.1,PHI,upcoming,,live,-1.6,-0.3,TOR on a back-to-back,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)","Joel Embiid (questionable, 0.9 pts); LeBron James (questionable, 0.9 pts); Dominick Barlow (out, 0.4 pts)",
+2026-11-12,7:00p,DET,WAS,,,,0.259,-7.5,DET,upcoming,,live,4.0,-4.3,WAS on a back-to-back,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.4 pts)",,
+2026-11-12,8:00p,DAL,MIN,,,,0.745,7.6,MIN,upcoming,,live,1.0,6.3,,,"Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts)",
+2026-11-12,9:00p,CHO,PHO,,,,0.722,6.8,PHO,upcoming,,live,-7.2,-2.7,,"Moussa Diabaté (questionable, 0.6 pts)","Mark Williams (out, 1.1 pts)",
