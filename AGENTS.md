@@ -8,7 +8,7 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 1. Work on a branch and open a pull request. Do not push straight to `main`
    (only the nightly GitHub Action and the integrator do that).
 2. Never edit, reorder or rewrite `pipeline/outputs/predictions_log.csv`. It is the locked record of picks.
-3. `nav.js` is the only menu. Add a page by adding it to `PAGES` in `nav.js`; do not build a second menu.
+3. `nav.js` is the only menu. Pages sit in five sections with tabs (Home, My team, League, Front office, Games); add a page as a tab in `SECTIONS` in `nav.js`; do not build a second menu.
 4. No secrets in the repo. Keys live in GitHub secrets (`BALLDONTLIE_API_KEY`) or on the Mac in `.env`.
 5. Data: polite API requests only, no scraping or crawling. Contracts are pulled weekly (one Basketball Reference page, Mondays).
 6. Keep it static: plain HTML/JS/CSV, no build step, no frameworks, no new runtime dependencies.
@@ -22,7 +22,8 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 | `home.html` | Landing page |
 | `index.html` | Main app: Home, My team, Players, Teams, Trade machine (hash routes) |
 | `gm.html`, `desk.html`, `grader.html`, `offseason.html`, `styles.html`, `sim.html`, `series.html`, `capsheet.html`, `predict.html`, `sentiment.html`, `guess.html` | Be the GM, AI GM, Transactions, Offseason, Play styles, Season sim, Starting 5, Cap sheet, Predictions, Sentiment, Guess the player |
-| `nav.js` | Shared top bar, menu and team picker (`localStorage.myTeam`) |
+| `tough.html`, `tough.js` | Tough spots (most screwed teams, contract squeezes, stuck players); `tough.js` scoring is shared with the Home card |
+| `nav.js` | Shared top bar, section menu with tabs, and team picker (`localStorage.myTeam`) |
 | `sim.js`, `simui.js`, `fit.js` | Season simulator, its UI helpers, play-style fit |
 | `data/` | Everything the pages read at load time |
 | `logos/` | Team logos, `<TEAM>.png` |

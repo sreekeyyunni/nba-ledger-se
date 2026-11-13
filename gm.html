@@ -533,9 +533,9 @@ function boardHTML(){
 }
 function mandateHTML(){
   const exp=allExp(),w=exp[S.me],pay=S.pay[S.me];
-  const rec=w>=50?"contend":w<=33?"rebuild":pay>TAX&&w<45?"cut":"retool";
+  const rec=S.challenge&&MANDATES[S.challenge.mandate]?S.challenge.mandate:w>=50?"contend":w<=33?"rebuild":pay>TAX&&w<45?"cut":"retool";
   const ros=rosterNow(S.me);
-  return `<div class="desk"><div class="scene"><p class="eyebrow">October · Owner's meeting</p><h2>Welcome to ${nick(S.me)} basketball</h2>
+  return `<div class="desk"><div class="scene"><p class="eyebrow">October · Owner's meeting</p><h2>${S.challenge?"Tough spot challenge: ":"Welcome to "}${nick(S.me)}${S.challenge?"":" basketball"}</h2>${S.challenge&&S.challenge.why?`<p class="story"><b>The situation:</b> ${esc(S.challenge.why)}</p>`:""}
   <p class="story">You've been hired as general manager of the <b>${tname(S.me)}</b>. The roster projects to <b>${Math.round(w)} wins</b>, the payroll is <b>${money(pay)}</b> (${status(pay).toLowerCase()}), and the owner wants to know your plan for the season. Your grade depends on it.${(()=>{const h=P.filter(p=>p.team===S.me&&p.out>0);return h.length?` Already out: ${h.map(p=>`<b>${esc(p.name)}</b> (about ${p.out} games)`).join(", ")}, per the latest injury report.`:""})()}</p>
   <div class="opts">${Object.entries(MANDATES).map(([k,m])=>`<button class="opt${k===rec?" rec":""}" data-mandate="${k}"><b>${m.label}${k===rec?" · owner's pick":""}</b><span>${m.blurb} Goal: ${m.goal}</span></button>`).join("")}</div>
   <div class="row"><button class="btn" id="back">Pick a different team</button></div></div>${rosterHTML()}</div>`;
@@ -691,6 +691,8 @@ async function boot(){
   const saved=(hot&&hot.data&&hot.data.S)||null;
   if(saved&&saved.v===1){S=saved;if(S.ev&&S.ev.deadline)TD={b:null,aOut:new Set(),bOut:new Set(),aPk:new Set(),bPk:new Set(),offers:null,msg:""}}
   if(hot&&hot.snapshot)try{hot.snapshot(()=>({S}))}catch(e){}
+  const hp=new URLSearchParams(location.hash.slice(1));
+  if(hp.get("team")&&TEAM[hp.get("team")]){startTeam(hp.get("team"));S.challenge={mandate:hp.get("mandate"),why:hp.get("why")||""};history.replaceState(null,"",location.pathname)}
   render();initDb();
 }
 boot();

@@ -30,6 +30,12 @@ h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.0
 .pc b{font-size:14px;line-height:1.2}.pc .v{color:var(--good);font-weight:600;font-size:14px}.pc .t{color:var(--muted);font-size:12px}
 .pc .t img{width:14px;height:14px;vertical-align:-2px;margin-right:3px}
 @media (max-width:420px){.pc b{font-size:12.5px}.pc .v{font-size:12.5px}}
+.screw{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.screw ol{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.screw li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:1px solid var(--line)}.screw li:first-child{border-top:0}
+.screw li img{width:26px;height:26px;flex:none}.screw li b{display:block;font-size:14.5px}.screw li span{color:var(--muted);font-size:13px}
+.screw h3{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:600}.screw a{color:inherit;text-decoration:none}.screw a:hover b{color:var(--accent)}
+.more{display:inline-block;margin-top:8px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:none}
 .sub{color:var(--muted);font-size:13.5px}
 footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 .how{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
@@ -53,6 +59,11 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <h2>Top value players this week</h2>
 <div class="top3" id="top3"><p class="sub">Loading…</p></div>
 
+<h2>Who's screwed this week</h2>
+<div class="screw"><div><h3>Teams in a tough spot</h3><ol id="scT"><li><span>Loading…</span></li></ol></div>
+<div><h3>Players who could get squeezed</h3><ol id="scP"><li><span>Loading…</span></li></ol></div></div>
+<a class="more" href="tough.html">See all tough spots →</a>
+
 <h2>How the Contract Ledger works</h2>
 <p class="lede" style="font-size:15px">Read an NBA team like a balance sheet: contracts are what a front office spends, production is what it gets back. The Ledger prices every 2026-27 contract against what the player produces.</p>
 <ol class="how">
@@ -75,6 +86,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <a class="card" href="index.html#trade"><b>Trade machine</b><span>Build trades, see odds before and after</span></a>
 <a class="card" href="gm.html"><b>Be the GM</b><span>Run a team through the offseason</span></a>
 <a class="card" href="desk.html"><b>AI GM</b><span>Ask a GM for ideas (Claude app)</span></a>
+<a class="card" href="tough.html"><b>Tough spots</b><span>Most screwed teams and players</span></a>
 <a class="card" href="grader.html"><b>Transactions</b><span>Every move since July, graded</span></a>
 <a class="card" href="offseason.html"><b>Offseason</b><span>Free agents, picks, prospects</span></a>
 <a class="card" href="styles.html"><b>Play styles</b><span>How teams and players fit</span></a>
@@ -91,6 +103,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <footer>Data refreshes Mondays, picks nightly. Contracts from public sources; not affiliated with the NBA.</footer>
 </main>
 <script src="sim.js"></script>
+<script src="tough.js"></script>
 <script>
 function csv(t){var r=[],row=[],f="",q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){row.push(f);f=""}else if(c=='\n'){row.push(f);r.push(row);row=[];f=""}else if(c!='\r')f+=c}if(f||row.length){row.push(f);r.push(row)}var h=r.shift();return r.filter(function(x){return x.length>1}).map(function(x){var o={};h.forEach(function(k,j){o[k]=x[j]});return o})}
 function get(u,j){return fetch(u).then(function(r){if(!r.ok)throw 0;return j?r.json():r.text()})}
@@ -108,4 +121,11 @@ get("data/sim_data.json",1).then(function(d){var o=SeasonSim.run(d,{sims:1500}).
  document.getElementById("ttl").innerHTML='<img src="logos/'+k+'.png" alt="">'+k+" "+Math.round(o[k].title*100)+"%"}).catch(function(){document.getElementById("ttl").textContent="–"});
 get("data/transactions.csv").then(function(t){var r=csv(t);if(!r.length)throw 0;var x=r[r.length-1],k=Object.keys(x);
  var s=(r.sort(function(a,b){return (b.date||"")>(a.date||"")?1:-1})[0]);document.getElementById("trx").textContent=(s.summary||s.description||s.player||s[k[1]]||"").slice(0,70)}).catch(function(){document.getElementById("trx").textContent="–"});
+toughData().then(function(D){if(!D)throw 0;
+ var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+ var li=function(href,t,name,why){return '<li><img src="logos/'+t+'.png" alt=""><a href="'+href+'"><b>'+esc(name)+'</b><span>'+esc(why)+'</span></a></li>'};
+ document.getElementById("scT").innerHTML=D.teams.slice(0,3).map(function(x){return li(D.href(x),x.t,D.NAMES[x.t],x.why.slice(0,2).join(" · ")||"a little of everything")}).join("");
+ var seen={},ps=D.dispute.slice(0,2).concat(D.good.slice(0,2)).filter(function(x){if(seen[x.p.Player])return false;return seen[x.p.Player]=1}).slice(0,3);
+ document.getElementById("scP").innerHTML=ps.map(function(x){return li("index.html#player/"+encodeURIComponent(x.p.Player),x.p.Team,x.p.Player,(D.dispute.indexOf(x)>=0?"Up for a new deal: ":"Stuck: ")+x.why)}).join("")||'<li><span>Nobody fits right now.</span></li>';
+}).catch(function(){document.getElementById("scT").innerHTML=document.getElementById("scP").innerHTML='<li><span>Couldn\'t load this week\'s data.</span></li>'});
 </script></body></html>

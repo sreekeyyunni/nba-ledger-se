@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tough Spots</title>
+<meta name="description" content="Which NBA teams and players are in the worst spots: cap trouble, contract disputes coming, and players stuck where they are.">
+<style>
+/* Layout: header, then three ranked cards (teams in trouble, contract dispute risk, stuck players). Each row is one line plus a short reason. */
+:root{--bg:#F4F6F8;--surface:#fff;--ink:#16212D;--muted:#5B6878;--line:#DCE2E9;--accent:#C2410C;--good:#15803D;--bad:#B91C1C;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'IBM Plex Sans',system-ui,-apple-system,sans-serif}
+main{max-width:980px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}
+h1{font:700 clamp(30px,6vw,46px)/1.05 'Barlow Condensed','Arial Narrow',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:8px 0 10px}
+h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 4px}
+.lede{font-size:16px;color:var(--muted);max-width:680px;margin:0 0 18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.card>p.sub{margin:0 0 10px;color:var(--muted);font-size:13px}
+ol{list-style:none;margin:0;padding:0;counter-reset:r}
+li{counter-increment:r;display:grid;grid-template-columns:28px 26px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+li:first-child{border-top:0}
+li::before{content:counter(r);font:700 18px 'Barlow Condensed','Arial Narrow',sans-serif;color:var(--accent);text-align:center}
+li img{width:26px;height:26px;object-fit:contain}
+li b{display:block;font-size:15px}li span.why{display:block;color:var(--muted);font-size:13px}
+.btn{display:inline-block;font:600 12.5px system-ui,sans-serif;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:5px 9px;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--accent);color:#fff}.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:nowrap}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.sublist h3{font:600 13px system-ui,sans-serif;margin:12px 0 2px}
+.note{color:var(--muted);font-size:12.5px;max-width:760px}
+@media (max-width:520px){li{grid-template-columns:22px 22px minmax(0,1fr)}li .btn,li .num{grid-column:3}}
+</style></head><body>
+<script src="nav.js" data-page="tough"></script>
+<main>
+<h1>Tough spots</h1>
+<p class="lede">The teams in the worst shape, the players most likely to fight over money next summer, and the players stuck where they are. Rankings update with the weekly data.</p>
+<section class="card"><h2>Most screwed teams</h2><p class="sub">Weak contracts, apron trouble, losing, dead money and missing picks, added up. Take over any of them in Be the GM.</p><ol id="teams"><li><span></span><span></span><span>Loading…</span></li></ol></section>
+<section class="card"><h2>Contract dispute risk next summer</h2><p class="sub">Players outplaying their deals who can hit the market (free agent, player option or restricted) after this season, on teams that will struggle to pay them.</p><ol id="dispute"></ol></section>
+<section class="card sublist"><h2>Stuck</h2>
+<h3>Good players locked into losing teams</h3><ol id="stuckGood"></ol>
+<h3>Deals nobody would trade for</h3><ol id="stuckBad"></ol></section>
+<p class="note">How it's scored: team trouble adds up contract value (net surplus), luxury tax and apron status this season and next, record, dead money and own first-round picks owed away. Dispute risk is a player's surplus over his salary if he can leave or renegotiate after 2026-27, plus a bump when his team is over the tax next season. "Stuck" uses years left and trade value from the Ledger.</p>
+</main>
+<script src="tough.js"></script>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var logo=function(t){return '<img src="logos/'+t+'.png" alt="">'};
+toughData().then(function(D){
+  if(!D){$("#teams").innerHTML='<li><span></span><span></span><span>Couldn\'t load the team data.</span></li>';return}
+  $("#teams").innerHTML=D.teams.slice(0,8).map(function(x){var why=x.why.slice(0,3).join(" · ")||"a little of everything";
+    return '<li>'+logo(x.t)+'<div><b>'+D.NAMES[x.t]+'</b><span class="why">'+esc(why)+'</span></div><a class="btn" href="'+D.href(x)+'">Take the challenge</a></li>'}).join("");
+  var row=function(x){return '<li>'+logo(x.p.Team)+'<div><b>'+esc(x.p.Player)+'</b><span class="why">'+esc(x.why)+'</span></div><a class="btn" href="index.html#player/'+encodeURIComponent(x.p.Player)+'">Player</a></li>'};
+  var top=function(a,n){return a.slice(0,n)};
+  var none='<li><span></span><span></span><span class="why">Nobody fits right now.</span></li>';
+  $("#dispute").innerHTML=top(D.dispute,8).map(row).join("")||none;
+  $("#stuckGood").innerHTML=top(D.good,5).map(row).join("")||none;
+  $("#stuckBad").innerHTML=top(D.bad,5).map(row).join("")||none;
+});
+})();
+</script></body></html>
