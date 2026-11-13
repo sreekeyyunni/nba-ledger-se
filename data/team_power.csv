@@ -13,9 +13,9 @@ rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
 12,DAL,1.0,-1.5,-1.5,2.5,7,4,
 13,GSW,0.8,1.2,-2.0,2.8,8,4,"Jimmy Butler (out, 1.6 pts); Stephen Curry (out, 1.5 pts); Kristaps Porziņģis (out, 0.5 pts)"
 14,OKC,0.4,5.8,1.8,-1.4,8,4,"Chet Holmgren (out, 1.2 pts); Ajay Mitchell (questionable, 0.5 pts)"
-15,PHI,-0.1,1.5,-0.1,-0.1,9,3,"LeBron James (out, 0.9 pts); Dominick Barlow (out, 0.4 pts)"
+15,PHI,0.3,1.5,-0.1,0.4,10,3,"LeBron James (out, 0.9 pts); Dominick Barlow (out, 0.4 pts)"
 16,ATL,-0.6,-0.1,-0.1,-0.4,7,5,
-17,TOR,-1.7,2.7,-0.4,-1.4,5,6,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)"
+17,TOR,-2.2,2.7,-0.4,-1.8,5,7,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)"
 18,PHO,-2.7,0.2,-0.9,-1.8,4,6,"Mark Williams (out, 1.1 pts)"
 19,IND,-3.4,-3.5,-2.9,-0.4,4,8,"Tyrese Haliburton (out, 0.6 pts)"
 20,ORL,-3.5,-1.1,-1.6,-1.8,4,7,"Paolo Banchero (out, 0.8 pts); Tristan Da Silva (questionable, 0.4 pts)"
