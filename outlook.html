@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Multi-year Outlook</title>
+<meta name="description" content="Every NBA team's contract value, payroll and draft picks projected over the next four seasons.">
+<style>
+/* Layout: lede, one team card (season bars + core players), then a 30-team table with one column per season. */
+:root{--bg:#F4F6F8;--surface:#fff;--ink:#16212D;--muted:#5B6878;--line:#DCE2E9;--accent:#C2410C;--good:#15803D;--bad:#B91C1C;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'IBM Plex Sans',system-ui,-apple-system,sans-serif}
+main{max-width:980px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}
+h1{font:700 clamp(30px,6vw,46px)/1.05 'Barlow Condensed','Arial Narrow',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:8px 0 10px}
+h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 4px}
+.lede{font-size:16px;color:var(--muted);max-width:680px;margin:0 0 18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.sub{margin:0 0 10px;color:var(--muted);font-size:13px}
+.head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.head img{width:40px;height:40px;object-fit:contain}
+.head b{font:700 26px/1 'Barlow Condensed','Arial Narrow',sans-serif;text-transform:uppercase}
+select{font:14px system-ui,sans-serif;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px;margin-left:auto}
+select:focus-visible,th button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.yrs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:6px 0 12px}
+.yr{border:1px solid var(--line);border-radius:8px;padding:8px;min-width:0}
+.yr .s{font:500 11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.yr .v{font:700 22px/1.1 'Barlow Condensed','Arial Narrow',sans-serif}
+.yr .bar{height:8px;border-radius:4px;background:var(--line);margin:6px 0;position:relative;overflow:hidden}.yr .bar i{position:absolute;top:0;bottom:0;left:0;border-radius:4px}
+.yr small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}th:first-child,td:first-child{text-align:left}
+th{font:600 11px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+th button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-transform:inherit;letter-spacing:inherit}
+td img{width:20px;height:20px;object-fit:contain;vertical-align:-5px;margin-right:6px}
+td.n{font-family:ui-monospace,Menlo,monospace}td a{color:inherit;text-decoration:none}td a:hover{color:var(--accent)}
+tbody tr.me{box-shadow:inset 3px 0 0 var(--accent)}#league tbody tr{cursor:pointer}
+.note{color:var(--muted);font-size:12.5px;max-width:760px}
+@media (max-width:560px){.yrs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body>
+<script src="nav.js" data-page="outlook"></script>
+<main>
+<h1>Multi-year outlook</h1>
+<p class="lede">Where every team's books are headed over the next four seasons: the value of the contracts already signed, the payroll, and the first-round picks on hand.</p>
+<section class="card" id="team"><p class="sub">Loading…</p></section>
+<section class="card"><h2>All 30 teams</h2><p class="sub">Projected contract value by season, in $M. "4-year" adds the seasons up and includes first-round picks through 2030. Tap a team to open it above.</p><div class="wrap"><table id="league"></table></div></section>
+<p class="note"><b>What this can and can't tell you.</b> It only counts players under contract today, so later seasons shrink as deals expire: read them as value already locked in, not a win prediction. Each player's future value ages him on a standard curve from last season plus this season's first few weeks, so young players with a hot or cold start can swing a lot until about January. It doesn't know about future trades, free-agent signings, extensions or draft picks who haven't played. Payroll and cap status come from the cap sheet and stop at 2028-29.</p>
+</main>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+function csv(t){var r=[],row=[],f="",q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){row.push(f);f=""}else if(c=='\n'){row.push(f);r.push(row);row=[];f=""}else if(c!='\r')f+=c}if(f||row.length){row.push(f);r.push(row)}var h=r.shift();return r.filter(function(x){return x.length>1}).map(function(x){var o={};h.forEach(function(k,j){o[k]=x[j]});return o})}
+function get(n){return fetch("data/"+n+".csv").then(function(r){if(!r.ok)throw new Error(n);return r.text()}).then(csv)}
+var N=function(x){var v=parseFloat(x);return isNaN(v)?0:v};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var m=function(v){return(v<0?"−":"+")+"$"+Math.abs(v).toFixed(0)+"M"};
+var cl=function(v){return v<0?"neg":"pos"};
+var NAMES={ATL:"Hawks",BOS:"Celtics",BRK:"Nets",CHO:"Hornets",CHI:"Bulls",CLE:"Cavaliers",DAL:"Mavericks",DEN:"Nuggets",DET:"Pistons",GSW:"Warriors",HOU:"Rockets",IND:"Pacers",LAC:"Clippers",LAL:"Lakers",MEM:"Grizzlies",MIA:"Heat",MIL:"Bucks",MIN:"Timberwolves",NOP:"Pelicans",NYK:"Knicks",OKC:"Thunder",ORL:"Magic",PHI:"76ers",PHO:"Suns",POR:"Trail Blazers",SAC:"Kings",SAS:"Spurs",TOR:"Raptors",UTA:"Jazz",WAS:"Wizards"};
+var SEAS=["2026-27","2027-28","2028-29","2029-30"],T={},cur,sort={k:"tot",d:-1};
+Promise.all(["trade_values","cap_sheet","draft_picks"].map(function(n){return get(n).catch(function(){return[]})})).then(function(d){
+  var tv=d[0],cap=d[1],picks=d[2];
+  if(!tv.length){$("#team").innerHTML='<p class="sub">Couldn\'t load the projections.</p>';return}
+  Object.keys(NAMES).forEach(function(t){T[t]={t:t,v:[0,0,0,0],n:[0,0,0,0],cap:{},firsts:[0,0,0,0],pk:0,ps:[]}});
+  tv.forEach(function(r){var x=T[r.Team];if(!x||/small/.test(r.flag||""))return;var sv=[];
+    for(var i=0;i<4;i++){var c=r["sv_y"+(i+1)];if(c===""||c==null){sv.push(null);continue}sv.push(N(c));x.v[i]+=N(c);x.n[i]++}
+    x.ps.push({name:r.Player,age:N(r.Age),sv:sv})});
+  cap.forEach(function(r){if(T[r.Team])T[r.Team].cap[r.season]=r});
+  picks.forEach(function(r){var x=T[r.owner],i=N(r.year)-2027;if(!x||r.round!=="1"||/SWAP/.test(r.pick_id)||i<0||i>3)return;x.firsts[i]++;x.pk+=N(r.value_m)});
+  Object.keys(T).forEach(function(t){var x=T[t];x.tot=x.v[0]+x.v[1]+x.v[2]+x.v[3]+x.pk});
+  try{cur=localStorage.getItem("myTeam")}catch(e){}
+  if(!T[cur])cur=Object.keys(T).sort(function(a,b){return T[b].tot-T[a].tot})[0];
+  drawTeam();drawLeague();
+});
+function shape(x){var a=x.v[0],b=x.v[2];
+  if(a>=40&&b>=a*0.6)return"Built to last: most of today's value is still on the books in 2028-29.";
+  if(a>=40)return"Built for now: the value is front-loaded and fades as deals expire or age.";
+  if(b>a+15)return"Getting better: the signed core is worth more in two years than today.";
+  if(a<0&&b<0)return"Underwater for a while: the contracts on the books cost more than they return through 2028-29.";
+  if(a<0)return"Rough now, cleaner later: the bad money comes off the books.";
+  return"Middle of the pack: no big edge or hole locked in."}
+function drawTeam(){var x=T[cur],mx=Math.max.apply(null,Object.keys(T).map(function(t){return Math.max.apply(null,T[t].v.map(Math.abs))}));
+  var core=x.ps.slice().sort(function(a,b){var s=function(p){return p.sv.reduce(function(q,v){return q+(v||0)},0)};return s(b)-s(a)});
+  var rows=core.slice(0,6).concat(core.length>8?core.slice(-2):[]);
+  $("#team").innerHTML='<div class="head"><img src="logos/'+cur+'.png" alt=""><b>'+NAMES[cur]+'</b><select id="pick" aria-label="Team">'+Object.keys(NAMES).sort(function(a,b){return NAMES[a].localeCompare(NAMES[b])}).map(function(t){return'<option value="'+t+'"'+(t===cur?" selected":"")+">"+NAMES[t]+"</option>"}).join("")+'</select></div>'+
+   '<p class="sub">'+shape(x)+'</p><div class="yrs">'+SEAS.map(function(s,i){var c=x.cap[s],v=x.v[i];
+    return'<div class="yr"><span class="s">'+s+'</span><div class="v '+cl(v)+'">'+m(v)+'</div><div class="bar"><i style="width:'+Math.min(100,Math.abs(v)/mx*100)+'%;background:var(--'+(v<0?"bad":"good")+')"></i></div><small>'+x.n[i]+' players signed</small><small>'+(c?"Payroll $"+N(c.payroll).toFixed(0)+"M, "+c.status:"Payroll not projected")+'</small><small>'+x.firsts[i]+" first"+(x.firsts[i]===1?"":"s")+" in "+(2027+i)+'</small></div>'}).join("")+'</div>'+
+   '<h2>Who the value comes from</h2><div class="wrap"><table><thead><tr><th>Player</th><th>Age</th>'+SEAS.map(function(s){return"<th>"+s+"</th>"}).join("")+'</tr></thead><tbody>'+rows.map(function(p){return'<tr><td><a href="index.html#player/'+encodeURIComponent(p.name)+'">'+esc(p.name)+'</a></td><td class="n">'+(p.age||"–")+'</td>'+p.sv.map(function(v){return v==null?'<td class="n">–</td>':'<td class="n '+cl(v)+'">'+m(v)+'</td>'}).join("")+'</tr>'}).join("")+'</tbody></table></div><p class="sub" style="margin:8px 0 0">Top six by four-year value'+(core.length>8?", plus the two worst deals":"")+'. A dash means his contract has ended by then.</p>';
+  $("#pick").addEventListener("change",function(e){cur=e.target.value;drawTeam();drawLeague()})}
+function drawLeague(){var cols=[["t","Team"],["0",SEAS[0]],["1",SEAS[1]],["2",SEAS[2]],["3",SEAS[3]],["pk","Picks"],["tot","4-year"]];
+  var val=function(x,k){return k==="t"?NAMES[x.t]:k==="pk"||k==="tot"?x[k]:x.v[+k]};
+  var rows=Object.keys(T).map(function(t){return T[t]}).sort(function(a,b){var A=val(a,sort.k),B=val(b,sort.k);return(typeof A==="string"?A.localeCompare(B):A-B)*sort.d});
+  $("#league").innerHTML='<thead><tr><th>#</th>'+cols.map(function(c){return'<th><button data-k="'+c[0]+'">'+c[1]+(sort.k===c[0]?(sort.d<0?" ↓":" ↑"):"")+'</button></th>'}).join("")+'</tr></thead><tbody>'+rows.map(function(x,i){
+    return'<tr data-t="'+x.t+'"'+(x.t===cur?' class="me"':"")+'><td class="n">'+(i+1)+'</td><td style="text-align:left"><img src="logos/'+x.t+'.png" alt="">'+NAMES[x.t]+'</td>'+x.v.map(function(v){return'<td class="n '+cl(v)+'">'+m(v)+'</td>'}).join("")+'<td class="n">$'+x.pk.toFixed(0)+'M</td><td class="n '+cl(x.tot)+'"><b>'+m(x.tot)+'</b></td></tr>'}).join("")+'</tbody>'}
+$("#league").addEventListener("click",function(e){var b=e.target.closest("button[data-k]");if(b){var k=b.dataset.k;sort=sort.k===k?{k:k,d:-sort.d}:{k:k,d:k==="t"?1:-1};drawLeague();return}
+  var r=e.target.closest("tr[data-t]");if(r){cur=r.dataset.t;drawTeam();drawLeague();$("#team").scrollIntoView({behavior:"smooth",block:"start"})}});
+})();
+</script></body></html>

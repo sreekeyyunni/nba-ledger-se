@@ -308,7 +308,7 @@ const tval=(t,k)=>{if(k==="rec"){const r=REC[t.team];return r&&r.w+r.l?r.w/(r.w+
 // Records this season, from the predictor's team_power.csv (GitHub Actions refreshes it twice a day)
 let REC={};
 const recTxt=a=>REC[a]?`${REC[a].w}-${REC[a].l}`:"–";
-function drawScatter(){
+function drawTeamScatter(){
   const svg=$("#scat");svg.innerHTML="";const W=720,H=440,m={l:52,r:24,t:20,b:40};
   const ts=teams.filter(t=>REC[t.team]&&REC[t.team].w+REC[t.team].l);
   if(!ts.length){const tx=el("text",{x:W/2,y:H/2,"text-anchor":"middle",fill:css("--muted")},svg);tx.textContent="Records aren't available yet.";return}
@@ -328,7 +328,7 @@ function drawScatter(){
 }
 function drawTeams(){
   const tv=st.tview||"bars";document.querySelectorAll("#tview button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===tv));
-  $("#bars").toggleAttribute("hidden",tv!=="bars");$("#scat").toggleAttribute("hidden",tv!=="scatter");if(tv==="scatter")drawScatter();
+  $("#bars").toggleAttribute("hidden",tv!=="bars");$("#scat").toggleAttribute("hidden",tv!=="scatter");if(tv==="scatter")drawTeamScatter();
   const ts=teams.slice().sort((a,b)=>tval(b,"net")-tval(a,"net"));
   const svg=$("#bars");svg.innerHTML="";
   const rh=22,W=720,m={l:46,r:64,t:10,b:10},H=m.t+m.b+rh*ts.length;svg.setAttribute("viewBox",`0 0 ${W} ${H}`);

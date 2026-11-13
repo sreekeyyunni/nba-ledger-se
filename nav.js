@@ -3,7 +3,7 @@
   // Five sections, each with its own tab row; [href, label, page key]
   var SECTIONS=[["Home",[["home.html","Home","landing"]]],
     ["My team",[["index.html#home","Roster & value","home"],["capsheet.html","Cap sheet","capsheet"],["styles.html","Play styles","styles"]]],
-    ["League",[["index.html#players","Players","players"],["index.html#teams","Teams & standings","teams"],["tough.html","Tough spots","tough"],["grader.html","Transactions","grader"],["sentiment.html","Sentiment","sentiment"]]],
+    ["League",[["index.html#players","Players","players"],["index.html#teams","Teams & standings","teams"],["outlook.html","Outlook","outlook"],["tough.html","Tough spots","tough"],["grader.html","Transactions","grader"],["sentiment.html","Sentiment","sentiment"]]],
     ["Front office",[["index.html#trade","Trade machine","trade"],["gm.html","Be the GM","gm"],["desk.html","AI GM","desk"],["offseason.html","Offseason","offseason"]]],
     ["Games",[["predict.html","Predictions","predict"],["sim.html","Season sim","sim"],["series.html","Starting 5","series"],["guess.html","Guess the player","guess"]]]];
   var page=(document.currentScript&&document.currentScript.dataset.page)||"";
