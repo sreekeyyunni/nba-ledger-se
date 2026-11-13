@@ -169,7 +169,7 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-11,8:00p,BRK,NOP,145,111,,0.626,3.7,NOP,final,0,live,-6.0,-3.2,,,,
 2026-11-11,9:00p,ORL,UTA,123,108,,0.455,-1.3,ORL,final,1,live,-3.8,-7.9,ORL on a back-to-back | UTA on a back-to-back,,,
 2026-11-11,9:30p,GSW,HOU,108,115,,0.713,6.5,HOU,final,1,live,4.3,6.8,,,,
-2026-11-12,7:00p,TOR,PHI,,,,0.671,5.1,PHI,upcoming,,live,-1.6,-0.3,TOR on a back-to-back,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)","Joel Embiid (questionable, 0.9 pts); LeBron James (questionable, 0.9 pts); Dominick Barlow (out, 0.4 pts)",
-2026-11-12,7:00p,DET,WAS,,,,0.259,-7.5,DET,upcoming,,live,4.0,-4.3,WAS on a back-to-back,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.4 pts)",,
-2026-11-12,8:00p,DAL,MIN,,,,0.745,7.6,MIN,upcoming,,live,1.0,6.3,,,"Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts)",
-2026-11-12,9:00p,CHO,PHO,,,,0.722,6.8,PHO,upcoming,,live,-7.2,-2.7,,"Moussa Diabaté (questionable, 0.6 pts)","Mark Williams (out, 1.1 pts)",
+2026-11-12,7:00p,TOR,PHI,,,,0.671,5.1,PHI,live,,live,-1.7,-0.1,TOR on a back-to-back,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)","LeBron James (out, 0.9 pts); Dominick Barlow (out, 0.4 pts)",92-103 9:26 - 4th
+2026-11-12,7:00p,DET,WAS,,,,0.259,-7.5,DET,live,,live,4.0,-4.3,WAS on a back-to-back,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.4 pts)",,97-95 9:34 - 4th
+2026-11-12,8:00p,DAL,MIN,,,,0.745,7.6,MIN,live,,live,1.0,6.3,,,"Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts)",49-61 2:02 - 2nd
+2026-11-12,9:00p,CHO,PHO,,,,0.722,6.8,PHO,upcoming,,live,-5.8,-2.7,,,"Mark Williams (out, 1.1 pts)",
