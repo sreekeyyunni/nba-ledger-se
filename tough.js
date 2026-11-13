@@ -39,7 +39,7 @@ window.toughData=function(){return Promise.all(["team_summary","cap_sheet","team
     var next=c["2027-28"],opt=c.option_years||"",rookie=p.rookie_scale==="True";
     var free=!next||next==="0"?(rookie?"restricted free agent":"free agent"):/2027-28:PO/.test(opt)?"player option":/2027-28:TO/.test(opt)?"team option":"";
     var age=N(v.Age);
-    if(free&&free!=="team option"&&sur>=6&&age&&age<33){var cr=crunch(p.Team);dispute.push({p:p,s:sur+cr*4,why:free+" after this season, worth "+m(sur)+" over his $"+sal.toFixed(1)+"M"+(cr?"; "+NAMES[p.Team]+" "+((capBy[p.Team]||{})["2027-28"]||{}).status+" next year":"")})}
+    if(free&&free!=="team option"&&(sur>=6||sal>=25)&&age&&age<33){var cr=crunch(p.Team);dispute.push({p:p,s:Math.max(sur,0)*0.5+sal*0.6+cr*6+(free==="player option"?0:4),why:free+" after this season"+(sur>=6?", worth "+m(sur)+" over his $"+sal.toFixed(1)+"M":" on $"+sal.toFixed(1)+"M"+(sur<-1?", "+m(sur)+" vs. his pay":""))+(cr?"; "+NAMES[p.Team]+" "+((capBy[p.Team]||{})["2027-28"]||{}).status+" next year":"")})}
     var yl=N(v.years_left),R=rec[p.Team]||{w:0,l:0},g=R.w+R.l,pct=g?R.w/g:.5;
     if(yl>=3&&sur>=8&&g>=5&&pct<.4&&!rookie)good.push({p:p,s:sur,why:yl+" years left, "+m(sur)+" of value on a "+R.w+"-"+R.l+" team"});
     if(yl>=3&&N(v.trade_value_m)<-40)bad.push({p:p,s:-N(v.trade_value_m),why:yl+" years at $"+sal.toFixed(1)+"M, trade value "+m(N(v.trade_value_m))});
