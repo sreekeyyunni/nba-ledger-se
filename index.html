@@ -428,7 +428,7 @@ function drawPlayer(){
   const sim=t?similar(t):[];
   const owed=t&&t.tot!=null?t.tot:null;
   v.innerHTML=`<div class="banner" style="--teamc:${ti[1]}">${badge(team,64)}<div class="who"><h2>${esc(nm)}</h2><p class="sub">${ti[0]}${t&&t.age?` · age ${t.age.toFixed(0)}`:""}${p&&p.rookie||t&&t.rookie?" · rookie deal":""}${p&&p.small||t&&t.small?" · small sample":""}</p></div>
-    <dl class="stats"><div><dt>2026-27 salary</dt><dd>${money((t||p).sal)}</dd></div><div><dt>Years left</dt><dd>${t&&t.yrs!=null?t.yrs.toFixed(0):"–"}</dd></div><div><dt>Owed, all years</dt><dd>${money(owed)}</dd></div><div><dt>Trade value</dt><dd class="${cls(t&&t.tv)}">${sgn(t&&t.tv)}</dd></div></dl>
+    <dl class="stats"><div><dt>2026-27 salary</dt><dd>${money((t||p).sal)}</dd></div><div><dt>Years left</dt><dd>${t&&t.yrs!=null?t.yrs.toFixed(0):"–"}</dd></div><div><dt>Owed, all years</dt><dd>${money(owed)}</dd></div><div><dt>Trade value</dt><dd class="${cls(t&&t.tv)}">${sgn(t&&t.tv)}</dd></div></dl>${t&&t.live?`<p class="sub" style="flex-basis:100%"><b class="${cls(t.live.w)}">${t.live.w>0?"▲":"▼"} ${sgn(t.live.w)} this week</b> from his last ${t.live.games} game${t.live.games===1?"":"s"} against his own norm. Last game (${fmtDay(t.live.date)}): ${esc(t.live.line)}.</p>`:""}
     <button class="btn" id="pBack">Back</button></div>
   <div class="hcard"><h4>Contract timeline and value by season</h4>${pChart(rows,{salary:true})}
     <p class="sub">Bars are surplus: what the player is worth in Win Shares minus what he's paid. 2025-26 is what actually happened; the lighter bars are the projection behind his trade value (aging curve, salary cap growth, discounted 8% a year). ${c?"Salaries under each season come from his contract"+(c.opt?", with PO/TO marking player and team options.":"."):"Per-season salaries arrive with the next data refresh."}</p></div>
@@ -656,6 +656,9 @@ async function boot(){
         name:swap?`${r.year} ${rd} swap with ${r.swap_with}`:`${r.original_team} ${r.year} ${rd}${prot?" (if "+prot+")":""}`}});
     const tp=await fetch("data/team_power.csv").then(r=>r.ok?r.text():"").catch(()=>"");
     if(tp)parseCSV(tp).forEach(r=>{if(r.team)REC[r.team]={w:+r.wins||0,l:+r.losses||0}});
+    // Trade values move with each night's games (data/live_values.csv, from pipeline/live.py on GitHub)
+    const lv=await fetch("data/live_values.csv").then(r=>r.ok?r.text():"").catch(()=>"");
+    if(lv){const L={};parseCSV(lv).forEach(r=>{L[r.Player+"|"+r.Team]=r});tvals.forEach(t=>{const r=L[t.name+"|"+t.team],w=r&&N(r.week_m);if(w){t.live={w,line:r.last_line,date:r.last_date,games:N(r.games)};t.tv=(t.tv||0)+w}})}
     const mv=await fetch("data/movers.csv").then(r=>r.ok?r.text():"").catch(()=>"");
     if(mv)parseCSV(mv).forEach(r=>{if(r.prev_value==="")return;MOVE[r.kind+"|"+r.key]={d:N(r.value)-N(r.prev_value),r:N(r.rank),pr:N(r.prev_rank),since:r.since,team:r.team,name:r.key}});
     const yc=await fetch("data/contracts_clean.csv").then(r=>r.ok?r.text():"").catch(()=>"");

@@ -59,6 +59,10 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <h2>Top value players this week</h2>
 <div class="top3" id="top3"><p class="sub">Loading…</p></div>
 
+<div id="mvWrap" hidden><h2>Trade value movers this week</h2>
+<div class="screw"><div><h3>Rising</h3><ol id="mvUp"></ol></div><div><h3>Falling</h3><ol id="mvDn"></ol></div></div>
+<p class="sub" style="margin-top:6px">Trade values move after each night's games: a player's week against his own norm, updated twice a day.</p></div>
+
 <h2>Who's screwed this week</h2>
 <div class="screw"><div><h3>Teams in a tough spot</h3><ol id="scT"><li><span>Loading…</span></li></ol></div>
 <div><h3>Players who could get squeezed</h3><ol id="scP"><li><span>Loading…</span></li></ol></div></div>
@@ -129,4 +133,10 @@ toughData().then(function(D){if(!D)throw 0;
  var seen={},ps=D.dispute.slice(0,2).concat(D.good.slice(0,2)).filter(function(x){if(seen[x.p.Player])return false;return seen[x.p.Player]=1}).slice(0,3);
  document.getElementById("scP").innerHTML=ps.map(function(x){return li("index.html#player/"+encodeURIComponent(x.p.Player),x.p.Team,x.p.Player,(D.dispute.indexOf(x)>=0?"Up for a new deal: ":"Stuck: ")+x.why)}).join("")||'<li><span>Nobody fits right now.</span></li>';
 }).catch(function(){document.getElementById("scT").innerHTML=document.getElementById("scP").innerHTML='<li><span>Couldn\'t load this week\'s data.</span></li>'});
+get("data/live_values.csv").then(function(t){var r=csv(t).filter(function(x){return +x.week_m});if(!r.length)return;
+ var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+ var li=function(x){var w=+x.week_m;return '<li><img src="logos/'+x.Team+'.png" alt=""><a href="index.html#player/'+encodeURIComponent(x.Player)+'"><b>'+esc(x.Player)+' <span style="color:var(--'+(w>0?"good":"bad")+')">'+(w>0?"▲ +":"▼ −")+"$"+Math.abs(w).toFixed(1)+'M</span></b><span>Last game: '+esc(x.last_line)+'</span></a></li>'};
+ r.sort(function(a,b){return b.week_m-a.week_m});
+ var none="<li><span>Nobody yet.</span></li>";document.getElementById("mvUp").innerHTML=r.filter(function(x){return x.week_m>0}).slice(0,3).map(li).join("")||none;document.getElementById("mvDn").innerHTML=r.filter(function(x){return x.week_m<0}).slice(-3).reverse().map(li).join("")||none;
+ document.getElementById("mvWrap").hidden=false}).catch(function(){});
 </script></body></html>

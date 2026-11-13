@@ -22,6 +22,7 @@ This repo is the source of truth for the NBA Asset Tracker. The public site is G
 | `home.html` | Landing page |
 | `index.html` | Main app: Home, My team, Players, Teams, Trade machine (hash routes) |
 | `gm.html`, `desk.html`, `grader.html`, `offseason.html`, `styles.html`, `sim.html`, `series.html`, `capsheet.html`, `predict.html`, `sentiment.html`, `guess.html` | Be the GM, AI GM, Transactions, Offseason, Play styles, Season sim, Starting 5, Cap sheet, Predictions, Sentiment, Guess the player |
+| `pipeline/live.py`, `data/live_values.csv` | Trade values that move with each night's games (ESPN box scores, game score vs. the player's own three-week norm, $0.25M a point, capped at $10M); `index.html` adds `week_m` to trade values, Home shows movers |
 | `outlook.html` | Multi-year outlook: contract value by season per team from `trade_values.csv` sv_y1..4, payroll from `cap_sheet.csv`, firsts from `draft_picks.csv` |
 | `tough.html`, `tough.js` | Tough spots (most screwed teams, contract squeezes, stuck players); `tough.js` scoring is shared with the Home card |
 | `nav.js` | Shared top bar, section menu with tabs, and team picker (`localStorage.myTeam`) |
