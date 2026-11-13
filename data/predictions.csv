@@ -169,7 +169,16 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-11,8:00p,BRK,NOP,145,111,,0.626,3.7,NOP,final,0,live,-6.0,-3.2,,,,
 2026-11-11,9:00p,ORL,UTA,123,108,,0.455,-1.3,ORL,final,1,live,-3.8,-7.9,ORL on a back-to-back | UTA on a back-to-back,,,
 2026-11-11,9:30p,GSW,HOU,108,115,,0.713,6.5,HOU,final,1,live,4.3,6.8,,,,
-2026-11-12,7:00p,TOR,PHI,112,123,,0.671,5.1,PHI,final,1,live,-1.7,-0.1,TOR on a back-to-back,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)","LeBron James (out, 0.9 pts); Dominick Barlow (out, 0.4 pts)",
-2026-11-12,7:00p,DET,WAS,,,,0.259,-7.5,DET,live,,live,4.0,-4.3,WAS on a back-to-back,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.4 pts)",,121-118 1.8 - 4th
-2026-11-12,8:00p,DAL,MIN,,,,0.745,7.6,MIN,live,,live,1.0,6.3,,,"Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts)",59-91 4:22 - 3rd
-2026-11-12,9:00p,CHO,PHO,,,,0.722,6.8,PHO,live,,live,-5.8,-2.7,,,"Mark Williams (out, 1.1 pts)",20-28 29.2 - 1st
+2026-11-12,7:00p,TOR,PHI,112,123,,0.671,5.1,PHI,final,1,live,1.3,1.5,TOR on a back-to-back,,,
+2026-11-12,7:00p,DET,WAS,144,140,2OT,0.259,-7.5,DET,final,1,live,5.5,-4.3,WAS on a back-to-back,,,
+2026-11-12,8:00p,DAL,MIN,94,133,,0.745,7.6,MIN,final,1,live,1.0,7.4,,,,
+2026-11-12,9:00p,CHO,PHO,96,101,,0.722,6.8,PHO,final,1,live,-5.5,-1.6,,,,
+2026-11-13,10:00p,POR,SAC,,,,0.130,-13.0,POR,upcoming,,live,5.7,-9.5,,,"Maxime Raynaud (out, 0.4 pts)",
+2026-11-13,10:30p,OKC,LAC,,,,0.419,-2.4,OKC,upcoming,,live,0.4,-4.3,,"Chet Holmgren (out, 1.2 pts); Ajay Mitchell (questionable, 0.5 pts)","Jordan Miller (out, 0.6 pts)",
+2026-11-13,7:00p,NYK,IND,,,,0.323,-5.3,NYK,upcoming,,live,4.2,-3.4,,,"Tyrese Haliburton (out, 0.6 pts)",
+2026-11-13,7:00p,MIL,ORL,,,,0.757,8.0,ORL,upcoming,,live,-9.2,-3.5,,,"Paolo Banchero (out, 0.8 pts); Tristan Da Silva (questionable, 0.4 pts)",
+2026-11-13,8:00p,ATL,CHI,,,,0.365,-4.0,ATL,upcoming,,live,-0.6,-6.8,,,"Norman Powell (questionable, 0.4 pts)",
+2026-11-13,8:00p,CLE,MIA,,,,0.409,-2.6,CLE,upcoming,,live,1.3,-3.6,,"Evan Mobley (out, 1.0 pts); Sam Merrill (out, 0.4 pts)","Giannis Antetokounmpo (questionable, 1.4 pts)",
+2026-11-13,8:00p,MEM,NOP,,,,0.329,-5.1,MEM,upcoming,,live,2.2,-5.2,,"Zach Edey (out, 0.6 pts)","Trey Murphy III (questionable, 1.3 pts)",
+2026-11-13,8:30p,UTA,HOU,,,,0.938,17.7,HOU,upcoming,,live,-8.6,6.8,,"Lauri Markkanen (out, 0.9 pts); Jusuf Nurkić (out, 0.3 pts)",,
+2026-11-13,9:30p,GSW,SAS,,,,0.769,8.4,SAS,upcoming,,live,0.8,7.0,,"Jimmy Butler (out, 1.6 pts); Stephen Curry (out, 1.5 pts); Kristaps Porziņģis (out, 0.5 pts)",,
