@@ -173,12 +173,17 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-12,7:00p,DET,WAS,144,140,2OT,0.259,-7.5,DET,final,1,live,5.5,-4.3,WAS on a back-to-back,,,
 2026-11-12,8:00p,DAL,MIN,94,133,,0.745,7.6,MIN,final,1,live,1.0,7.4,,,,
 2026-11-12,9:00p,CHO,PHO,96,101,,0.722,6.8,PHO,final,1,live,-5.5,-1.6,,,,
-2026-11-13,10:00p,POR,SAC,,,,0.130,-13.0,POR,upcoming,,live,5.7,-9.5,,,"Maxime Raynaud (out, 0.4 pts)",
-2026-11-13,10:30p,OKC,LAC,,,,0.419,-2.4,OKC,upcoming,,live,0.4,-4.3,,"Chet Holmgren (out, 1.2 pts); Ajay Mitchell (questionable, 0.5 pts)","Jordan Miller (out, 0.6 pts)",
-2026-11-13,7:00p,NYK,IND,,,,0.324,-5.3,NYK,live,,live,4.2,-4.1,,,"Tyrese Haliburton (out, 0.6 pts)",55-65 9:27 - 3rd
-2026-11-13,7:00p,MIL,ORL,,,,0.757,8.0,ORL,live,,live,-9.2,-3.7,,,"Paolo Banchero (out, 0.8 pts)",55-65 5:29 - 3rd
-2026-11-13,8:00p,ATL,CHI,,,,0.365,-4.0,ATL,live,,live,-0.5,-6.4,,,,24-33 End of 1st
-2026-11-13,8:00p,CLE,MIA,,,,0.409,-2.6,CLE,live,,live,1.3,-2.7,,"Evan Mobley (out, 1.0 pts); Sam Merrill (out, 0.4 pts)",,27-24 54.5 - 1st
-2026-11-13,8:00p,MEM,NOP,,,,0.329,-5.1,MEM,live,,live,2.2,-5.2,,"Zach Edey (out, 0.6 pts)","Trey Murphy III (out, 1.3 pts); Dejounte Murray (out, 0.4 pts)",35-28 End of 1st
-2026-11-13,8:30p,UTA,HOU,,,,0.938,17.7,HOU,upcoming,,live,-8.6,6.8,,"Lauri Markkanen (out, 0.9 pts); Jusuf Nurkić (out, 0.3 pts)",,
-2026-11-13,9:30p,GSW,SAS,,,,0.769,8.4,SAS,upcoming,,live,0.8,7.0,,"Jimmy Butler (out, 1.6 pts); Stephen Curry (out, 1.5 pts); Kristaps Porziņģis (out, 0.5 pts)",,
+2026-11-13,10:00p,POR,SAC,120,107,,0.130,-13.0,POR,final,1,live,4.1,-9.2,,,,
+2026-11-13,10:30p,OKC,LAC,112,113,,0.419,-2.4,OKC,final,0,live,4.4,-3.8,,,,
+2026-11-13,7:00p,NYK,IND,104,106,,0.324,-5.3,NYK,final,0,live,4.2,-3.9,,,,
+2026-11-13,7:00p,MIL,ORL,99,107,,0.757,8.0,ORL,final,1,live,-9.2,-2.9,,,,
+2026-11-13,8:00p,ATL,CHI,117,125,OT,0.365,-4.0,ATL,final,0,live,-0.5,-7.3,,,,
+2026-11-13,8:00p,CLE,MIA,121,133,,0.409,-2.6,CLE,final,0,live,2.5,-3.0,,,,
+2026-11-13,8:00p,MEM,NOP,142,111,,0.329,-5.1,MEM,final,1,live,2.8,-4.6,,,,
+2026-11-13,8:30p,UTA,HOU,118,125,,0.938,17.7,HOU,final,1,live,-8.5,6.8,,,,
+2026-11-13,9:30p,GSW,SAS,85,123,,0.769,8.4,SAS,final,1,live,4.0,7.6,,,,
+2026-11-14,7:00p,DEN,NOP,,,,0.240,-8.1,DEN,upcoming,,live,2.7,-6.3,NOP on a back-to-back,,"Trey Murphy III (out, 1.3 pts); Dejounte Murray (out, 0.4 pts)",
+2026-11-14,7:30p,DAL,CLE,,,,0.546,1.3,CLE,upcoming,,live,0.1,0.7,CLE on a back-to-back,,"Evan Mobley (out, 1.0 pts); Sam Merrill (out, 0.4 pts)",
+2026-11-14,8:00p,BRK,MEM,,,,0.763,8.2,MEM,upcoming,,live,-4.2,3.2,MEM on a back-to-back,,"Zach Edey (out, 0.6 pts)",
+2026-11-14,8:00p,DET,MIA,,,,0.334,-4.9,DET,upcoming,,live,3.8,-2.0,MIA on a back-to-back,"Jalen Duren (out, 1.5 pts); Isaiah Joe (out, 0.4 pts)",,
+2026-11-14,8:00p,CHI,MIN,,,,0.934,17.4,MIN,upcoming,,live,-6.6,6.9,CHI on a back-to-back,"Jalen Smith (questionable, 0.4 pts)","Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts)",
