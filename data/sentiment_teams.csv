@@ -1,31 +1,31 @@
 week,Team,record,score,label,preseason_tone,week_tone,gap,mentions,storyline,sources,rank,change
-2026-11-09,LAL,9-2,90,Rolling,1.5,2.0,25,2,Luka 40+ in four straight; Reaves scored 43 at Detroit with Luka out,CP BR,1,55
-2026-11-09,SAS,8-2,90,Rolling,1.5,2.0,25,2,"Eight straight wins; Wembanyama had 52, 24 and 8 blocks vs Dallas",CP BR,2,15
-2026-11-09,GSW,7-3,80,Rolling,1.0,2.0,50,2,"Seven straight wins; Curry at an MVP level, Lendeborg the ROY favorite",CP BR,3,70
-2026-11-09,MIN,8-3,65,Rolling,1.0,1.5,25,2,4-0 week without Edwards; Dosunmu leading the scoring,CP BR,4,110
-2026-11-09,OKC,8-2,65,Rolling,1.0,1.5,25,3,4-0 week behind SGA's 35.8 a night; rookies filling in for the injured,CP YW BR,5,95
-2026-11-09,PHI,9-2,60,Rolling,1.5,1.0,-25,2,"New No. 1 with a top-six defense; Embiid at 38%, lost by 24 in Cleveland",CP BR,6,-15
-2026-11-09,ATL,7-4,55,Rolling,0.5,1.5,50,2,"4-0 week; Alexander-Walker scoring 22 a night, Daniels everywhere",CP BR,7,70
-2026-11-09,BOS,8-2,50,Rolling,1.0,1.0,0,2,"Top-four offense and defense; George fits next to Tatum, soft schedule",CP BR,8,-15
-2026-11-09,NYK,5-4,25,Warm,0.5,0.5,0,2,5-1 in their last six; Towns has nine straight double-doubles,CP BR,9,20
-2026-11-09,NOP,4-6,15,Warm,0.0,0.5,25,2,Losing close; Fears has 20+ in four of six,CP BR,10,50
-2026-11-09,DAL,6-4,10,Mixed,0.5,0.0,-25,2,Competitive with the West's best but lost to Sacramento; Kyrie back to form,CP BR,11,-30
-2026-11-09,MIA,4-6,5,Mixed,-0.5,0.5,50,2,Four wins in six after an 0-4 start; Giannis steadying them,CP BR,12,65
-2026-11-09,DET,6-3,-5,Mixed,0.5,-0.5,-50,2,3-3 since a 3-0 start; Duren still out,CP BR,13,-80
-2026-11-09,POR,6-3,-15,Cooling,0.0,-0.5,-25,2,3-2 since Morant's injury; turnovers and free throws a problem,CP BR,14,-65
-2026-11-09,SAC,1-9,-15,Cooling,-1.5,0.5,100,2,First win; Acuff at 25.9 and 7.4 is a ROY candidate,CP BR,15,70
-2026-11-09,HOU,7-3,-20,Cooling,0.5,-1.0,-75,2,Back-to-back losses; offense down to 105 a night,CP BR,16,-120
-2026-11-09,LAC,2-7,-20,Cooling,-1.0,0.0,50,2,Ended a seven-game skid; Ingram nearing his debut,CP BR,17,15
-2026-11-09,CLE,5-5,-40,Cooling,-0.5,-1.0,-25,2,Thin bench and middling ratings; only win last week was over Philly,CP BR,18,-80
-2026-11-09,DEN,5-3,-40,Cooling,-0.5,-1.0,-25,2,22nd in defense with the effort missing,CP BR,19,0
-2026-11-09,TOR,5-4,-40,Cooling,-0.5,-1.0,-25,2,3-4 without Kawhi; poor shooting and rebounding,CP BR,20,-10
-2026-11-09,MEM,6-3,-45,Cooling,0.0,-1.5,-75,2,0-3 week after a 6-0 start; Boozer shot 28% in the skid,CP BR,21,-125
-2026-11-09,IND,3-7,-50,Gloomy,-1.0,-1.0,0,2,Haliburton and McConnell hurt; Siakam and Nembhard carry it,CP BR,22,5
-2026-11-09,PHO,3-5,-50,Gloomy,-1.0,-1.0,0,2,Defense fell from 10th to 27th,CP BR,23,0
-2026-11-09,WAS,4-6,-55,Gloomy,-0.5,-1.5,-50,3,"Lost by 39 in OKC without Davis (ankle); 23rd offense, bottom-three from three",CP YW BR,24,-80
-2026-11-09,ORL,2-7,-60,Gloomy,-1.5,-1.0,25,2,Banchero and Suggs hurt; reset talk,CP BR,25,-10
-2026-11-09,CHO,3-7,-65,Gloomy,-1.0,-1.5,-25,2,Knueppel re-aggravated his hamstring and is out 4+ weeks; injuries everywhere,CP BR,26,-40
-2026-11-09,BRK,2-8,-75,Gloomy,-1.5,-1.5,0,2,Blown out by 37 in Dallas; offense near the bottom,CP BR,27,-30
-2026-11-09,MIL,1-9,-85,Gloomy,-2.0,-1.5,25,2,Called the league's new worst team,CP BR,28,-40
-2026-11-09,UTA,1-9,-85,Gloomy,-2.0,-1.5,25,2,Coach Hardy reportedly caught calling the team awful,CP BR,29,-20
-2026-11-09,CHI,1-8,-100,Gloomy,-2.0,-2.0,0,2,"Seven straight losses, 124+ allowed every game",CP BR,30,-50
+2026-11-16,SAS,12-2,100,Rolling,2.0,2.0,0,3,12 straight wins with Wembanyama at an MVP level,CP NBC BR,1,10
+2026-11-16,BOS,11-2,90,Rolling,1.5,2.0,25,2,"Six straight wins, including a revenge win in Philadelphia",CP BR,2,40
+2026-11-16,HOU,11-3,90,Rolling,1.5,2.0,25,3,"4-0 week capped by 147 in Washington; Amen Thompson 26, Durant 25",CP ESPN BR,3,110
+2026-11-16,LAL,12-2,90,Rolling,1.5,2.0,25,2,Eight straight wins through injuries; Luka leads the league at 38.6,CP BR,4,0
+2026-11-16,POR,9-3,65,Rolling,1.0,1.5,25,2,Avdija and Lillard scoring 46 a night together; strong defense,CP BR,5,80
+2026-11-16,MIA,7-6,55,Rolling,0.5,1.5,50,2,Four straight wins; Giannis and Bam each scored 37 vs Cleveland,CP BR,6,50
+2026-11-16,MEM,9-4,40,Warm,0.5,1.0,25,2,Offense bounced back in three wins,CP BR,7,85
+2026-11-16,PHI,11-3,35,Warm,1.0,0.5,-25,2,"Lost at home to Boston, then beat Toronto and Indiana",CP BR,8,-25
+2026-11-16,MIN,9-4,25,Warm,0.5,0.5,0,2,"6-3 since Edwards' knee procedure, with the league's best defense",CP BR,9,-40
+2026-11-16,BRK,3-9,10,Mixed,-1.0,1.0,100,2,Won by 34 in New Orleans with eight players in double figures,CP BR,10,85
+2026-11-16,IND,5-9,5,Mixed,-0.5,0.5,50,2,Offense improving without Haliburton; Siakam leads,CP BR,11,55
+2026-11-16,LAC,4-8,5,Mixed,-0.5,0.5,50,2,"Lopez, 38, has three 20-point games in five; Ingram near his debut",CP BR,12,25
+2026-11-16,ORL,5-7,5,Mixed,-0.5,0.5,50,2,Franz Wagner averaged 35 a night carrying the team,CP BR,13,65
+2026-11-16,PHO,5-7,5,Mixed,-0.5,0.5,50,2,Trending up after a 1-5 start; Jalen Green trade talk,CP BR,14,55
+2026-11-16,ATL,8-6,0,Mixed,0.0,0.0,0,2,"OT loss to Chicago, then a narrow win over Milwaukee",CP BR,15,-55
+2026-11-16,CHI,3-9,-5,Mixed,-1.0,0.5,75,2,Two straight wins with better defense under Splitter,CP BR,16,95
+2026-11-16,DEN,7-4,-15,Cooling,0.0,-0.5,-25,2,0-4 against teams in the top half,CP BR,17,25
+2026-11-16,DET,8-4,-15,Cooling,0.0,-0.5,-25,2,Cunningham the only steady scorer; defense slipping,CP BR,18,-10
+2026-11-16,CLE,7-7,-25,Cooling,-0.5,-0.5,0,2,Inconsistent; Harden shooting under 40%,CP BR,19,15
+2026-11-16,OKC,9-5,-30,Cooling,0.0,-1.0,-50,2,Injuries leave thin scoring behind SGA,CP BR,20,-95
+2026-11-16,GSW,8-5,-40,Cooling,-0.5,-1.0,-25,2,Curry out a month or more with an oblique tear,CP BR,21,-120
+2026-11-16,NYK,7-6,-40,Cooling,-0.5,-1.0,-25,2,Bridges under 7 a night and Hart in a bad headspace,CP BR,22,-65
+2026-11-16,CHO,4-9,-50,Gloomy,-1.0,-1.0,0,2,Knueppel re-aggravated his hamstring and Schroder is out,CP BR,23,15
+2026-11-16,TOR,5-8,-50,Gloomy,-1.0,-1.0,0,2,Kawhi has missed 11 straight games; Barnes slumping,CP BR,24,-10
+2026-11-16,DAL,7-7,-55,Gloomy,-0.5,-1.5,-50,2,"Three straight losses, by 39 to Minnesota and 37 to Boston",CP BR,25,-65
+2026-11-16,SAC,1-12,-70,Gloomy,-2.0,-1.0,50,2,Six straight losses; Acuff a ROY contender,CP BR,26,-55
+2026-11-16,UTA,1-13,-70,Gloomy,-2.0,-1.0,50,2,12 straight losses; rookie Peterson scoring 20 a night,CP BR,27,15
+2026-11-16,MIL,1-13,-85,Gloomy,-2.0,-1.5,25,2,Ten straight losses,CP BR,28,0
+2026-11-16,NOP,4-10,-90,Gloomy,-1.5,-2.0,-25,2,"Six straight losses, including a franchise-worst 51-point loss to Golden State",CP BR,29,-105
+2026-11-16,WAS,4-10,-90,Gloomy,-1.5,-2.0,-25,3,"Seven straight losses, allowing 128.6 a night; Trae scoreless for the first time ever",CP ESPN BR,30,-35
