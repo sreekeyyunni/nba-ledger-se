@@ -187,12 +187,12 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-14,8:00p,BRK,MEM,110,129,,0.763,8.2,MEM,final,1,live,-4.4,3.9,MEM on a back-to-back,,,
 2026-11-14,8:00p,DET,MIA,117,137,,0.334,-4.9,DET,final,0,live,5.3,-2.2,MIA on a back-to-back,,,
 2026-11-14,8:00p,CHI,MIN,117,106,,0.934,17.4,MIN,final,0,live,-6.6,8.1,CHI on a back-to-back,,,
-2026-11-15,1:00p,IND,PHI,,,,0.693,5.8,PHI,upcoming,,live,-3.2,0.3,,"Tyrese Haliburton (out, 0.6 pts)","Joel Embiid (out, 0.9 pts); Dominick Barlow (out, 0.4 pts)",
-2026-11-15,4:00p,LAL,PHO,,,,0.347,-4.5,LAL,upcoming,,live,4.3,-2.6,,"Austin Reaves (out, 0.9 pts)","Mark Williams (out, 1.1 pts)",
-2026-11-15,4:30p,CHO,LAC,,,,0.607,3.1,LAC,upcoming,,live,-4.6,-3.8,,,"Jordan Miller (out, 0.6 pts)",
-2026-11-15,5:00p,SAS,UTA,,,,0.084,-15.9,SAS,upcoming,,live,8.7,-9.5,,,"Jaxson Hayes (out, 1.3 pts); Lauri Markkanen (out, 0.9 pts); Jusuf Nurkić (out, 0.3 pts)",
-2026-11-15,6:00p,DAL,BOS,,,,0.844,11.6,BOS,upcoming,,live,-0.8,7.0,DAL on a back-to-back,"Daniel Gafford (out, 0.7 pts)",,
-2026-11-15,6:00p,NYK,TOR,,,,0.386,-3.3,NYK,upcoming,,live,3.8,-1.8,,,"Kawhi Leonard (out, 1.4 pts); Scottie Barnes (out, 0.5 pts)",
-2026-11-15,7:00p,HOU,WAS,,,,0.262,-7.3,HOU,upcoming,,live,6.1,-3.5,,,"Alex Sarr (questionable, 0.4 pts)",
-2026-11-15,8:00p,ATL,MIL,,,,0.309,-5.8,ATL,upcoming,,live,-1.0,-9.0,,,,
-2026-11-15,9:00p,OKC,SAC,,,,0.254,-7.6,OKC,upcoming,,live,0.1,-9.8,,"Chet Holmgren (out, 1.2 pts); Ajay Mitchell (questionable, 0.5 pts)","Maxime Raynaud (out, 0.4 pts)",
+2026-11-15,1:00p,IND,PHI,124,131,,0.693,5.8,PHI,final,1,live,-3.4,0.3,,"Tyrese Haliburton (out, 0.6 pts)","Joel Embiid (questionable, 0.9 pts); Dominick Barlow (out, 0.4 pts)",
+2026-11-15,4:00p,LAL,PHO,131,123,,0.347,-4.5,LAL,final,1,live,4.5,-2.6,,"Austin Reaves (out, 0.9 pts)","Mark Williams (out, 1.1 pts)",
+2026-11-15,4:30p,CHO,LAC,105,113,,0.607,3.1,LAC,final,1,live,-4.6,-3.8,,,"Jordan Miller (out, 0.6 pts)",
+2026-11-15,5:00p,SAS,UTA,110,102,,0.084,-15.9,SAS,final,1,live,7.6,-9.5,,,"Jaxson Hayes (out, 1.3 pts); Lauri Markkanen (out, 0.9 pts); Jusuf Nurkić (out, 0.3 pts)",
+2026-11-15,6:00p,DAL,BOS,94,131,,0.844,11.6,BOS,final,1,live,-1.0,7.0,DAL on a back-to-back,"Kyrie Irving (out, 0.6 pts)",,
+2026-11-15,6:00p,NYK,TOR,,,,0.386,-3.3,NYK,live,,live,3.8,-0.5,,,"Kawhi Leonard (out, 1.4 pts)",81-86 5:33 - 4th
+2026-11-15,7:00p,HOU,WAS,,,,0.262,-7.3,HOU,live,,live,6.5,-3.6,,,,75-54 11:29 - 3rd
+2026-11-15,8:00p,ATL,MIL,,,,0.308,-5.8,ATL,live,,live,-1.3,-8.3,,"Jock Landale (out, 0.4 pts)",,9-18 6:12 - 1st
+2026-11-15,9:00p,OKC,SAC,,,,0.254,-7.6,OKC,upcoming,,live,0.9,-10.6,,"Chet Holmgren (out, 1.2 pts)","Maxime Raynaud (out, 0.4 pts)",
