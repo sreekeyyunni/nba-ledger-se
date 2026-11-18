@@ -204,8 +204,8 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-16,8:00p,POR,MIN,98,106,,0.582,2.4,MIN,final,1,live,4.5,6.9,,,,
 2026-11-16,8:00p,GSW,NOP,94,115,,0.377,-3.6,GSW,final,0,live,3.1,-6.1,,,,
 2026-11-16,9:00p,PHO,DEN,117,105,,0.794,9.4,DEN,final,0,live,-1.7,2.6,PHO on a back-to-back,,,
-2026-11-17,10:00p,CHO,LAL,,,,0.836,11.2,LAL,upcoming,,live,-5.5,3.5,,,"Walker Kessler (out, 1.0 pts); Austin Reaves (out, 0.8 pts)",
+2026-11-17,10:00p,CHO,LAL,,,,0.836,11.2,LAL,upcoming,,live,-6.3,3.5,,,"Walker Kessler (out, 1.0 pts); Austin Reaves (out, 0.8 pts)",
 2026-11-17,11:00p,UTA,LAC,,,,0.753,7.9,LAC,upcoming,,live,-9.1,-3.6,,"Jaxson Hayes (out, 0.9 pts); Lauri Markkanen (out, 0.7 pts)","Jordan Miller (out, 0.6 pts)",
-2026-11-17,7:30p,NYK,TOR,,,,0.401,-2.9,NYK,upcoming,,live,4.2,-0.9,,,"Kawhi Leonard (out, 1.5 pts)",
-2026-11-17,8:00p,POR,MIN,,,,0.601,3.0,MIN,upcoming,,live,5.7,6.3,POR on a back-to-back | MIN on a back-to-back,,"Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts); Jonathan Kuminga (questionable, 0.5 pts)",
-2026-11-17,8:00p,DET,SAS,,,,0.793,9.4,SAS,upcoming,,live,1.6,8.6,,"Jalen Duren (out, 1.8 pts); Duncan Robinson (out, 0.6 pts)",,
+2026-11-17,7:30p,NYK,TOR,111,102,,0.401,-2.9,NYK,final,1,live,4.2,-0.9,,,"Kawhi Leonard (out, 1.5 pts)",
+2026-11-17,8:00p,POR,MIN,,,,0.601,3.0,MIN,live,,live,3.8,6.0,POR on a back-to-back | MIN on a back-to-back,"Deni Avdija (out, 0.8 pts)","Anthony Edwards (out, 1.3 pts); Donte DiVincenzo (out, 0.6 pts); Jonathan Kuminga (out, 0.5 pts)",79-79 End of 3rd
+2026-11-17,8:00p,DET,SAS,,,,0.793,9.4,SAS,live,,live,1.6,8.6,,"Jalen Duren (out, 1.8 pts); Duncan Robinson (out, 0.6 pts)",,82-73 9:23 - 4th
