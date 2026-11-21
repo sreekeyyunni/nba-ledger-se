@@ -1,437 +1,440 @@
 kind,key,team,value,prev_value,rank,prev_rank,since
-player,Victor Wembanyama,SAS,175.3,157.95,1,1,2026-11-09
-player,Neemias Queta,BOS,154.57,150.43,2,2,2026-11-09
-player,Shai Gilgeous-Alexander,OKC,134.15,136.82,3,3,2026-11-09
-player,Jalen Duren,DET,129.81,130.55,4,4,2026-11-09
-player,Amen Thompson,HOU,103.72,96.25,5,6,2026-11-09
-player,Payton Pritchard,BOS,87.28,88.41,6,7,2026-11-09
-player,Yaxel Lendeborg,GSW,87.27,100.99,7,5,2026-11-09
-player,Kon Knueppel,CHO,79.42,77.64,9,9,2026-11-09
-player,Cam Spencer,MEM,82.66,79.83,8,8,2026-11-09
-player,Ryan Kalkbrenner,CHO,74.71,74.71,10,10,2026-11-09
-player,Meleek Thomas,CLE,72.93,59.0,11,20,2026-11-09
-player,Donovan Clingan,POR,71.52,69.95,12,12,2026-11-09
-player,Mark Williams,PHO,71.43,71.41,13,11,2026-11-09
-player,Jordan Walsh,BOS,67.18,66.47,14,13,2026-11-09
-player,Luke Kornet,SAS,65.0,63.49,15,16,2026-11-09
-player,Oso Ighodaro,PHO,63.64,66.43,16,14,2026-11-09
-player,Ajay Mitchell,OKC,58.69,61.03,17,18,2026-11-09
-player,Deni Avdija,POR,58.03,53.56,18,22,2026-11-09
-player,Jabari Smith Jr.,HOU,57.54,65.64,19,15,2026-11-09
-player,Ty Jerome,MEM,56.29,61.24,20,17,2026-11-09
-player,Collin Murray-Boyles,TOR,55.09,60.03,21,19,2026-11-09
-player,Cameron Boozer,MEM,55.03,50.21,22,24,2026-11-09
-player,Nikola Jokić,DEN,54.26,54.97,23,21,2026-11-09
-player,Sandro Mamukelashvili,LAL,50.79,47.02,24,26,2026-11-09
-player,Alperen Şengün,HOU,49.32,35.49,25,48,2026-11-09
-player,Mitchell Robinson,BOS,48.66,48.03,26,25,2026-11-09
-player,Aday Mara,OKC,48.37,42.57,27,31,2026-11-09
-player,Bennett Stirtz,OKC,46.43,51.62,28,23,2026-11-09
-player,Brandin Podziemski,GSW,45.32,42.22,29,32,2026-11-09
-player,Jordan Miller,LAC,32.26,31.46,57,60,2026-11-09
-player,LeBron James,PHI,44.25,45.09,30,28,2026-11-09
-player,Collin Gillespie,PHO,43.95,42.82,31,30,2026-11-09
-player,Joan Beringer,MIN,43.75,39.3,32,38,2026-11-09
-player,Tre Jones,CHI,43.72,46.19,33,27,2026-11-09
-player,Chet Holmgren,OKC,26.87,27.77,76,75,2026-11-09
-player,Dyson Daniels,ATL,43.33,42.2,34,33,2026-11-09
-player,Dylan Harper,SAS,42.6,37.56,35,45,2026-11-09
-player,Pelle Larsson,MIA,42.22,41.59,36,36,2026-11-09
-player,Brayden Burries,MIL,41.71,44.76,37,29,2026-11-09
-player,Stephon Castle,SAS,40.63,38.72,38,42,2026-11-09
-player,Julian Champagnie,SAS,40.5,41.86,39,34,2026-11-09
-player,Landry Shamet,NYK,40.03,38.93,40,41,2026-11-09
-player,Sam Merrill,CLE,39.23,39.24,41,39,2026-11-09
-player,Keaton Wagler,LAC,39.11,41.65,42,35,2026-11-09
-player,Kel'el Ware,MIL,38.99,39.96,43,37,2026-11-09
-player,Jordan Goodwin,PHO,38.44,38.01,44,44,2026-11-09
-player,Isaiah Hartenstein,OKC,36.37,36.04,45,47,2026-11-09
-player,Jaxson Hayes,UTA,36.24,36.12,46,46,2026-11-09
-player,Cedric Coward,MEM,35.13,28.88,47,70,2026-11-09
-player,Isaiah Joe,DET,35.05,35.06,48,49,2026-11-09
-player,Sam Hauser,BOS,34.13,31.76,49,57,2026-11-09
-player,John Konchar,MIN,34.05,34.06,50,50,2026-11-09
-player,Kasparas Jakučionis,MIL,33.69,32.1,51,54,2026-11-09
-player,Moussa Diabaté,CHO,33.58,33.88,52,51,2026-11-09
-player,Allen Graves,TOR,33.2,32.95,53,53,2026-11-09
-player,Saddiq Bey,NOP,32.63,39.21,54,40,2026-11-09
-player,Mo Bamba,UTA,32.58,25.31,55,86,2026-11-09
-player,Luka Dončić,LAL,32.56,31.7,56,58,2026-11-09
-player,Jarrett Allen,CLE,32.13,31.67,58,59,2026-11-09
-player,Baylor Scheierman,BOS,31.51,28.47,59,73,2026-11-09
-player,Nickeil Alexander-Walker,ATL,31.44,33.76,60,52,2026-11-09
-player,Robert Williams,POR,31.39,31.05,61,63,2026-11-09
-player,Will Richard,GSW,31.09,31.11,62,62,2026-11-09
-player,Cason Wallace,OKC,30.88,30.89,63,64,2026-11-09
-player,Jaylon Tyson,CLE,30.76,32.06,64,55,2026-11-09
-player,Baba Miller,LAC,30.35,27.32,65,76,2026-11-09
-player,Olivier-Maxence Prosper,DAL,29.09,27.02,66,81,2026-11-09
-player,Zuby Ejiofor,ATL,28.95,28.48,67,72,2026-11-09
-player,Jalen Johnson,ATL,28.71,38.03,68,43,2026-11-09
-player,Justin Champagnie,WAS,20.78,21.04,103,100,2026-11-09
-player,VJ Edgecombe,PHI,28.05,29.3,69,66,2026-11-09
-player,Luke Kennard,PHO,27.83,29.13,70,69,2026-11-09
-player,Hugo González,BOS,27.2,27.14,71,79,2026-11-09
-player,Reed Sheppard,HOU,27.18,28.58,72,71,2026-11-09
-player,Onyeka Okongwu,ATL,27.1,27.79,73,74,2026-11-09
-player,Jaylin Williams,OKC,27.04,27.03,74,80,2026-11-09
-player,Ausar Thompson,DET,27.04,29.18,75,68,2026-11-09
-player,Wendell Carter Jr.,ORL,26.7,25.81,77,84,2026-11-09
-player,Ja'Kobe Walter,TOR,25.9,29.37,78,65,2026-11-09
-player,Josh Minott,BRK,25.72,26.01,79,83,2026-11-09
-player,Tobias Harris,SAS,25.5,25.49,80,85,2026-11-09
-player,Duncan Robinson,DET,25.32,27.25,81,78,2026-11-09
-player,Ryan Conwell,MIA,25.27,19.2,82,107,2026-11-09
-player,Kingston Flemings,ATL,25.17,31.22,83,61,2026-11-09
-player,Ayo Dosunmu,MIN,24.95,24.49,84,89,2026-11-09
-player,Dru Smith,MIA,24.84,25.02,85,87,2026-11-09
-player,Cooper Flagg,DAL,24.7,27.3,86,77,2026-11-09
-player,Dean Wade,PHI,24.49,20.31,87,103,2026-11-09
-player,Vít Krejčí,POR,24.3,24.29,88,90,2026-11-09
-player,Darryn Peterson,UTA,24.05,31.88,89,56,2026-11-09
-player,Bryce McGowens,NOP,24.03,23.7,90,91,2026-11-09
-player,Luka Garza,BOS,23.77,23.41,91,92,2026-11-09
-player,Gui Santos,GSW,23.53,26.99,92,82,2026-11-09
-player,Anfernee Simons,PHI,23.46,22.55,93,95,2026-11-09
-player,Maxime Raynaud,SAC,23.06,23.06,94,93,2026-11-09
-player,Khaman Maluach,PHO,22.71,17.08,95,116,2026-11-09
-player,Jaylen Clark,MIN,21.77,21.79,99,97,2026-11-09
-player,Walker Kessler,LAL,22.02,15.87,96,123,2026-11-09
-player,Sion James,CHO,22.0,24.57,97,88,2026-11-09
-player,Miles McBride,NYK,21.95,21.41,98,98,2026-11-09
-player,Deandre Ayton,WAS,21.49,22.01,100,96,2026-11-09
-player,Tyrese Proctor,CLE,21.15,16.61,101,120,2026-11-09
-player,Marvin Bagley III,DEN,20.86,20.94,102,102,2026-11-09
-player,DeMar DeRozan,DEN,19.81,21.12,104,99,2026-11-09
-player,Collin Sexton,LAL,19.48,19.03,105,108,2026-11-09
-player,Kevin Porter Jr.,MIL,19.44,19.43,106,106,2026-11-09
-player,Ryan Dunn,PHO,19.23,20.02,107,105,2026-11-09
-player,Asa Newell,ATL,18.58,18.57,108,110,2026-11-09
-player,Javonte Green,DET,18.04,18.15,109,111,2026-11-09
-player,Alijah Martin,TOR,17.42,12.23,110,153,2026-11-09
-player,Nikola Vučević,ORL,17.37,17.83,111,113,2026-11-09
-player,Daniel Gafford,DAL,17.23,20.99,112,101,2026-11-09
-player,Mohamed Diawara,NYK,17.22,18.1,113,112,2026-11-09
-player,Isaiah Stewart,MEM,16.96,17.44,114,115,2026-11-09
-player,Noah Penda,ORL,16.94,16.92,115,118,2026-11-09
-player,Adem Bona,PHI,16.67,16.91,117,119,2026-11-09
-player,Tyrese Maxey,PHI,16.88,14.34,116,135,2026-11-09
-player,Josh Hart,NYK,16.39,19.02,118,109,2026-11-09
-player,Bones Hyland,MIN,16.28,14.86,119,131,2026-11-09
-player,Trey Lyles,MIN,16.2,16.2,120,121,2026-11-09
-player,Tyler Kolek,NYK,16.15,13.43,121,148,2026-11-09
-player,Grayson Allen,CHO,15.96,14.03,122,140,2026-11-09
-player,Spencer Jones,DEN,15.88,17.06,123,117,2026-11-09
-player,Tristan Da Silva,ORL,15.81,15.38,124,125,2026-11-09
-player,Nate Ament,MIL,15.77,13.57,125,146,2026-11-09
-player,Dominick Barlow,PHI,15.76,14.81,126,132,2026-11-09
-player,Jay Huff,IND,15.69,14.21,127,136,2026-11-09
-player,Moritz Wagner,BRK,15.68,8.85,128,192,2026-11-09
-player,Paul Reed,DET,15.63,16.12,129,122,2026-11-09
-player,Jonathan Kuminga,MIN,15.54,14.15,130,137,2026-11-09
-player,Jamal Shead,TOR,15.49,14.9,131,129,2026-11-09
-player,Yves Missi,NOP,15.37,15.83,132,124,2026-11-09
-player,Scotty Pippen Jr.,MEM,15.31,15.3,133,126,2026-11-09
-player,Justin Edwards,PHI,15.12,15.24,134,127,2026-11-09
-player,Day'Ron Sharpe,BRK,15.09,12.98,135,150,2026-11-09
-player,Goga Bitadze,ORL,14.94,14.34,136,134,2026-11-09
-player,Zach Edey,MEM,14.9,20.12,137,104,2026-11-09
-player,Jaylen Wells,MEM,14.43,11.88,138,155,2026-11-09
-player,Andre Drummond,NYK,14.36,13.84,139,142,2026-11-09
-player,Emanuel Sharp,SAC,14.26,17.56,140,114,2026-11-09
-player,Kobe Sanders,LAC,14.04,13.74,141,143,2026-11-09
-player,Gary Payton II,GSW,13.97,14.66,142,133,2026-11-09
-player,Trevon Brazile,DEN,13.77,14.93,143,128,2026-11-09
-player,Harrison Barnes,SAS,13.68,14.06,144,139,2026-11-09
-player,Hannes Steinbach,CHO,13.6,14.87,145,130,2026-11-09
-player,Matisse Thybulle,LAL,13.35,14.15,146,138,2026-11-09
-player,Kyle Anderson,TOR,13.1,13.68,147,144,2026-11-09
-player,Moussa Cissé,DAL,13.03,13.46,148,147,2026-11-09
-player,Isaiah Jackson,LAC,12.94,11.86,149,156,2026-11-09
-player,Craig Porter Jr.,CLE,12.6,12.77,150,151,2026-11-09
-player,Karlo Matković,NOP,12.41,13.96,151,141,2026-11-09
-player,Kyle Filipowski,UTA,12.4,13.68,152,145,2026-11-09
-player,Terrence Shannon Jr.,MIN,12.31,13.42,153,149,2026-11-09
-player,Micah Potter,POR,12.22,12.31,154,152,2026-11-09
-player,DeAndre Jordan,NOP,11.98,,155,,2026-11-09
-player,Daniss Jenkins,DET,11.7,11.46,156,160,2026-11-09
-player,Moses Moody,GSW,11.46,11.47,157,159,2026-11-09
-player,Charles Bassey,GSW,11.43,9.73,158,180,2026-11-09
-player,Keldon Johnson,SAS,11.39,10.7,159,164,2026-11-09
-player,Kenrich Williams,OKC,10.93,10.72,161,163,2026-11-09
-player,Ziaire Williams,LAL,10.93,9.8,162,178,2026-11-09
-player,Fred VanVleet,HOU,10.9,4.35,163,230,2026-11-09
-player,Tidjane Salaün,CHO,10.65,10.5,164,167,2026-11-09
-player,Jaime Jaquez Jr.,MIL,10.64,11.36,165,161,2026-11-09
-player,Ryan Rollins,MIL,10.64,11.75,166,158,2026-11-09
-player,John Collins,DET,10.6,12.11,167,154,2026-11-09
-player,Mario Hezonja,CLE,10.57,9.71,168,181,2026-11-09
-player,Kelly Oubre Jr.,IND,10.53,10.62,169,165,2026-11-09
-player,Bogdan Bogdanović,HOU,10.5,7.48,170,207,2026-11-09
-player,Kris Dunn,LAC,10.43,10.96,171,162,2026-11-09
-player,Brandon Williams,GSW,10.42,9.85,172,176,2026-11-09
-player,Daeqwon Plowden,SAC,10.39,9.02,173,189,2026-11-09
-player,Mouhamed Gueye,ATL,8.47,10.34,194,170,2026-11-09
-player,Jose Alvarado,NYK,10.08,10.32,174,171,2026-11-09
-player,Simone Fontecchio,MIA,10.06,10.41,175,168,2026-11-09
-player,Tari Eason,HOU,10.02,7.53,176,206,2026-11-09
-player,Nae'Qwan Tomlin,CLE,10.0,10.0,177,172,2026-11-09
-player,Mike Conley,BOS,9.97,9.97,178,174,2026-11-09
-player,Ivica Zubac,IND,9.95,8.89,179,191,2026-11-09
-player,Derik Queen,NOP,9.59,11.76,180,157,2026-11-09
-player,Georges Niang,GSW,9.53,9.79,181,179,2026-11-09
-player,Rasheer Fleming,PHO,9.48,9.96,182,175,2026-11-09
-player,Thomas Bryant,CLE,9.44,9.25,183,185,2026-11-09
-player,Jalen Brunson,NYK,11.01,10.55,160,166,2026-11-09
-player,Johnny Furphy,IND,9.07,9.08,184,188,2026-11-09
-player,Davion Mitchell,MIA,9.03,7.66,185,203,2026-11-09
-player,Derrick Jones Jr.,LAC,8.98,8.77,186,193,2026-11-09
-player,Jericho Sims,MIL,8.81,9.81,187,177,2026-11-09
-player,Royce O'Neale,CHO,8.77,9.16,188,186,2026-11-09
-player,Josh Okogie,UTA,8.75,9.41,189,183,2026-11-09
-player,Clint Capela,HOU,8.68,9.6,190,182,2026-11-09
-player,Jake LaRavia,LAL,8.66,8.99,191,190,2026-11-09
-player,Tim Hardaway Jr.,MIA,8.53,8.76,192,194,2026-11-09
-player,Kevin Durant,HOU,8.52,9.3,193,184,2026-11-09
-player,Jase Richardson,ORL,8.43,7.72,195,201,2026-11-09
-player,Larry Nance Jr.,IND,8.4,7.47,196,208,2026-11-09
-player,Jabari Walker,PHI,8.4,8.56,197,196,2026-11-09
-player,Anthony Gill,WAS,8.18,7.57,198,205,2026-11-09
-player,Donte DiVincenzo,MIN,8.17,8.17,199,198,2026-11-09
-player,Leonard Miller,CHI,8.06,8.3,200,197,2026-11-09
-player,Alex Karaban,SAC,7.59,,201,,2026-11-09
-player,Jordan Clarkson,NYK,7.58,7.85,202,199,2026-11-09
-player,Miles Bridges,PHO,7.54,7.79,203,200,2026-11-09
-player,Jamaree Bouyea,PHO,7.17,6.67,204,213,2026-11-09
-player,Kevin Huerter,DET,7.04,9.97,205,173,2026-11-09
-player,Trendon Watford,NOP,6.97,7.62,206,204,2026-11-09
-player,Kris Murray,MEM,6.94,7.19,207,209,2026-11-09
-player,Trey Murphy III,NOP,6.75,10.39,208,169,2026-11-09
-player,Jordan McLaughlin,SAS,6.52,,209,,2026-11-09
-player,Precious Achiuwa,SAC,6.31,5.38,210,220,2026-11-09
-player,Steven Adams,HOU,6.23,6.95,211,212,2026-11-09
-player,Ron Holland,DET,6.0,7.0,212,210,2026-11-09
-player,Carter Bryant,SAS,5.93,4.35,213,231,2026-11-09
-player,Pete Nance,MIL,5.85,5.9,214,218,2026-11-09
-player,Myron Gardner,MIA,5.79,,215,,2026-11-09
-player,Trayce Jackson-Davis,TOR,5.75,4.52,216,227,2026-11-09
-player,Isaiah Collier,UTA,5.66,5.16,217,222,2026-11-09
-player,Tarris Reed Jr.,SAS,5.64,,218,,2026-11-09
-player,Mikel Brown Jr.,BRK,5.59,8.71,219,195,2026-11-09
-player,Grant Williams,CHO,5.43,4.38,220,229,2026-11-09
-player,T.J. McConnell,IND,5.43,6.32,221,215,2026-11-09
-player,Danny Wolf,BRK,5.29,4.54,222,226,2026-11-09
-player,Immanuel Quickley,TOR,4.99,6.19,224,216,2026-11-09
-player,Jalen Smith,CHI,4.97,3.82,225,234,2026-11-09
-player,Yang Hansen,POR,4.96,6.98,226,211,2026-11-09
-player,Liam McNeeley,CHO,4.95,,227,,2026-11-09
-player,Jamison Battle,TOR,4.54,4.43,228,228,2026-11-09
-player,Jared McCain,OKC,4.48,5.39,229,219,2026-11-09
-player,Sidy Cissoko,POR,4.41,3.54,230,237,2026-11-09
-player,GG Jackson II,MEM,4.31,3.44,231,238,2026-11-09
-player,Rudy Gobert,MIN,4.27,4.98,232,223,2026-11-09
-player,Julian Strawther,DEN,3.45,3.01,235,241,2026-11-09
-player,Aaron Wiggins,ATL,3.87,6.03,233,217,2026-11-09
-player,Al Horford,GSW,3.56,4.78,234,225,2026-11-09
-player,Marcus Smart,HOU,3.3,2.72,236,243,2026-11-09
-player,Branden Carlson,POR,3.27,,237,,2026-11-09
-player,Jamal Cain,ORL,3.27,4.19,238,232,2026-11-09
-player,Taurean Prince,DET,3.15,3.27,239,240,2026-11-09
-player,Jevon Carter,ORL,2.78,2.53,240,245,2026-11-09
-player,Tyus Jones,DEN,2.7,2.88,241,242,2026-11-09
-player,Anthony Black,ORL,2.56,2.42,242,246,2026-11-09
-player,Gary Harris,DET,2.53,2.54,243,244,2026-11-09
-player,Quinten Post,MEM,2.13,3.85,244,233,2026-11-09
-player,Nicolas Batum,LAC,1.99,1.99,245,249,2026-11-09
-player,Marcus Sasser,DAL,1.97,6.65,246,214,2026-11-09
-player,Jock Landale,ATL,1.67,2.02,247,248,2026-11-09
-player,Noa Essengue,CHI,1.63,0.15,248,255,2026-11-09
-player,Ben Sheppard,IND,1.5,1.51,249,250,2026-11-09
-player,Ryan Nembhard,CHO,1.48,1.48,250,251,2026-11-09
-player,Matas Buzelis,CHI,1.4,1.47,251,252,2026-11-09
-player,Devin Vassell,SAS,0.99,3.56,252,236,2026-11-09
-player,De'Anthony Melton,GSW,0.58,-1.01,253,264,2026-11-09
-player,Gradey Dick,LAC,0.33,0.31,254,254,2026-11-09
-player,Micah Peavy,MEM,0.29,1.12,255,253,2026-11-09
-player,Santi Aldama,DAL,0.24,3.66,256,235,2026-11-09
-player,Christian Braun,DEN,0.22,5.27,257,221,2026-11-09
-player,Max Strus,LAC,0.18,-2.1,258,272,2026-11-09
-player,Taylor Hendricks,MEM,0.18,-1.74,259,268,2026-11-09
-player,Labaron Philon Jr.,PHI,0.17,,260,,2026-11-09
-player,Zeke Nnaji,DEN,0.11,0.1,261,256,2026-11-09
-player,Morez Johnson Jr.,DAL,0.08,29.29,262,67,2026-11-09
-player,Jimmy Butler,GSW,0.08,0.06,263,257,2026-11-09
-player,Dalton Knecht,LAL,-0.04,0.01,264,258,2026-11-09
-player,James Harden,CLE,5.22,4.96,223,224,2026-11-09
-player,Nic Claxton,CHI,-0.13,-1.82,265,269,2026-11-09
-player,Bennedict Mathurin,NOP,-0.17,3.41,266,239,2026-11-09
-player,Keon Ellis,BRK,-0.2,-0.63,267,261,2026-11-09
-player,Cameron Johnson,DEN,-0.31,-0.25,269,260,2026-11-09
-player,Obi Toppin,IND,-0.53,9.12,270,187,2026-11-09
-player,Brook Lopez,LAC,-0.54,-1.16,271,266,2026-11-09
-player,Nick Richards,MIA,-1.09,-1.09,272,265,2026-11-09
-player,Toumani Camara,POR,-1.51,-5.64,273,290,2026-11-09
-player,Kristaps Porziņģis,GSW,-1.93,-1.94,274,271,2026-11-09
-player,Christian Anderson Jr.,CHO,-1.95,-12.57,275,329,2026-11-09
-player,Naji Marshall,DAL,-2.55,2.06,277,247,2026-11-09
-player,Norman Powell,CHI,-2.69,-4.63,278,283,2026-11-09
-player,Max Christie,DAL,-2.8,-1.53,279,267,2026-11-09
-player,Walter Clayton,MEM,-2.83,-2.83,280,273,2026-11-09
-player,Svi Mykhailiuk,UTA,-2.91,-1.91,281,270,2026-11-09
-player,Isaac Okoro,CHI,-3.29,-3.0,283,274,2026-11-09
-player,Noah Clowney,BRK,-3.3,-4.06,284,280,2026-11-09
-player,Brice Sensabaugh,UTA,-3.5,-3.5,285,277,2026-11-09
-player,Jonathan Isaac,ORL,-3.58,-3.58,286,279,2026-11-09
-player,Devin Carter,ATL,-3.8,-3.51,287,278,2026-11-09
-player,Jakob Poeltl,TOR,-3.89,-0.85,288,262,2026-11-09
-player,Kyshawn George,WAS,-4.13,-0.09,289,259,2026-11-09
-player,Quentin Grimes,LAL,-4.23,-7.1,290,303,2026-11-09
-player,Cole Anthony,MEM,-4.42,-4.42,291,281,2026-11-09
-player,Caleb Wilson,CHI,-5.71,-21.92,302,347,2026-11-09
-player,Josh Green,UTA,-4.85,-3.31,294,275,2026-11-09
-player,Bilal Coulibaly,WAS,-5.09,-5.16,295,286,2026-11-09
-player,Corey Kispert,ATL,-5.1,-6.46,296,295,2026-11-09
-player,Caris LeVert,MIL,-5.26,-5.25,298,287,2026-11-09
-player,Zaccharie Risacher,DAL,-5.37,-5.99,299,293,2026-11-09
-player,Rob Dillingham,CHO,-5.53,-5.53,300,289,2026-11-09
-player,Jordan Hawkins,MEM,-5.66,-5.66,301,291,2026-11-09
-player,Jarred Vanderbilt,LAL,-5.77,-7.37,303,305,2026-11-09
-player,Luguentz Dort,ATL,-5.87,-4.75,304,284,2026-11-09
-player,Egor Dëmin,BRK,-5.87,-7.02,305,302,2026-11-09
-player,Caleb Martin,DAL,-6.04,-8.71,306,310,2026-11-09
-player,Will Riley,WAS,-6.38,-6.85,307,300,2026-11-09
-player,Ben Saraf,BRK,-6.84,-6.84,308,299,2026-11-09
-player,RJ Barrett,TOR,-6.87,-5.34,309,288,2026-11-09
-player,Jarace Walker,IND,-7.12,-7.12,310,304,2026-11-09
-player,Alex Sarr,WAS,-7.45,-9.98,312,319,2026-11-09
-player,Nique Clifford,OKC,-7.52,-7.52,313,306,2026-11-09
-player,Cade Cunningham,DET,-2.03,-4.49,276,282,2026-11-09
-player,Drake Powell,BRK,-8.17,-8.17,314,308,2026-11-09
-player,Rui Hachimura,LAC,-8.31,-5.77,315,292,2026-11-09
-player,Buddy Hield,CHI,-8.37,-8.8,316,313,2026-11-09
-player,Jaden Hardy,LAL,-8.85,-8.85,317,314,2026-11-09
-player,Bub Carrington,WAS,-8.92,-8.92,318,315,2026-11-09
-player,Nolan Traoré,BRK,-9.38,-9.38,320,316,2026-11-09
-player,Zion Williamson,NOP,-9.46,-6.9,321,301,2026-11-09
-player,Derrick White,BOS,-4.55,-6.59,293,297,2026-11-09
-player,Bobby Portis,MIA,-9.71,-8.78,322,312,2026-11-09
-player,CJ McCollum,ATL,-9.94,-11.39,323,325,2026-11-09
-player,Jaden McDaniels,MIN,-10.26,-11.36,324,324,2026-11-09
-player,Cody Williams,MIN,-10.41,-10.41,325,322,2026-11-09
-player,Scoot Henderson,POR,-10.51,-9.9,326,318,2026-11-09
-player,Julius Randle,BRK,-10.61,-10.04,328,321,2026-11-09
-player,Zach Collins,CHI,-10.67,-9.58,329,317,2026-11-09
-player,Andrew Nembhard,IND,-11.07,-10.03,330,320,2026-11-09
-player,Alex Caruso,OKC,-11.12,-8.3,331,309,2026-11-09
-player,Tyler Herro,MIL,-11.52,-7.73,332,307,2026-11-09
-player,Jamal Murray,DEN,-2.97,-3.46,282,276,2026-11-09
-player,Ousmane Dieng,MIL,-11.97,-11.97,333,327,2026-11-09
-player,Khris Middleton,WAS,-12.26,-12.26,334,328,2026-11-09
-player,Tre Mann,WAS,-12.7,-12.7,335,330,2026-11-09
-player,Kentavious Caldwell-Pope,PHI,-12.97,-13.02,336,331,2026-11-09
-player,Kawhi Leonard,TOR,-0.23,-0.91,268,263,2026-11-09
-player,Jusuf Nurkić,UTA,-13.81,-13.82,339,333,2026-11-09
-player,Kyle Kuzma,MIL,-15.3,-14.62,341,335,2026-11-09
-player,Austin Reaves,LAL,-16.44,-19.71,343,343,2026-11-09
-player,Andrew Wiggins,MIA,-16.61,-17.34,344,338,2026-11-09
-player,Karl-Anthony Towns,NYK,-4.49,-4.89,292,285,2026-11-09
-player,Terance Mann,BRK,-17.96,-18.73,346,342,2026-11-09
-player,De'Andre Hunter,SAC,-19.84,-20.71,348,345,2026-11-09
-player,Jeremiah Fears,NOP,-20.53,-18.59,349,341,2026-11-09
-player,Damian Lillard,POR,-20.62,-35.92,350,365,2026-11-09
-player,Giannis Antetokounmpo,MIA,-5.25,-6.14,297,294,2026-11-09
-player,Michael Porter Jr.,BRK,-22.3,-23.33,352,350,2026-11-09
-player,Draymond Green,GSW,-22.82,-23.55,353,351,2026-11-09
-player,Tre Johnson,WAS,-22.86,-22.86,354,349,2026-11-09
-player,Kyrie Irving,DAL,-23.56,-21.68,355,346,2026-11-09
-player,Jerami Grant,MEM,-23.91,-27.05,356,358,2026-11-09
-player,Jrue Holiday,POR,-24.26,-22.81,357,348,2026-11-09
-player,Josh Giddey,CHI,-25.21,-24.04,358,352,2026-11-09
-player,Ace Bailey,UTA,-25.56,-25.56,359,354,2026-11-09
-player,Klay Thompson,MIA,-25.8,-25.8,360,355,2026-11-09
-player,Dennis Schröder,CHO,-26.09,-26.09,361,356,2026-11-09
-player,Darius Acuff Jr.,SAC,-26.27,-6.48,362,296,2026-11-09
-player,LaMelo Ball,MIN,-16.04,-16.37,342,336,2026-11-09
-player,A.J. Green,MIL,-27.68,-27.0,363,357,2026-11-09
-player,Anthony Edwards,MIN,-7.23,-6.72,311,298,2026-11-09
-player,Dorian Finney-Smith,ATL,-28.94,-28.95,364,361,2026-11-09
-player,Keyonte George,UTA,-29.32,-17.81,366,340,2026-11-09
-player,Mikal Bridges,NYK,-18.43,-17.75,347,339,2026-11-09
-player,Jordan Poole,NOP,-32.6,-32.69,367,363,2026-11-09
-player,Desmond Bane,ORL,-35.61,-37.78,368,368,2026-11-09
-player,Aaron Gordon,DEN,-35.92,-27.2,369,359,2026-11-09
-player,Peyton Watson,CLE,-36.15,-24.3,370,353,2026-11-09
-player,OG Anunoby,NYK,-36.25,-34.8,371,364,2026-11-09
-player,Malik Monk,SAC,-36.49,-36.17,372,366,2026-11-09
-player,Scottie Barnes,TOR,-9.27,-8.77,319,311,2026-11-09
-player,Coby White,CHO,-37.57,-37.59,373,367,2026-11-09
-player,Zach LaVine,SAC,-39.19,-39.18,374,369,2026-11-09
-player,Tyrese Haliburton,IND,-10.54,-10.56,327,323,2026-11-09
-player,Aaron Nesmith,IND,-42.92,-42.92,375,370,2026-11-09
-player,Brandon Ingram,LAC,-45.19,-45.19,376,371,2026-11-09
-player,AJ Dybantsa,WAS,-45.73,22.59,377,94,2026-11-09
-player,Patrick Williams,CHI,-46.06,-46.06,378,372,2026-11-09
-player,Shaedon Sharpe,POR,-51.43,-51.74,381,375,2026-11-09
-player,Dejounte Murray,NOP,-48.36,-31.31,379,362,2026-11-09
-player,Nikola Jović,MIA,-50.45,-50.45,380,374,2026-11-09
-player,Gary Trent Jr.,MIL,-51.79,-51.79,382,376,2026-11-09
-player,Evan Mobley,CLE,-13.08,-11.42,337,326,2026-11-09
-player,Naz Reid,CHO,-53.83,-50.24,383,373,2026-11-09
-player,Jalen Williams,OKC,-13.57,-13.55,338,332,2026-11-09
-player,Stephen Curry,GSW,-17.25,-14.36,345,334,2026-11-09
-player,Jalen Suggs,ORL,-55.79,-54.83,384,377,2026-11-09
-player,Bam Adebayo,MIA,-56.44,-62.79,385,381,2026-11-09
-player,Franz Wagner,ORL,-56.45,-74.93,386,389,2026-11-09
-player,Darius Garland,LAC,-58.28,-55.76,387,378,2026-11-09
-player,Paul George,BOS,-58.81,-61.71,388,380,2026-11-09
-player,Jayson Tatum,BOS,-14.97,-17.08,340,337,2026-11-09
-player,Domantas Sabonis,SAC,-60.26,-63.18,389,382,2026-11-09
-player,Ja Morant,POR,-63.46,-66.44,390,386,2026-11-09
-player,Myles Turner,MIL,-64.01,-64.58,391,385,2026-11-09
-player,P.J. Washington,DAL,-66.09,-57.76,392,379,2026-11-09
-player,Lauri Markkanen,UTA,-70.25,-63.7,396,384,2026-11-09
-player,Jalen Green,PHO,-66.88,-66.88,393,387,2026-11-09
-player,Herbert Jones,NOP,-67.38,-67.38,394,388,2026-11-09
-player,Dillon Brooks,PHO,-68.8,-63.65,395,383,2026-11-09
-player,Anthony Davis,WAS,-70.97,-77.85,397,391,2026-11-09
-player,Pascal Siakam,IND,-73.6,-79.52,398,392,2026-11-09
-player,Brandon Miller,CHO,-77.57,-75.82,399,390,2026-11-09
-player,De'Aaron Fox,SAS,-82.45,-84.12,400,393,2026-11-09
-player,Jaylen Brown,PHI,-21.33,-20.3,351,344,2026-11-09
-player,Paolo Banchero,ORL,-96.98,-97.83,401,394,2026-11-09
-player,Devin Booker,PHO,-107.73,-110.7,402,396,2026-11-09
-player,Joel Embiid,PHI,-109.68,-103.7,403,395,2026-11-09
-player,Keegan Murray,SAC,-112.8,-112.8,404,398,2026-11-09
-player,Donovan Mitchell,CLE,-29.23,-27.94,365,360,2026-11-09
-player,Trae Young,WAS,-128.52,-112.09,405,397,2026-11-09
-player,Jaren Jackson Jr.,UTA,-177.49,-177.57,406,399,2026-11-09
-team,SAS,SAS,152.9,138.7,2,3,2026-11-09
-team,OKC,OKC,142.6,150.0,3,1,2026-11-09
-team,BOS,BOS,154.4,147.7,1,2,2026-11-09
-team,DET,DET,125.5,127.0,4,4,2026-11-09
-team,HOU,HOU,115.2,103.6,5,5,2026-11-09
-team,DEN,DEN,91.6,98.9,7,6,2026-11-09
-team,CLE,CLE,100.5,98.7,6,7,2026-11-09
-team,MIN,MIN,89.9,87.5,8,9,2026-11-09
-team,NYK,NYK,80.6,80.1,11,11,2026-11-09
-team,CHO,CHO,71.2,68.0,12,12,2026-11-09
-team,TOR,TOR,82.1,84.3,10,10,2026-11-09
-team,GSW,GSW,83.4,88.6,9,8,2026-11-09
-team,LAL,LAL,64.5,59.2,13,13,2026-11-09
-team,MEM,MEM,59.5,56.4,14,14,2026-11-09
-team,POR,POR,37.7,25.5,16,18,2026-11-09
-team,PHI,PHI,50.4,51.2,15,15,2026-11-09
-team,ATL,ATL,30.6,37.6,17,16,2026-11-09
-team,PHO,PHO,26.7,27.4,18,17,2026-11-09
-team,LAC,LAC,-8.5,-10.1,22,23,2026-11-09
-team,DAL,DAL,-2.2,16.7,20,19,2026-11-09
-team,ORL,ORL,-8.0,-14.5,21,25,2026-11-09
-team,MIA,MIA,-0.1,-8.1,19,22,2026-11-09
-team,CHI,CHI,-9.3,-13.1,23,24,2026-11-09
-team,NOP,NOP,-11.4,-1.3,24,20,2026-11-09
-team,MIL,MIL,-11.6,-4.4,25,21,2026-11-09
-team,BRK,BRK,-18.6,-25.0,27,27,2026-11-09
-team,IND,IND,-18.0,-17.4,26,26,2026-11-09
-team,UTA,UTA,-34.0,-26.3,28,28,2026-11-09
-team,WAS,WAS,-74.2,-58.8,29,29,2026-11-09
-team,SAC,SAC,-110.7,-117.1,30,30,2026-11-09
+player,Victor Wembanyama,SAS,171.57,175.3,1,1,2026-11-16
+player,Neemias Queta,BOS,154.3,154.57,2,2,2026-11-16
+player,Jalen Duren,DET,131.41,129.81,3,4,2026-11-16
+player,Shai Gilgeous-Alexander,OKC,124.93,134.15,4,3,2026-11-16
+player,Amen Thompson,HOU,100.11,103.72,5,5,2026-11-16
+player,Payton Pritchard,BOS,87.05,87.28,6,6,2026-11-16
+player,Cameron Boozer,MEM,86.52,55.03,7,22,2026-11-16
+player,Cam Spencer,MEM,85.42,82.66,8,8,2026-11-16
+player,Kon Knueppel,CHO,80.08,79.42,9,9,2026-11-16
+player,Ryan Kalkbrenner,CHO,75.45,74.71,10,10,2026-11-16
+player,Meleek Thomas,CLE,74.14,72.93,11,11,2026-11-16
+player,Donovan Clingan,POR,71.88,71.52,12,12,2026-11-16
+player,Mark Williams,PHO,71.22,71.43,13,13,2026-11-16
+player,Yaxel Lendeborg,GSW,69.25,87.27,14,7,2026-11-16
+player,Jordan Walsh,BOS,65.8,67.18,15,14,2026-11-16
+player,Luke Kornet,SAS,64.65,65.0,16,15,2026-11-16
+player,Oso Ighodaro,PHO,62.7,63.64,17,16,2026-11-16
+player,Jabari Smith Jr.,HOU,58.56,57.54,18,19,2026-11-16
+player,Ajay Mitchell,OKC,58.44,58.69,19,17,2026-11-16
+player,Deni Avdija,POR,57.92,58.03,20,18,2026-11-16
+player,Ty Jerome,MEM,56.14,56.29,21,20,2026-11-16
+player,Collin Murray-Boyles,TOR,53.03,55.09,22,21,2026-11-16
+player,Nikola Jokić,DEN,52.28,54.26,23,23,2026-11-16
+player,Aday Mara,OKC,51.03,48.37,24,27,2026-11-16
+player,Sandro Mamukelashvili,LAL,46.81,50.79,25,24,2026-11-16
+player,Mitchell Robinson,BOS,46.24,48.66,26,26,2026-11-16
+player,Tre Jones,CHI,45.74,43.72,27,33,2026-11-16
+player,Alperen Şengün,HOU,45.69,49.32,28,25,2026-11-16
+player,Collin Gillespie,PHO,45.64,43.95,29,31,2026-11-16
+player,Dyson Daniels,ATL,45.07,43.33,30,34,2026-11-16
+player,Joan Beringer,MIN,44.92,43.75,31,32,2026-11-16
+player,Jordan Miller,LAC,32.95,32.26,56,57,2026-11-16
+player,LeBron James,PHI,44.33,44.25,32,30,2026-11-16
+player,Bennett Stirtz,OKC,43.53,46.43,33,28,2026-11-16
+player,Chet Holmgren,OKC,28.27,26.87,70,76,2026-11-16
+player,Landry Shamet,NYK,41.61,40.03,34,40,2026-11-16
+player,Pelle Larsson,MIA,41.05,42.22,35,36,2026-11-16
+player,Julian Champagnie,SAS,40.91,40.5,36,39,2026-11-16
+player,Dylan Harper,SAS,37.84,42.6,44,35,2026-11-16
+player,Cedric Coward,MEM,40.21,35.13,37,47,2026-11-16
+player,Jordan Goodwin,PHO,40.12,38.44,38,44,2026-11-16
+player,Stephon Castle,SAS,39.66,40.63,39,38,2026-11-16
+player,Brandin Podziemski,GSW,39.35,45.32,40,29,2026-11-16
+player,Mo Bamba,UTA,39.05,32.58,41,55,2026-11-16
+player,Kel'el Ware,MIL,38.88,38.99,42,43,2026-11-16
+player,Isaiah Hartenstein,OKC,38.25,36.37,43,45,2026-11-16
+player,Sam Merrill,CLE,37.79,39.23,45,41,2026-11-16
+player,Allen Graves,TOR,37.28,33.2,46,53,2026-11-16
+player,Kasparas Jakučionis,MIL,37.01,33.69,47,51,2026-11-16
+player,Brayden Burries,MIL,36.9,41.71,48,37,2026-11-16
+player,Sam Hauser,BOS,36.71,34.13,49,49,2026-11-16
+player,Jaxson Hayes,UTA,36.38,36.24,50,46,2026-11-16
+player,Isaiah Joe,DET,35.49,35.05,51,48,2026-11-16
+player,John Konchar,MIN,33.97,34.05,52,50,2026-11-16
+player,Moussa Diabaté,CHO,33.47,33.58,53,52,2026-11-16
+player,Nickeil Alexander-Walker,ATL,33.12,31.44,54,60,2026-11-16
+player,Saddiq Bey,NOP,33.05,32.63,55,54,2026-11-16
+player,Robert Williams,POR,32.72,31.39,57,61,2026-11-16
+player,Jarrett Allen,CLE,31.98,32.13,58,58,2026-11-16
+player,Will Richard,GSW,31.65,31.09,59,62,2026-11-16
+player,Baylor Scheierman,BOS,30.79,31.51,60,59,2026-11-16
+player,Jaylon Tyson,CLE,30.68,30.76,61,64,2026-11-16
+player,Cason Wallace,OKC,30.59,30.88,62,63,2026-11-16
+player,Ausar Thompson,DET,30.03,27.04,63,75,2026-11-16
+player,Cooper Flagg,DAL,29.99,24.7,64,86,2026-11-16
+player,Olivier-Maxence Prosper,DAL,29.87,29.09,65,66,2026-11-16
+player,Ryan Conwell,MIA,29.13,25.27,66,82,2026-11-16
+player,VJ Edgecombe,PHI,28.9,28.05,67,69,2026-11-16
+player,Luke Kennard,PHO,28.77,27.83,68,70,2026-11-16
+player,Jalen Johnson,ATL,28.61,28.71,69,68,2026-11-16
+player,Justin Champagnie,WAS,21.35,20.78,100,103,2026-11-16
+player,Reed Sheppard,HOU,27.8,27.18,71,72,2026-11-16
+player,Zuby Ejiofor,ATL,27.6,28.95,72,67,2026-11-16
+player,Wendell Carter Jr.,ORL,27.1,26.7,73,77,2026-11-16
+player,Onyeka Okongwu,ATL,27.06,27.1,74,73,2026-11-16
+player,Ja'Kobe Walter,TOR,26.04,25.9,75,78,2026-11-16
+player,Josh Minott,BRK,25.5,25.72,76,79,2026-11-16
+player,Tobias Harris,SAS,25.4,25.5,77,80,2026-11-16
+player,Jaylin Williams,OKC,25.29,27.04,78,74,2026-11-16
+player,Duncan Robinson,DET,24.48,25.32,83,81,2026-11-16
+player,Hugo González,BOS,25.13,27.2,79,71,2026-11-16
+player,Kingston Flemings,ATL,25.07,25.17,80,83,2026-11-16
+player,Dean Wade,PHI,24.84,24.49,81,87,2026-11-16
+player,Dru Smith,MIA,24.78,24.84,82,85,2026-11-16
+player,Keaton Wagler,LAC,24.45,39.11,84,42,2026-11-16
+player,Vít Krejčí,POR,24.24,24.3,85,88,2026-11-16
+player,Darryn Peterson,UTA,24.12,24.05,86,89,2026-11-16
+player,Bryce McGowens,NOP,23.98,24.03,87,90,2026-11-16
+player,Luka Garza,BOS,23.28,23.77,88,91,2026-11-16
+player,Maxime Raynaud,SAC,23.01,23.06,89,94,2026-11-16
+player,Luka Dončić,LAL,22.88,32.56,90,56,2026-11-16
+player,Anfernee Simons,PHI,22.8,23.46,91,93,2026-11-16
+player,Jaylen Clark,MIN,21.97,21.77,93,99,2026-11-16
+player,Khaman Maluach,PHO,22.44,22.71,92,95,2026-11-16
+player,Ayo Dosunmu,MIN,21.94,24.95,94,84,2026-11-16
+player,Zach Edey,MEM,21.84,14.9,95,137,2026-11-16
+player,Deandre Ayton,WAS,21.77,21.49,96,100,2026-11-16
+player,Gui Santos,GSW,21.61,23.53,97,92,2026-11-16
+player,Miles McBride,NYK,21.52,21.95,98,98,2026-11-16
+player,Baba Miller,LAC,21.36,30.35,99,65,2026-11-16
+player,Sion James,CHO,21.21,22.0,101,97,2026-11-16
+player,Marvin Bagley III,DEN,21.06,20.86,102,102,2026-11-16
+player,Walker Kessler,LAL,20.87,22.02,103,96,2026-11-16
+player,Asa Newell,ATL,13.55,18.58,142,108,2026-11-16
+player,DeMar DeRozan,DEN,19.85,19.81,104,104,2026-11-16
+player,Tyrese Proctor,CLE,19.42,21.15,105,101,2026-11-16
+player,Kevin Porter Jr.,MIL,19.39,19.44,106,106,2026-11-16
+player,Ryan Dunn,PHO,18.64,19.23,107,107,2026-11-16
+player,Javonte Green,DET,18.05,18.04,108,109,2026-11-16
+player,Tyrese Maxey,PHI,17.94,16.88,109,116,2026-11-16
+player,Chaz Lanier,DET,17.87,,110,,2026-11-16
+player,Daniel Gafford,DAL,17.73,17.23,111,112,2026-11-16
+player,Nikola Vučević,ORL,17.34,17.37,112,111,2026-11-16
+player,Trey Lyles,MIN,17.28,16.2,113,120,2026-11-16
+player,Mohamed Diawara,NYK,17.18,17.22,114,113,2026-11-16
+player,Terrence Shannon Jr.,MIN,17.1,12.31,115,153,2026-11-16
+player,Collin Sexton,LAL,17.07,19.48,116,105,2026-11-16
+player,Noah Penda,ORL,16.9,16.94,117,115,2026-11-16
+player,Adem Bona,PHI,16.88,16.67,118,117,2026-11-16
+player,Tristan Da Silva,ORL,16.63,15.81,119,124,2026-11-16
+player,Tyler Kolek,NYK,16.5,16.15,120,121,2026-11-16
+player,Isaiah Stewart,MEM,16.33,16.96,121,114,2026-11-16
+player,Paul Reed,DET,16.2,15.63,122,129,2026-11-16
+player,Alijah Martin,TOR,16.13,17.42,123,110,2026-11-16
+player,Grayson Allen,CHO,15.86,15.96,124,122,2026-11-16
+player,Dominick Barlow,PHI,15.72,15.76,125,126,2026-11-16
+player,Bones Hyland,MIN,15.6,16.28,126,119,2026-11-16
+player,Josh Hart,NYK,15.4,16.39,127,118,2026-11-16
+player,Scotty Pippen Jr.,MEM,15.27,15.31,128,133,2026-11-16
+player,Jonathan Kuminga,MIN,15.18,15.54,129,130,2026-11-16
+player,Jaylen Wells,MEM,15.17,14.43,130,138,2026-11-16
+player,Spencer Jones,DEN,14.91,15.88,131,123,2026-11-16
+player,Day'Ron Sharpe,BRK,14.91,15.09,132,135,2026-11-16
+player,Goga Bitadze,ORL,14.64,14.94,133,136,2026-11-16
+player,Jay Huff,IND,14.53,15.69,134,127,2026-11-16
+player,Yves Missi,NOP,14.5,15.37,135,132,2026-11-16
+player,Jamal Shead,TOR,14.11,15.49,136,131,2026-11-16
+player,Andre Drummond,NYK,13.99,14.36,137,139,2026-11-16
+player,Trevon Brazile,DEN,13.97,13.77,138,143,2026-11-16
+player,Harrison Barnes,SAS,13.82,13.68,139,144,2026-11-16
+player,Gary Payton II,GSW,13.8,13.97,140,142,2026-11-16
+player,Justin Edwards,PHI,13.62,15.12,141,134,2026-11-16
+player,Hannes Steinbach,CHO,13.54,13.6,143,145,2026-11-16
+player,Matisse Thybulle,LAL,13.49,13.35,144,146,2026-11-16
+player,DeAndre Jordan,NOP,13.43,11.98,145,155,2026-11-16
+player,Nate Ament,MIL,13.41,15.77,146,125,2026-11-16
+player,Isaiah Jackson,LAC,13.3,12.94,147,149,2026-11-16
+player,Emanuel Sharp,SAC,13.3,14.26,148,140,2026-11-16
+player,John Collins,DET,13.26,10.6,149,167,2026-11-16
+player,Kyle Anderson,TOR,13.0,13.1,150,147,2026-11-16
+player,Moussa Cissé,DAL,12.84,13.03,151,148,2026-11-16
+player,Kyle Filipowski,UTA,12.3,12.4,152,152,2026-11-16
+player,Craig Porter Jr.,CLE,12.23,12.6,153,150,2026-11-16
+player,Derik Queen,NOP,12.06,9.59,154,180,2026-11-16
+player,Micah Potter,POR,12.02,12.22,155,154,2026-11-16
+player,Daniss Jenkins,DET,11.81,11.7,156,156,2026-11-16
+player,Moritz Wagner,BRK,11.54,15.68,158,128,2026-11-16
+player,Karlo Matković,NOP,11.47,12.41,159,151,2026-11-16
+player,Moses Moody,GSW,11.39,11.46,160,157,2026-11-16
+player,Kelly Oubre Jr.,IND,11.31,10.53,161,169,2026-11-16
+player,Charles Bassey,GSW,11.19,11.43,162,158,2026-11-16
+player,Kenrich Williams,OKC,11.1,10.93,163,161,2026-11-16
+player,Kobe Sanders,LAC,11.06,14.04,164,141,2026-11-16
+player,Ziaire Williams,LAL,11.02,10.93,165,162,2026-11-16
+player,Mario Hezonja,CLE,10.98,10.57,166,168,2026-11-16
+player,Keldon Johnson,SAS,10.7,11.39,167,159,2026-11-16
+player,Tidjane Salaün,CHO,10.42,10.65,168,164,2026-11-16
+player,Mouhamed Gueye,ATL,8.77,8.47,186,194,2026-11-16
+player,Ryan Rollins,MIL,10.31,10.64,169,166,2026-11-16
+player,Davion Mitchell,MIA,10.24,9.03,170,185,2026-11-16
+player,Jaime Jaquez Jr.,MIL,10.19,10.64,171,165,2026-11-16
+player,Simone Fontecchio,MIA,10.15,10.06,172,175,2026-11-16
+player,Jalen Brunson,NYK,11.6,11.01,157,160,2026-11-16
+player,Thomas Bryant,CLE,10.03,9.44,173,183,2026-11-16
+player,Nae'Qwan Tomlin,CLE,9.98,10.0,174,177,2026-11-16
+player,Mike Conley,BOS,9.95,9.97,175,178,2026-11-16
+player,Josh Okogie,UTA,9.85,8.75,176,189,2026-11-16
+player,Brandon Williams,GSW,9.81,10.42,177,172,2026-11-16
+player,Jose Alvarado,NYK,9.51,10.08,178,174,2026-11-16
+player,Kris Dunn,LAC,9.5,10.43,179,171,2026-11-16
+player,Rasheer Fleming,PHO,9.35,9.48,180,182,2026-11-16
+player,Ivica Zubac,IND,9.06,9.95,181,179,2026-11-16
+player,Johnny Furphy,IND,9.04,9.07,182,184,2026-11-16
+player,Myron Gardner,MIA,9.0,5.79,183,215,2026-11-16
+player,Royce O'Neale,CHO,8.97,8.77,184,188,2026-11-16
+player,Fred VanVleet,HOU,8.82,10.9,185,163,2026-11-16
+player,Bogdan Bogdanović,HOU,8.77,10.5,187,170,2026-11-16
+player,Clint Capela,HOU,8.64,8.68,188,190,2026-11-16
+player,Jake LaRavia,LAL,8.61,8.66,189,191,2026-11-16
+player,Leonard Miller,CHI,8.6,8.06,190,200,2026-11-16
+player,Jericho Sims,MIL,8.52,8.81,191,187,2026-11-16
+player,Jabari Walker,PHI,8.52,8.4,192,197,2026-11-16
+player,Tim Hardaway Jr.,MIA,8.5,8.53,193,192,2026-11-16
+player,Jase Richardson,ORL,8.4,8.43,194,195,2026-11-16
+player,Miles Bridges,PHO,8.22,7.54,195,203,2026-11-16
+player,Kevin Durant,HOU,8.19,8.52,196,193,2026-11-16
+player,Daeqwon Plowden,SAC,8.15,10.39,197,173,2026-11-16
+player,Donte DiVincenzo,MIN,8.13,8.17,198,199,2026-11-16
+player,Anthony Gill,WAS,8.13,8.18,199,198,2026-11-16
+player,Isaiah Crawford,HOU,8.13,,200,,2026-11-16
+player,Derrick Jones Jr.,LAC,8.1,8.98,201,186,2026-11-16
+player,Jamaree Bouyea,PHO,7.82,7.17,202,204,2026-11-16
+player,Jordan McLaughlin,SAS,7.54,6.52,203,209,2026-11-16
+player,Jordan Clarkson,NYK,7.48,7.58,204,202,2026-11-16
+player,Steven Adams,HOU,7.41,6.23,205,211,2026-11-16
+player,Trendon Watford,NOP,6.95,6.97,206,206,2026-11-16
+player,Isaiah Collier,UTA,6.77,5.66,207,217,2026-11-16
+player,Kris Murray,MEM,6.72,6.94,208,207,2026-11-16
+player,Trey Murphy III,NOP,6.57,6.75,209,208,2026-11-16
+player,Larry Nance Jr.,IND,6.47,8.4,210,196,2026-11-16
+player,Kevin Huerter,DET,6.45,7.04,211,205,2026-11-16
+player,T.J. McConnell,IND,6.32,5.43,212,221,2026-11-16
+player,Jalen Smith,CHI,6.2,4.97,213,225,2026-11-16
+player,Ron Holland,DET,5.96,6.0,214,212,2026-11-16
+player,Trayce Jackson-Davis,TOR,5.95,5.75,215,216,2026-11-16
+player,Tarris Reed Jr.,SAS,5.61,5.64,216,218,2026-11-16
+player,Carter Bryant,SAS,5.54,5.93,217,213,2026-11-16
+player,Pete Nance,MIL,5.49,5.85,218,214,2026-11-16
+player,Precious Achiuwa,SAC,5.17,6.31,219,210,2026-11-16
+player,Sidy Cissoko,POR,5.15,4.41,220,230,2026-11-16
+player,Jared McCain,OKC,4.91,4.48,221,229,2026-11-16
+player,Grant Williams,CHO,4.67,5.43,222,220,2026-11-16
+player,Jamison Battle,TOR,4.21,4.54,224,228,2026-11-16
+player,Julian Strawther,DEN,3.65,3.45,229,235,2026-11-16
+player,Kevon Looney,LAL,4.03,,225,,2026-11-16
+player,Tari Eason,HOU,3.88,10.02,226,176,2026-11-16
+player,Labaron Philon Jr.,PHI,3.79,0.17,227,260,2026-11-16
+player,Matas Buzelis,CHI,3.69,1.4,228,251,2026-11-16
+player,GG Jackson II,MEM,3.64,4.31,230,231,2026-11-16
+player,Liam McNeeley,CHO,3.63,4.95,231,227,2026-11-16
+player,Immanuel Quickley,TOR,3.27,4.99,232,224,2026-11-16
+player,Yang Hansen,POR,3.22,4.96,233,226,2026-11-16
+player,Jevon Carter,ORL,3.18,2.78,234,240,2026-11-16
+player,Taurean Prince,DET,3.14,3.15,235,239,2026-11-16
+player,Aaron Wiggins,ATL,3.08,3.87,236,233,2026-11-16
+player,Marcus Sasser,DAL,3.08,1.97,237,246,2026-11-16
+player,Quinten Post,MEM,3.01,2.13,238,244,2026-11-16
+player,Georges Niang,GSW,2.95,9.53,239,181,2026-11-16
+player,Marcus Smart,HOU,2.92,3.3,240,236,2026-11-16
+player,Devin Vassell,SAS,2.82,0.99,241,252,2026-11-16
+player,Branden Carlson,POR,2.72,3.27,242,237,2026-11-16
+player,Danny Wolf,BRK,2.72,5.29,243,222,2026-11-16
+player,Jamal Cain,ORL,2.57,3.27,244,238,2026-11-16
+player,Gary Harris,DET,2.52,2.53,245,243,2026-11-16
+player,Rudy Gobert,MIN,2.09,4.27,246,232,2026-11-16
+player,Tyus Jones,DEN,2.03,2.7,247,241,2026-11-16
+player,Nicolas Batum,LAC,1.98,1.99,248,245,2026-11-16
+player,Anthony Black,ORL,1.86,2.56,249,242,2026-11-16
+player,Jock Landale,ATL,1.64,1.67,250,247,2026-11-16
+player,Ben Sheppard,IND,1.49,1.5,251,249,2026-11-16
+player,Ryan Nembhard,CHO,1.48,1.48,252,250,2026-11-16
+player,Taylor Hendricks,MEM,1.45,0.18,253,259,2026-11-16
+player,Nic Claxton,CHI,1.39,-0.13,254,265,2026-11-16
+player,Al Horford,GSW,1.33,3.56,255,234,2026-11-16
+player,Quentin Grimes,LAL,1.17,-4.23,256,290,2026-11-16
+player,Max Strus,LAC,0.61,0.18,257,258,2026-11-16
+player,Noa Essengue,CHI,0.32,1.63,258,248,2026-11-16
+player,Micah Peavy,MEM,0.29,0.29,259,255,2026-11-16
+player,Brook Lopez,LAC,0.17,-0.54,260,271,2026-11-16
+player,Zeke Nnaji,DEN,0.08,0.11,261,261,2026-11-16
+player,Santi Aldama,DAL,-0.02,0.24,262,256,2026-11-16
+player,Jimmy Butler,GSW,-0.04,0.08,263,263,2026-11-16
+player,Dalton Knecht,LAL,-0.04,-0.04,264,264,2026-11-16
+player,Bennedict Mathurin,NOP,-0.2,-0.17,265,266,2026-11-16
+player,Gradey Dick,LAC,-0.35,0.33,266,254,2026-11-16
+player,Alex Karaban,SAC,-0.41,7.59,268,201,2026-11-16
+player,Keon Ellis,BRK,-0.68,-0.2,269,267,2026-11-16
+player,Nick Richards,MIA,-1.09,-1.09,270,272,2026-11-16
+player,Svi Mykhailiuk,UTA,-1.14,-2.91,271,281,2026-11-16
+player,Naji Marshall,DAL,-1.68,-2.55,272,277,2026-11-16
+player,James Harden,CLE,4.31,5.22,223,223,2026-11-16
+player,Max Christie,DAL,-1.88,-2.8,273,279,2026-11-16
+player,Cameron Johnson,DEN,-1.9,-0.31,274,269,2026-11-16
+player,Kristaps Porziņģis,GSW,-2.0,-1.93,275,274,2026-11-16
+player,Christian Braun,DEN,-2.12,0.22,276,257,2026-11-16
+player,Obi Toppin,IND,-2.24,-0.53,277,270,2026-11-16
+player,Christian Anderson Jr.,CHO,-2.62,-1.95,279,275,2026-11-16
+player,Isaac Okoro,CHI,-2.65,-3.29,280,283,2026-11-16
+player,Walter Clayton,MEM,-2.83,-2.83,281,280,2026-11-16
+player,Kyshawn George,WAS,-2.94,-4.13,283,289,2026-11-16
+player,De'Anthony Melton,GSW,-3.13,0.58,284,253,2026-11-16
+player,Toumani Camara,POR,-3.19,-1.51,285,273,2026-11-16
+player,Brice Sensabaugh,UTA,-3.3,-3.5,286,285,2026-11-16
+player,Norman Powell,CHI,-3.34,-2.69,287,278,2026-11-16
+player,Noah Clowney,BRK,-3.55,-3.3,288,284,2026-11-16
+player,Jonathan Isaac,ORL,-3.59,-3.58,289,286,2026-11-16
+player,Devin Carter,ATL,-3.8,-3.8,290,287,2026-11-16
+player,Corey Kispert,ATL,-3.88,-5.1,291,296,2026-11-16
+player,Josh Green,UTA,-4.2,-4.85,293,294,2026-11-16
+player,Cole Anthony,MEM,-4.42,-4.42,294,291,2026-11-16
+player,Caleb Wilson,CHI,-5.58,-5.71,304,302,2026-11-16
+player,Caris LeVert,MIL,-4.82,-5.26,296,298,2026-11-16
+player,Jakob Poeltl,TOR,-4.96,-3.89,297,288,2026-11-16
+player,Luguentz Dort,ATL,-5.11,-5.87,298,304,2026-11-16
+player,Jarred Vanderbilt,LAL,-5.21,-5.77,299,303,2026-11-16
+player,Caleb Martin,DAL,-5.35,-6.04,300,306,2026-11-16
+player,Bilal Coulibaly,WAS,-5.4,-5.09,301,295,2026-11-16
+player,Rob Dillingham,CHO,-5.53,-5.53,302,300,2026-11-16
+player,Jaden McDaniels,MIN,-5.57,-10.26,303,324,2026-11-16
+player,Jordan Hawkins,MEM,-5.66,-5.66,305,301,2026-11-16
+player,Will Riley,WAS,-6.43,-6.38,306,307,2026-11-16
+player,Zaccharie Risacher,DAL,-6.8,-5.37,308,299,2026-11-16
+player,Ben Saraf,BRK,-6.84,-6.84,309,308,2026-11-16
+player,Jarace Walker,IND,-7.12,-7.12,310,310,2026-11-16
+player,Rui Hachimura,LAC,-7.16,-8.31,311,315,2026-11-16
+player,RJ Barrett,TOR,-9.09,-6.87,320,309,2026-11-16
+player,Nique Clifford,OKC,-7.52,-7.52,313,313,2026-11-16
+player,Buddy Hield,CHI,-7.84,-8.37,314,316,2026-11-16
+player,Drake Powell,BRK,-8.17,-8.17,315,314,2026-11-16
+player,Alex Sarr,WAS,-8.21,-7.45,316,312,2026-11-16
+player,Morez Johnson Jr.,DAL,-8.37,0.08,317,262,2026-11-16
+player,Jaden Hardy,LAL,-8.85,-8.85,318,317,2026-11-16
+player,Bub Carrington,WAS,-8.92,-8.92,319,318,2026-11-16
+player,Egor Dëmin,BRK,-9.17,-5.87,321,305,2026-11-16
+player,Cade Cunningham,DET,-2.31,-2.03,278,276,2026-11-16
+player,Nolan Traoré,BRK,-9.38,-9.38,323,320,2026-11-16
+player,Zion Williamson,NOP,-9.48,-9.46,324,321,2026-11-16
+player,CJ McCollum,ATL,-11.58,-9.94,331,323,2026-11-16
+player,Julius Randle,BRK,-10.28,-10.61,325,328,2026-11-16
+player,Scoot Henderson,POR,-10.3,-10.51,326,326,2026-11-16
+player,Cody Williams,MIN,-10.41,-10.41,327,325,2026-11-16
+player,Bobby Portis,MIA,-10.5,-9.71,328,322,2026-11-16
+player,Zach Collins,CHI,-11.25,-10.67,330,329,2026-11-16
+player,Jamal Murray,DEN,-2.87,-2.97,282,282,2026-11-16
+player,Keyonte George,UTA,-11.63,-29.32,332,366,2026-11-16
+player,Ousmane Dieng,MIL,-11.97,-11.97,333,333,2026-11-16
+player,Derrick White,BOS,-6.61,-4.55,307,293,2026-11-16
+player,Khris Middleton,WAS,-12.26,-12.26,334,334,2026-11-16
+player,Andrew Nembhard,IND,-12.42,-11.07,335,330,2026-11-16
+player,Tyler Herro,MIL,-12.62,-11.52,336,332,2026-11-16
+player,Tre Mann,WAS,-12.7,-12.7,337,335,2026-11-16
+player,Kentavious Caldwell-Pope,PHI,-12.92,-12.97,338,336,2026-11-16
+player,Alex Caruso,OKC,-13.38,-11.12,339,331,2026-11-16
+player,Jusuf Nurkić,UTA,-13.82,-13.81,341,339,2026-11-16
+player,Kawhi Leonard,TOR,-0.39,-0.23,267,268,2026-11-16
+player,Andrew Wiggins,MIA,-13.98,-16.61,342,344,2026-11-16
+player,Kyle Kuzma,MIL,-15.5,-15.3,344,341,2026-11-16
+player,Giannis Antetokounmpo,MIA,-3.94,-5.25,292,297,2026-11-16
+player,Klay Thompson,MIA,-15.8,-25.8,346,360,2026-11-16
+player,Mikel Brown Jr.,BRK,-16.68,5.59,347,219,2026-11-16
+player,Austin Reaves,LAL,-16.73,-16.44,348,343,2026-11-16
+player,Karl-Anthony Towns,NYK,-4.48,-4.49,295,292,2026-11-16
+player,Terance Mann,BRK,-18.07,-17.96,349,346,2026-11-16
+player,Kyrie Irving,DAL,-18.34,-23.56,351,355,2026-11-16
+player,Darius Acuff Jr.,SAC,-19.42,-26.27,352,362,2026-11-16
+player,Jeremiah Fears,NOP,-19.98,-20.53,355,349,2026-11-16
+player,De'Andre Hunter,SAC,-21.56,-19.84,357,348,2026-11-16
+player,Tre Johnson,WAS,-22.86,-22.86,358,354,2026-11-16
+player,Draymond Green,GSW,-23.14,-22.82,359,353,2026-11-16
+player,Michael Porter Jr.,BRK,-23.25,-22.3,360,352,2026-11-16
+player,Jrue Holiday,POR,-23.29,-24.26,361,357,2026-11-16
+player,Damian Lillard,POR,-24.21,-20.62,362,350,2026-11-16
+player,Jerami Grant,MEM,-24.23,-23.91,363,356,2026-11-16
+player,Josh Giddey,CHI,-25.09,-25.21,364,358,2026-11-16
+player,Ace Bailey,UTA,-25.56,-25.56,365,359,2026-11-16
+player,Dennis Schröder,CHO,-26.09,-26.09,366,361,2026-11-16
+player,A.J. Green,MIL,-26.38,-27.68,367,363,2026-11-16
+player,Dorian Finney-Smith,ATL,-29.06,-28.94,369,364,2026-11-16
+player,Anthony Edwards,MIN,-7.29,-7.23,312,311,2026-11-16
+player,Mikal Bridges,NYK,-18.17,-18.43,350,347,2026-11-16
+player,Jordan Poole,NOP,-31.36,-32.6,370,367,2026-11-16
+player,LaMelo Ball,MIN,-19.54,-16.04,353,342,2026-11-16
+player,AJ Dybantsa,WAS,-34.11,-45.73,371,377,2026-11-16
+player,Desmond Bane,ORL,-34.2,-35.61,372,368,2026-11-16
+player,OG Anunoby,NYK,-34.65,-36.25,373,371,2026-11-16
+player,Coby White,CHO,-36.29,-37.57,374,373,2026-11-16
+player,Malik Monk,SAC,-36.61,-36.49,375,372,2026-11-16
+player,Aaron Gordon,DEN,-37.0,-35.92,376,369,2026-11-16
+player,Peyton Watson,CLE,-37.13,-36.15,377,370,2026-11-16
+player,Scottie Barnes,TOR,-9.29,-9.27,322,319,2026-11-16
+player,Zach LaVine,SAC,-38.78,-39.19,378,374,2026-11-16
+player,Tyrese Haliburton,IND,-10.6,-10.54,329,327,2026-11-16
+player,Aaron Nesmith,IND,-42.92,-42.92,379,375,2026-11-16
+player,Brandon Ingram,LAC,-45.25,-45.19,380,376,2026-11-16
+player,Patrick Williams,CHI,-46.06,-46.06,381,378,2026-11-16
+player,Shaedon Sharpe,POR,-51.32,-51.43,385,381,2026-11-16
+player,Dejounte Murray,NOP,-48.38,-48.36,382,379,2026-11-16
+player,Nikola Jović,MIA,-50.45,-50.45,383,380,2026-11-16
+player,Naz Reid,CHO,-50.72,-53.83,384,383,2026-11-16
+player,Gary Trent Jr.,MIL,-51.79,-51.79,386,382,2026-11-16
+player,Evan Mobley,CLE,-14.29,-13.08,343,337,2026-11-16
+player,Jalen Suggs,ORL,-53.01,-55.79,387,384,2026-11-16
+player,Jalen Williams,OKC,-13.63,-13.57,340,338,2026-11-16
+player,Franz Wagner,ORL,-56.46,-56.45,388,386,2026-11-16
+player,Darius Garland,LAC,-57.02,-58.28,389,387,2026-11-16
+player,Bam Adebayo,MIA,-57.07,-56.44,390,385,2026-11-16
+player,Stephen Curry,GSW,-15.77,-17.25,345,345,2026-11-16
+player,Paul George,BOS,-58.04,-58.81,391,388,2026-11-16
+player,P.J. Washington,DAL,-59.19,-66.09,392,392,2026-11-16
+player,Domantas Sabonis,SAC,-61.46,-60.26,393,389,2026-11-16
+player,Ja Morant,POR,-63.5,-63.46,394,390,2026-11-16
+player,Lauri Markkanen,UTA,-67.22,-70.25,397,396,2026-11-16
+player,Myles Turner,MIL,-64.15,-64.01,395,391,2026-11-16
+player,Jalen Green,PHO,-66.88,-66.88,396,393,2026-11-16
+player,Dillon Brooks,PHO,-67.32,-68.8,398,395,2026-11-16
+player,Herbert Jones,NOP,-67.38,-67.38,399,394,2026-11-16
+player,Anthony Davis,WAS,-68.06,-70.97,400,397,2026-11-16
+player,Pascal Siakam,IND,-73.13,-73.6,401,398,2026-11-16
+player,Brandon Miller,CHO,-76.66,-77.57,402,399,2026-11-16
+player,Jayson Tatum,BOS,-19.56,-14.97,354,340,2026-11-16
+player,Jaylen Brown,PHI,-20.92,-21.33,356,351,2026-11-16
+player,De'Aaron Fox,SAS,-88.7,-82.45,403,400,2026-11-16
+player,Paolo Banchero,ORL,-96.35,-96.98,404,401,2026-11-16
+player,Devin Booker,PHO,-101.31,-107.73,405,402,2026-11-16
+player,Joel Embiid,PHI,-106.19,-109.68,406,403,2026-11-16
+player,Keegan Murray,SAC,-112.8,-112.8,407,404,2026-11-16
+player,Donovan Mitchell,CLE,-28.89,-29.23,368,365,2026-11-16
+player,Trae Young,WAS,-138.64,-128.52,408,405,2026-11-16
+player,Jaren Jackson Jr.,UTA,-177.44,-177.49,409,406,2026-11-16
+team,SAS,SAS,147.5,152.9,2,2,2026-11-16
+team,OKC,OKC,141.6,142.6,3,3,2026-11-16
+team,BOS,BOS,150.6,154.4,1,1,2026-11-16
+team,DET,DET,134.9,125.5,4,4,2026-11-16
+team,HOU,HOU,113.4,115.2,5,5,2026-11-16
+team,DEN,DEN,87.7,91.6,8,7,2026-11-16
+team,CLE,CLE,98.3,100.5,6,6,2026-11-16
+team,MIN,MIN,91.3,89.9,7,8,2026-11-16
+team,NYK,NYK,80.5,80.6,9,11,2026-11-16
+team,CHO,CHO,71.9,71.2,12,12,2026-11-16
+team,MEM,MEM,74.2,59.5,11,14,2026-11-16
+team,TOR,TOR,77.9,82.1,10,10,2026-11-16
+team,LAL,LAL,64.5,64.5,14,13,2026-11-16
+team,GSW,GSW,68.1,83.4,13,9,2026-11-16
+team,POR,POR,37.1,37.7,16,16,2026-11-16
+team,PHI,PHI,52.6,50.4,15,15,2026-11-16
+team,ATL,ATL,24.4,30.6,18,17,2026-11-16
+team,PHO,PHO,31.3,26.7,17,18,2026-11-16
+team,MIA,MIA,14.6,-0.1,19,19,2026-11-16
+team,DAL,DAL,4.2,-2.2,20,20,2026-11-16
+team,LAC,LAC,-14.2,-8.5,24,22,2026-11-16
+team,CHI,CHI,-4.5,-9.3,21,23,2026-11-16
+team,ORL,ORL,-6.9,-8.0,22,21,2026-11-16
+team,NOP,NOP,-10.1,-11.4,23,24,2026-11-16
+team,MIL,MIL,-14.4,-11.6,25,25,2026-11-16
+team,UTA,UTA,-23.3,-34.0,27,28,2026-11-16
+team,BRK,BRK,-29.9,-18.6,28,27,2026-11-16
+team,IND,IND,-21.5,-18.0,26,26,2026-11-16
+team,WAS,WAS,-74.9,-74.2,29,29,2026-11-16
+team,SAC,SAC,-116.8,-110.7,30,30,2026-11-16
