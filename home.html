@@ -48,6 +48,26 @@ h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.0
 .btn{color:#fff;box-shadow:0 8px 25px rgba(255,46,136,.45);transition:transform .2s,background .2s}.btn:not(.ghost):hover{background:#FF4796}.btn:hover{transform:translateY(-2px)}
 .btn.ghost{background:rgba(15,28,63,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);border:1px solid rgba(255,255,255,.14);box-shadow:none}.btn.ghost:hover{border-color:#FF7EB6}
 .stat,.card,.pc,.screw ol,.how li,.wiz,.note{background:rgba(15,28,63,.65)!important;border-color:rgba(255,255,255,.08)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:14px!important}
+.ticker{display:flex;justify-content:center;gap:6px 26px;flex-wrap:wrap;padding:8px 16px;background:#09122B;border-bottom:1px solid rgba(255,255,255,.09);font-size:12.5px;color:var(--muted)}
+.ticker strong{color:#FF7EB6;font-weight:700;letter-spacing:.03em}.ticker a{color:var(--ink);text-decoration:none}.ticker a:hover{color:#FF7EB6}.ticker img{width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+.debate{background:rgba(8,17,42,.88);border:1px solid rgba(255,46,136,.55);box-shadow:0 18px 50px rgba(6,13,33,.8),0 0 30px rgba(255,46,136,.25);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:16px;padding:18px 20px;margin:0 auto 22px;max-width:640px;text-align:left}
+.dh{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px;font:700 12px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#FF7EB6}
+.tbox{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;background:rgba(18,33,74,.65);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.side small{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;margin-bottom:4px}.side small img{width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+.side p{margin:0;font-weight:600;font-size:14.5px;line-height:1.35}.side p span{display:block;font-weight:400;color:var(--muted);font-size:12.5px}.swap{color:#FF2E88;font-weight:900;font-size:20px}
+.poll{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.poll button{cursor:pointer;padding:9px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.09);background:#12214A;color:var(--ink);font:600 13px system-ui,sans-serif}
+.poll button:hover{border-color:#FF2E88}.poll button.on{background:#FF2E88;border-color:#FF2E88;color:#fff}.poll button:focus-visible{outline:2px solid #FF7EB6;outline-offset:2px}
+.verdict{margin:10px 0 0;font-size:13px;color:var(--muted)}.verdict b{color:var(--ink)}
+.bento{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px;margin-top:8px}
+.panel{background:rgba(12,23,54,.8);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:16px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.ph2{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.09)}.ph2 h2{margin:0;color:var(--ink);font-size:14px}.ph2 a{color:#FF7EB6;font-size:13px;font-weight:600;text-decoration:none}
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}.rank li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:rgba(18,33,74,.55);font-size:14px}
+.rank a{color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;min-width:0}.rank a:hover{color:#FF7EB6}.rank .nm{line-height:1.25}
+.rank .n{font-weight:800;color:#FF2E88;width:24px;flex:none}.tag{font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px;font-weight:600;white-space:nowrap}
+.rank .r{font-weight:800;font-size:13px;white-space:nowrap}.gr{color:#34D399}.tv{color:#FF7EB6}
+.notes{display:flex;flex-direction:column;gap:10px}.note-b{display:block;padding:10px 12px;border-left:3px solid #FF2E88;background:rgba(18,33,74,.45);border-radius:0 8px 8px 0;text-decoration:none;color:var(--ink)}
+.note-b b{display:block;font-size:14px;margin-bottom:2px}.note-b span{font-size:13px;color:var(--muted);line-height:1.45}.note-b:hover b{color:#FF7EB6}
+@media (max-width:560px){.tbox{grid-template-columns:1fr;text-align:center}.poll button{font-size:12px}}
 .sub{color:var(--muted);font-size:13.5px}
 footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 .how{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
@@ -56,23 +76,27 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 .how b{color:var(--ink)}
 </style></head><body>
 <script src="nav.js" data-page="landing"></script>
+<div class="ticker"><span><strong>PICKS RECORD:</strong> <a href="predict.html" id="rec">…</a> <span id="recs" hidden></span></span><span><strong>TITLE FAVORITE:</strong> <a href="sim.html" id="ttl">…</a></span><span><strong>LATEST MOVE:</strong> <a href="grader.html" id="trx">…</a></span></div>
 <main>
 <section class="hero">
 <div class="splash" aria-hidden="true"><div class="glow"></div>
 <svg viewBox="0 0 200 200"><defs><linearGradient id="splashGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff2e88"/><stop offset="100%" stop-color="#ff65a3"/></linearGradient></defs>
 <path fill="url(#splashGrad)" d="M44.7,-64.6C57.1,-55.4,65.8,-41.3,71.4,-26.1C77,-10.9,79.5,5.3,74.8,19.4C70.1,33.5,58.2,45.4,44.7,54.8C31.2,64.2,15.6,71.1,-0.8,72.2C-17.2,73.3,-34.4,68.6,-48.6,59.1C-62.8,49.6,-74,35.3,-78.4,19.1C-82.8,2.9,-80.4,-15.2,-71.6,-29.6C-62.8,-44,-47.6,-54.7,-32.6,-63.1C-17.6,-71.5,-2.8,-77.6,12.2,-76.8C27.2,-76,32.3,-73.8,44.7,-64.6Z" transform="translate(100 100)"/>
 <circle cx="172" cy="48" r="7" fill="#ff2e88"/><circle cx="182" cy="64" r="3.5" fill="#ff7eb6"/><circle cx="26" cy="146" r="8" fill="#ff2e88"/><circle cx="18" cy="128" r="4" fill="#ff7eb6"/><circle cx="145" cy="175" r="5" fill="#ff2e88"/></svg></div>
-<div class="hero-in"><span class="pill">2026-27 season · live</span>
-<h1>Every team is a balance sheet</h1>
-<p class="lede">Contracts, trades, cap math, season odds and daily game picks for all 30 NBA teams. Pick your team, then try to out-GM the league.</p>
-<div class="ctas"><a class="btn" href="index.html#home">Pick your team</a><a class="btn ghost" href="tough.html">See who's screwed</a></div></div>
+<div class="hero-in"><span class="pill">2026-27 asset ledger · updated twice a day</span>
+<h1>Every pick, contract and front office, ranked</h1>
+<p class="lede">Trade values for every player, front office grades for all 30 teams, second-apron cap math and a new "Who Says No?" trade every day.</p>
+<div class="debate" id="wsn"><div class="dh"><span>🔥 Today's "Who Says No?"</span><span id="wsnDate"></span></div>
+<div class="tbox"><div class="side"><small id="wsnA">Contender receives</small><p id="wsnAp">Loading…</p></div><div class="swap">⇄</div><div class="side"><small id="wsnB">Rebuilder receives</small><p id="wsnBp"></p></div></div>
+<div class="poll"><button data-v="a" id="vA">Contender says no</button><button data-v="fair">Fair deal</button><button data-v="b" id="vB">Rebuilder says no</button></div>
+<p class="verdict" id="wsnV" hidden></p></div>
+<div class="ctas"><a class="btn" href="index.html#players">Every trade value →</a><a class="btn ghost" href="index.html#teams">Front office rankings (1-30)</a></div></div>
 </section>
 
-<h2>Live right now</h2>
-<div class="live">
-<a class="stat card" href="predict.html"><span>Game picks record</span><b id="rec">…</b><span id="recs">since Oct 25</span></a>
-<a class="stat card" href="sim.html"><span>Title odds leader</span><b id="ttl">…</b><span id="ttls">Monte Carlo season sim</span></a>
-<a class="stat card" href="grader.html"><span>Latest move</span><b id="trx" style="font-size:17px">…</b><span>Transactions feed</span></a>
+<div class="bento">
+<div class="panel"><div class="ph2"><h2>Trade value top 5</h2><a href="index.html#players">All players →</a></div><ul class="rank" id="tvTop"><li>Loading…</li></ul></div>
+<div class="panel"><div class="ph2"><h2>Front office index</h2><a href="index.html#teams">All 30 teams →</a></div><ul class="rank" id="foTop"><li>Loading…</li></ul></div>
+<div class="panel"><div class="ph2"><h2>Cap corner</h2><a href="capsheet.html">Cap sheet →</a></div><div class="notes" id="capNotes"></div></div>
 </div>
 
 <h2>Top value players this week</h2>
@@ -144,7 +168,7 @@ get("data/predictions.csv").then(function(t){var r=csv(t).filter(function(x){ret
 get("data/sim_data.json",1).then(function(d){var o=SeasonSim.run(d,{sims:1500}).teams,k=Object.keys(o).sort(function(a,b){return o[b].title-o[a].title})[0];
  document.getElementById("ttl").innerHTML='<img src="logos/'+k+'.png" alt="">'+k+" "+Math.round(o[k].title*100)+"%"}).catch(function(){document.getElementById("ttl").textContent="–"});
 get("data/transactions.csv").then(function(t){var r=csv(t);if(!r.length)throw 0;var x=r[r.length-1],k=Object.keys(x);
- var s=(r.sort(function(a,b){return (b.date||"")>(a.date||"")?1:-1})[0]);document.getElementById("trx").textContent=(s.summary||s.description||s.player||s[k[1]]||"").slice(0,70)}).catch(function(){document.getElementById("trx").textContent="–"});
+ var s=(r.sort(function(a,b){return (b.date||"")>(a.date||"")?1:-1})[0]);document.getElementById("trx").textContent=(s.summary||s.description||s.player||s[k[1]]||"").slice(0,60)}).catch(function(){document.getElementById("trx").textContent="–"});
 toughData().then(function(D){if(!D)throw 0;
  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
  var li=function(href,t,name,why){return '<li><img src="logos/'+t+'.png" alt=""><a href="'+href+'"><b>'+esc(name)+'</b><span>'+esc(why)+'</span></a></li>'};
@@ -158,4 +182,50 @@ get("data/live_values.csv").then(function(t){var r=csv(t).filter(function(x){ret
  r.sort(function(a,b){return b.week_m-a.week_m});
  var none="<li><span>Nobody yet.</span></li>";document.getElementById("mvUp").innerHTML=r.filter(function(x){return x.week_m>0}).slice(0,3).map(li).join("")||none;document.getElementById("mvDn").innerHTML=r.filter(function(x){return x.week_m<0}).slice(-3).reverse().map(li).join("")||none;
  document.getElementById("mvWrap").hidden=false}).catch(function(){});
+// ---- Ticker title favorite text is set by the sim block above; trim its image size via CSS ----
+Promise.all(["trade_values","team_power","team_summary","live_values","draft_picks"].map(function(n){return get("data/"+n+".csv").then(csv).catch(function(){return[]})})).then(function(d){
+ var tv=d[0],pw=d[1],ts=d[2],lv=d[3],pk=d[4],N=function(x){var v=parseFloat(x);return isNaN(v)?0:v};
+ var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+ var m=function(v){return(v<0?"−":"+")+"$"+Math.abs(v).toFixed(0)+"M"};
+ var NM={ATL:"Atlanta",BOS:"Boston",BRK:"Brooklyn",CHO:"Charlotte",CHI:"Chicago",CLE:"Cleveland",DAL:"Dallas",DEN:"Denver",DET:"Detroit",GSW:"Golden State",HOU:"Houston",IND:"Indiana",LAC:"LA Clippers",LAL:"LA Lakers",MEM:"Memphis",MIA:"Miami",MIL:"Milwaukee",MIN:"Minnesota",NOP:"New Orleans",NYK:"New York",OKC:"Oklahoma City",ORL:"Orlando",PHI:"Philadelphia",PHO:"Phoenix",POR:"Portland",SAC:"Sacramento",SAS:"San Antonio",TOR:"Toronto",UTA:"Utah",WAS:"Washington"};
+ var lg=function(t){return '<img src="logos/'+t+'.png" alt="" width="18" height="18" style="flex:none">'};
+ var L={};lv.forEach(function(r){L[r.Player+"|"+r.Team]=N(r.week_m)});
+ var P=tv.filter(function(r){return !/small/.test(r.flag||"")}).map(function(r){return{n:r.Player,t:r.Team,age:N(r.Age),sal:N(r.salary_2026_27_m),v:N(r.trade_value_m)+(L[r.Player+"|"+r.Team]||0),w:L[r.Player+"|"+r.Team]||0}});
+ // Trade value top 5
+ var top=P.slice().sort(function(a,b){return b.v-a.v}).slice(0,5);
+ document.getElementById("tvTop").innerHTML=top.map(function(p,i){return '<li><a href="index.html#player/'+encodeURIComponent(p.n)+'"><span class="n">#'+(i+1)+'</span>'+lg(p.t)+'<span class="nm">'+esc(p.n)+'</span></a><span class="r tv">'+m(p.v)+(p.w?' <small style="color:var(--'+(p.w>0?"good":"bad")+')">'+(p.w>0?"▲":"▼")+'</small>':"")+'</span></li>'}).join("");
+ // Front office index: net surplus (minus dead money) plus picks, graded by rank
+ var G=["A+","A+","A","A","A-","A-","B+","B+","B","B","B","B-","B-","C+","C+","C","C","C","C-","C-","D+","D+","D","D","D","D-","D-","F","F","F"];
+ var fo=ts.map(function(r){return{t:r.Team,s:N(r.net_m)+N(r.pick_value_m),best:r.best_contract}}).sort(function(a,b){return b.s-a.s});
+ document.getElementById("foTop").innerHTML=fo.slice(0,5).map(function(x,i){return '<li><a href="index.html#teams"><span class="n">#'+(i+1)+'</span>'+lg(x.t)+'<span class="nm" title="Best contract: '+esc(x.best||"")+'">'+NM[x.t]+'</span></a><span class="r gr">'+G[i]+'</span></li>'}).join("");
+ // Cap corner: real notes that link to the deep pages
+ var worst=P.slice().sort(function(a,b){return a.v-b.v})[0],own={};pk.forEach(function(r){if(r.round==="1"&&!/SWAP/.test(r.pick_id))own[r.owner]=(own[r.owner]||0)+1});
+ var hoard=Object.keys(own).sort(function(a,b){return own[b]-own[a]})[0],last=fo[fo.length-1];
+ document.getElementById("capNotes").innerHTML=(worst?'<a class="note-b" href="index.html#player/'+encodeURIComponent(worst.n)+'"><b>Worst contract in the league</b><span>'+esc(worst.n)+' ('+worst.t+'): trade value '+m(worst.v)+' over the rest of his deal.</span></a>':"")+
+  (hoard?'<a class="note-b" href="outlook.html"><b>Pick hoarder</b><span>'+NM[hoard]+' own '+own[hoard]+' first-round picks through 2033, the most in the league.</span></a>':"")+
+  '<a class="note-b" href="tough.html"><b>Rock bottom</b><span>'+NM[last.t]+' rank 30th in the front office index. See who else is in a tough spot.</span></a>';
+ // Who Says No: one trade a day, the same for everyone. A contender gets a rebuilder's best deal for salary-matched players.
+ var day=new Date().toLocaleDateString("en-CA",{timeZone:"America/New_York"}),seed=0;for(var i=0;i<day.length;i++)seed=(seed*31+day.charCodeAt(i))>>>0;
+ var rnd=function(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+ var pct=function(r){var g=N(r.wins)+N(r.losses);return g?N(r.wins)/g:.5},byPct=pw.slice().sort(function(a,b){return pct(b)-pct(a)}).map(function(r){return r.team});
+ var con=byPct.slice(0,8),reb=byPct.slice(-10),deal=null;
+ for(var k=0;k<40&&!deal;k++){var C=con[Math.floor(rnd()*con.length)],R=reb[Math.floor(rnd()*reb.length)];if(C===R)continue;
+  var stars=P.filter(function(p){return p.t===R&&p.sal>=20&&p.v>5}).sort(function(a,b){return b.v-a.v});if(!stars.length)continue;
+  var s=stars[Math.floor(rnd()*Math.min(2,stars.length))],cp=P.filter(function(p){return p.t===C}).sort(function(a,b){return b.v-a.v}).slice(1),best=null;
+  for(var a=0;a<cp.length;a++)for(var b=a;b<cp.length;b++){var pkg=a===b?[cp[a]]:[cp[a],cp[b]],sal=pkg.reduce(function(q,p){return q+p.sal},0);
+   if(sal<s.sal*0.8||sal>s.sal*1.25+0.1)continue;var val=pkg.reduce(function(q,p){return q+p.v},0),young=pkg.some(function(p){return p.age<=25})?0:15,sc=Math.abs(val-s.v)+young;
+   if(!best||sc<best.sc)best={pkg:pkg,val:val,sc:sc}}
+  if(best)deal={C:C,R:R,s:s,pkg:best.pkg,val:best.val}}
+ var box=document.getElementById("wsn");if(!deal){box.hidden=true;return}
+ var who=function(p){return esc(p.n)+'<span>'+(p.age?"age "+p.age.toFixed(0)+", ":"")+"$"+p.sal.toFixed(1)+"M · value "+m(p.v)+'</span>'};
+ document.getElementById("wsnDate").textContent=new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"});
+ document.getElementById("wsnA").innerHTML=lg(deal.C)+NM[deal.C]+" receive";document.getElementById("wsnAp").innerHTML=who(deal.s);
+ document.getElementById("wsnB").innerHTML=lg(deal.R)+NM[deal.R]+" receive";document.getElementById("wsnBp").innerHTML=deal.pkg.map(who).join("<br>");
+ document.getElementById("vA").textContent=NM[deal.C]+" says no";document.getElementById("vB").textContent=NM[deal.R]+" says no";
+ var dv=deal.s.v-deal.val,model=dv>15?"b":dv<-15?"a":"fair",lbl={a:NM[deal.C]+" says no",b:NM[deal.R]+" says no",fair:"Fair deal"};
+ var show=function(v){box.querySelectorAll(".poll button").forEach(function(b){b.classList.toggle("on",b.dataset.v===v)});var el=document.getElementById("wsnV");el.hidden=false;
+  el.innerHTML="The Ledger says: <b>"+lbl[model]+"</b>. "+(model==="fair"?"The two sides are within $15M of trade value.":(model==="b"?NM[deal.R]+" give up "+m(Math.abs(dv)).slice(1)+" more value than they get back.":NM[deal.C]+" give up "+m(Math.abs(dv)).slice(1)+" more value than they get back."))+(v===model?" You agree.":"")};
+ var key="wsn-"+day,mine=null;try{mine=localStorage.getItem(key)}catch(e){}if(mine)show(mine);
+ box.querySelector(".poll").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;try{localStorage.setItem(key,b.dataset.v)}catch(_){}show(b.dataset.v)});
+});
 </script></body></html>
