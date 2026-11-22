@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#060E24"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="offseason"></script>
 <title>Offseason Mode</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -6,21 +6,21 @@
 <style>
 /* Layout: same ledger system as Contract Ledger. Team strip, sticky cap summary, four tabs (cap sheet, free agents, extensions, mock draft). */
 :root{
-  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
-  --accent:#C2410C; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --goodtint:rgba(21,128,61,.07); --dim:#C3CCD6;
-  --seg1:#2F6FAD; --seg2:#7A8CA3; --seg3:#C2410C; --seg4:#15803D;
+  --bg:#F2F4F9; --surface:#FFFFFF; --ink:#0B1B33; --muted:#4F5D78; --line:#D8DEEA;
+  --accent:#D6177A; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --goodtint:rgba(21,128,61,.07); --dim:#C3CCD6;
+  --seg1:#2F6FAD; --seg2:#7A8CA3; --seg3:#D6177A; --seg4:#15803D;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
-  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --goodtint:rgba(74,222,128,.07); --dim:#33404E;
-  --seg1:#5B9BD5; --seg2:#6B7C91; --seg3:#F08A4B; --seg4:#4ADE80; color-scheme:dark}}
+  --bg:#071226; --surface:#0E1E38; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456;
+  --accent:#FF4FA8; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --goodtint:rgba(74,222,128,.07); --dim:#33404E;
+  --seg1:#5B9BD5; --seg2:#6B7C91; --seg3:#FF4FA8; --seg4:#4ADE80; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
-  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --goodtint:rgba(74,222,128,.07); --dim:#33404E;
-  --seg1:#5B9BD5; --seg2:#6B7C91; --seg3:#F08A4B; --seg4:#4ADE80; color-scheme:dark}
+  --bg:#071226; --surface:#0E1E38; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456;
+  --accent:#FF4FA8; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --goodtint:rgba(74,222,128,.07); --dim:#33404E;
+  --seg1:#5B9BD5; --seg2:#6B7C91; --seg3:#FF4FA8; --seg4:#4ADE80; color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .wrap{max-width:1180px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
@@ -32,7 +32,7 @@ h3{font-size:22px}
 .pos{color:var(--good)} .neg{color:var(--bad)} .warn{color:var(--warn)}
 button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .btn{font:500 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
 .btn:disabled{opacity:.5;cursor:default}
 select{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
 input[type=search]{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px;width:180px}
@@ -57,7 +57,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface);flex-wrap:wrap}
 .seg button{font:500 13px var(--body);color:var(--muted);background:none;border:0;padding:7px 12px;cursor:pointer}
 .seg button+button{border-left:1px solid var(--line)}
-.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
 .space{display:flex;gap:6px 20px;flex-wrap:wrap;margin:0;margin-left:auto}
 .space div{display:flex;flex-direction:column}
 .space dt{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}

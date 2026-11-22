@@ -1,23 +1,23 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#060E24"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Sentiment Pulse</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: weekly media sentiment. Your team's card on top, then every team as a diverging bar around neutral, then players, then the sources read that week. */
 :root{
-  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#141D27; --muted:#5A6676; --line:#DAE0E7; --soft:#EBEFF3;
-  --team:#C2410C; --up:#2B6CB0; --down:#C2522B; --mid:#9AA5B1;
+  --bg:#F2F4F9; --surface:#FFFFFF; --ink:#0B1B33; --muted:#4F5D78; --line:#D8DEEA; --soft:#E8ECF5;
+  --team:#D6177A; --up:#2B6CB0; --down:#C2522B; --mid:#98A6C2;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834;
-  --up:#4F8DD6; --down:#D4693F; --mid:#5C6877; color-scheme:dark}}
+  --bg:#071226; --surface:#0E1E38; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456; --soft:#15284A;
+  --up:#4F8DD6; --down:#D4693F; --mid:#4F5D78; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E141B; --surface:#16202A; --ink:#E5EAF0; --muted:#95A2B2; --line:#283442; --soft:#1D2834;
-  --up:#4F8DD6; --down:#D4693F; --mid:#5C6877; color-scheme:dark}
+  --bg:#071226; --surface:#0E1E38; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456; --soft:#15284A;
+  --up:#4F8DD6; --down:#D4693F; --mid:#4F5D78; color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .wrap{max-width:1100px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}

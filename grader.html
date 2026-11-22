@@ -450,8 +450,7 @@ const loadImg=src=>imgCache[src]||(imgCache[src]=new Promise(r=>{const i=new Ima
 let drawToken=0;
 async function drawCard(G,headline,vt){
   const tok=++drawToken;const cv=$("#cv"),x=cv.getContext("2d"),W=1200,H=675;
-  const dark=css("--bg").toLowerCase()==="#0f151c";
-  const C={bg:dark?"#0F151C":"#F4F6F8",card:dark?"#17202A":"#FFFFFF",ink:dark?"#E6EBF1":"#16212D",muted:dark?"#97A4B3":"#5B6878",line:dark?"#2A3542":"#DCE2E9",accent:dark?"#F08A4B":"#C2410C",good:dark?"#4ADE80":"#15803D",bad:dark?"#F87171":"#B91C1C",warn:dark?"#FBBF24":"#B45309"};
+  const C={bg:css("--bg"),card:css("--surface"),ink:css("--ink"),muted:css("--muted"),line:css("--line"),accent:css("--accent"),good:css("--good"),bad:css("--bad"),warn:css("--warn")};
   try{await document.fonts.load('700 40px "Barlow Condensed"');await document.fonts.load('500 20px "IBM Plex Mono"')}catch(e){}
   const T=G.teams.slice(0,4);const logos=await Promise.all(T.map(t=>loadImg(`logos/${t.team}.png`)));if(tok!==drawToken)return;
   x.fillStyle=C.bg;x.fillRect(0,0,W,H);

@@ -301,7 +301,7 @@ function setAccent(t){
   const [,p,s]=TEAM[t];const surf=getComputedStyle(document.documentElement).getPropertyValue("--surface").trim()||"#fff";
   const lum=h=>{const m=h.replace("#","").match(/../g);if(!m)return 1;const c=m.map(x=>{x=parseInt(x,16)/255;return x<=.03928?x/12.92:((x+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
   const ct=(a,b)=>{const x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
-  document.documentElement.style.setProperty("--team",ct(p,surf)>=3?p:ct(s,surf)>=3?s:"#C2410C");
+  document.documentElement.style.setProperty("--team",ct(p,surf)>=3?p:ct(s,surf)>=3?s:"#FF2E97");
 }
 
 // --- Picker

@@ -1,11 +1,11 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#060E24"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Multi-year Outlook</title>
 <meta name="description" content="Every NBA team's contract value, payroll and draft picks projected over the next four seasons.">
 <style>
 /* Layout: lede, one team card (season bars + core players), then a 30-team table with one column per season. */
-:root{--bg:#F4F6F8;--surface:#fff;--ink:#16212D;--muted:#5B6878;--line:#DCE2E9;--accent:#C2410C;--good:#15803D;--bad:#B91C1C;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0F151C;--surface:#17202A;--ink:#E6EBF1;--muted:#97A4B3;--line:#2A3542;--accent:#F08A4B;--good:#4ADE80;--bad:#F87171;color-scheme:dark}
+:root{--bg:#F2F4F9;--surface:#fff;--ink:#0B1B33;--muted:#4F5D78;--line:#D8DEEA;--accent:#D6177A;--good:#15803D;--bad:#B91C1C;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071226;--surface:#0E1E38;--ink:#E8EDF7;--muted:#98A6C2;--line:#213456;--accent:#FF4FA8;--good:#4ADE80;--bad:#F87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#071226;--surface:#0E1E38;--ink:#E8EDF7;--muted:#98A6C2;--line:#213456;--accent:#FF4FA8;--good:#4ADE80;--bad:#F87171;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'IBM Plex Sans',system-ui,-apple-system,sans-serif}
 main{max-width:980px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}
 h1{font:700 clamp(30px,6vw,46px)/1.05 'Barlow Condensed','Arial Narrow',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:8px 0 10px}

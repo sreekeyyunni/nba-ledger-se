@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#060E24"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="gm"></script>
 <script src="fit.js"></script>
 <title>Be the GM</title>
@@ -7,8 +7,8 @@
 <style>
 /* Layout: a sticky scoreboard bar (record, seed, payroll, assets, month rail) over a two-column desk: the scenario card on the left, your roster on the right. */
 :root{
-  --bg:#ECEFF3; --surface:#FFFFFF; --sunk:#F5F7F9; --ink:#13202E; --muted:#5A6777; --line:#D5DCE4;
-  --accent:#E8890C; --accent-ink:#A95A00; --on-accent:#1A1206;
+  --bg:#F2F4F9; --surface:#FFFFFF; --sunk:#F5F7FC; --ink:#0B1B33; --muted:#4F5D78; --line:#D8DEEA;
+  --accent:#D6177A; --accent-ink:#C0136E; --on-accent:#FFFFFF;
   --good:#15803D; --bad:#B91C1C; --goodtint:rgba(21,128,61,.08); --badtint:rgba(185,28,28,.07);
   --tc:#C8102E;
   --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
@@ -16,12 +16,12 @@
   --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0D131A; --surface:#151E28; --sunk:#111922; --ink:#E8EDF3; --muted:#93A1B1; --line:#263241;
-  --accent:#F59E0B; --accent-ink:#FBBF24; --on-accent:#1A1206;
+  --bg:#071226; --surface:#0E1E38; --sunk:#0A1830; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456;
+  --accent:#FF4FA8; --accent-ink:#FF6FB8; --on-accent:#071226;
   --good:#4ADE80; --bad:#F87171; --goodtint:rgba(74,222,128,.08); --badtint:rgba(248,113,113,.08); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0D131A; --surface:#151E28; --sunk:#111922; --ink:#E8EDF3; --muted:#93A1B1; --line:#263241;
-  --accent:#F59E0B; --accent-ink:#FBBF24; --on-accent:#1A1206;
+  --bg:#071226; --surface:#0E1E38; --sunk:#0A1830; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456;
+  --accent:#FF4FA8; --accent-ink:#FF6FB8; --on-accent:#071226;
   --good:#4ADE80; --bad:#F87171; --goodtint:rgba(74,222,128,.08); --badtint:rgba(248,113,113,.08); color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}

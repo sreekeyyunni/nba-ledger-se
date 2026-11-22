@@ -37,7 +37,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .seg button{font:500 13px var(--body);color:var(--muted);background:none;border:0;padding:7px 12px;cursor:pointer}
 .seg button+button{border-left:1px solid var(--line)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.tabs button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.tabs button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 label.chk{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer}
 select,input[type=search]{font:14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
@@ -519,13 +519,13 @@ function openSaved(id){const t=board.find(x=>x.id===id);if(!t)return;tr.a=t.a;tr
 const loadImg=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
 async function verdictImage(){
   const t=lastTrade,W=1200,H=630,c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d");
-  const ink="#16212D",muted="#5B6878",good="#15803D",bad="#B91C1C";
-  g.fillStyle="#F4F6F8";g.fillRect(0,0,W,H);g.fillStyle="#C2410C";g.fillRect(0,0,W,10);
-  g.fillStyle="#C2410C";g.font="600 22px 'IBM Plex Mono',monospace";g.fillText("CONTRACT LEDGER · TRADE VERDICT",60,62);
+  const ink="#EAF0FF",muted="#9AA8CC",good="#3EE08F",bad="#FF6B6B";
+  g.fillStyle="#0A1430";g.fillRect(0,0,W,H);g.fillStyle="#FF2E97";g.fillRect(0,0,W,10);
+  g.fillStyle="#FF2E97";g.font="600 22px 'IBM Plex Mono',monospace";g.fillText("CONTRACT LEDGER · TRADE VERDICT",60,62);
   const wrap=(txt,x,y,w,lh,max)=>{const lines=[];let line="";for(const wd of txt.split(" ")){const tst=line?line+" "+wd:wd;if(g.measureText(tst).width>w&&line){lines.push(line);line=wd}else line=tst}lines.push(line);
     if(lines.length>max){lines.length=max;lines[max-1]+=" …"}lines.forEach((l,i)=>g.fillText(l,x,y+i*lh))};
   for(const [i,s] of [[0,t.sa],[1,t.sb]]){const x=60+i*560,img=await loadImg(`logos/${s.team}.png`);
-    g.fillStyle="#FFFFFF";g.fillRect(x,96,520,330);g.fillStyle=tinfo(s.team)[1]||ink;g.fillRect(x,96,520,6);
+    g.fillStyle="#111E44";g.fillRect(x,96,520,330);g.fillStyle=tinfo(s.team)[1]||ink;g.fillRect(x,96,520,6);
     if(img)g.drawImage(img,x+24,124,64,64);
     g.fillStyle=ink;g.font="700 40px 'Barlow Condensed','Arial Narrow',sans-serif";g.fillText(tinfo(s.team)[0].toUpperCase(),x+104,170);
     g.fillStyle=muted;g.font="500 18px 'IBM Plex Sans',sans-serif";g.fillText("GETS",x+24,232);

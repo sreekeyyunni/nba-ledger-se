@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#16212D"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><!--pwa--><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#060E24"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="NBA Ledger"><!--/pwa--><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script src="nav.js" data-page="predict"></script>
 <title>Game Predictions</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -6,18 +6,18 @@
 <style>
 /* Layout: record strip, then one card per game for the chosen night, then the power table. Same ink as the Contract Ledger. */
 :root{
-  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#16212D; --muted:#5B6878; --line:#DCE2E9;
-  --accent:#C2410C; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --tint:rgba(22,33,45,.04); --track:#E5EAF0;
+  --bg:#F2F4F9; --surface:#FFFFFF; --ink:#0B1B33; --muted:#4F5D78; --line:#D8DEEA;
+  --accent:#D6177A; --good:#15803D; --bad:#B91C1C; --warn:#B45309; --tint:rgba(11,27,51,.04); --track:#E8EDF7;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
-  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(230,235,241,.04); --track:#26313D; color-scheme:dark}}
+  --bg:#071226; --surface:#0E1E38; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456;
+  --accent:#FF4FA8; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(232,237,247,.04); --track:#1C2F50; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0F151C; --surface:#17202A; --ink:#E6EBF1; --muted:#97A4B3; --line:#2A3542;
-  --accent:#F08A4B; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(230,235,241,.04); --track:#26313D; color-scheme:dark}
+  --bg:#071226; --surface:#0E1E38; --ink:#E8EDF7; --muted:#98A6C2; --line:#213456;
+  --accent:#FF4FA8; --good:#4ADE80; --bad:#F87171; --warn:#FBBF24; --tint:rgba(232,237,247,.04); --track:#1C2F50; color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .wrap{max-width:1040px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
