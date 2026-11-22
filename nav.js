@@ -17,8 +17,8 @@
   // Same fonts on every page, so the bar and headings look alike on phone and desktop
   if(!document.querySelector('link[href*="Barlow+Condensed"]')){var fl=document.createElement("link");fl.rel="stylesheet";fl.href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap";document.head.appendChild(fl)}
   var page=(document.currentScript&&document.currentScript.dataset.page)||"";
-  var css=".appnav{display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));background:#060E24;color:#fff;border-bottom:2px solid #FF2E97;font:500 13px 'IBM Plex Sans',system-ui,-apple-system,sans-serif;line-height:1.3;position:relative;z-index:40}"+
-    ".appnav a{text-decoration:none}"+
+  var css=".appnav{display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));background:rgba(6,14,36,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;border-bottom:1px solid rgba(255,46,151,.55);box-shadow:0 1px 18px rgba(255,46,151,.15);font:500 13px 'IBM Plex Sans',system-ui,-apple-system,sans-serif;line-height:1.3;position:relative;z-index:40}"+
+    ".appnav a{text-decoration:none}"+".appnav .brand span{color:#FF2E97}"+
     ".appnav .brand{font:700 16px 'Barlow Condensed','Arial Narrow',system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap}"+
     ".appnav .links{display:flex;gap:2px;flex-wrap:nowrap;overflow-x:auto;min-width:0;flex:1 1 auto;scrollbar-width:none}"+
     ".appnav .links::-webkit-scrollbar{display:none}"+
@@ -51,7 +51,7 @@
   function draw(){
     var cur=current(),t=team();
     var sec=SECTIONS.filter(function(s){return s[1].some(function(p){return p[2]===cur})})[0];
-    nav.innerHTML='<a class="brand" href="home.html">NBA Asset Tracker</a><div class="links">'+SECTIONS.map(function(s){return '<a href="'+s[1][0][0]+'"'+(s===sec?' aria-current="page"':"")+">"+s[0]+"</a>"}).join("")+"</div>"+
+    nav.innerHTML='<a class="brand" href="home.html">NBA <span>Asset</span> Tracker</a><div class="links">'+SECTIONS.map(function(s){return '<a href="'+s[1][0][0]+'"'+(s===sec?' aria-current="page"':"")+">"+s[0]+"</a>"}).join("")+"</div>"+
       (sec&&sec[1].length>1?'<div class="tabs">'+sec[1].map(function(p){return '<a href="'+p[0]+'"'+(p[2]===cur?' aria-current="page"':"")+">"+p[1]+"</a>"}).join("")+"</div>":"")+
       teamPicker(t);
     var on=nav.querySelector(".tabs [aria-current]"),ls=nav.querySelector(".tabs");if(on&&ls&&ls.scrollWidth>ls.clientWidth)ls.scrollLeft=Math.max(0,on.offsetLeft-ls.offsetLeft-24);
