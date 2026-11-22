@@ -234,9 +234,16 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-20,8:00p,WAS,CHI,98,94,,0.646,4.3,CHI,final,0,live,-5.4,-4.1,,,,
 2026-11-20,8:00p,NOP,OKC,120,126,,0.770,8.5,OKC,final,1,live,-5.2,3.7,,,,
 2026-11-20,9:30p,PHO,UTA,111,101,,0.428,-2.1,PHO,final,1,live,0.1,-5.4,,,,
-2026-11-21,10:00p,BOS,SAC,,,,0.089,-15.4,BOS,upcoming,,live,4.1,-10.4,SAC on a back-to-back,"Jayson Tatum (out, 0.7 pts); Mitchell Robinson (out, 0.6 pts)",,
-2026-11-21,1:00p,MIL,PHI,129,132,,0.819,10.5,PHI,final,1,live,-8.9,0.7,,,"Jaylen Brown (out, 1.1 pts); Dean Wade (out, 0.6 pts)",
-2026-11-21,7:30p,POR,NYK,,,,0.561,1.8,NYK,live,,live,5.9,1.4,,,"Karl-Anthony Towns (out, 1.8 pts); OG Anunoby (out, 0.8 pts)",39-55 3:10 - 2nd
-2026-11-21,8:00p,LAC,DAL,,,,0.735,7.2,DAL,live,,live,-5.1,-0.4,,"Jordan Miller (out, 0.6 pts)",,20-16 1:53 - 1st
-2026-11-21,8:00p,MEM,MIN,,,,0.675,5.2,MIN,live,,live,3.9,5.7,,"Cameron Boozer (out, 1.2 pts); Jerami Grant (out, 0.7 pts); Javon Small (out, 0.6 pts)","Anthony Edwards (out, 0.3 pts)",32-23 1:35 - 1st
-2026-11-21,8:00p,NOP,SAS,,,,0.905,15.1,SAS,live,,live,-6.6,6.8,NOP on a back-to-back,"Zion Williamson (out, 1.5 pts); Trey Murphy III (out, 0.9 pts)",,19-20 4:10 - 1st
+2026-11-21,10:00p,BOS,SAC,96,97,,0.089,-15.4,BOS,final,0,live,6.4,-10.0,SAC on a back-to-back,,,
+2026-11-21,1:00p,MIL,PHI,129,132,,0.819,10.5,PHI,final,1,live,-8.9,2.5,,,,
+2026-11-21,7:30p,POR,NYK,96,97,,0.561,1.8,NYK,final,1,live,4.3,4.7,,,,
+2026-11-21,8:00p,LAC,DAL,100,110,,0.735,7.2,DAL,final,1,live,-4.6,-0.3,,,,
+2026-11-21,8:00p,MEM,MIN,95,104,,0.675,5.2,MIN,final,1,live,5.8,6.1,,,,
+2026-11-21,8:00p,NOP,SAS,91,114,,0.905,15.1,SAS,final,1,live,-5.0,7.5,NOP on a back-to-back,,,
+2026-11-22,3:30p,DET,ATL,,,,0.493,-0.2,DET,upcoming,,live,2.4,-0.1,,"Jalen Duren (out, 1.2 pts); Cade Cunningham (questionable, 0.5 pts)",,
+2026-11-22,6:00p,OKC,MIA,,,,0.587,2.5,MIA,upcoming,,live,-1.1,-0.9,,"Shai Gilgeous-Alexander (questionable, 2.4 pts); Chet Holmgren (out, 1.0 pts)","Giannis Antetokounmpo (questionable, 2.0 pts)",
+2026-11-22,7:00p,DEN,CHI,,,,0.339,-4.8,DEN,upcoming,,live,2.3,-4.8,,,"Jalen Smith (questionable, 0.7 pts); Norman Powell (questionable, 0.6 pts)",
+2026-11-22,7:00p,DAL,UTA,,,,0.452,-1.4,DAL,upcoming,,live,-0.2,-5.3,DAL on a back-to-back,,"Lauri Markkanen (out, 0.6 pts)",
+2026-11-22,7:00p,ORL,WAS,,,,0.477,-0.6,ORL,upcoming,,live,-2.6,-5.5,,"Paolo Banchero (out, 0.7 pts)","Justin Champagnie (out, 0.5 pts)",
+2026-11-22,8:00p,IND,NYK,,,,0.761,8.1,NYK,upcoming,,live,-4.3,3.1,NYK on a back-to-back,"Tyrese Haliburton (out, 0.7 pts)","Karl-Anthony Towns (questionable, 1.8 pts); OG Anunoby (questionable, 0.8 pts)",
+2026-11-22,8:30p,BOS,GSW,,,,0.385,-3.4,BOS,upcoming,,live,3.6,-3.6,BOS on a back-to-back,"Jayson Tatum (out, 0.7 pts); Mitchell Robinson (out, 0.6 pts)","Jimmy Butler (out, 1.6 pts); Stephen Curry (out, 1.4 pts); Kristaps Porziņģis (out, 0.5 pts)",
