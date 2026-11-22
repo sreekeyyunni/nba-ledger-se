@@ -39,15 +39,15 @@ h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.0
 .hero{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:min(62vh,520px);padding:40px 0 28px;overflow:hidden;margin:0 -16px}
 .splash{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,120vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .splash .glow{position:absolute;width:80%;height:80%;border-radius:50%;background:radial-gradient(circle,rgba(255,46,136,.55) 0%,rgba(255,46,136,.15) 45%,rgba(7,15,38,0) 72%);filter:blur(24px)}
-.splash svg{position:relative;width:68%;height:68%;opacity:.85;filter:drop-shadow(0 0 25px rgba(255,46,136,.5));animation:spin 60s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.splash svg{animation:none}}
+.splash svg{position:relative;width:69%;height:69%;opacity:.88;filter:drop-shadow(0 0 25px rgba(255,46,136,.5))}
 .hero-in{position:relative;z-index:2;max-width:680px;padding:0 16px}
 .hero h1{font-size:clamp(40px,8vw,68px);text-shadow:0 4px 24px rgba(7,15,38,.85)}
 .hero .lede{margin:0 auto 22px;color:#E2E8F0;text-shadow:0 2px 14px rgba(7,15,38,.95)}
 .pill{display:inline-block;padding:5px 14px;margin-bottom:14px;border-radius:999px;background:rgba(7,15,38,.75);border:1px solid rgba(255,126,182,.45);color:#FF7EB6;font:600 12px system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.btn{box-shadow:0 8px 25px rgba(255,46,136,.4);transition:transform .2s}.btn:hover{transform:translateY(-2px)}
-.btn.ghost{background:rgba(15,28,63,.85);color:var(--ink);border:1px solid rgba(255,255,255,.14);box-shadow:none}.btn.ghost:hover{border-color:var(--accent)}
+.btn{color:#fff;box-shadow:0 8px 25px rgba(255,46,136,.45);transition:transform .2s,background .2s}.btn:not(.ghost):hover{background:#FF4796}.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:rgba(15,28,63,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);border:1px solid rgba(255,255,255,.14);box-shadow:none}.btn.ghost:hover{border-color:#FF7EB6}
+.stat,.card,.pc,.screw ol,.how li,.wiz,.note{background:rgba(15,28,63,.65)!important;border-color:rgba(255,255,255,.08)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:14px!important}
 .sub{color:var(--muted);font-size:13.5px}
 footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 .how{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
@@ -59,8 +59,9 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <main>
 <section class="hero">
 <div class="splash" aria-hidden="true"><div class="glow"></div>
-<svg viewBox="0 0 200 200"><path fill="#FF2E88" d="M101 18c14 0 18 17 31 21s29-6 36 6-4 24-1 37 18 22 13 35-23 9-32 19-7 30-21 34-22-13-35-14-26 14-37 6-2-27-10-37-28-10-29-24 18-17 21-30-10-29 1-38 26 2 36-5 13-10 27-10z"/>
-<circle cx="172" cy="40" r="6" fill="#FF2E88"/><circle cx="26" cy="160" r="8" fill="#FF2E88"/><circle cx="185" cy="150" r="4" fill="#FF2E88"/><circle cx="40" cy="28" r="3.5" fill="#FF2E88"/></svg></div>
+<svg viewBox="0 0 200 200"><defs><linearGradient id="splashGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff2e88"/><stop offset="100%" stop-color="#ff65a3"/></linearGradient></defs>
+<path fill="url(#splashGrad)" d="M44.7,-64.6C57.1,-55.4,65.8,-41.3,71.4,-26.1C77,-10.9,79.5,5.3,74.8,19.4C70.1,33.5,58.2,45.4,44.7,54.8C31.2,64.2,15.6,71.1,-0.8,72.2C-17.2,73.3,-34.4,68.6,-48.6,59.1C-62.8,49.6,-74,35.3,-78.4,19.1C-82.8,2.9,-80.4,-15.2,-71.6,-29.6C-62.8,-44,-47.6,-54.7,-32.6,-63.1C-17.6,-71.5,-2.8,-77.6,12.2,-76.8C27.2,-76,32.3,-73.8,44.7,-64.6Z" transform="translate(100 100)"/>
+<circle cx="172" cy="48" r="7" fill="#ff2e88"/><circle cx="182" cy="64" r="3.5" fill="#ff7eb6"/><circle cx="26" cy="146" r="8" fill="#ff2e88"/><circle cx="18" cy="128" r="4" fill="#ff7eb6"/><circle cx="145" cy="175" r="5" fill="#ff2e88"/></svg></div>
 <div class="hero-in"><span class="pill">2026-27 season · live</span>
 <h1>Every team is a balance sheet</h1>
 <p class="lede">Contracts, trades, cap math, season odds and daily game picks for all 30 NBA teams. Pick your team, then try to out-GM the league.</p>

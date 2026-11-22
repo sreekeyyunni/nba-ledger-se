@@ -520,8 +520,8 @@ const loadImg=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerr
 async function verdictImage(){
   const t=lastTrade,W=1200,H=630,c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d");
   const ink="#EAF0FF",muted="#9AA8CC",good="#3EE08F",bad="#FF6B6B";
-  g.fillStyle="#0A1430";g.fillRect(0,0,W,H);g.fillStyle="#FF2E97";g.fillRect(0,0,W,10);
-  g.fillStyle="#FF2E97";g.font="600 22px 'IBM Plex Mono',monospace";g.fillText("CONTRACT LEDGER · TRADE VERDICT",60,62);
+  g.fillStyle="#0A1430";g.fillRect(0,0,W,H);g.fillStyle="#FF2E88";g.fillRect(0,0,W,10);
+  g.fillStyle="#FF2E88";g.font="600 22px 'IBM Plex Mono',monospace";g.fillText("CONTRACT LEDGER · TRADE VERDICT",60,62);
   const wrap=(txt,x,y,w,lh,max)=>{const lines=[];let line="";for(const wd of txt.split(" ")){const tst=line?line+" "+wd:wd;if(g.measureText(tst).width>w&&line){lines.push(line);line=wd}else line=tst}lines.push(line);
     if(lines.length>max){lines.length=max;lines[max-1]+=" …"}lines.forEach((l,i)=>g.fillText(l,x,y+i*lh))};
   for(const [i,s] of [[0,t.sa],[1,t.sb]]){const x=60+i*560,img=await loadImg(`logos/${s.team}.png`);
