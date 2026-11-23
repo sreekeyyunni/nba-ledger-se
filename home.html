@@ -37,9 +37,15 @@ h2{font:700 14px system-ui,sans-serif;text-transform:uppercase;letter-spacing:.0
 .screw h3{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:600}.screw a{color:inherit;text-decoration:none}.screw a:hover b{color:var(--accent)}
 .more{display:inline-block;margin-top:8px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:none}
 .hero{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:min(62vh,520px);padding:40px 0 28px;overflow:hidden;margin:0 -16px}
-.splash{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,120vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.splash .glow{position:absolute;width:80%;height:80%;border-radius:50%;background:radial-gradient(circle,rgba(255,46,136,.55) 0%,rgba(255,46,136,.15) 45%,rgba(7,15,38,0) 72%);filter:blur(24px)}
-.splash svg{position:relative;width:69%;height:69%;opacity:.88;filter:drop-shadow(0 0 25px rgba(255,46,136,.5))}
+.splash{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:min(900px,150vw);aspect-ratio:1.4;pointer-events:none;filter:blur(30px) saturate(1.3)}
+.splash i{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 18s ease-in-out infinite alternate}
+.splash .c1{width:46%;height:52%;left:27%;top:24%;background:radial-gradient(circle,rgba(255,46,136,1),rgba(255,46,136,0) 68%)}
+.splash .c2{width:38%;height:44%;left:12%;top:34%;background:radial-gradient(circle,rgba(255,126,182,.8),rgba(255,126,182,0) 70%);animation-duration:22s;animation-delay:-6s}
+.splash .c3{width:40%;height:46%;left:48%;top:18%;background:radial-gradient(circle,rgba(214,40,160,.85),rgba(214,40,160,0) 70%);animation-duration:26s;animation-delay:-12s}
+.splash .c4{width:34%;height:40%;left:52%;top:46%;background:radial-gradient(circle,rgba(120,80,255,.6),rgba(120,80,255,0) 70%);animation-duration:30s;animation-delay:-4s}
+.splash .c5{width:30%;height:34%;left:30%;top:52%;background:radial-gradient(circle,rgba(255,46,136,.7),rgba(255,46,136,0) 70%);animation-duration:24s;animation-delay:-9s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6%,-5%) scale(1.12)}100%{transform:translate(-5%,4%) scale(.94)}}
+@media (prefers-reduced-motion:reduce){.splash i{animation:none}}
 .hero-in{position:relative;z-index:2;max-width:680px;padding:0 16px}
 .hero h1{font-size:clamp(40px,8vw,68px);text-shadow:0 4px 24px rgba(7,15,38,.85)}
 .hero .lede{margin:0 auto 22px;color:#E2E8F0;text-shadow:0 2px 14px rgba(7,15,38,.95)}
@@ -79,10 +85,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12.5px}
 <div class="ticker"><span><strong>PICKS RECORD:</strong> <a href="predict.html" id="rec">…</a> <span id="recs" hidden></span></span><span><strong>TITLE FAVORITE:</strong> <a href="sim.html" id="ttl">…</a></span><span><strong>LATEST MOVE:</strong> <a href="grader.html" id="trx">…</a></span></div>
 <main>
 <section class="hero">
-<div class="splash" aria-hidden="true"><div class="glow"></div>
-<svg viewBox="0 0 200 200"><defs><linearGradient id="splashGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff2e88"/><stop offset="100%" stop-color="#ff65a3"/></linearGradient></defs>
-<path fill="url(#splashGrad)" d="M44.7,-64.6C57.1,-55.4,65.8,-41.3,71.4,-26.1C77,-10.9,79.5,5.3,74.8,19.4C70.1,33.5,58.2,45.4,44.7,54.8C31.2,64.2,15.6,71.1,-0.8,72.2C-17.2,73.3,-34.4,68.6,-48.6,59.1C-62.8,49.6,-74,35.3,-78.4,19.1C-82.8,2.9,-80.4,-15.2,-71.6,-29.6C-62.8,-44,-47.6,-54.7,-32.6,-63.1C-17.6,-71.5,-2.8,-77.6,12.2,-76.8C27.2,-76,32.3,-73.8,44.7,-64.6Z" transform="translate(100 100)"/>
-<circle cx="172" cy="48" r="7" fill="#ff2e88"/><circle cx="182" cy="64" r="3.5" fill="#ff7eb6"/><circle cx="26" cy="146" r="8" fill="#ff2e88"/><circle cx="18" cy="128" r="4" fill="#ff7eb6"/><circle cx="145" cy="175" r="5" fill="#ff2e88"/></svg></div>
+<div class="splash" aria-hidden="true"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i><i class="c5"></i></div>
 <div class="hero-in"><span class="pill">2026-27 asset ledger · updated twice a day</span>
 <h1>Every pick, contract and front office, ranked</h1>
 <p class="lede">Trade values for every player, front office grades for all 30 teams, second-apron cap math and a new "Who Says No?" trade every day.</p>
@@ -206,7 +209,7 @@ Promise.all(["trade_values","team_power","team_summary","live_values","draft_pic
   '<a class="note-b" href="tough.html"><b>Rock bottom</b><span>'+NM[last.t]+' rank 30th in the front office index. See who else is in a tough spot.</span></a>';
  // Who Says No: one trade a day, the same for everyone. A contender gets a rebuilder's best deal for salary-matched players.
  var day=new Date().toLocaleDateString("en-CA",{timeZone:"America/New_York"}),seed=0;for(var i=0;i<day.length;i++)seed=(seed*31+day.charCodeAt(i))>>>0;
- var rnd=function(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+ var rnd=function(){seed=(seed+0x6D2B79F5)>>>0;var t=seed;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296};
  var pct=function(r){var g=N(r.wins)+N(r.losses);return g?N(r.wins)/g:.5},byPct=pw.slice().sort(function(a,b){return pct(b)-pct(a)}).map(function(r){return r.team});
  var con=byPct.slice(0,8),reb=byPct.slice(-10),deal=null;
  for(var k=0;k<40&&!deal;k++){var C=con[Math.floor(rnd()*con.length)],R=reb[Math.floor(rnd()*reb.length)];if(C===R)continue;
