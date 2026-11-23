@@ -32,7 +32,7 @@ ATL,2027-28,Guaranteed,Nickeil Alexander-Walker,15.162
 ATL,2027-28,Guaranteed,Onyeka Okongwu,16.88
 ATL,2027-28,Guaranteed,Dyson Daniels,25.0
 ATL,2027-28,Guaranteed,Jalen Johnson,30.0
-ATL,2027-28,Draft pick,"2027 1st (MIL, ~#7)",7.157
+ATL,2027-28,Draft pick,"2027 1st (MIL, ~#8)",6.56
 ATL,2028-29,Guaranteed,Henri Veesaar,2.694
 ATL,2028-29,Team option,Asa Newell,6.043
 ATL,2028-29,Team option,Zuby Ejiofor,3.798
@@ -87,6 +87,7 @@ BOS,2028-29,Guaranteed,Neemias Queta,13.5
 BOS,2028-29,Player option,Derrick White,34.844
 BOS,2028-29,Guaranteed,Jayson Tatum,67.117
 BOS,2028-29,Draft pick,"2028 1st (LAC, ~#12)",5.407
+BOS,2028-29,Draft pick,"2028 1st (BOS, ~#22)",3.449
 BOS,2028-29,Draft pick,"2028 1st (BOS, ~#22)",3.449
 BRK,2026-27,Guaranteed,Josh Minott,4.5
 BRK,2026-27,Team option,Noah Clowney,5.414
@@ -218,7 +219,7 @@ CHO,2027-28,Guaranteed,Brandon Miller,36.034
 CHO,2027-28,Cap hold,Moussa Diabaté,4.677
 CHO,2027-28,Draft pick,"2027 1st (DAL, ~#11)",5.318
 CHO,2027-28,Draft pick,"2027 1st (CHO, ~#13)",4.806
-CHO,2027-28,Draft pick,"2027 1st (MIA, ~#15)",4.342
+CHO,2027-28,Draft pick,"2027 1st (MIA, ~#16)",4.124
 CHO,2028-29,Team option,Sion James,2.736
 CHO,2028-29,Team option,Ryan Kalkbrenner,2.736
 CHO,2028-29,Team option,Liam McNeeley,5.488
@@ -484,7 +485,7 @@ HOU,2027-28,Guaranteed,Jabari Smith Jr.,21.752
 HOU,2027-28,Guaranteed,Amen Thompson,35.862
 HOU,2027-28,Draft pick,"2027 1st (BRK, ~#4)",9.499
 HOU,2027-28,Draft pick,"2027 1st (PHO, ~#17)",3.925
-HOU,2027-28,Draft pick,"2027 1st (HOU, ~#24)",2.996
+HOU,2027-28,Draft pick,"2027 1st (HOU, ~#23)",3.1
 HOU,2028-29,Guaranteed,Bruce Thornton,2.694
 HOU,2028-29,Cap hold,Isaiah Crawford,5.062
 HOU,2028-29,Cap hold,Marcus Smart,12.098
@@ -721,7 +722,7 @@ MIA,2028-29,Guaranteed,Nikola Jović,15.096
 MIA,2028-29,Player option,Bam Adebayo,57.768
 MIA,2028-29,Cap hold,Dru Smith,5.576
 MIA,2028-29,Cap hold,Myron Gardner,4.799
-MIA,2028-29,Draft pick,"2028 1st (MIA, ~#15)",4.646
+MIA,2028-29,Draft pick,"2028 1st (MIA, ~#16)",4.412
 MIL,2026-27,Team option,Vasilije Micić,0.667
 MIL,2026-27,Guaranteed,Pete Nance,2.538
 MIL,2026-27,Player option,Jericho Sims,2.801
@@ -934,7 +935,7 @@ OKC,2027-28,Guaranteed,Shai Gilgeous-Alexander,61.005
 OKC,2027-28,Guaranteed,Chet Holmgren,44.82
 OKC,2027-28,Guaranteed,Jalen Williams,44.82
 OKC,2027-28,Team option,Ajay Mitchell,2.85
-OKC,2027-28,Draft pick,"2027 1st (LAC, ~#10)",5.603
+OKC,2027-28,Draft pick,"2027 1st (LAC, ~#9)",6.029
 OKC,2027-28,Draft pick,"2027 1st (DEN, ~#25)",2.92
 OKC,2027-28,Draft pick,"2027 1st (SAS, ~#26)",2.853
 OKC,2028-29,Team option,Nique Clifford,5.979
@@ -1081,7 +1082,7 @@ PHO,2028-29,Guaranteed,Mark Williams,13.605
 PHO,2028-29,Guaranteed,Collin Gillespie,12.429
 PHO,2028-29,Guaranteed,Dillon Brooks,24.333
 PHO,2028-29,Guaranteed,Devin Booker,64.066
-PHO,2028-29,Draft pick,"2028 1st (PHO, ~#16)",4.412
+PHO,2028-29,Draft pick,"2028 1st (PHO, ~#17)",4.199
 POR,2026-27,Guaranteed,Didi Louzada,0.268
 POR,2026-27,Guaranteed,Branden Carlson,2.449
 POR,2026-27,Guaranteed,Micah Potter,2.801
@@ -1128,7 +1129,7 @@ POR,2028-29,Guaranteed,Shaedon Sharpe,23.304
 POR,2028-29,Cap hold,Vít Krejčí,5.71
 POR,2028-29,Draft pick,"2028 1st (MIL, ~#10)",5.995
 POR,2028-29,Draft pick,"2028 1st (ORL, ~#14)",4.889
-POR,2028-29,Draft pick,"2028 1st (POR, ~#16)",4.412
+POR,2028-29,Draft pick,"2028 1st (POR, ~#15)",4.646
 SAC,2026-27,Guaranteed,Mason Plumlee,2.14
 SAC,2026-27,Guaranteed,Maxime Raynaud,2.151
 SAC,2026-27,Guaranteed,Emanuel Sharp,1.358
@@ -1157,7 +1158,7 @@ SAC,2027-28,Guaranteed,Domantas Sabonis,48.608
 SAC,2027-28,Guaranteed,Keegan Murray,26.069
 SAC,2027-28,Cap hold,Ben Simmons,4.654
 SAC,2027-28,Dead money,Waived / stretched salary,3.333
-SAC,2027-28,Draft pick,"2027 1st (SAC, ~#4)",9.499
+SAC,2027-28,Draft pick,"2027 1st (SAC, ~#5)",8.617
 SAC,2028-29,Cap hold,Maxime Raynaud,4.799
 SAC,2028-29,Team option,Emanuel Sharp,2.694
 SAC,2028-29,Cap hold,Daeqwon Plowden,5.062
@@ -1208,6 +1209,7 @@ SAS,2028-29,Guaranteed,Julian Champagnie,16.111
 SAS,2028-29,Guaranteed,Devin Vassell,27.0
 SAS,2028-29,Guaranteed,Victor Wembanyama,46.98
 SAS,2028-29,Guaranteed,De'Aaron Fox,57.768
+SAS,2028-29,Draft pick,"2028 1st (BOS, ~#22)",3.449
 SAS,2028-29,Draft pick,"2028 1st (SAS, ~#22)",3.449
 TOR,2026-27,Guaranteed,Jaden Bradley,1.358
 TOR,2026-27,Guaranteed,Alijah Martin,2.185
@@ -1278,7 +1280,7 @@ UTA,2027-28,Guaranteed,Jaren Jackson Jr.,50.5
 UTA,2027-28,Guaranteed,Keyonte George,28.7
 UTA,2027-28,Team option,Svi Mykhailiuk,4.025
 UTA,2027-28,Team option,Kyle Filipowski,3.0
-UTA,2027-28,Draft pick,"2027 1st (MIN, ~#17)",3.925
+UTA,2027-28,Draft pick,"2027 1st (MIN, ~#18)",3.764
 UTA,2028-29,Cap hold,Isaiah Collier,12.472
 UTA,2028-29,Cap hold,Jaxson Hayes,11.4
 UTA,2028-29,Cap hold,Josh Okogie,11.4
@@ -1320,7 +1322,7 @@ WAS,2027-28,Team option,Alex Sarr,15.612
 WAS,2027-28,Guaranteed,AJ Dybantsa,15.486
 WAS,2027-28,Player option,Anthony Davis,62.787
 WAS,2027-28,Guaranteed,Trae Young,50.478
-WAS,2027-28,Draft pick,"2027 1st (WAS, ~#5)",8.617
+WAS,2027-28,Draft pick,"2027 1st (WAS, ~#6)",7.84
 WAS,2028-29,Cap hold,Justin Champagnie,5.71
 WAS,2028-29,Guaranteed,Khris Middleton,6.15
 WAS,2028-29,Team option,Will Riley,6.155
@@ -1332,4 +1334,4 @@ WAS,2028-29,Cap hold,Alex Sarr,39.029
 WAS,2028-29,Team option,AJ Dybantsa,16.223
 WAS,2028-29,Cap hold,Anthony Davis,65.912
 WAS,2028-29,Guaranteed,Trae Young,54.437
-WAS,2028-29,Draft pick,"2028 1st (WAS, ~#8)",7.019
+WAS,2028-29,Draft pick,"2028 1st (WAS, ~#9)",6.451
