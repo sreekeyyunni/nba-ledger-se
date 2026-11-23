@@ -240,10 +240,20 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-21,8:00p,LAC,DAL,100,110,,0.735,7.2,DAL,final,1,live,-4.6,-0.3,,,,
 2026-11-21,8:00p,MEM,MIN,95,104,,0.675,5.2,MIN,final,1,live,5.8,6.1,,,,
 2026-11-21,8:00p,NOP,SAS,91,114,,0.905,15.1,SAS,final,1,live,-5.0,7.5,NOP on a back-to-back,,,
-2026-11-22,3:30p,DET,ATL,97,107,,0.493,-0.2,DET,final,0,live,3.3,-0.1,,"Jalen Duren (out, 1.2 pts)",,
-2026-11-22,6:00p,OKC,MIA,113,123,,0.587,2.5,MIA,final,1,live,-3.9,-1.7,,"Shai Gilgeous-Alexander (out, 2.4 pts); Chet Holmgren (out, 1.0 pts)","Giannis Antetokounmpo (out, 2.0 pts)",
-2026-11-22,7:00p,DEN,CHI,,,,0.339,-4.8,DEN,live,,live,2.3,-5.7,,,"Nic Claxton (out, 0.8 pts); Norman Powell (out, 0.6 pts)",106-103 9:30 - 4th
-2026-11-22,7:00p,DAL,UTA,,,,0.452,-1.4,DAL,live,,live,-0.2,-6.5,DAL on a back-to-back,,"Jaxson Hayes (out, 0.9 pts); Lauri Markkanen (out, 0.6 pts)",96-78 9:23 - 4th
-2026-11-22,7:00p,ORL,WAS,,,,0.477,-0.7,ORL,live,,live,-2.6,-5.5,,"Paolo Banchero (out, 0.7 pts)","Justin Champagnie (out, 0.5 pts)",81-103 9:19 - 4th
-2026-11-22,8:00p,IND,NYK,,,,0.761,8.1,NYK,live,,live,-4.2,2.9,NYK on a back-to-back,"Tyrese Haliburton (out, 0.7 pts)","OG Anunoby (out, 0.8 pts)",43-42 5:26 - 2nd
-2026-11-22,8:30p,BOS,GSW,,,,0.385,-3.4,BOS,live,,live,5.5,-3.6,BOS on a back-to-back,"Mitchell Robinson (out, 0.6 pts)","Jimmy Butler (out, 1.6 pts); Stephen Curry (out, 1.4 pts); Kristaps Porziņģis (out, 0.5 pts)",13-15 5:09 - 1st
+2026-11-22,3:30p,DET,ATL,97,107,,0.493,-0.2,DET,final,0,live,5.0,0.3,,,,
+2026-11-22,6:00p,OKC,MIA,113,123,,0.587,2.5,MIA,final,1,live,3.6,0.2,,,,
+2026-11-22,7:00p,DEN,CHI,151,145,OT,0.339,-4.8,DEN,final,1,live,2.3,-4.5,,,,
+2026-11-22,7:00p,DAL,UTA,116,114,,0.452,-1.4,DAL,final,1,live,-0.1,-5.7,DAL on a back-to-back,,,
+2026-11-22,7:00p,ORL,WAS,96,116,,0.477,-0.7,ORL,final,0,live,-1.8,-5.0,,,,
+2026-11-22,8:00p,IND,NYK,106,113,,0.761,8.1,NYK,final,1,live,-4.0,4.5,NYK on a back-to-back,,,
+2026-11-22,8:30p,BOS,GSW,87,88,,0.385,-3.4,BOS,final,0,live,6.0,-0.1,BOS on a back-to-back,,,
+2026-11-23,10:00p,UTA,LAL,,,,0.867,12.8,LAL,upcoming,,live,-5.8,3.2,UTA on a back-to-back,"Jaxson Hayes (questionable, 0.9 pts); Lauri Markkanen (out, 0.6 pts)","Austin Reaves (out, 1.0 pts)",
+2026-11-23,10:00p,SAS,SAC,,,,0.150,-11.9,SAS,upcoming,,live,4.7,-9.6,,"Victor Wembanyama (questionable, 1.6 pts)",,
+2026-11-23,7:00p,MEM,CHO,,,,0.235,-8.3,MEM,upcoming,,live,3.7,-6.9,,"Cameron Boozer (out, 1.2 pts); Jerami Grant (out, 0.7 pts)","Kon Knueppel (out, 0.3 pts)",
+2026-11-23,7:00p,POR,PHI,,,,0.394,-3.1,POR,upcoming,,live,5.9,0.5,,,"Jaylen Brown (questionable, 1.1 pts); Joel Embiid (questionable, 0.8 pts); Dean Wade (questionable, 0.6 pts)",
+2026-11-23,7:30p,OKC,IND,,,,0.463,-1.1,OKC,upcoming,,live,-0.2,-3.6,OKC on a back-to-back | IND on a back-to-back,"Chet Holmgren (out, 1.0 pts)","Tyrese Haliburton (out, 0.7 pts)",
+2026-11-23,7:30p,BRK,MIN,,,,0.898,14.6,MIN,upcoming,,live,-6.6,5.7,,,"Anthony Edwards (out, 0.3 pts)",
+2026-11-23,7:30p,MIL,TOR,,,,0.782,8.9,TOR,upcoming,,live,-8.5,-1.8,,,"Kawhi Leonard (out, 1.6 pts); Collin Murray-Boyles (questionable, 0.4 pts)",
+2026-11-23,8:00p,CLE,CHI,,,,0.294,-6.2,CLE,upcoming,,live,1.3,-5.7,CHI on a back-to-back,"Evan Mobley (out, 0.8 pts)","Nic Claxton (questionable, 0.8 pts); Jalen Smith (questionable, 0.7 pts); Norman Powell (out, 0.6 pts)",
+2026-11-23,8:00p,PHO,NOP,,,,0.409,-2.7,PHO,upcoming,,live,-0.8,-5.8,,"Mark Williams (out, 1.3 pts)","Zion Williamson (questionable, 1.5 pts)",
+2026-11-23,8:30p,LAC,HOU,,,,0.885,13.8,HOU,upcoming,,live,-5.4,6.1,,"Jordan Miller (out, 0.6 pts)",,
