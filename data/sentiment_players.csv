@@ -1,40 +1,41 @@
 week,Player,Team,score,label,mentions,note,sources,change
-2026-11-16,Victor Wembanyama,SAS,100,Rolling,2,MVP level during 12 straight wins,CP NBC,0
-2026-11-16,Luka Doncic,LAL,100,Rolling,1,"Leads the league at 38.6, MVP frontrunner",CP,0
-2026-11-16,Giannis Antetokounmpo,MIA,100,Rolling,1,Led four straight wins; 37 vs Cleveland,CP,75
-2026-11-16,Franz Wagner,ORL,100,Rolling,1,"35.3, 8.0 and 6.7 for the week",CP,
-2026-11-16,Amen Thompson,HOU,75,Rolling,2,26 in Washington,CP ESPN,
-2026-11-16,Paul George,BOS,75,Rolling,1,Starred in the revenge win over Philly,CP,25
-2026-11-16,Deni Avdija,POR,75,Rolling,1,Playing well; 46 a night with Lillard,CP,
-2026-11-16,Damian Lillard,POR,75,Rolling,1,Playing well; 46 a night with Avdija,CP,
-2026-11-16,Bam Adebayo,MIA,75,Rolling,1,37 vs Cleveland,CP,
-2026-11-16,Brook Lopez,LAC,75,Rolling,1,"Three 20-point games in five, at 38",CP,
-2026-11-16,Darryn Peterson,UTA,75,Rolling,1,No. 2 pick averaging 20 and 4.5 since early November,CP,
-2026-11-16,Kevin Durant,HOU,50,Rolling,2,25 in Washington,CP ESPN,
-2026-11-16,Alperen Sengun,HOU,50,Rolling,1,"19, 8 and 8 in Washington",ESPN,
-2026-11-16,Ayo Dosunmu,MIN,50,Rolling,1,Productive in Edwards' absence,CP,-25
-2026-11-16,Yaxel Lendeborg,GSW,50,Rolling,1,Carrying the load with Podziemski,CP,-25
-2026-11-16,Pascal Siakam,IND,50,Rolling,1,Leading an improving offense,CP,25
-2026-11-16,Alex Sarr,WAS,50,Rolling,1,24 vs Houston,ESPN,
-2026-11-16,Darius Acuff Jr.,SAC,50,Rolling,1,ROY contender,CP,-25
-2026-11-16,Cade Cunningham,DET,25,Warm,1,The only steady scorer,CP,50
-2026-11-16,Shai Gilgeous-Alexander,OKC,25,Warm,1,Carrying a thin team,CP,-75
-2026-11-16,Cooper Flagg,DAL,25,Warm,1,"Praised, but the cast around him is unreliable",CP,0
-2026-11-16,Kyrie Irving,DAL,25,Warm,1,"Praised, but the cast around him is unreliable",CP,-50
-2026-11-16,Devin Booker,PHO,25,Warm,1,Centerpiece of the turnaround,CP,
-2026-11-16,Anthony Davis,WAS,25,Warm,1,Playing well amid the skid,CP,75
-2026-11-16,Julius Randle,BRK,25,Warm,1,Drove a 34-point road win,CP,75
-2026-11-16,Michael Porter Jr.,BRK,25,Warm,1,Drove a 34-point road win,CP,75
-2026-11-16,AJ Dybantsa,WAS,-25,Cooling,2,16 on 6-for-18 vs Houston; needs to give more,CP ESPN,-100
-2026-11-16,Austin Reaves,LAL,-25,Cooling,1,Injured,CP,-100
-2026-11-16,Jalen Green,PHO,-25,Cooling,1,Linked to trade talk,CP,
-2026-11-16,Anthony Edwards,MIN,-50,Gloomy,1,Out after knee procedure,CP,0
-2026-11-16,James Harden,CLE,-50,Gloomy,1,"16.9 a night, under 40% from the floor",CP,
-2026-11-16,Josh Hart,NYK,-50,Gloomy,1,In a bad headspace,CP,
-2026-11-16,Tyrese Haliburton,IND,-50,Gloomy,1,Still out,CP,0
-2026-11-16,Scottie Barnes,TOR,-50,Gloomy,1,In a rough stretch,CP,
-2026-11-16,Stephen Curry,GSW,-75,Gloomy,1,"Oblique tear, out at least a month",CP,-175
-2026-11-16,Mikal Bridges,NYK,-75,Gloomy,1,Under 7 points a night,CP,
-2026-11-16,Kawhi Leonard,TOR,-75,Gloomy,1,Missed 11 straight with knee swelling,CP,-25
-2026-11-16,Kon Knueppel,CHO,-75,Gloomy,1,Re-aggravated his hamstring,CP,0
-2026-11-16,Trae Young,WAS,-100,Gloomy,2,Scoreless (0-for-5) for the first time in 512 career games,CP ESPN,-25
+2026-11-23,Victor Wembanyama,SAS,100,Rolling,1,"50, 18 and 5 blocks vs New Orleans",CP,0
+2026-11-23,Giannis Antetokounmpo,MIA,100,Rolling,1,Carrying a seven-game win streak; MVP talk,CP,0
+2026-11-23,Cooper Flagg,DAL,100,Rolling,1,"A rising superstar at 20: 24, 6 and 6 on 47%",CP,75
+2026-11-23,Anthony Davis,WAS,75,Rolling,2,Playing like an All-NBA player: 25.1 and 9.9; 22 vs Orlando,CP AP,50
+2026-11-23,Joel Embiid,PHI,75,Rolling,1,"29.7, 9.3 and 5.7 on 47% this week",CP,
+2026-11-23,Quentin Grimes,LAL,75,Rolling,1,47 in an OT win over Charlotte,CP,
+2026-11-23,Karl-Anthony Towns,NYK,75,Rolling,1,22 and 12 in a win at Minnesota,CP,
+2026-11-23,Donovan Clingan,POR,75,Rolling,1,"Most Improved candidate, 12 games of 10+ rebounds",CP,
+2026-11-23,Jamal Murray,DEN,75,Rolling,1,45 in an OT win over Chicago,CP,
+2026-11-23,Nikola Jokic,DEN,75,Rolling,1,"37-18-11, his league-leading fourth triple-double",CP,
+2026-11-23,James Harden,CLE,75,Rolling,1,Season-high 51 vs Indiana,CP,125
+2026-11-23,Franz Wagner,ORL,75,Rolling,1,On fire with Banchero out,CP,-25
+2026-11-23,Josh Giddey,CHI,75,Rolling,1,"23, 14 and 22 assists vs Denver",CP,
+2026-11-23,Darius Acuff Jr.,SAC,75,Rolling,1,25.4 and 7.4 a night,CP,25
+2026-11-23,LaMelo Ball,MIN,50,Rolling,1,Praised on defense,CP,
+2026-11-23,Kevin Durant,HOU,50,Rolling,1,Extremely efficient,CP,0
+2026-11-23,Alperen Sengun,HOU,50,Rolling,1,Growing triple-double threat,CP,0
+2026-11-23,Klay Thompson,MIA,50,Rolling,1,Found his shot,CP,
+2026-11-23,Corey Kispert,ATL,50,Rolling,1,47 off the bench in four games,CP,
+2026-11-23,AJ Dybantsa,WAS,50,Rolling,1,"16, 8 and 6 vs Orlando",AP,75
+2026-11-23,Kyshawn George,WAS,50,Rolling,1,24 to lead the Orlando win,AP,
+2026-11-23,Darryn Peterson,UTA,50,Rolling,1,Praised in road wins at both LA teams,CP,-25
+2026-11-23,Cade Cunningham,DET,25,Warm,1,The main offensive piece,CP,0
+2026-11-23,Damian Lillard,POR,25,Warm,1,"Scoring, but Portland can't close",CP,-50
+2026-11-23,Shai Gilgeous-Alexander,OKC,25,Warm,1,A one-man team,CP,0
+2026-11-23,Trae Young,WAS,25,Warm,1,11 and 11 in the Orlando rout,AP,125
+2026-11-23,Pascal Siakam,IND,25,Warm,1,The only productive scorer,CP,-25
+2026-11-23,Tyler Herro,MIL,25,Warm,1,Scored 50 in a narrow loss; trade candidate,CP,
+2026-11-23,Jayson Tatum,BOS,0,Mixed,1,Only Celtic scoring consistently in a four-game skid,CP,
+2026-11-23,Austin Reaves,LAL,-25,Cooling,1,Missed four games (heel),CP,0
+2026-11-23,Anthony Edwards,MIN,-25,Cooling,1,"Recovering, not being rushed",CP,25
+2026-11-23,CJ McCollum,ATL,-25,Cooling,1,Out with a calf strain,CP,
+2026-11-23,Yaxel Lendeborg,GSW,-25,Cooling,1,In a slump at 13.4 a night,CP,-75
+2026-11-23,Dylan Harper,SAS,-50,Gloomy,1,Out at least another week (hip),CP,
+2026-11-23,Evan Mobley,CLE,-50,Gloomy,1,Out at least a week (toe),CP,
+2026-11-23,Stephen Curry,GSW,-50,Gloomy,1,Out another week and a half (oblique),CP,25
+2026-11-23,Tyrese Haliburton,IND,-50,Gloomy,1,Out with a hamstring injury,CP,0
+2026-11-23,Dejounte Murray,NOP,-50,Gloomy,1,Expected to miss time; requested a trade,CP,
+2026-11-23,Kawhi Leonard,TOR,-75,Gloomy,1,"Still out, week-to-week (knee)",CP,0
+2026-11-23,Kon Knueppel,CHO,-75,Gloomy,1,Out indefinitely (hamstring),CP,0
