@@ -247,7 +247,7 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-22,7:00p,ORL,WAS,96,116,,0.477,-0.7,ORL,final,0,live,-2.0,-4.8,,,,
 2026-11-22,8:00p,IND,NYK,106,113,,0.761,8.1,NYK,final,1,live,-4.0,4.4,NYK on a back-to-back,,,
 2026-11-22,8:30p,BOS,GSW,87,88,,0.385,-3.4,BOS,final,0,live,5.9,-0.2,BOS on a back-to-back,,,
-2026-11-23,10:00p,UTA,LAL,,,,0.867,12.8,LAL,live,,live,-5.6,4.2,UTA on a back-to-back,,,90-103 3:12 - 4th
+2026-11-23,10:00p,UTA,LAL,94,109,,0.867,12.8,LAL,final,1,live,-5.6,4.2,UTA on a back-to-back,,,
 2026-11-23,10:00p,SAS,SAC,123,107,,0.150,-11.9,SAS,final,1,live,8.1,-9.3,,,,
 2026-11-23,7:00p,MEM,CHO,117,111,,0.235,-8.3,MEM,final,1,live,5.4,-5.6,,,,
 2026-11-23,7:00p,POR,PHI,128,111,,0.395,-3.1,POR,final,1,live,4.4,2.1,,,,
