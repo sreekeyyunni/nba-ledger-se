@@ -1,0 +1,27 @@
+model,games,n,accuracy,log_loss,brier,log_loss_vs_formula,share_of_resamples_better_than_formula
+Current formula,all,260,0.6885,0.5937,0.2015,0.0000,0.0000
+Current formula,live,224,0.6920,0.6011,0.2045,0.0000,0.0000
+Logistic regression,all,260,0.6885,0.5981,0.2055,0.0044,0.3128
+Logistic regression,live,224,0.6964,0.5986,0.2056,-0.0025,0.5970
+Random forest,all,260,0.6846,0.6017,0.2071,0.0080,0.1746
+Random forest,live,224,0.6920,0.6020,0.2072,0.0009,0.4566
+Extra trees,all,260,0.6808,0.6040,0.2074,0.0103,0.1044
+Extra trees,live,224,0.6920,0.6043,0.2074,0.0032,0.3734
+Gradient boosting,all,260,0.6923,0.6000,0.2062,0.0063,0.2720
+Gradient boosting,live,224,0.7009,0.5986,0.2054,-0.0026,0.5668
+Hist. gradient boosting (LightGBM-style),all,260,0.6885,0.5967,0.2050,0.0030,0.3864
+Hist. gradient boosting (LightGBM-style),live,224,0.6920,0.5972,0.2053,-0.0039,0.6190
+Neural network,all,260,0.6731,0.6035,0.2075,0.0098,0.1610
+Neural network,live,224,0.6741,0.6088,0.2096,0.0077,0.2462
+k-nearest neighbors,all,260,0.6769,0.6086,0.2098,0.0149,0.0864
+k-nearest neighbors,live,224,0.6741,0.6090,0.2099,0.0079,0.2460
+Home team always,all,260,0.5154,0.6971,0.2520,0.1034,0.0000
+Home team always,live,224,0.5179,0.6965,0.2517,0.0954,0.0008
+Elo (hand-tuned),all,260,0.6692,0.6233,0.2149,0.0296,0.0560
+Elo (hand-tuned),live,224,0.6830,0.6219,0.2131,0.0208,0.1606
+Formula replay (no injuries),all,260,0.6769,0.5992,0.2049,0.0055,0.1860
+Formula replay (no injuries),live,224,0.6786,0.6048,0.2072,0.0037,0.3150
+Average of LR + boosting,all,260,0.6885,0.5966,0.2050,0.0029,0.3786
+Average of LR + boosting,live,224,0.6964,0.5971,0.2052,-0.0040,0.6400
+Formula + best ML blend,all,260,0.6885,0.5931,0.2024,-0.0006,0.5530
+Formula + best ML blend,live,224,0.6964,0.5968,0.2038,-0.0043,0.7762
