@@ -1,0 +1,85 @@
+model,season,n,accuracy,log_loss,brier
+Linear regression on margin,2022,1236,0.6570,0.6351,0.2220
+Linear regression on margin,2023,1236,0.6286,0.6415,0.2253
+Linear regression on margin,2024,1237,0.6613,0.6076,0.2100
+Linear regression on margin,2025,1237,0.6613,0.6035,0.2085
+Linear regression on margin,2026,1237,0.6928,0.5952,0.2042
+Linear regression on margin,2027,260,0.6769,0.5962,0.2046
+Linear regression on margin,2022-2026,6183,0.6602,0.6166,0.2140
+Logistic regression,2022,1236,0.6472,0.6365,0.2225
+Logistic regression,2023,1236,0.6367,0.6408,0.2250
+Logistic regression,2024,1237,0.6548,0.6066,0.2098
+Logistic regression,2025,1237,0.6589,0.6055,0.2095
+Logistic regression,2026,1237,0.6880,0.5969,0.2051
+Logistic regression,2027,260,0.6846,0.5955,0.2044
+Logistic regression,2022-2026,6183,0.6571,0.6173,0.2144
+Random forest,2022,1236,0.6489,0.6394,0.2236
+Random forest,2023,1236,0.6262,0.6436,0.2262
+Random forest,2024,1237,0.6516,0.6120,0.2121
+Random forest,2025,1237,0.6661,0.6071,0.2099
+Random forest,2026,1237,0.6936,0.5963,0.2046
+Random forest,2027,260,0.6885,0.5970,0.2050
+Random forest,2022-2026,6183,0.6573,0.6197,0.2153
+Extra trees,2022,1236,0.6464,0.6380,0.2232
+Extra trees,2023,1236,0.6335,0.6433,0.2262
+Extra trees,2024,1237,0.6605,0.6123,0.2120
+Extra trees,2025,1237,0.6597,0.6084,0.2105
+Extra trees,2026,1237,0.6831,0.5966,0.2048
+Extra trees,2027,260,0.6923,0.6015,0.2061
+Extra trees,2022-2026,6183,0.6566,0.6197,0.2153
+Gradient boosting,2022,1236,0.6537,0.6357,0.2223
+Gradient boosting,2023,1236,0.6214,0.6440,0.2264
+Gradient boosting,2024,1237,0.6645,0.6119,0.2118
+Gradient boosting,2025,1237,0.6629,0.6113,0.2115
+Gradient boosting,2026,1237,0.6847,0.6002,0.2062
+Gradient boosting,2027,260,0.6885,0.5955,0.2041
+Gradient boosting,2022-2026,6183,0.6574,0.6206,0.2156
+Hist. gradient boosting (LightGBM-style),2022,1236,0.6432,0.6375,0.2231
+Hist. gradient boosting (LightGBM-style),2023,1236,0.6173,0.6444,0.2267
+Hist. gradient boosting (LightGBM-style),2024,1237,0.6427,0.6111,0.2117
+Hist. gradient boosting (LightGBM-style),2025,1237,0.6718,0.6096,0.2109
+Hist. gradient boosting (LightGBM-style),2026,1237,0.6880,0.6003,0.2063
+Hist. gradient boosting (LightGBM-style),2027,260,0.6885,0.5930,0.2034
+Hist. gradient boosting (LightGBM-style),2022-2026,6183,0.6526,0.6206,0.2157
+Neural network,2022,1236,0.6375,0.6414,0.2242
+Neural network,2023,1236,0.6238,0.6458,0.2273
+Neural network,2024,1237,0.6629,0.6095,0.2109
+Neural network,2025,1237,0.6580,0.6088,0.2107
+Neural network,2026,1237,0.6880,0.5988,0.2059
+Neural network,2027,260,0.6692,0.5967,0.2040
+Neural network,2022-2026,6183,0.6541,0.6208,0.2158
+k-nearest neighbors,2022,1236,0.6464,0.6415,0.2251
+k-nearest neighbors,2023,1236,0.6262,0.6453,0.2270
+k-nearest neighbors,2024,1237,0.6613,0.6175,0.2141
+k-nearest neighbors,2025,1237,0.6686,0.6119,0.2118
+k-nearest neighbors,2026,1237,0.6839,0.6048,0.2084
+k-nearest neighbors,2027,260,0.6769,0.6075,0.2093
+k-nearest neighbors,2022-2026,6183,0.6573,0.6242,0.2173
+Home team always,2022,1236,0.5445,0.6907,0.2488
+Home team always,2023,1236,0.5801,0.6806,0.2438
+Home team always,2024,1237,0.5449,0.6903,0.2486
+Home team always,2025,1237,0.5432,0.6904,0.2486
+Home team always,2026,1237,0.5554,0.6871,0.2470
+Home team always,2027,260,0.5154,0.6971,0.2520
+Home team always,2022-2026,6183,0.5536,0.6878,0.2473
+Elo (hand-tuned),2022,1236,0.6367,0.6598,0.2298
+Elo (hand-tuned),2023,1236,0.6238,0.6667,0.2343
+Elo (hand-tuned),2024,1237,0.6500,0.6312,0.2202
+Elo (hand-tuned),2025,1237,0.6645,0.6318,0.2194
+Elo (hand-tuned),2026,1237,0.6839,0.6120,0.2102
+Elo (hand-tuned),2027,260,0.6692,0.6233,0.2149
+Elo (hand-tuned),2022-2026,6183,0.6518,0.6403,0.2228
+Formula replay (no injuries),2022,1236,0.6408,0.6382,0.2231
+Formula replay (no injuries),2023,1236,0.6262,0.6440,0.2265
+Formula replay (no injuries),2024,1237,0.6580,0.6094,0.2112
+Formula replay (no injuries),2025,1237,0.6637,0.6055,0.2099
+Formula replay (no injuries),2026,1237,0.6944,0.5951,0.2037
+Formula replay (no injuries),2027,260,0.6769,0.5992,0.2049
+Formula replay (no injuries),2022-2026,6183,0.6566,0.6184,0.2149
+Average of LR + boosting,2022,1236,0.6497,0.6362,0.2225
+Average of LR + boosting,2023,1236,0.6303,0.6419,0.2255
+Average of LR + boosting,2024,1237,0.6548,0.6081,0.2104
+Average of LR + boosting,2025,1237,0.6653,0.6069,0.2099
+Average of LR + boosting,2026,1237,0.6863,0.5980,0.2054
+Average of LR + boosting,2027,260,0.6923,0.5934,0.2036
+Average of LR + boosting,2022-2026,6183,0.6573,0.6182,0.2147

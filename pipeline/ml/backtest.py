@@ -29,7 +29,8 @@ from rosters import roster_ratings  # noqa: E402
 
 from sklearn.ensemble import (ExtraTreesClassifier, GradientBoostingClassifier,  # noqa: E402
                               HistGradientBoostingClassifier, RandomForestClassifier)
-from sklearn.linear_model import LogisticRegression  # noqa: E402
+from scipy.stats import norm  # noqa: E402
+from sklearn.linear_model import LogisticRegression, Ridge  # noqa: E402
 from sklearn.neighbors import KNeighborsClassifier  # noqa: E402
 from sklearn.neural_network import MLPClassifier  # noqa: E402
 from sklearn.pipeline import make_pipeline  # noqa: E402
@@ -46,7 +47,28 @@ TUNE_SEASONS = [2019, 2020, 2021]
 TEST_SEASONS = [2022, 2023, 2024, 2025, 2026]
 SEED = 7
 
+class MarginModel:
+    """Predict the home margin with a regressor, then turn it into a win probability with
+    a normal curve whose spread is the training misses (like the formula's 11.5)."""
+    uses_margin = True
+
+    def __init__(self, reg):
+        self.reg = reg
+
+    def fit(self, X, margin):
+        self.reg.fit(X, margin)
+        self.sd = float(np.std(margin - self.reg.predict(X)))
+        return self
+
+    def predict_proba(self, X):
+        p = norm.cdf(self.reg.predict(X) / self.sd)
+        return np.column_stack([1 - p, p])
+
+
 MODELS = {
+    "Linear regression on margin": (
+        lambda alpha: MarginModel(make_pipeline(StandardScaler(), Ridge(alpha=alpha))),
+        {"alpha": [1.0, 10.0, 100.0, 1000.0]}),
     "Logistic regression": (
         lambda C: make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=2000)),
         {"C": [0.001, 0.01, 0.1, 1.0]}),
@@ -105,10 +127,10 @@ def metrics(y, p):
             "brier": float(((p - y) ** 2).mean())}
 
 
-def fit_predict(name, params, Xtr, ytr, Xte):
+def fit_predict(name, params, Xtr, ytr, Xte, mtr):
     make, _ = MODELS[name]
     m = make(**params)
-    m.fit(Xtr, ytr)
+    m.fit(Xtr, mtr if getattr(m, "uses_margin", False) else ytr)
     return m.predict_proba(Xte)[:, 1]
 
 
@@ -121,6 +143,8 @@ def main():
     X = np.array([[f[k] for k in FEATURES] for f in feats])
     y = np.array([f["home_win"] if f["home_win"] is not None else -1 for f in feats])
     season = np.array([g["season"] for g in games])
+    margin = np.array([float(g["home_pts"]) - float(g["away_pts"]) if f["home_win"] is not None else 0.0
+                       for g, f in zip(games, feats)])
     elo_p = np.array([f["elo_prob"] for f in feats])
     formula_replay = np.array([f["formula_prob"] for f in feats])
     played = y >= 0
@@ -140,7 +164,7 @@ def main():
             ll = []
             for s in TUNE_SEASONS:
                 tr, te = split(s)
-                ll.append(metrics(y[te], fit_predict(name, params, X[tr], y[tr], X[te]))["log_loss"])
+                ll.append(metrics(y[te], fit_predict(name, params, X[tr], y[tr], X[te], margin[tr]))["log_loss"])
             scores.append((float(np.mean(ll)), params))
         scores.sort(key=lambda x: x[0])
         best[name] = scores[0][1]
@@ -154,13 +178,26 @@ def main():
         tr, te = split(s)
         te_all = (season == s) & played
         for name, params in best.items():
-            preds[name][te_all] = fit_predict(name, params, X[tr], y[tr], X[te_all])
+            preds[name][te_all] = fit_predict(name, params, X[tr], y[tr], X[te_all], margin[tr])
         preds["Home team always"][te_all] = y[tr].mean()
         preds["Elo (hand-tuned)"][te_all] = elo_p[te_all]
         preds["Formula replay (no injuries)"][te_all] = formula_replay[te_all]
         print(f"  season {s}: trained on {tr.sum()} games, scored {te_all.sum()}")
     preds["Average of LR + boosting"] = (preds["Logistic regression"]
                                          + preds["Hist. gradient boosting (LightGBM-style)"]) / 2
+
+    def game_ll(p, yy):
+        p = np.clip(p, 1e-6, 1 - 1e-6)
+        return -(yy * np.log(p) + (1 - yy) * np.log(1 - p))
+
+    rng = np.random.default_rng(SEED)
+    past = np.isin(season, TEST_SEASONS) & played
+    base = game_ll(preds["Formula replay (no injuries)"][past], y[past])
+    draws = rng.integers(0, past.sum(), size=(2000, past.sum()))
+    past_vs_replay = {}
+    for name, p in preds.items():
+        d = game_ll(p[past], y[past]) - base
+        past_vs_replay[name] = float((d[draws].mean(axis=1) < 0).mean())
 
     rows = []
     for name, p in preds.items():
@@ -191,8 +228,6 @@ def main():
     pooled = {r["model"]: r for r in rows if r["season"] == "2022-2026"}
     best_ml = min((n for n in MODELS), key=lambda n: pooled[n]["log_loss"])
     h2h["Formula + best ML blend"] = (formula_p + h2h[best_ml]) / 2
-
-    rng = np.random.default_rng(SEED)
 
     def ll_vec(p):
         p = np.clip(p, 1e-6, 1 - 1e-6)
@@ -231,18 +266,19 @@ def main():
             g = games[i]
             w.writerow([g["date"], g["away"], g["home"], yh[j], modes[j]] + [f"{h2h[n][j]:.3f}" for n in names])
 
-    write_summary(rows, h2h_rows, best, best_ml)
+    write_summary(rows, h2h_rows, best, best_ml, past_vs_replay)
     print((RESULTS / "summary.md").read_text())
 
 
-def write_summary(rows, h2h_rows, best, best_ml):
+def write_summary(rows, h2h_rows, best, best_ml, past_vs_replay):
     pooled = sorted((r for r in rows if r["season"] == "2022-2026"), key=lambda r: r["log_loss"])
     lines = ["# ML backtest: game predictor", "",
              "Lower log loss and Brier are better. Accuracy = share of winners picked.", "",
              "## Past five seasons (2022-2026, about 6,000 games, walk-forward)", "",
-             "| Model | Accuracy | Log loss | Brier |", "|---|---|---|---|"]
+             "| Model | Accuracy | Log loss | Brier | Beats formula replay in resamples |", "|---|---|---|---|---|"]
     for r in pooled:
-        lines.append(f"| {r['model']} | {r['accuracy']:.1%} | {r['log_loss']:.4f} | {r['brier']:.4f} |")
+        lines.append(f"| {r['model']} | {r['accuracy']:.1%} | {r['log_loss']:.4f} | {r['brier']:.4f} | "
+                     f"{past_vs_replay[r['model']]:.0%} |")
     lines += ["", "## This season vs. the current formula's locked picks", "",
               "| Model | Games | Accuracy | Log loss | Brier | Beats formula in resamples |",
               "|---|---|---|---|---|---|"]

@@ -14,6 +14,8 @@ from pathlib import Path
 PRIOR_WS48, PRIOR_MP, REPLACEMENT_WS48, MAX_MPG = 0.060, 500, 0.030, 37.0
 POINTS_PER_WIN_PCT, RATING_SPREAD = 1 / 0.033, 0.80
 ADV = Path("ml/data/advanced")
+TEAMS = {"ATL", "BOS", "BRK", "CHO", "CHI", "CLE", "DAL", "DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM",
+         "MIA", "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHO", "POR", "SAC", "SAS", "TOR", "UTA", "WAS"}
 OLD_CODES = {"NJN": "BRK", "CHA": "CHO", "CHH": "CHO", "NOH": "NOP", "NOK": "NOP", "PHX": "PHO", "BKN": "BRK"}
 
 
@@ -53,7 +55,7 @@ def roster_ratings(seasons):
         team_of = {}
         for r in now:
             t = OLD_CODES.get(r["Team"], r["Team"])
-            if t.endswith("TM") or t == "TOT":
+            if t not in TEAMS:      # TOT/2TM season totals and repeated header rows
                 continue
             team_of.setdefault(r["pid"], t)   # first team they played for this season
         rosters = defaultdict(list)

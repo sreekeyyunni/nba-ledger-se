@@ -15,6 +15,8 @@ rebuilt for any past season from one results file. For each game, both teams get
   rest       days since the last game (capped at 4); b2b and 3-in-4-nights flags
   road       how many road games in a row this team has played going in
   roster     preseason roster rating, as the live formula rates a roster (ml/rosters.py)
+  formula    the live formula's predicted margin, replayed without injuries
+             (roster + form + home court - back-to-back), so models can build on it
 
 Results of a date only feed games on later dates, so no game ever sees its own score.
 """
@@ -33,7 +35,7 @@ SRS_RIDGE = 3.0      # games of "average team" prior in the opponent-adjusted ma
 FEATURES = [
     "elo_diff", "srs_diff", "mov_diff", "mov_shrunk_diff", "last10_diff", "last5_diff", "prior_diff",
     "winpct_diff", "rest_h", "rest_a", "b2b_h", "b2b_a", "three_in_four_h", "three_in_four_a",
-    "road_h", "road_a", "gp_min", "roster_diff",
+    "road_h", "road_a", "gp_min", "roster_diff", "formula_margin",
 ]
 
 
@@ -125,6 +127,7 @@ def build_features(games, roster=None):
             # replay of the live formula without injuries: roster + form + home court - back-to-back
             form = lambda t: sum(resid[t]) / (len(resid[t]) + 8)  # noqa: E731
             fm = f["roster_diff"] + form(h) - form(a) + 2.3 - 1.5 * th["b2b"] + 1.5 * ta["b2b"]
+            f["formula_margin"] = fm
             f["formula_prob"] = 0.5 * (1 + math.erf(fm / 11.5 / math.sqrt(2)))
             f["elo_prob"] = _elo_prob(th["elo"] - ta["elo"] + ELO_HOME)
             played = g["home_pts"] not in ("", None) and g["away_pts"] not in ("", None)
