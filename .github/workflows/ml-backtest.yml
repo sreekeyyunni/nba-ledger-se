@@ -1,0 +1,40 @@
+# ML backtest for the game predictor (experiment; does not touch live picks).
+# Downloads past seasons' results once (cached in pipeline/ml/data), then compares
+# machine-learning models with the current formula. Runs on pushes to claude/ branches
+# that change pipeline/ml, or by hand.
+name: ML backtest
+on:
+  push:
+    branches: ["claude/**"]
+    paths: ["pipeline/ml/**", ".github/workflows/ml-backtest.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: ml-backtest-${{ github.ref }}
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt -r ml/requirements.txt
+      - name: Past results (Basketball Reference, only seasons not cached yet)
+        run: python ml/fetch_history.py
+      - name: Backtest
+        run: |
+          if [ -f ml/backtest.py ]; then python ml/backtest.py; fi
+      - name: Save data and results to this branch
+        run: |
+          cd ..
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pipeline/ml/data pipeline/ml/results 2>/dev/null || true
+          if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
+          git commit -m "ML backtest: data and results"
+          git push origin HEAD:${GITHUB_REF_NAME}
