@@ -257,6 +257,6 @@ date,time_et,away,home,away_pts,home_pts,ot,home_prob,home_margin,pick,status,co
 2026-11-23,8:00p,CLE,CHI,108,122,,0.294,-6.2,CLE,final,0,live,1.8,-4.5,CHI on a back-to-back,,,
 2026-11-23,8:00p,PHO,NOP,123,119,OT,0.409,-2.7,PHO,final,1,live,0.4,-5.4,,,,
 2026-11-23,8:30p,LAC,HOU,104,116,,0.885,13.8,HOU,final,1,live,-4.8,6.1,,,,
-2026-11-24,10:00p,DAL,DEN,,,,0.661,4.8,DEN,upcoming,,live,-0.0,2.5,,,,
-2026-11-24,7:00p,DET,ORL,,,,0.406,-2.7,DET,upcoming,,live,1.8,-3.2,,"Jalen Duren (out, 1.4 pts); Cade Cunningham (questionable, 0.5 pts)","Paolo Banchero (out, 0.3 pts)",
-2026-11-24,8:00p,BOS,WAS,,,,0.256,-7.5,BOS,upcoming,,live,5.2,-4.7,,"Mitchell Robinson (out, 0.6 pts)","Justin Champagnie (out, 0.7 pts)",
+2026-11-24,10:00p,DAL,DEN,,,,0.661,4.8,DEN,live,,live,0.0,2.5,,,,62-49 9:03 - 3rd
+2026-11-24,7:00p,DET,ORL,104,86,,0.406,-2.7,DET,final,1,live,1.1,-3.2,,"Jalen Duren (out, 1.4 pts); Cade Cunningham (out, 0.5 pts)","Paolo Banchero (out, 0.3 pts)",
+2026-11-24,8:00p,BOS,WAS,131,116,,0.256,-7.5,BOS,final,1,live,5.2,-4.7,,"Mitchell Robinson (out, 0.6 pts)","Justin Champagnie (out, 0.7 pts)",
