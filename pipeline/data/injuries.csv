@@ -29,10 +29,10 @@ Stephen Curry,GSW,2026-11-26,"Out - Curry (abdomen) will be re-evaluated Friday 
 Kristaps Porzingis,GSW,2026-11-06,Out - Porzingis announced on his social media that he's stepping away from basketball.
 Moses Moody,GSW,2026-10-16,"Out - Moody (knee) is progressing toward a potential return between December and January after rupturing his left patellar tendon in March, Anthony Slater of ESPN reports."
 Jimmy Butler III,GSW,2026-10-16,"Out - Butler (knee) could return sometime between January and February as he continues recovering from a torn right ACL, Anthony Slater of ESPN reports."
+Tyrese Haliburton,IND,2026-11-27,Out - Haliburton (hamstring) has been ruled out per Scott Agness of FieldhouseFiles.com for Friday's game against the 76ers. The guard participated in practice activities earlier this week as he continues working toward his return.
 Kelly Oubre Jr.,IND,2026-11-27,Day-To-Day - Oubre is questionable for Friday's game against the 76ers due to a right hand laceration.
 Larry Nance Jr.,IND,2026-11-26,Day-To-Day - Nance (ankle) is questionable for Friday's game against the 76ers.
 T.J. McConnell,IND,2026-11-26,Day-To-Day - McConnell (hamstring) is questionable for Friday's game against the 76ers.
-Tyrese Haliburton,IND,2026-11-24,"Out - Haliburton (hamstring) was recalled from the G League's Noblesville Boom on Tuesday, Tony East of Forbes.com reports."
 Ben Sheppard,IND,2026-10-28,"Out - Head coach Rick Carlise confirmed Sheppard will miss ""months"" after undergoing surgery to repair a torn meniscus in his left knee, Tony East of Forbes.com reports."
 Bradley Beal,LA Clippers,2026-10-15,"Out - Beal (knee) will not be ready for the start of the regular season, NBA writer Justin Russo reports."
 Jordan Miller,LA Clippers,2026-08-26,"Out - Miller underwent surgery Wednesday to repair a torn left rotator cuff and will be re-evaluated in six months, per Law Murray of The Athletic."
@@ -45,7 +45,6 @@ Jerami Grant,MEM,2026-11-23,Out - Grant was diagnosed with a grade 1 left calf s
 GG Jackson,MEM,2026-11-17,Out - Jackson underwent a procedure Wednesday to repair a broken fifth metatarsal in his left foot. He is expected to recover fully and will be re-evaluated in approximately three months.
 Richie Saunders,MEM,2026-11-07,"Out - Saunders signed a two-way contract with the Grizzlies on Saturday, Shams Charania of ESPN reports."
 Giannis Antetokounmpo,MIA,2026-11-26,Day-To-Day - Antetokounmpo is probable for Friday's game against the Knicks due to right groin tendinitis.
-Andrew Wiggins,MIA,2026-11-26,Day-To-Day - Wiggins is probable for Friday's game against the Knicks due to a right ankle sprain.
 LaMelo Ball,MIN,2026-11-26,Day-To-Day - Ball (ankle) is questionable for Friday's game against the Grizzlies.
 Donte DiVincenzo,MIN,2026-11-24,"Out - DiVincenzo (Achilles) has been cleared for team basketball activities and is targeting a return to game action in January, Jon Krawczynski of The Athletic reports."
 Jaylen Clark,MIN,2026-11-15,Out - Clark (hamstring) has been ruled out for the next two weeks.
@@ -54,10 +53,11 @@ Trendon Watford,NOP,2026-11-26,Out - Watford (ankle) is probable for Friday's ga
 Bennedict Mathurin,NOP,2026-11-26,Out - Mathurin (foot) is doubtful for Friday's game against the Clippers.
 Julian Reese,NOP,2026-11-25,"Day-To-Day - The Pelicans transferred Reese from the G League's Laketown Squadron, and he will be available for New Orleans' game against the Warriors on Monday."
 Dejounte Murray,NOP,2026-11-13,Out - Murray (ankle) is out for Friday's game against Memphis.
+Karl-Anthony Towns,NYK,2026-11-27,Day-To-Day - Towns is questionable for Friday's game against the Heat due to a right abdominal contusion.
+Andre Drummond,NYK,2026-11-27,Out - Drummond (concussion) has been ruled out for Friday's game against the Heat.
 Miles McBride,NYK,2026-11-26,Day-To-Day - McBride (groin) is questionable for Friday's game against the Heat.
 Jordan Clarkson,NYK,2026-11-26,Out - Clarkson (foot) is questionable for Friday's game against the Heat.
 OG Anunoby,NYK,2026-11-26,Out - Anunoby (calf) is doubtful for Friday's game against the Heat.
-Andre Drummond,NYK,2026-11-26,Day-To-Day - Drummond (head) is questionable for Friday's game against the Heat.
 Nikola Topic,OKC,2026-11-24,Out - Topic (hip) is listed as out for Wednesday's game versus Minnesota.
 Jaylin Williams,OKC,2026-11-24,Out - Williams (back) is listed as out for Wednesday's game against Minnesota.
 Aday Mara,OKC,2026-11-24,Out - Mara (leg) is out for Wednesday's game versus the Timberwolves.
@@ -70,7 +70,7 @@ Jonathan Isaac,ORL,2026-11-21,Out - Isaac (knee) is out for Sunday's game agains
 Izaiyah Nelson,ORL,2026-11-18,"Out - Head coach Sean Sweeney said Wednesday that Nelson (ankle) has been doing ""some on-court stuff,"" though Sweeney added that the work has been ""minimal,"" Jason Beede of the Orlando Sentinel reports."
 Noah Penda,ORL,2026-11-14,"Out - Penda (hamstring) is making progress but remains without a timetable to return to game action, Jason Beede of the Orlando Sentinel reports."
 Paolo Banchero,ORL,2026-10-24,"Out - Banchero is expected to be sidelined for the next four-to-six weeks due to a right high-ankle sprain, Shams Charania of ESPN reports."
-Joel Embiid,PHI,2026-11-26,Day-To-Day - Embiid (illness) is questionable for Friday's game against the Pacers.
+Joel Embiid,PHI,2026-11-27,"Day-To-Day - Embiid (illness) was at shootaround for the 76ers on Friday, Chris Hine of The Philly Inquirer reports."
 Jaylen Brown,PHI,2026-11-26,Out - Brown (hamstring) is out for Friday's game against the Pacers.
 Ariel Hukporti,PHI,2026-10-06,"Out - Hukporti has sustained a season-ending ruptured right Achilles tendon, per Shams Charania of ESPN."
 Mark Williams,PHO,2026-09-11,"Out - Williams underwent surgery Thursday to repair a torn labrum in his left shoulder and will miss an extended period of time, Shams Charania of ESPN reports."
@@ -89,6 +89,7 @@ Alijah Martin,TOR,2026-11-26,Day-To-Day - Martin is questionable for Friday's ga
 Kawhi Leonard,TOR,2026-11-24,"Out - Leonard has begun individual on-court workouts following treatment to address swelling in his left knee, and he will be re-evaluated in one week, Marc J. Spears of ESPN.com reports."
 Nate Bittle,TOR,2026-11-22,"Out - Bittle (foot) has been ruled out for Monday's game against the Bucks, Blake Murphy of Sportsnet.ca reports."
 RJ Barrett,TOR,2026-11-19,"Out - Barrett has been diagnosed with a right hamstring strain and will be re-evaluated in two weeks, Brett Siegel of ClutchPoints.com reports."
+Mo Bamba,UTA,2026-11-27,"Day-To-Day - Bamba (illness) is listed as questionable for Friday's game against the Nuggets, according to the Jazz's injury report."
 Jaxson Hayes,UTA,2026-11-27,Day-To-Day - Hayes (knee) is questionable for Friday's game against the Nuggets.
 Jusuf Nurkic,UTA,2026-11-27,Out - Nurkic (foot) is questionable for Friday's game against the Nuggets.
 Lauri Markkanen,UTA,2026-11-11,"Out - Markkanen has been diagnosed with a non-displaced fracture in his right hand and will be sidelined for at least one month, Shams Charania of ESPN reports."
