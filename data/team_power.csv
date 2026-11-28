@@ -1,31 +1,31 @@
 rank,team,rating,roster_healthy,roster_tonight,form,wins,losses,out
-1,MIN,6.5,2.2,1.8,4.7,14,5,"Anthony Edwards (out, 0.3 pts)"
-2,POR,6.5,0.2,1.5,5.0,12,6,
-3,SAS,6.3,5.1,3.6,2.7,15,4,
-4,HOU,6.3,3.3,3.3,3.0,14,5,
-5,BOS,5.4,3.7,3.1,2.3,12,6,"Mitchell Robinson (out, 0.6 pts)"
-6,MEM,3.6,1.5,-0.6,4.2,14,5,"Cameron Boozer (out, 1.2 pts); Isaiah Stewart (questionable, 0.9 pts); Zach Edey (questionable, 0.8 pts); Jerami Grant (out, 0.7 pts)"
-7,LAL,3.4,2.7,1.7,1.7,15,3,"Austin Reaves (out, 1.0 pts)"
-8,NYK,1.8,3.4,0.4,1.5,12,6,"Karl-Anthony Towns (questionable, 1.8 pts); OG Anunoby (out, 0.7 pts)"
-9,DET,1.6,3.9,0.4,1.2,11,6,"Jalen Duren (out, 1.4 pts); Cade Cunningham (out, 0.5 pts)"
+1,SAS,8.0,5.1,5.3,2.7,15,4,
+2,HOU,6.2,3.3,3.2,3.0,14,5,
+3,MIN,6.2,2.2,1.5,4.7,14,5,"Anthony Edwards (out, 0.3 pts)"
+4,POR,5.4,0.2,0.4,5.0,12,6,"Damian Lillard (out, 0.7 pts)"
+5,BOS,5.1,3.7,3.1,1.9,12,7,"Mitchell Robinson (out, 0.6 pts)"
+6,LAL,4.4,2.7,2.7,1.7,15,3,
+7,MEM,3.5,1.5,-0.7,4.2,14,5,"Cameron Boozer (out, 1.2 pts); Isaiah Stewart (out, 0.9 pts); Jerami Grant (out, 0.7 pts)"
+8,NYK,2.4,3.4,1.3,1.1,12,7,"OG Anunoby (out, 0.7 pts)"
+9,DET,1.8,3.9,0.4,1.4,12,6,"Jalen Duren (out, 1.4 pts); Cade Cunningham (out, 0.5 pts)"
 10,DEN,1.4,3.1,3.1,-1.7,10,6,
-11,DAL,1.0,-1.5,-1.5,2.5,11,7,
-12,ATL,0.7,-0.2,-0.3,0.9,11,6,
-13,PHI,0.4,1.1,0.1,0.3,15,4,"Jaylen Brown (out, 0.6 pts); Joel Embiid (questionable, 0.5 pts)"
+11,PHI,1.2,1.1,0.1,1.1,16,4,"Jaylen Brown (out, 0.6 pts)"
+12,MIA,0.9,0.4,0.4,0.6,11,7,
+13,ATL,0.9,-0.2,-0.3,1.2,12,6,
 14,CLE,-0.1,1.8,1.1,-1.2,9,10,"Evan Mobley (out, 0.7 pts)"
 15,OKC,-0.1,4.1,1.5,-1.6,10,9,"Chet Holmgren (out, 1.0 pts)"
-16,MIA,-0.5,0.4,-0.8,0.3,10,7,"Giannis Antetokounmpo (questionable, 2.0 pts)"
+16,DAL,-0.2,-1.5,-2.7,2.5,11,7,"Kyrie Irving (out, 1.2 pts)"
 17,PHO,-0.7,0.5,-0.4,-0.3,9,8,"Mark Williams (out, 0.9 pts)"
-18,TOR,-1.8,2.0,0.6,-2.4,6,11,"Kawhi Leonard (out, 1.5 pts)"
+18,TOR,-1.9,2.0,-0.1,-1.8,7,11,"Kawhi Leonard (out, 1.5 pts)"
 19,GSW,-2.9,0.7,-2.6,-0.3,10,8,"Jimmy Butler (out, 1.6 pts); Stephen Curry (out, 1.4 pts); Kristaps Porziņģis (out, 0.4 pts)"
-20,ORL,-3.8,-1.2,-1.5,-2.2,7,10,"Paolo Banchero (out, 0.3 pts)"
-21,IND,-3.8,-3.2,-3.6,-0.3,6,12,"Tyrese Haliburton (out, 0.7 pts)"
-22,CHI,-4.1,-3.2,-3.8,-0.3,6,12,"Jalen Smith (questionable, 0.6 pts); Norman Powell (out, 0.3 pts)"
-23,NOP,-4.5,-3.6,-2.7,-1.8,5,14,
+20,ORL,-3.6,-1.2,-1.4,-2.2,7,10,"Paolo Banchero (out, 0.3 pts)"
+21,CHI,-4.0,-3.2,-3.7,-0.3,6,12,"Jalen Smith (questionable, 0.6 pts); Norman Powell (out, 0.3 pts)"
+22,NOP,-4.5,-3.6,-2.7,-1.8,5,14,
+23,IND,-4.7,-3.2,-3.6,-1.1,6,13,"Tyrese Haliburton (out, 0.7 pts)"
 24,WAS,-5.0,-4.8,-5.5,0.4,7,12,"Justin Champagnie (out, 0.7 pts)"
 25,LAC,-5.9,-2.6,-3.3,-2.6,4,13,"Jordan Miller (out, 0.7 pts)"
-26,BRK,-6.2,-5.4,-4.9,-1.3,4,13,
-27,UTA,-6.7,-3.5,-4.5,-2.2,3,16,"Jaxson Hayes (questionable, 1.2 pts); Lauri Markkanen (out, 0.8 pts)"
+26,UTA,-6.4,-3.5,-4.2,-2.2,3,16,"Lauri Markkanen (out, 0.8 pts)"
+27,BRK,-6.7,-5.4,-4.9,-1.8,4,14,
 28,CHO,-7.4,-1.4,-3.2,-4.3,4,13,"Kon Knueppel (out, 0.4 pts)"
-29,MIL,-8.1,-3.4,-3.4,-4.7,2,17,
+29,MIL,-8.8,-3.4,-4.2,-4.7,2,18,"Kevin Porter Jr. (out, 0.4 pts)"
 30,SAC,-10.2,-5.5,-6.0,-4.2,2,16,
